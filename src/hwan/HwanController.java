@@ -100,8 +100,8 @@ public class HwanController {
 	public MultipartRequest getMul(HttpServletRequest req){
 		MultipartRequest mul= null;
 		
-		String uploadPath = req.getRealPath("images/");
-		System.out.println(uploadPath);
+		
+		String uploadPath = req.getRealPath("images");
 		
 		
 		try{
