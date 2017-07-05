@@ -20,4 +20,10 @@ public class HwanDao {
 		
 		return list;
 	}
+	public List<HwanVo> appList(){
+		List<HwanVo> list = null;
+		
+		return list;
+		
+	}
 }

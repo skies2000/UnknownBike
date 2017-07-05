@@ -13,7 +13,7 @@
     <script src='../jq_lib/common.js'></script>
     <script>
     	function sessionCheck(user){
-    		alert(user);
+    		
     		
     	}
     </script>

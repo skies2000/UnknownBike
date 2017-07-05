@@ -5,7 +5,14 @@ public class HwanVo {
 	String epwd;
 	String ecode;
 	String userpwd;
+	String ename;
 	
+	public String getEname() {
+		return ename;
+	}
+	public void setEname(String ename) {
+		this.ename = ename;
+	}
 	public String getUserpwd() {
 		return userpwd;
 	}
