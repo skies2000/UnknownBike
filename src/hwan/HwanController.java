@@ -115,4 +115,27 @@ public class HwanController {
 		}
 		
 	}
+	@RequestMapping(value = "main/pDoc.hwan", method = {RequestMethod.GET, RequestMethod.POST})
+	public Object pDoc(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("../laboratory/documentContentInput.html");
+		return mv;
+	}
+	
+	@RequestMapping(value = "main/appOne.hwan", method = {RequestMethod.GET, RequestMethod.POST})
+	public Object appOne(){
+		ModelAndView mv = new ModelAndView();
+		
+		
+		mv.setViewName("../laboratory/approveMan_one.html");
+		return mv;
+	}
+	
+	@RequestMapping(value = "main/appTwo.hwan", method = {RequestMethod.GET, RequestMethod.POST})
+	public Object appTwo(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("../laboratory/approveMan_two.html");
+		return mv;
+	}
+	
 }
