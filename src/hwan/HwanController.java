@@ -27,6 +27,7 @@ public class HwanController {
 	public HwanController(HwanDao dao){
 		this.dao = dao;
 	}
+	
 	@RequestMapping(value="login/login.hwan", method={RequestMethod.GET, RequestMethod.POST })
 	public void login(HttpServletRequest req, HttpServletResponse resp){
 		resp.setCharacterEncoding("utf-8");
@@ -57,7 +58,7 @@ public class HwanController {
 		try{
 			mul = getMul(req);
 		mv.setViewName("testResult.jsp");
-		System.out.println("ajaxTest.hwan 실행");
+		System.out.println("ajaxTest.hwan �떎�뻾");
 		System.out.println(mul.getParameter("text1"));
 		System.out.println(mul.getParameter("text2"));
 		System.out.println(mul.getParameter("text3"));
@@ -78,8 +79,8 @@ public class HwanController {
 		MultipartRequest mul = getMul(req);
 		HttpSession session =  req.getSession();
 		mv.setViewName("../main/index.jsp");
-		System.out.println("유저 아이디 : "+mul.getParameter("userid"));
-		System.out.println("유저 비밀번호 : "+mul.getParameter("userpwd"));
+		System.out.println("�쑀�� �븘�씠�뵒 : "+mul.getParameter("userid"));
+		System.out.println("�쑀�� 鍮꾨�踰덊샇 : "+mul.getParameter("userpwd"));
 		session.setAttribute("user", mul.getParameter("userid"));
 		return mv;
 		
