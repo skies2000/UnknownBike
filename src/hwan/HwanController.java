@@ -96,12 +96,15 @@ public class HwanController {
 	
 	
 	
-	@SuppressWarnings("finally")
+	@SuppressWarnings({ "finally", "deprecation" })
 	public MultipartRequest getMul(HttpServletRequest req){
 		MultipartRequest mul= null;
 		
+		String uploadPath = req.getRealPath("images/");
+		
+		
 		try{
-			mul = new MultipartRequest(req,"C:\\workspace\\UnknownBike\\WebContent\\images", 1024*10000,"utf-8",new DefaultFileRenamePolicy());
+			mul = new MultipartRequest(req,uploadPath, 1024*10000,"utf-8",new DefaultFileRenamePolicy());
 		}catch(Exception e){
 			e.printStackTrace();
 			
