@@ -1,10 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<<<<<<< HEAD
 <title>생산 요청서 조회</title>
 <link rel='stylesheet' href='../category/product_request_list.css' />
 <script>
@@ -34,7 +33,7 @@
 	<input type='button' id='btnFind' value='문서 검색' onclick="search()">
 	<hr>
 </div>
-<div id='list'> <!-- 요청서 리스트를 뿌려주는 곳 -->
+<div id='prList'> <!-- 요청서 리스트를 뿌려주는 곳 -->
 	<span class='list1'>문서 번호</span>
 	<span class='list2'>문서 종류</span>
 	<span class='list3'>문서 제목</span>
@@ -43,12 +42,16 @@
 	<span class='list1'>상태</span>
 </div>
 <div id='result'> <!-- DB에서 요청서 불러오는 곳 -->
-	<span> </span>
-	<span> </span>
-	<span> </span>
-	<span> </span>
-	<span> </span>
-	<span> </span>
+	<c:forEach items="${list }" var="purList">
+	<div id='con'>
+		<span class='list1'>${purList.dCode } </span>
+		<span class='list2'>${purList.dCate }  </span>
+		<span class='list3'>${purList.dName }  </span>
+		<span class='list2'>${purList.dDate }  </span>
+		<span class='list1'>${purList.dWrite }  </span>
+		<span class='list1'>${purList.dStatus }  </span>
+	</div>
+	</c:forEach>
 </div>
 	
 	<div id='productResult'>

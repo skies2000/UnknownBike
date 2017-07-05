@@ -13,16 +13,16 @@
 				$('#product_stock_p_view_go').click(function(){
 					
                 xhr = new XMLHttpRequest();
-	           xhr.open('get','../product/product_stock_p_view.jsp'); // url요청 정보
-	           xhr.send(); // 서버에 전송
-               var str='';
-               xhr.onreadystatechange=function(){
-                   if(xhr.readyState == 4 && xhr.status == 200){
-                       str = xhr.responseText;
-                       $('#productResult').html(str);
-                   }
-               }
-            });
+	            xhr.open('get','../product/product_stock_p_view.jsp'); // url요청 정보
+	            xhr.send(); // 서버에 전송
+                var str='';
+                xhr.onreadystatechange=function(){
+                	if(xhr.readyState == 4 && xhr.status == 200){
+               			str = xhr.responseText;
+                		$('#productResult').html(str);
+               		}
+				}
+			});
     </script>
 
 

@@ -8,37 +8,14 @@
 <link rel='stylesheet' href='../category/category.css' />
      
     <script src='../jq_lib/common.js'></script>
-
-<!-- 	 <script>
-        $(document).ready(
-			function(){
-                xhr = new XMLHttpRequest();
-	           xhr.open('get','../product/product_home.jsp'); // url요청 정보
-	           xhr.send(); // 서버에 전송
-               var str='';
-               xhr.onreadystatechange=function(){
-                   if(xhr.readyState == 4 && xhr.status == 200){
-                       str = xhr.responseText;
-                       $('#productResult').html(str);
-                   }
-               }
-            $(".uipgMenu a").click(function(){
-            	
-            var url = $(this).next('input').val();
-                xhr = new XMLHttpRequest();
-	           xhr.open('get',url); // url요청 정보
-	           xhr.send(); // 서버에 전송
-               var str='';
-               xhr.onreadystatechange=function(){
-                   if(xhr.readyState == 4 && xhr.status == 200){
-                       str = xhr.responseText;
-                       $('#productResult').html(str);
-                   }
-               }
-            });
-            });
-    </script> -->
-
+<script>
+function purList() {
+	var frm = document.frm;
+	frm.dCate.value = 'srl';
+	frm.action = 'reqList.hoon';
+	frm.submit();
+}
+</script>
 </head>
 <body>
 	<div id='uipgMenuWrap'> 
@@ -52,7 +29,7 @@
       <ul>
       <li><a href="index.jsp?inc=../product/product_order.jsp">생산오더 관리</a>
         <!-- <input type=hidden value="../product/product_order.jsp"/></li> -->
-        <li><a href="index.jsp?inc=../product/product_request_list.jsp">생산요청서 조회</a>
+        <li><a href="#" onclick="purList()">생산요청서 조회</a>
         <!-- <input type=hidden value="../product/product_request_list.jsp"/></li> -->
         
         <li><a href="index.jsp?inc=../product/product_eff.jsp">생산효율 관리</a>
@@ -81,5 +58,8 @@
   </ul>
 		</div>
 	</div>
+	<form name='frm' method='post'>
+		<input type='hidden' name='dCate'>
+	</form>
 </body>
 </html>
