@@ -14,7 +14,14 @@
 	
 <!--김하경 -->
 
+<bean id='factory' class='myba.UnknownFactory'/>
 
+	<bean id='dao' class='kimHa.kimHaDao'>
+	</bean> 
+	
+	<bean id='ctrl' class='kimHa.kimHaController'>
+		<constructor-arg ref='dao'/>
+	</bean>
 
 
 </beans>

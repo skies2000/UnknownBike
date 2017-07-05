@@ -27,6 +27,7 @@ public class HwanController {
 	public HwanController(HwanDao dao){
 		this.dao = dao;
 	}
+	
 	@RequestMapping(value="login/login.hwan", method={RequestMethod.GET, RequestMethod.POST })
 	public void login(HttpServletRequest req, HttpServletResponse resp){
 		resp.setCharacterEncoding("utf-8");
