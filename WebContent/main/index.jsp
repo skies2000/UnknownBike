@@ -12,6 +12,12 @@
     <link rel='stylesheet' href='../purchase/purchase.css' />
     <script src='../jq_lib/jquery-3.2.1.min.js'></script>
     <script src='../jq_lib/common.js'></script>
+    <script>
+    	function sessionCheck(user){
+    		
+    		
+    	}
+    </script>
   
 
     <style>
@@ -136,6 +142,7 @@
 
             <header id='indexHeader'>
             <div id="loginSessionTemp"><!--css가 너무 악먹혀서 임시로 일단 absolute로 함..나중에 변경할꺼  -->
+            <script>sessionCheck('<%session.getAttribute("user");%>');</script>
             <%out.print(session.getAttribute("user")); %>님 로그인(임시 session키값은 user)
             </div>
             
