@@ -8,7 +8,8 @@
 
 <html>
 	<head>
-		<script>
+		<script>	
+		
 			function gowheel(mCate){
 				var frm = document.frm;
 				frm.mCate.value = mCate;
@@ -20,6 +21,9 @@
 				frm.action = 'purhome.so';
 				frm.submit();
 				}
+			
+			
+			
 		</script>
 		
 		
@@ -72,7 +76,7 @@
 		width: 20%;
 		min-width: 165px;
 		text-align: center;
-		margin-bottom: 5px;
+		margin-bottom: 11px;
 	}
 	#purimg {
 		width: 100px;
@@ -134,7 +138,15 @@
 			<!-- 설명부분 -->
 			<span class='phviewtxt'>
 				자재코드: ${vo.mCode }<br/>
-				자재명: ${vo.mName }		
+				자재명: ${vo.mName }	<br/>
+				<c:if test="${vo.mState ==0}">	
+			상태:<span class='phstatus' style="color:red"> ${vo.mState }</span>	
+				</c:if>
+				<c:if test="${vo.mState >0}">	
+			상태:<span class='phstatus' style="color:white"> ${vo.mState }</span>	
+				</c:if>
+			
+				
 			</span>		
 		</div>
 		
@@ -144,7 +156,8 @@
 		
 	<!-- 버튼 -->
 	<div id='purchase_home_btn'>
-		<input type='button' name='phbtn' value='구매보고서작성'>
+		<a href='purinput.so' id='plok' class='pibutton'>구매보고서작성</a>
+		
 	</div>	
 
 		

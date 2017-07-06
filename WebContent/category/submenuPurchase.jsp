@@ -61,9 +61,7 @@
 							<!-- <input type=hidden value="../purchase/purchase_ReportList.html" /> -->
 						
 					</ul>
-				</li>
-				
-				
+				</li>	
 
 			</ul>
 		</div>

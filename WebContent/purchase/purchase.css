@@ -89,7 +89,7 @@ select{
     width: 16%;
 }
 #purihead6{padding:25px;box-sizing:border-box;}
-#plok{width:105px;margin-left:37%;text-align: center;}
+#plok{/* width:105px;margin-left:37%; */text-align: center;}
 #plcancle{width:106px;margin-left:2%;text-align: center;}
 
 
