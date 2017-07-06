@@ -15,6 +15,9 @@ public class SoVo {
 	String mImage;
 	int mPo;
 
+	
+	String findStr;
+	
 	//문서요청서
 	int dCode;
 	String dName;
@@ -286,5 +289,22 @@ public class SoVo {
 	 
 	 
 	}
+
+
+
+
+	public String getFindStr() {
+		return findStr;
+	}
+
+
+
+
+	public void setFindStr(String findStr) {
+		this.findStr = findStr;
+	}
+	
+	
+	
 
 }

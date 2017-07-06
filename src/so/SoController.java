@@ -23,16 +23,44 @@ public class SoController {
 	public SoController(SoDao dao){
 		this.dao = dao;
 	}
+	
+	
+	
 	@RequestMapping(value="login/purhome.so", method={RequestMethod.GET, RequestMethod.POST })
 	public Object goHome(HttpServletRequest req, HttpServletResponse resp){
 		ModelAndView mv = new ModelAndView();
 		//mv.addObject();
+		SoVo vo = new SoVo(); 
+		List<SoVo> list1 = dao.fMetarial(vo);
+		
+		mv.addObject("list",list1);
+		mv.setViewName("../main/index.jsp?inc=../purchase/purchase_home.jsp");
+	
+	    //index.jsp?inc=./board/purchase_home.jsp
+		return mv;
+	}
+	
+	
+	@RequestMapping(value="login/listcate.so", method={RequestMethod.GET, RequestMethod.POST })
+	public Object listcate(SoVo vo){
+		ModelAndView mv = new ModelAndView();
+		
+		
+		List<SoVo> list = dao.aMetarial(vo);
+		
+	
+		
+		mv.addObject("list",list);
 		
 		mv.setViewName("../main/index.jsp?inc=../purchase/purchase_home.jsp");
 	
 	    //index.jsp?inc=./board/purchase_home.jsp
 		return mv;
 	}
+	
+	
+	
+	
 	//Purchase_Input
 	@RequestMapping(value="login/purinput.so", method={RequestMethod.GET, RequestMethod.POST })
 	public Object goPInput(HttpServletRequest req, HttpServletResponse resp){

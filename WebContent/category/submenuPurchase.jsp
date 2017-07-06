@@ -44,7 +44,7 @@
 	<div id='uipgMenuWrap'>
 		<div class='uipgMenu'>
 			<ul>
-				<li><a href="index.jsp?inc=../purchase/purchase_home.jsp">HOME</a> 
+				<li><a href="purhome.so">HOME</a> 
 					<!-- <input type=hidden value="../purchase/purchase_home.html" /> -->
 				</li>
 
@@ -55,29 +55,15 @@
 							<!-- <input type=hidden value="../purchase/purchase_Input.html" /> -->
 						</li>
 
-						<li>
-							<a href="index.jsp?inc=../purchase/purchase_InputView.jsp">작성 상세</a> 
-							<!-- <input type=hidden value="../purchase/purchase_InputView.html" /> -->
-						</li>
+						
 						<li>
 							<a href="purRList.so">보고서 관리</a> 
 							<!-- <input type=hidden value="../purchase/purchase_ReportList.html" /> -->
-						<li>
-							<a href="purRView.so">보고서 상세</a> 
-							<!-- <input type=hidden value="../purchase/purchase_ReportView.html" /> -->
-						</li>
+						
 					</ul>
 				</li>
 				
-				<li>
-					<a href="##">자재</a>
-					<ul>
-						<li>
-							<a href="index.jsp?inc=../purchase/purchase_View.jsp">자재 상세</a> 
-							<!-- <input type=hidden value="../purchase/purchase_View.html" /> -->
-						</li>
-					</ul>
-				</li>
+				
 
 			</ul>
 		</div>
