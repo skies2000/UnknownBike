@@ -15,11 +15,29 @@ public class kimHaController {
 		this.dao = dao;
 	}
 	
-	@RequestMapping(value="main/test.kimHa", method={RequestMethod.GET, RequestMethod.POST})
-	public Object testKimha(){
+	@RequestMapping(value="main/pDoc.kimHa", method={RequestMethod.GET, RequestMethod.POST})
+	public Object pDoc(){
 		ModelAndView mv = new ModelAndView();
-		System.out.println("dd");
+		mv.setViewName("../laboratory/documentContentInput.html");
+		
+		
 		return mv;
 				
+	}
+	
+	@RequestMapping(value="main/appOne.kimHa",method={RequestMethod.GET,RequestMethod.POST})
+	public Object appOne(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("../laboratory/approveMan_one.html");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="main/appTwo.kimHa",method={RequestMethod.GET,RequestMethod.POST})
+	public Object appTwo(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("../laboratory/approveMan_two.html");
+		
+		return mv;
 	}
 }
