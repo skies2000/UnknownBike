@@ -51,7 +51,7 @@
 				<li><a href="##">보고서</a>
 					<ul>
 						<li>
-							<a href="index.jsp?inc=../purchase/purchase_Input.jsp">보고서 작성</a> 
+							<a href="purinput.so">보고서 작성</a> 
 							<!-- <input type=hidden value="../purchase/purchase_Input.html" /> -->
 						</li>
 
@@ -60,10 +60,10 @@
 							<!-- <input type=hidden value="../purchase/purchase_InputView.html" /> -->
 						</li>
 						<li>
-							<a href="index.jsp?inc=../purchase/purchase_ReportList.jsp">보고서 관리</a> 
+							<a href="purRList.so">보고서 관리</a> 
 							<!-- <input type=hidden value="../purchase/purchase_ReportList.html" /> -->
 						<li>
-							<a href="index.jsp?inc=../purchase/purchase_ReportView.jsp">보고서 상세</a> 
+							<a href="purRView.so">보고서 상세</a> 
 							<!-- <input type=hidden value="../purchase/purchase_ReportView.html" /> -->
 						</li>
 					</ul>

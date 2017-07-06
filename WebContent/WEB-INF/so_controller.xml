@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans 
-	xmlns = "http://www.springframework.org/schema/beans"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation = 
-		"http://www.springframework.org/schema/beans
-		 http://www.springframework.org/schema/beans/spring-beans.xsd
-		 http://www.springframework.org/schema/mvc
-		 http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+<beans
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns="http://www.springframework.org/schema/beans">
 
-	<mvc:annotation-driven/>
-	<mvc:default-servlet-handler/>
-	
-	<!--임소영  -->
+	<mvc:annotation-driven />
+
+	<mvc:default-servlet-handler />
+
+	<!--임소영 -->
+
+
+	<!-- db연결/sql문 가져오기 -->
+
+
+	<bean class="myba.UnknownFactory" id="factory" />
+
+	<bean class="so.SoDao" id="dao">
+		<constructor-arg ref="factory" />
+	</bean>
+
+
+	<bean class="so.SoController" id="ctrl">
+		<constructor-arg ref="dao" />
+	</bean>
+
+<!-- <mvc:view-resolvers> 
+		JSP를 이용해서 컨트롤러의 실행 결과를 보여주기 위한 설정  
+		<mvc:jsp prefix="../main/index.jsp?inc=../purchase/" />
+		<mvc:jsp prefix="/board/"/>
+		<mvc:jsp suffix=".jsp" />
+	</mvc:view-resolvers> -->
+
+	<!-- mybatis Factory -->
+
 
 </beans>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,9 +1,11 @@
 package so;
 
+import myba.UnknownFactory;
+
 public class SoDao {
 
-	public SoDao() {
-		// TODO Auto-generated constructor stub
+	public SoDao(UnknownFactory uf) {
+		
 	}
 
 }

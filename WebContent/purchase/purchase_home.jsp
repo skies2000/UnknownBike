@@ -2,7 +2,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 
-    pageEncoding="UTF-8"%> 
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -76,7 +76,9 @@
 	</head>
     
 	<body>
-	
+	<div id=category>
+		<jsp:include page="../category/submenuPurchase.jsp"></jsp:include>
+	</div>
     <!-- 카테고리 영역 -->
     <div id=pur_home_category>
    		<a href="#"><span class='phcate'>전체</span></a>
@@ -98,7 +100,7 @@
     	<a href="#"><span class='phcate'>페달</span></a>
     </div>
     
-    
+  
     
     
     <!-- 자재 페이지 그리드 형식 조회 -->	
