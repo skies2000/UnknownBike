@@ -23,12 +23,7 @@ public class HwanDao {
 	public List<HwanVo> appList(){
 		List<HwanVo> list = null;
 		list = session.selectList("hwandb.appList");
-		System.out.println(11);
-		for(int i=0;i< list.size();i++){
-			System.out.println(11);
-			System.out.println(list.get(i).getEcode());
-			System.out.println(list.get(i).getEname());
-		}
+		
 		return list;
 		
 	}

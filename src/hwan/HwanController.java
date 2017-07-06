@@ -125,18 +125,21 @@ public class HwanController {
 	@RequestMapping(value = "main/appOne.hwan", method = {RequestMethod.GET, RequestMethod.POST})
 	public Object appOne(){
 		ModelAndView mv = new ModelAndView();
-		System.out.println("bb");
-		dao.appList(); 
-		mv.setViewName("../laboratory/approveMan_one.html");
+		List<HwanVo> list = null;
+		list =  dao.appList(); 
+		mv.setViewName("../laboratory/approveMan_one.jsp");
+		mv.addObject("obj",list);
 		return mv;
 	}
 	
 	@RequestMapping(value = "main/appTwo.hwan", method = {RequestMethod.GET, RequestMethod.POST})
 	public Object appTwo(){
 		ModelAndView mv = new ModelAndView();
-		System.out.println("bb");
-		dao.appList();
+		
+		List<HwanVo> list = null;
+		list = dao.appList();
 		mv.setViewName("../laboratory/approveMan_two.html");
+		mv.addObject("obj",list);
 		return mv;
 	}
 	
