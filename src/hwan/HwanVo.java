@@ -6,7 +6,23 @@ public class HwanVo {
 	String ecode;
 	String userpwd;
 	String ename;
+	String dname;
+	String pname;
 	
+	
+	
+	public String getDname() {
+		return dname;
+	}
+	public void setDname(String dname) {
+		this.dname = dname;
+	}
+	public String getPname() {
+		return pname;
+	}
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
 	public String getEname() {
 		return ename;
 	}
