@@ -1,5 +1,6 @@
 package hwan;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -132,15 +133,45 @@ public class HwanController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "main/appTwo.hwan", method = {RequestMethod.GET, RequestMethod.POST})
-	public Object appTwo(){
-		ModelAndView mv = new ModelAndView();
+	@RequestMapping(value = "laboratory/appTwo.hwan", method = {RequestMethod.GET, RequestMethod.POST})
+	public void appTwo(HttpServletResponse resp){
+		PrintWriter out = null;
+		resp.setCharacterEncoding("utf-8");
+		try {
+			 out = resp.getWriter();
+			 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		List<HwanVo> list = null;
 		list = dao.appList();
-		mv.setViewName("../laboratory/approveMan_two.html");
-		mv.addObject("obj",list);
-		return mv;
+		StringBuffer sb = new StringBuffer();
+		sb.append("[");
+		for(int i=0; i<list.size();i++){
+			sb.append("{'ecode':'"+list.get(i).getEcode()+"','ename':'"+list.get(i).getEname()+"'},");
+		}
+		sb.append("]");
+			
+		String str = sb.toString();
+		str = str.replaceAll("'", "\"");
+		str = str.replaceAll(",]", "]");
+			out.print(str);
 	}
 	
+	@RequestMapping(value = "main/proInput.hwan", method = {RequestMethod.GET, RequestMethod.POST})
+	public Object proInput(HwanVo vo){
+		ModelAndView mv = new ModelAndView();
+		int r = 0;
+		String msg = "";
+		r = dao.proInput(vo);
+		if(r>0){
+			msg = "정상적으로 등록되어습니다.";
+		}else{
+			msg = "다시 입력해 주세요.";
+		}
+		System.out.println(msg);
+		return mv;
+	}
 }

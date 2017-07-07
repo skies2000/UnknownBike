@@ -27,4 +27,27 @@ public class HwanDao {
 		return list;
 		
 	}
+	
+	public int proInput(HwanVo vo){
+		int r = 0;
+		int a = 0;
+		int b = 0;
+		try{
+			
+			a = session.insert("hwandb.docInput",vo);
+			b =	session.insert("hwandb.proInput",vo);
+			if(a>0 && b >0){
+				r = 1;	
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			r = -1;
+			session.rollback();
+		}
+			
+		
+		session.commit();
+		return r;
+	}
 }
