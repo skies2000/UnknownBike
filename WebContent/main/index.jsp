@@ -9,10 +9,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0">
     <link rel='stylesheet' href='../category/category.css' />
+    <link rel='stylesheet' href='../purchase/purchase.css' />
     <script src='../jq_lib/jquery-3.2.1.min.js'></script>
     <script src='../jq_lib/common.js'></script>
     <script>
     	function sessionCheck(user){
+    		
     		
     		
     	}
@@ -125,7 +127,7 @@
             <a href="../main/index.jsp?inc=../laboratory/laboratoryIndex.jsp" ><img id='indeximg' src="../images/rnd.png"></a>
             <!-- <input type='hidden' value="../laboratory/laboratoryIndex.html"> -->
             
-            <a href="../main/index.jsp?inc=../purchase/purchase_home.jsp"><img id='indeximg' src="../images/purchase.png"></a>
+            <a href="purhome.so"><img id='indeximg' src="../images/purchase.png"></a>
             <!-- <input type=hidden value="../purchase/purchase_Index.html"> -->
             
             <a href="../main/index.jsp?inc=../product/product_index.jsp" ><img id='indeximg' src="../images/product.png"></a>

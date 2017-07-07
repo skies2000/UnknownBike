@@ -17,7 +17,14 @@
         }
 
         function approveMan_two() {
-            window.open("appTwo.hwan", "", "height=300px, width=500px");
+            window.open("../laboratory/approveMan_two.jsp", "", "height=300px, width=500px");
+        }
+        function pInputBtn(){
+        	var ff = document.getElementById("proInFrm");
+        	var url = "proInput.hwan"
+        	ff.action =  url;
+        	ff.submit();
+        
         }
 
     </script>
@@ -25,6 +32,7 @@
     <title>Page Title</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0">
+    
     <style>
         #piBody #title {
             padding-bottom: 5%;
@@ -127,17 +135,19 @@
 <body>
 
     <div id=piBody>
-        <form>
+        <form id="proInFrm">
+        <div id = "appResult">
+        </div>
 
             <div id='title'>제품등록</div>
             <hr/>
             <table>
                 <tr>
-                    <td colspan="2"><input type='text' placeholder="문서제목" /></td>
+                    <td colspan="2"><input type='text' name="dname" placeholder="문서제목" /></td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input type='text' placeholder="제품명" />
+                        <input type='text' name="pname" placeholder="제품명" />
                     </td>
 
                 </tr>
@@ -155,16 +165,6 @@
                 </tr>
                 <tr>
                     <td>
-                        <a href="#" class="myButton" onClick="approveMan_one()">결재승인자1</a>
-
-                    </td>
-                    <td>
-                        <a href="#" class="myButton" onClick="approveMan_two()">결재승인자2</a>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         <a href="#" class="myButton" onClick="mlist_input()">자재리스트 등록</a>
 
                     </td>
@@ -174,13 +174,17 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
+                	                    <td>
+                        <a href="#" class="myButton" id = "appMemberId" onClick="approveMan_two()">결재자 선택</a>
+
+                    </td>
+                    <td >
                         <label>사진첨부 : </label><input type='file' value='사진첨부' />
                     </td>
                 </tr>
             </table>
             <p/>
-            <a href="#" class="myButton buttonBoder">등록</a>
+            <a href="#" class="myButton buttonBoder" onclick="pInputBtn()">등록</a>
         </form>
     </div>
 </body>

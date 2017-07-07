@@ -5,10 +5,23 @@
 		<title>Page Title</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="initial-scale=1.0">
+		<script>
+		var jt;
+		var xhr = new XMLHttpRequest();
+		var url = "";
+		xhr.open("get", url);
+		xhr.send();
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status==200){
+				
+			}
+		}
+		
+		</script>
 	</head>
 
 	<body>
-	자재리스트 등록
+	
 
 	</body>
 </html>

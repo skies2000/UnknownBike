@@ -167,10 +167,10 @@
     <div id="login"> <!--css로 Login창 이동시킬때 #Login만 위치 지정 하면 됨.  -->
         <form name="form-login" method="post" enctype="multipart/form-data" id="fromId">
             <span class="fontawesome-user"></span>
-            <input type="text" id="user" placeholder="Username" name="userid">
+            <input type="text" id="user" placeholder="Username" name="userid" value="30001">
 
             <span class="fontawesome-lock"></span>
-            <input type="password" id="pass" placeholder="Password" name="userpwd">
+            <input type="password" id="pass" placeholder="Password" name="userpwd" value="1111">
 
             <a href="#" id="loginSubmit">Login</a>
         </form>
