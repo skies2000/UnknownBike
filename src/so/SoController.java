@@ -43,13 +43,10 @@ public class SoController {
 	
 	@RequestMapping(value="login/listcate.so", method={RequestMethod.GET, RequestMethod.POST })
 	public Object listcate(SoVo vo){
-		ModelAndView mv = new ModelAndView();
-		
+		ModelAndView mv = new ModelAndView();		
 		
 		List<SoVo> list = dao.aMetarial(vo);
-		
-	
-		
+				
 		mv.addObject("list",list);
 		
 		mv.setViewName("../main/index.jsp?inc=../purchase/purchase_home.jsp");

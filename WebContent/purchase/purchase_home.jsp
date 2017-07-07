@@ -21,7 +21,10 @@
 				frm.action = 'purhome.so';
 				frm.submit();
 				}
-			
+			function purbuy(){
+				var frm = document.frm;
+				frm.
+				}
 			
 			
 		</script>
@@ -62,6 +65,14 @@
 		color:white;	
 	}
 	.phcate:hover {
+		color:#7e8389;
+	}
+	.phcate_need{
+		display:inline-block;
+		width:auto;	
+		color:#a6827e;
+	}
+	.phcate_need:hover{
 		color:#7e8389;
 	}
 	.phbar{
@@ -116,6 +127,8 @@
     	<a href="#" onclick="gowheel(7)"><span class='phcate'>라이트</span></a>
     	<span class='phbar'>ㅣ</span>   
     	<a href="#" onclick="gowheel(8)"><span class='phcate'>페달</span></a>
+    	<span class='phbar'>ㅣ</span>   
+    	<a href="#" onclick="purbuy()"><span class='phcate_need'>구매필요</span></a>
     </div>
     
     
@@ -128,6 +141,9 @@
 		<c:forEach items="${list}" var="vo"> 
 		
 		<div class='phviewitem'>
+		
+		<%-- 여기 로긴어떻게 나눠줄까요오오오오오 (2017.07.07 황주희)
+		<c:if test="${vo.}"> --%>
 			<div id='phcheckbox'>
 			<input type="checkbox">
 			</div>
@@ -139,15 +155,16 @@
 			<span class='phviewtxt'>
 				자재코드: ${vo.mCode }<br/>
 				자재명: ${vo.mName }	<br/>
-				<c:if test="${vo.mState ==0}">	
-			상태:<span class='phstatus' style="color:red"> ${vo.mState }</span>	
-				</c:if>
-				<c:if test="${vo.mState >0}">	
-			상태:<span class='phstatus' style="color:white"> ${vo.mState }</span>	
-				</c:if>
+			<c:if test="${vo.mEa <=50}">	
+			<span class='phstatus' style="color:#a6827e"> ${vo.mEa } 개</span>	
+			</c:if>
+			<c:if test="${vo.mEa >50}">	
+			<span class='phstatus' style="color:white"> ${vo.mEa } 개</span>	
+			</c:if>
 			
 				
-			</span>		
+			</span>
+		<%-- </c:if>		 --%>
 		</div>
 		
 		</c:forEach> 
