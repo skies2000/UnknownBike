@@ -163,6 +163,7 @@
 		
 	<form name='frm' method='post'>
 		<input type='hidden' name='mCate'>
+		<input type='hidden' name='mCode'>
 	</form>
 	</body>
 </html>
