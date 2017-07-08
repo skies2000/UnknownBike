@@ -29,7 +29,7 @@ public class HwanController {
 		this.dao = dao;
 	}
 	
-	@RequestMapping(value="login/login.hwan", method={RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value="/login.hwan", method={RequestMethod.GET, RequestMethod.POST })
 	public void login(HttpServletRequest req, HttpServletResponse resp){
 		resp.setCharacterEncoding("utf-8");
 		PrintWriter out = null;
@@ -74,14 +74,12 @@ public class HwanController {
 		}
 	}
 	
-	@RequestMapping(value = "login/mainIndex", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "main/mainIndex.hwan", method = {RequestMethod.GET, RequestMethod.POST})
 	public Object mainIndex( HttpServletRequest req){
 		ModelAndView mv = new ModelAndView();
 		MultipartRequest mul = getMul(req);
 		HttpSession session =  req.getSession();
-		mv.setViewName("../main/index.jsp");
-		System.out.println("�쑀�� �븘�씠�뵒 : "+mul.getParameter("userid"));
-		System.out.println("�쑀�� 鍮꾨�踰덊샇 : "+mul.getParameter("userpwd"));
+		mv.setViewName("index.jsp");
 		session.setAttribute("user", mul.getParameter("userid"));
 		return mv;
 		
@@ -133,7 +131,7 @@ public class HwanController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "laboratory/appTwo.hwan", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/appTwo.hwan", method = {RequestMethod.GET, RequestMethod.POST})
 	public void appTwo(HttpServletResponse resp){
 		PrintWriter out = null;
 		resp.setCharacterEncoding("utf-8");
@@ -176,4 +174,33 @@ public class HwanController {
 		System.out.println(msg);
 		return mv;
 	}
+	
+	@RequestMapping(value="/loginCheck.hwan",method={RequestMethod.GET})
+	public void loginCheck(HttpSession session, HttpServletResponse resp){
+		PrintWriter out = null;
+		resp.setCharacterEncoding("utf-8");
+		String loginId = "";
+		try {
+			 out = resp.getWriter();
+			 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		out.print(session.getAttribute("user"));
+		
+	}
+	@RequestMapping(value="/login/logout.hwan",method={RequestMethod.GET})
+	public Object logOut(HttpSession session){
+		
+		if(session.getAttribute("user") != null)
+			session.invalidate();
+		return "login.jsp";
+	}
+	
+	
+	
+	
 }

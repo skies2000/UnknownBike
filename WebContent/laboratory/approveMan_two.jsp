@@ -9,6 +9,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="initial-scale=1.0">
 		<style>
+		
 		.myButton {
             -moz-box-shadow: inset 0px 1px 0px 0px #000000;
             -webkit-box-shadow: inset 0px 1px 0px 0px #000000;
@@ -53,6 +54,7 @@
             
        
         }
+        
         #apmtResult .imgHoverSize:HOVER {
 			display: inline-block;
 			width: 100px;
@@ -64,11 +66,19 @@
 		#apmtResult *{
 			transition: all 0.5s;
 		}
+		#apBtnPosition{
+			float:left;
+			position: fixed;
+			margin-left: 220px;
+		}
+		#fieldWidth{
+			width: 200px;
+		}
 		</style>
 		<script>
 	var jt;
 	var xhr = new XMLHttpRequest();
-	xhr.open('get','appTwo.hwan');
+	xhr.open('get','../appTwo.hwan');
 	xhr.send();
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
@@ -103,7 +113,7 @@
 		
 	}
 	function checkBtn(){
-		
+		if(!confirm("선택하시겠습니까?")) return;
 		var ck = document.getElementsByClassName("memberCk");
 		var opele = window.opener.document.getElementById("appResult");
 		opele.innerHTML="";
@@ -123,8 +133,8 @@
 				}
 		}
 		if(checkFlag){
-			window.opener.document.getElementById("appMemberId").innerHTML="결재자 등록완료(수정)";
 			alert(resultStr);
+			window.opener.document.getElementById("appMemberId").innerHTML="결재자 등록완료(수정)";
 			self.close();
 		}else{
 			alert("선택된 사원이 없습니다.");
@@ -137,17 +147,18 @@
 
 	<body>
 
-	<fieldset>
+	<fieldset id="fieldWidth">
 		<legend>
 		<label>
 		사원 목록
 		</label>		
 		</legend>
+<div id="apBtnPosition">
+<a href=# onclick="checkBtn()" class="myButton">선택완료</a>
+</div>
 		
 <div id='apmtResult'>
 </div>
-<hr/>
-<a href=# onclick="checkBtn()" class="myButton">선택완료</a>
 	</fieldset>
 	</body>
 </html>
