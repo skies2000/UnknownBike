@@ -5,23 +5,112 @@
 		<title>Page Title</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="initial-scale=1.0">
+		<script src='../jq_lib/jquery-3.2.1.min.js'></script>
 		<script>
-		var jt;
-		var xhr = new XMLHttpRequest();
-		var url = "";
-		xhr.open("get", url);
-		xhr.send();
-		xhr.onreadystatechange = function(){
-			if(xhr.readyState == 4 && xhr.status==200){
-				
-			}
-		}
-		
+        $(document).ready(function(){
+            var jt;
+            var xhr = new XMLHttpRequest();
+            var url = "../pro_mat_List.hwan";
+            xhr.open("get", url);
+            xhr.send();
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState == 4 && xhr.status==200){
+                    var txt = xhr.responseText;
+                    var jData = JSON.parse(txt);
+                    var reD = document.getElementById("columns");
+                    for(var i = 0; i<jData.length;i++){
+                    	
+                    	var fig = document.createElement("figure");
+                    	var lab = document.createElement("label");
+                    	var lab2 = document.createElement("label");
+                    	var figCap = document.createElement("figcaption");
+                    	var img = document.createElement("img");
+                    	var check = document.createElement("input");
+                    	var num = document.createElement("input");
+						
+                    	check.setAttribute("type", "checkbox");
+                    	check.setAttribute("name", "mcode");
+                    	check.setAttribute("value", jData[i].mcode);
+                    	check.setAttribute("onClick", "checkedFunc(this)");
+                    	
+                    	img.setAttribute("src", "../images/purchaseimg/"+jData[i].mimage);
+                    	
+                    	num.setAttribute("type", "number");
+                    	num.setAttribute("placeholder", "수량을 입력해 주세요.");
+                    	
+                    	lab2.innerHTML = jData[i].mname;
+                    	
+                    	lab.appendChild(check);
+                    	lab.appendChild(img);
+                    	
+                    	figCap.appendChild(lab2);
+                    	figCap.appendChild(document.createElement("br"));
+                    	figCap.appendChild(num);
+
+                    	fig.appendChild(lab);
+                    	fig.appendChild(figCap);
+
+                    	reD.appendChild(fig);
+                    }
+
+                    }
+
+            }
+     
+        });
+        function checkedFunc(thisEle){
+	        if($(thisEle).is(':checked')){
+	            $(thisEle).parent().parent().css("background-color","#7386c7"); 
+	        }else{
+	            $(thisEle).parent().parent().css("background-color","white");
+	        }
+        }
 		</script>
+		   <style>
+        #columns{
+            column-width: 200px;
+            
+            column-gap: 15px;
+            
+        }
+        #columns figure{
+            display: inline-block;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            margin: 0px;
+            margin-bottom: 15px;
+            padding: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        #columns figure img{
+            width: 100%;
+            
+        }
+       #columns figure label:hover{
+            cursor: pointer;
+
+        }
+        #columns figure figcaption{
+            border-top: 1px solid rgba(0, 0, 0, 0.2);
+            margin-top: 10px;
+            padding: 11px;
+        }
+               #columns input[type="checkbox"]{
+                   display: none;
+               }
+               
+               
+        }
+               
+        </style>
+		
 	</head>
+	
 
 	<body>
 	
-
+	<div id = "columns" >
+	</div>
+	
+	
 	</body>
 </html>

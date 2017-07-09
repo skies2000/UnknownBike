@@ -1,21 +1,53 @@
 package hwan;
 
 public class HwanVo {
+	
+	//login.jsp에서 사용
 	String userid;
-	String epwd;
-	String ecode;
 	String userpwd;
+	
+	//employees table
+	String ecode;
+	String epwd;
 	String ename;
-	String dname;
-	String pname;
 	String eimage;
-	String pdev;
-	String dWrite;
+	
+	//product table
 	int pcate;
+	String pdev;
+	String pname;
+
+	//document table
+	String dWrite;
+	String dname;
 	String dSign;
 	int dStatus; 
 	
 	
+	//metarial table
+	String mcode;
+	String mname;
+	String mimage;
+	
+	
+	public String getMcode() {
+		return mcode;
+	}
+	public void setMcode(String mcode) {
+		this.mcode = mcode;
+	}
+	public String getMname() {
+		return mname;
+	}
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
+	public String getMimage() {
+		return mimage;
+	}
+	public void setMimage(String mimage) {
+		this.mimage = mimage;
+	}
 	public String getdSign() {
 		return dSign;
 	}

@@ -30,18 +30,19 @@ public class HwanController {
 
 	
 	public HwanController(HwanDao dao){
+		
 		this.dao = dao;
+		
+		
 	}
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/login.hwan", method={RequestMethod.GET, RequestMethod.POST })
 	public void login(HttpServletRequest req, HttpServletResponse resp){
-		resp.setCharacterEncoding("utf-8");
-		PrintWriter out = null;
+		PrintWriter out = getOut(resp);
 		List<HwanVo> list = dao.loginList();
 		JSONArray ja = new JSONArray();
 		try{
-			out = resp.getWriter();
 			
 			for(int i=0; i<list.size();i++){
 				JSONObject jo = new JSONObject();
@@ -78,7 +79,7 @@ public class HwanController {
 	
 	
 	
-	@SuppressWarnings({ "finally", "deprecation" })
+	@SuppressWarnings({ "finally", "deprecation" })//MultipartiRequest생성 절차 메소드로 구성
 	public MultipartRequest getMul(HttpServletRequest req){
 		MultipartRequest mul= null;
 		
@@ -116,15 +117,8 @@ public class HwanController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/appTwo.hwan", method = {RequestMethod.GET, RequestMethod.POST})
 	public void appTwo(HttpServletResponse resp){
-		PrintWriter out = null;
-		resp.setCharacterEncoding("utf-8");
-		try {
-			 out = resp.getWriter();
-			 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		PrintWriter out = getOut(resp);
+	
 		
 		List<HwanVo> list = null;
 		list = dao.appList();
@@ -147,8 +141,7 @@ public class HwanController {
 	@RequestMapping(value = "/proInput.hwan", method = {RequestMethod.GET, RequestMethod.POST})
 	public void proInput(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
 		MultipartRequest mul = getMul(req);
-		PrintWriter out = null;
-		resp.setCharacterEncoding("utf-8");
+		PrintWriter out = getOut(resp);
 		HwanVo vo =  new HwanVo();
 		String[] pManArr = null;
 		String pManStr = "";
@@ -176,12 +169,7 @@ public class HwanController {
 		
 		System.out.println("pcate : "+vo.getPcate());
 		
-		try {
-			out = resp.getWriter();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+	
 		
 		int r = 0;
 		String msg = "";
@@ -196,16 +184,7 @@ public class HwanController {
 	
 	@RequestMapping(value="/loginCheck.hwan",method={RequestMethod.GET})
 	public void loginCheck(HttpSession session, HttpServletResponse resp){
-		PrintWriter out = null;
-		resp.setCharacterEncoding("utf-8");
-		try {
-			 out = resp.getWriter();
-			 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		PrintWriter out = getOut(resp);
 		
 		out.print(session.getAttribute("user"));
 		
@@ -217,8 +196,39 @@ public class HwanController {
 			session.invalidate();
 		return "login.jsp";
 	}
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/pro_mat_List.hwan",method={RequestMethod.GET})
+	public void pro_mat_List(HttpServletResponse resp){
+			PrintWriter out = getOut(resp);
+			List<HwanVo>list = dao.proInputMatList();
+			JSONArray jArr = new JSONArray();
+			
+			for(int i=0; i<list.size();i++){
+				JSONObject jObj = new JSONObject();
+				jObj.put("mcode", list.get(i).getMcode());
+				jObj.put("mname", list.get(i).getMname());
+				jObj.put("mimage", list.get(i).getMimage());
+				
+				jArr.add(jObj);
+			}
+			out.print(jArr);
+	}
 	
 	
+	
+	@SuppressWarnings("finally")//out.print 쓰기위한 절차 메소드로 구성
+	public PrintWriter getOut(HttpServletResponse resp){
+		resp.setCharacterEncoding("utf-8");
+		PrintWriter out = null;
+		
+		try{
+			out = resp.getWriter();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			return out;
+		}
+	}
 	
 	
 }
