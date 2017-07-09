@@ -9,9 +9,43 @@ public class HwanVo {
 	String dname;
 	String pname;
 	String eimage;
+	String pdev;
+	String dWrite;
+	int pcate;
+	String dSign;
+	int dStatus; 
 	
 	
-	
+	public String getdSign() {
+		return dSign;
+	}
+	public void setdSign(String dSign) {
+		this.dSign = dSign;
+	}
+	public String getdWrite() {
+		return dWrite;
+	}
+	public void setdWrite(String dWrite) {
+		this.dWrite = dWrite;
+	}
+	public int getdStatus() {
+		return dStatus;
+	}
+	public void setdStatus(int dStatus) {
+		this.dStatus = dStatus;
+	}
+	public int getPcate() {
+		return pcate;
+	}
+	public void setPcate(int pcate) {
+		this.pcate = pcate;
+	}
+	public String getPdev() {
+		return pdev;
+	}
+	public void setPdev(String pdev) {
+		this.pdev = pdev;
+	}
 	public String getEimage() {
 		return eimage;
 	}
