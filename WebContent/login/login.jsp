@@ -21,6 +21,7 @@
     	});
     });
     function loginResult(){
+    	$("*").css("cursor","wait");
     	var xhr = new XMLHttpRequest();
 		var url = "../login.hwan";
 		var frm = document.getElementById("fromId"); //아이디값을 이용해 폼을 가죠온다.
@@ -41,6 +42,7 @@
 					testStr += "사원번호 : "+jData[i].ecode+", 비밀번호 : "+jData[i].epwd+"\n";
 				}
 				alert(testStr);
+				$("*").css("cursor","default");
 				for(var i = 0; i<jData.length;i++){
 					 if(jData[i].ecode == userid){
 						if(jData[i].epwd == userpwd){
