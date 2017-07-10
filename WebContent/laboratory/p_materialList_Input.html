@@ -5,10 +5,160 @@
 		<title>Page Title</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="initial-scale=1.0">
+		<script src='../jq_lib/jquery-3.2.1.min.js'></script>
+		<script>
+        $(document).ready(function(){
+            var jt;
+            var xhr = new XMLHttpRequest();
+            var url = "../pro_mat_List.hwan";
+            xhr.open("get", url);
+            xhr.send();
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState == 4 && xhr.status==200){
+                    var txt = xhr.responseText;
+                    var jData = JSON.parse(txt);
+                    var reD = document.getElementById("columns");
+                    for(var i = 0; i<jData.length;i++){
+                    	
+                    	var fig = document.createElement("figure");
+                    	var lab = document.createElement("label");
+                    	var lab2 = document.createElement("label");
+                    	var figCap = document.createElement("figcaption");
+                    	var img = document.createElement("img");
+                    	var check = document.createElement("input");
+                    	var num = document.createElement("input");
+						
+                    	check.setAttribute("type", "checkbox");
+                    	check.setAttribute("name", "mcode");
+                    	check.setAttribute("value", jData[i].mcode);
+                    	check.setAttribute("onClick", "checkedFunc(this)");
+                    	
+                    	img.setAttribute("src", "../images/purchaseimg/"+jData[i].mimage);
+                    	
+                    	num.setAttribute("type", "number");
+                    	num.setAttribute("placeholder", "수량을 입력해 주세요.");
+                    	
+                    	lab2.innerHTML = jData[i].mname;
+                    	
+                    	lab.appendChild(check);
+                    	lab.appendChild(img);
+                    	
+                    	figCap.appendChild(lab2);
+                    	figCap.appendChild(document.createElement("br"));
+                    	figCap.appendChild(num);
+
+                    	fig.appendChild(lab);
+                    	fig.appendChild(figCap);
+
+                    	reD.appendChild(fig);
+                    }
+
+                    }
+
+            }
+     
+        });
+        function checkedFunc(thisEle){
+	        if($(thisEle).is(':checked')){
+	            $(thisEle).parent().parent().css("background-color","#7386c7"); 
+	        }else{
+	            $(thisEle).parent().parent().css("background-color","white");
+	        }
+        }
+		</script>
+		   <style>
+        #columns{
+            column-width: 200px;
+            
+            column-gap: 15px;
+            
+        }
+        #columns figure{
+            display: inline-block;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            margin: 0px;
+            margin-bottom: 15px;
+            padding: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        #columns figure img{
+            width: 100%;
+            
+        }
+       #columns figure label:hover{
+            cursor: pointer;
+
+        }
+        #columns figure figcaption{
+            border-top: 1px solid rgba(0, 0, 0, 0.2);
+            margin-top: 10px;
+            padding: 11px;
+        }
+               #columns input[type="checkbox"]{
+                   display: none;
+               }
+               
+               
+        }
+        
+        
+        
+        
+         .myButton {
+            -moz-box-shadow: inset 0px 1px 0px 0px #000000;
+            -webkit-box-shadow: inset 0px 1px 0px 0px #000000;
+            box-shadow: inset 0px 1px 0px 0px #000000;
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000), color-stop(1, #000000));
+            background: -moz-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -webkit-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -o-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -ms-linear-gradient(top, #000000 5%, #000000 100%);
+            background: linear-gradient(to bottom, #000000 5%, #000000 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#000000', GradientType=0);
+            background-color: #000000;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            border: 1px solid #000000;
+            display: inline-block;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: Arial;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 6px 24px;
+            text-decoration: none;
+            text-shadow: 0px 1px 0px #000000;
+        }
+        
+        .myButton:hover {
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000), color-stop(1, #000000));
+            background: -moz-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -webkit-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -o-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -ms-linear-gradient(top, #000000 5%, #000000 100%);
+            background: linear-gradient(to bottom, #000000 5%, #000000 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#000000', GradientType=0);
+            background-color: #000000;
+        }
+        
+        .myButton:active {
+            position: relative;
+            top: 1px;
+        }
+        
+        
+               
+        </style>
+		
 	</head>
+	
 
 	<body>
-	자재리스트 등록
-
+	<a href="#" class="myButton"></a>
+	<div id = "columns" >
+	</div>
+	
+	
 	</body>
 </html>

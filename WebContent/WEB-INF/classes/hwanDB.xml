@@ -6,12 +6,42 @@
 	<resultMap type="hwan.HwanVo" id="loginMap">
 		<result property="ecode" column="ecode"/>
 		<result property="epwd" column="epwd"/> 	
+	</resultMap>
 	
+	<resultMap type="hwan.HwanVo" id="appMap">
+		<result property="ecode" column="ecode"/>
+		<result property="ename" column="ename"/>
+		<result property="eimage" column="eimage"/> 	 	
+	</resultMap>
+	
+	<resultMap type="hwan.HwanVo" id="proInMatMap">
+		<result property="mcode" column="mcode"/>
+		<result property="mname" column="mname"/>
+		<result property="mimage" column="mimage"/>    
 	</resultMap>
 	
 	<select id = "loginList" resultMap="loginMap">
 		select * from employees
 	</select>
+	
+	
+	<select id = "appList" resultMap="appMap" >
+		select * from employees
+	</select>
+	
+	
+	<insert id="docInput" parameterType="hwan.HwanVo">
+	insert into document(dcode,dname,ddate, dwrite, dSign, dStatus) values(5555,#{dname},sysdate, #{dWrite}, #{dSign},#{dStatus})
+	</insert>
+	
+	<insert id="proInput" parameterType="hwan.HwanVo">
+	insert into product(pcode,pname,pea,pdev,pcate,pstatus,pdate) values(10012,#{pname},0,#{pdev},#{pcate},0,sysdate)
+	</insert>
+	
+	<select id = "proInputMatList" resultMap="proInMatMap">
+		select * from material
+	</select>
+	
 		
 
 

@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!--김하경  -->
+<!--김하경 -->
 <mapper namespace="kimHadb">
+	<resultMap type="kimHa.kimHaVo" id="appMap">
+		<result property="ecode" column="ecode" />
+		<result property="ename" column="ename" />
+	</resultMap>
+	<select id="appList" resultMap="appMap">
+		select * from employees
+	</select>
 
 
+	<!-- materialsInput 등록!!!!!!!!!!!!!!!!! -->
+	<insert id="docInput" parameterType="kimHa.kimHaVo">
+		insert into
+		document(dcode,dname,dcont,ddate,dwrite,dsign,dstatus)
+		values(5555,#{dname},#{dcont},sysdate,#{dwrite},#{dsign},0)
 
+	</insert>
 </mapper>

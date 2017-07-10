@@ -21,13 +21,13 @@
     	});
     });
     function loginResult(){
+    	$("*").css("cursor","wait");
     	var xhr = new XMLHttpRequest();
-		var url = "login.hwan";
+		var url = "../login.hwan";
 		var frm = document.getElementById("fromId"); //아이디값을 이용해 폼을 가죠온다.
 		var formData = new FormData(frm); //가져온 폼정보를 이용해 FormData를 만든다. ajax로 submit하기 위해서 필요한 객체
 		var userid = frm.userid.value;
 		var userpwd = frm.userpwd.value;
-		alert("입력된 코드  : "+userid +"\n입력된 비밀번호 : "+userpwd);
 		xhr.open("post",url); // post방식과 submit할 경로를 전달
 		xhr.send(formData);   // 가져온 폼정보가 담겨 있는 formData 전달. form에 input 정보들이 해당 url로 넘겨진다.
 		
@@ -42,10 +42,11 @@
 					testStr += "사원번호 : "+jData[i].ecode+", 비밀번호 : "+jData[i].epwd+"\n";
 				}
 				alert(testStr);
+				$("*").css("cursor","default");
 				for(var i = 0; i<jData.length;i++){
 					 if(jData[i].ecode == userid){
 						if(jData[i].epwd == userpwd){
-							frm.action = "mainIndex.hwan";
+							frm.action = "../main/mainIndex.hwan";
 							frm.submit();
 							return;
 						}else{
@@ -167,10 +168,10 @@
     <div id="login"> <!--css로 Login창 이동시킬때 #Login만 위치 지정 하면 됨.  -->
         <form name="form-login" method="post" enctype="multipart/form-data" id="fromId">
             <span class="fontawesome-user"></span>
-            <input type="text" id="user" placeholder="Username" name="userid">
+            <input type="text" id="user" placeholder="Username" name="userid" value="30001">
 
             <span class="fontawesome-lock"></span>
-            <input type="password" id="pass" placeholder="Password" name="userpwd">
+            <input type="password" id="pass" placeholder="Password" name="userpwd" value="1111">
 
             <a href="#" id="loginSubmit">Login</a>
         </form>
