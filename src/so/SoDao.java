@@ -1,7 +1,9 @@
 package so;
+import java.util.ArrayList;
 import java.util.List;
 import myba.UnknownFactory;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.type.IntegerTypeHandler;
 
 public class SoDao {
 	SqlSession session;
@@ -19,4 +21,22 @@ public class SoDao {
 		return list;
 	}
 
+	public List<SoVo>checkmaterial(String[] checkmaterial){
+		
+		List<SoVo>list = new ArrayList<SoVo>();
+		
+		for(String x : checkmaterial){
+			int xx = Integer.parseInt(x);
+			
+			SoVo vo = new SoVo();
+			vo.setmCode(xx);
+			
+			SoVo v = session.selectOne("sodb.check_mlist", vo);
+			list.add(v);
+		}
+		
+		
+		return list;
+		
+	}
 }
