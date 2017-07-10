@@ -24,8 +24,15 @@
     	
  </select>
 
-
-
-
+ <select id='check_mlist' resultMap="voMap" parameterType="so.SoVo">
+     	select * from material where mCode = #{mCode}
+    	
+ </select>
+ 
+<!-- 문서요청서  -->
+ <select id='pdoc' resultMap="voMap" parameterType="so.SoVo">
+     	select * from document order by dCode
+    	
+ </select>
 
 </mapper>

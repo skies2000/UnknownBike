@@ -61,26 +61,29 @@
             
         </style>
         <script>
-        
-        function docInput(){
-	        var dci = document.getElementById("dciContent");
-	        alert(dci.innerHTML);
-	        var doc = window.opener.document.getElementById("docResult");
-	        var input_h = document.createElement("input");
-	        input_h.setAttribute("type", "hidden");
-	        input_h.setAttribute("value", dci.innerHTML);
-	        doc.appendChild("input_h");
-	        alert(input_h.value);
+
+        function docInput() {
         	
+        var dci = document.getElementById("dciContent");
+        var doc = window.opener.document.getElementById("docResult");
+        var input_h = document.createElement("input");
+        input_h.setAttribute("type", "hidden");
+        input_h.setAttribute("name", "dcont");
+        input_h.setAttribute("value", dci.value);
+        doc.appendChild(input_h);
+        alert("정상적으로 입력 되었습니다.");
+        self.close();
         }
         </script>
-   </head>
+	</head>
+
 
    <body>
 <div id=dciBody>
     <h2 id = title>문서 내용 입력 </h2>
     <textarea cols="50" rows="10" id="dciContent"placeholder="문서를 입력해 주세요." ></textarea>
     
+
      <br/>
      <a href=# class='myButton' onclick="docInput()">입력</a>
     

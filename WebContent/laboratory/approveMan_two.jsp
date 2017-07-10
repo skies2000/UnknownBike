@@ -134,7 +134,7 @@
 		}
 		if(checkFlag){
 			alert(resultStr);
-			window.opener.document.getElementById("appMemberId").innerHTML="결재자 등록완료(수정)";
+			window.opener.document.getElementById("appMemberId").innerHTML="결재자 등록완료(수정)"; //opener = materials input에서 열어준다!
 			self.close();
 		}else{
 			alert("선택된 사원이 없습니다.");

@@ -161,6 +161,8 @@ public class HwanController {
 		vo.setdSign(pManStr);
 		vo.setdStatus(pManArr.length);
 		
+		
+		
 		System.out.println("pdev : "+vo.getPdev());
 		
 		System.out.println("arr : "+Arrays.toString(pManArr));

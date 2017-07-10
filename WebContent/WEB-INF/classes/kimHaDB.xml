@@ -11,5 +11,12 @@
 		select * from employees
 	</select>
 
- 
+
+	<!-- materialsInput 등록!!!!!!!!!!!!!!!!! -->
+	<insert id="docInput" parameterType="kimHa.kimHaVo">
+		insert into
+		document(dcode,dname,dcont,ddate,dwrite,dsign,dstatus)
+		values(5555,#{dname},#{dcont},sysdate,#{dwrite},#{dsign},0)
+
+	</insert>
 </mapper>

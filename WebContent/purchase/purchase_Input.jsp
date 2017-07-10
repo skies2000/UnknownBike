@@ -3,16 +3,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@page import="java.util.Calendar"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<style>
-#purihead6 {
-	text-align: center;
-}
-</style>
+
+<script>
+	function amount(){
+		var pEa = document.getElementById('peatext').value;
+	
+	}
+	
+	function plok(){
+		var frm = document.pfrm;
+		frm.action = 'purRList.so';
+		frm.mCode.value = mCode;
+		frm.submit();
+		
+	}
+	
+	function plcancle(){
+		
+		
+	}
+</script>
 </head>
 <body>
 <%
@@ -42,6 +58,8 @@ String today = year+"."+ monthstr+"."+ daystr;
 request.setAttribute("today", today);
 
 %>
+<form name='pfrm' method='post'>
+
 <div id=category>
 		<jsp:include page="../category/submenuPurchase.jsp"></jsp:include>
 	</div>
@@ -72,7 +90,9 @@ request.setAttribute("today", today);
          </div>
       </div>
       <div class='pisign'>
-         <div class='pisign1'>아래와 같이 판매품의 합니다.</div>
+         <div class='pisign1'>제목
+         <input type='text' id='pisign1-1'>
+         </div>
          <div class='pisign2'>
             <div class='piappro'>결&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;재</div> 
             <div class='piwriter'>작성자</div>
@@ -105,6 +125,7 @@ request.setAttribute("today", today);
         <a href='#' class='pibutton' onclick="plus()">추가</a>
     </div>
 
+
 <div id='purihead4'>
     <span class='pcode'>자재코드</span>
     <span class='pmname'>자재명</span>
@@ -117,24 +138,26 @@ request.setAttribute("today", today);
 </div>
 
 
+<c:forEach items="${list}" var="vo"> 
 <div id='purihead5'>
-    <span class='pcode'>20001</span>
-    <span class='pmname'>바퀴</span>
-    <span class='ppur'>abc</span>
-    <span class='pemp'>황주희</span>
-    <span class='pea'>입력값</span>
-    <span class='pprice'>100</span>
-    <span class='pamount'>1000000</span>
-    
+    <span class='pcode'>${vo.mCode}</span>
+    <span class='pmname'>${vo.mName}</span>
+    <span class='ppur'>${vo.mPo}</span>
+    <span class='pemp'>${user}</span><!-- dWriter로..바꿔야됨 -->
+    <span class='pea'><input type='text' id='peatext' name='peatext'></span>
+    <span class='pprice'>${vo.mPrice}</span>
+    <span class='pamount' onkeyup='amount()'></span>
+    <!-- onkeyup=''${peatext.value*vo.mPrice}   -->
     </div>
-    
+    </c:forEach>
     <div id='purihead6'>
-        <a href='#' id='plok' class='pibutton'>작성완료</a>
-        <a href='#' id='plcancle' class='pibutton'>작성취소</a>
+        <a href='#' id='plok' class='pibutton' onclick='plok()'>작성완료</a>
+        <a href='#' id='plcancle' class='pibutton' onclick='plcancle()'>작성취소</a>
+		
+		
+		
+	<input type='hidden' name='mCode' value="${vo.mCode }"/>
     </div>
-	
-	<form name='frm_pinput' method='post'>
-		<input type='hidden'>
 	</form>
-</body>
+	</body>
 </html>
