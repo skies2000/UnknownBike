@@ -18,6 +18,7 @@ select{
 	background-color: black;
 	border : 1px solid white;
 	text-align: center;
+	color : white;
 }
 #sel{
 	padding-top : 23px;
@@ -52,6 +53,7 @@ select{
 	cursor: pointer; 
 	padding: 3px;
 	margin-top : 20px;
+	color : white;
 }
 /* ----------------------list_title----------------------------- */
 

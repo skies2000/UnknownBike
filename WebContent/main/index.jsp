@@ -158,8 +158,7 @@
 
             <!-- <input type=hidden value="../product/product_index.jsp"> -->
             
-            <a href="../main/index.jsp?inc=../sales/sales_home.jsp"><img id='indeximg' src="../images/sales.png"></a>
-            <!-- <input type=hidden value="../sales/sales_index.html"> -->
+            <a href="salesHome.sung"><img id='indeximg' src="../images/sales.png"></a>
             
             <a href=#><img id='indeximg' src="../images/mypage.png"></a>
         </nav>
