@@ -267,10 +267,8 @@ public class HwanController {
 		
 		vo = dao.proView(vo);
 		
-		
-		
-		mv.setViewName("/laboratory/productView.html");
-		
+		mv.setViewName("/laboratory/productView.jsp");
+		mv.addObject("vo",vo);
 		
 		
 		return mv;
