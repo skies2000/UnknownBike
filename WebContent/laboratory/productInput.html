@@ -3,7 +3,20 @@
 <html>
 
 <head>
+<title>Page Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0">
     <script>
+    	$(document).ready(function(){
+    		var ff = document.getElementById("proInFrm");
+    		$("#pcateSelect").change(function(){
+    			var sel = document.getElementById("pcateSelect");
+    			var ix = sel.options[sel.options.selectedIndex].value;
+    			ff.pcate.value = ix;
+    			
+    		});
+    	});
+    	
         function docConInputBtn() {
             window.open("pDoc.hwan", "", "height=400px, width=600px");
         }
@@ -12,26 +25,48 @@
             window.open("../laboratory/p_materialList_Input.html", "", "height=300px, width=500px");
         }
 
-        function approveMan_one() {
-            window.open("appOne.hwan", "", "height=300px, width=500px");
-        }
 
         function approveMan_two() {
             window.open("../laboratory/approveMan_two.jsp", "", "height=300px, width=500px");
         }
         function pInputBtn(){
+        	if(!confirm("등록하시겠습니까?")) return;
         	var ff = document.getElementById("proInFrm");
-        	var url = "proInput.hwan"
-        	ff.action =  url;
-        	ff.submit();
+        	var fd = new FormData(ff);
+        	var url = "../proInput.hwan"
+        	var xhr = new XMLHttpRequest();
+        	xhr.open("post",url);
+        	xhr.send(fd);
+        	xhr.onreadystatechange = function(){
+        		if(xhr.readyState == 4 && xhr.status == 200){
+        			var txt = xhr.responseText;
+        			if(txt=="1"){
+        				alert("정상적으로 등록되었습니다.");
+        				var xhr2 = new XMLHttpRequest();
+        	        	xhr2.open("get","../laboratory/laboratoryHome.html");
+        	        	xhr2.send();
+        				
+        	        	 xhr2.onreadystatechange=function(){
+        	                   if(xhr2.readyState == 4 && xhr2.status == 200){
+        	                      var txt = xhr2.responseText;
+        	                       
+        	                       $('#laboratorResult').html(txt);
+        	                   } 
+        	               }
+        				
+        			}else if(txt == "-1"){
+        				alert("다시 입력해 주세요");
+        			}
+        			
+        		}
+        	}//end onreadystatechange
+        	
         
-        }
+        } // end pInputBtn 
 
     </script>
 
-    <title>Page Title</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale=1.0">
+    
     
     <style>
         #piBody #title {
@@ -135,8 +170,8 @@
 <body>
 
     <div id=piBody>
-        <form id="proInFrm">
-        <div id = "appResult">
+        <form id="proInFrm" method="post" enctype="multipart/form-data">
+        <div id = "appResult"> <!--결재자 팝업창에서 선택된 사원 리스트의 결과라 입력될 곳   -->
         </div>
 
             <div id='title'>제품등록</div>
@@ -153,14 +188,15 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <select>
-    <option value="">---자전거 종류---</option>
-    <option value="">1. 외발 자전거</option>
-    <option value="">2. 두발 자전거</option>
-    <option value="">3. 세발 자전거</option>
-    <option value="">4. 네발 자전거</option>
-    <option value="">5. 하이브리드 자전거</option>
+                        <select id="pcateSelect">
+    <option value="0">---자전거 종류---</option>
+    <option value="1">1. 외발 자전거</option>
+    <option value="2">2. 두발 자전거</option>
+    <option value="3">3. 세발 자전거</option>
+    <option value="4">4. 네발 자전거</option>
+    <option value="5">5. 하이브리드 자전거</option>
 </select>
+	<input type="hidden" name="pcate" value = "0"/>
                     </td>
                 </tr>
                 <tr>

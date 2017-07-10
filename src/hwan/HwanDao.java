@@ -50,4 +50,10 @@ public class HwanDao {
 		session.commit();
 		return r;
 	}
+	
+	public List<HwanVo> proInputMatList(){
+		List<HwanVo> list = null;
+		list = session.selectList("hwandb.proInputMatList");
+		return list;
+	}
 }
