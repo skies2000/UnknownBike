@@ -18,4 +18,15 @@ public class kimHaDao {
 		
 		return list;
 	}
+	
+	public int docInput(kimHaVo vo){
+		try{
+			session.insert("kimHadb.docInput",vo); //kimHaDB.xml
+			
+		}catch(Exception e) {
+			session.rollback();
+		}
+		session.commit();
+		return 0;
+	}
 }
