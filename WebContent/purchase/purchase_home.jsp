@@ -11,9 +11,11 @@
 		<script>	
 		
 			function gowheel(mCate){
+
 				var frm = document.frm;
 				frm.mCate.value = mCate;
 				frm.action = 'listcate.so';
+				alert("ggg");
 				frm.submit();
 				}
 			function wholewheel(){
@@ -21,9 +23,16 @@
 				frm.action = 'purhome.so';
 				frm.submit();
 				}
-			
-			
-			
+			function purbuy(){
+				var frm = document.frm;
+				
+				}
+			function goinput(){
+				var frm = document.frm2;
+				frm.action = 'purinput.so';
+				frm.submit();
+			}
+
 		</script>
 		
 		
@@ -62,6 +71,14 @@
 		color:white;	
 	}
 	.phcate:hover {
+		color:#7e8389;
+	}
+	.phcate_need{
+		display:inline-block;
+		width:auto;	
+		color:#a6827e;
+	}
+	.phcate_need:hover{
 		color:#7e8389;
 	}
 	.phbar{
@@ -116,20 +133,26 @@
     	<a href="#" onclick="gowheel(7)"><span class='phcate'>라이트</span></a>
     	<span class='phbar'>ㅣ</span>   
     	<a href="#" onclick="gowheel(8)"><span class='phcate'>페달</span></a>
+    	<span class='phbar'>ㅣ</span>   
+    	<a href="#" onclick="purbuy()"><span class='phcate_need'>구매필요</span></a>
     </div>
     
     
     
     
     <!-- 자재 페이지 그리드 형식 조회 -->	
-	<div id=pur_home_view>
 	
 	<!-- for 문 돌아가는거 -->	
+		<form name='frm2' method='post'>
+			<div id=pur_home_view>
 		<c:forEach items="${list}" var="vo"> 
 		
 		<div class='phviewitem'>
+		
+		<%-- 여기 로긴어떻게 나눠줄까요오오오오오 (2017.07.07 황주희)
+		<c:if test="${vo.}"> --%>
 			<div id='phcheckbox'>
-			<input type="checkbox">
+			<input type="checkbox" name='checkmaterial' value='${vo.mCode }'>
 			</div>
 			<!-- 이미지부분 -->
 			<div class='phviewimg'>
@@ -139,31 +162,36 @@
 			<span class='phviewtxt'>
 				자재코드: ${vo.mCode }<br/>
 				자재명: ${vo.mName }	<br/>
-				<c:if test="${vo.mState ==0}">	
-			상태:<span class='phstatus' style="color:red"> ${vo.mState }</span>	
-				</c:if>
-				<c:if test="${vo.mState >0}">	
-			상태:<span class='phstatus' style="color:white"> ${vo.mState }</span>	
-				</c:if>
+			<c:if test="${vo.mEa <=50}">	
+			<span class='phstatus' style="color:#a6827e"> ${vo.mEa } 개</span>	
+			</c:if>
+			<c:if test="${vo.mEa >50}">	
+			<span class='phstatus' style="color:white"> ${vo.mEa } 개</span>	
+			</c:if>
 			
 				
-			</span>		
+			</span>
+		<%-- </c:if>		 --%>
 		</div>
 		
 		</c:forEach> 
-	</div>
+				</div>
+		</form>
 
 		
 	<!-- 버튼 -->
 	<div id='purchase_home_btn'>
-		<a href='purinput.so' id='plok' class='pibutton'>구매보고서작성</a>
-		
+		<a href='#' id='plok' class='pibutton' onclick='goinput()'>구매보고서작성</a>
 	</div>	
 
 		
 	<form name='frm' method='post'>
 		<input type='hidden' name='mCate'>
-		<input type='hidden' name='mCode'>
+		
 	</form>
+	
+
+		
+
 	</body>
 </html>

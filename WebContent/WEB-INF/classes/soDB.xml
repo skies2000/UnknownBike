@@ -24,5 +24,10 @@
     	
  </select>
 
+ <select id='check_mlist' resultMap="voMap" parameterType="so.SoVo">
+     	select * from material where mCode = #{mCode}
+    	
+ </select>
+
 
 </mapper>

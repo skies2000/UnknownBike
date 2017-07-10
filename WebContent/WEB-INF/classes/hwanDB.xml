@@ -10,7 +10,8 @@
 	
 	<resultMap type="hwan.HwanVo" id="appMap">
 		<result property="ecode" column="ecode"/>
-		<result property="ename" column="ename"/> 	
+		<result property="ename" column="ename"/>
+		<result property="eimage" column="eimage"/> 	 	
 	</resultMap>
 	
 	<select id = "loginList" resultMap="loginMap">
@@ -21,6 +22,15 @@
 	<select id = "appList" resultMap="appMap" >
 		select * from employees
 	</select>
+	
+	
+	<insert id="docInput" parameterType="hwan.HwanVo">
+	insert into document(dcode,dname) values(5555,#{dname})
+	</insert>
+	
+	<insert id="proInput" parameterType="hwan.HwanVo">
+	insert into product(pcode,pname) values(10012,#{pname})
+	</insert>
 	
 		
 

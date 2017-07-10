@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -43,13 +44,9 @@ public class SoController {
 	
 	@RequestMapping(value="login/listcate.so", method={RequestMethod.GET, RequestMethod.POST })
 	public Object listcate(SoVo vo){
-		ModelAndView mv = new ModelAndView();
-		
-		
+		ModelAndView mv = new ModelAndView();		
 		List<SoVo> list = dao.aMetarial(vo);
-		
-	
-		
+				
 		mv.addObject("list",list);
 		
 		mv.setViewName("../main/index.jsp?inc=../purchase/purchase_home.jsp");
@@ -63,10 +60,16 @@ public class SoController {
 	
 	//Purchase_Input
 	@RequestMapping(value="login/purinput.so", method={RequestMethod.GET, RequestMethod.POST })
-	public Object goPInput(HttpServletRequest req, HttpServletResponse resp){
+	public Object goPInput(@RequestParam(value="checkmaterial") String[] checkmaterial){
 		ModelAndView mv = new ModelAndView();
 		//mv.addObject();
-	
+		SoVo vo = new SoVo();
+		List<SoVo>list = dao.checkmaterial(checkmaterial);
+		
+				
+		mv.addObject("list",list);
+		
+		System.out.println(checkmaterial[0]);
 		mv.setViewName("../main/index.jsp?inc=../purchase/purchase_Input.jsp");
 	
 	    //index.jsp?inc=./board/purchase_home.jsp
