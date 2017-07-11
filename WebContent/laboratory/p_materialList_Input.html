@@ -7,8 +7,8 @@
 		<meta name="viewport" content="initial-scale=1.0">
 		<script src='../jq_lib/jquery-3.2.1.min.js'></script>
 		<script>
-        $(document).ready(function(){
             var jt;
+        $(document).ready(function(){
             var xhr = new XMLHttpRequest();
             var url = "../pro_mat_List.hwan";
             xhr.open("get", url);
@@ -17,6 +17,7 @@
                 if(xhr.readyState == 4 && xhr.status==200){
                     var txt = xhr.responseText;
                     var jData = JSON.parse(txt);
+                    jt = jData;
                     var reD = document.getElementById("columns");
                     for(var i = 0; i<jData.length;i++){
                     	
@@ -32,6 +33,7 @@
                     	check.setAttribute("name", "mcode");
                     	check.setAttribute("value", jData[i].mcode);
                     	check.setAttribute("onClick", "checkedFunc(this)");
+                    	check.setAttribute("class", "ckBoxList");
                     	
                     	img.setAttribute("src", "../images/purchaseimg/"+jData[i].mimage);
                     	
@@ -54,7 +56,6 @@
                     }
 
                     }
-
             }
      
         });
@@ -65,6 +66,54 @@
 	            $(thisEle).parent().parent().css("background-color","white");
 	        }
         }
+        
+        //자재를 체크하고 수량을 입력하고 등록하면 productInput 파일에 hidden으로 값들이 저장된다.
+        function checkMaterial(){
+        	if(!confirm("선택하시겠습니까?")) return;
+        	var checkFlag = false;
+        	
+        	var cb = document.getElementsByClassName("ckBoxList");
+        	var mlr =  window.opener.document.getElementById("mListResult");
+        	var resultStr = "-선택된 자재-\n";
+        	for(var i = 0; i<cb.length; i++){
+        		if(cb[i].checked==true){
+					
+					var numVal = cb[i].parentElement.nextElementSibling.firstElementChild.nextElementSibling.nextElementSibling.value; //input number 숫자값..
+					if(numVal == ""){
+						alert("수량을 입력해 주세요");
+						mlr.innerHTML = "";
+						return;
+						
+					}
+						
+        			var inp1 = document.createElement("input");
+        			var inp2 = document.createElement("input");
+        			
+					inp1.setAttribute("type", "hidden")
+					inp1.setAttribute("name", "mlmcode");
+					inp1.setAttribute("value", cb[i].value);
+					
+					inp2.setAttribute("type", "hidden");
+					inp2.setAttribute("name", "mlmcode");
+					inp2.setAttribute("value", numVal);
+					
+					mlr.appendChild(inp1);
+					mlr.appendChild(inp2);
+					
+					checkFlag = true;
+					
+					resultStr += jt[i].mname+"\n";
+        		}
+        	}
+        	if(checkFlag){
+    			alert(resultStr);
+    			window.opener.document.getElementById("mListInputId").innerHTML="자재리스트 등록완료(수정)";
+    			self.close();
+    		}else{
+    			alert("선택된 자재가 없습니다.");
+    		}
+        	
+        }// end checkMaterial
 		</script>
 		   <style>
         #columns{
@@ -99,11 +148,6 @@
                }
                
                
-        }
-        
-        
-        
-        
          .myButton {
             -moz-box-shadow: inset 0px 1px 0px 0px #000000;
             -webkit-box-shadow: inset 0px 1px 0px 0px #000000;
@@ -129,6 +173,8 @@
             padding: 6px 24px;
             text-decoration: none;
             text-shadow: 0px 1px 0px #000000;
+            position: fixed;
+            top: 0;
         }
         
         .myButton:hover {
@@ -143,7 +189,7 @@
         }
         
         .myButton:active {
-            position: relative;
+            position: fixed;
             top: 1px;
         }
         
@@ -155,7 +201,7 @@
 	
 
 	<body>
-	<a href="#" class="myButton"></a>
+	<a href="#" class="myButton" onclick="checkMaterial()">선택완료</a>
 	<div id = "columns" >
 	</div>
 	

@@ -1,0 +1,44 @@
+@CHARSET "UTF-8";
+
+#main {
+	display: inline-block;
+	width: 300px;
+}
+
+.title {
+	margin-bottom: 10px;
+}
+
+#content {
+	border-top: 1px solid #ffffff;
+}
+
+#content > label {
+	display: inline-block;
+	width: 120px;
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#content > input[type='text'], #content > input[type='date'] {
+	width: 130px;
+	height: 20px;
+}
+
+#content > select {
+	width: 134px;
+	height: 25px;
+}
+
+#btn {
+	display: inline-block;
+	width: 250px;
+	text-align: center;
+	margin-top: 15px;
+}
+
+input[type='button'], input[type='reset'] {
+	width: 80px;
+	height: 30px;
+}
