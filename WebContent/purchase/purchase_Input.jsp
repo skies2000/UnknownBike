@@ -16,7 +16,7 @@
 	
 	}
 	
-	function plok(){
+	function plok(mCode){
 		var frm = document.pfrm;
 		frm.action = 'purRList.so';
 		frm.mCode.value = mCode;
@@ -109,22 +109,16 @@ request.setAttribute("today", today);
 
     <div id='purihead3'>
     	<label for="purselect">제품명(코드)</label>
-        <select id="purselect" title="제품명(코드)">
-    <option selected>제품명(코드)</option>
-    <option>바퀴(a001)</option>
-    <option>바퀴(a002)</option>
-    <option>바퀴(a003)</option>
-    <option>안장(a004)</option>
-    <option>안장(a005)</option>
-    <option>핸들(a006)</option>
-    <option>핸들(a007)</option>
-    <option>라이트(a008)</option>
+    <select id="purselect">
+    <option selected>제품명(코드)  </option>
+<c:forEach items="${list1}" var="obj"> 
+    <option>${obj.mName}(${obj.mCode})</option>
+</c:forEach>
 </select>
 
         <label>수량&nbsp;&nbsp;&nbsp;</label><input type='text'>
         <a href='#' class='pibutton' onclick="plus()">추가</a>
     </div>
-
 
 <div id='purihead4'>
     <span class='pcode'>자재코드</span>

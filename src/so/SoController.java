@@ -27,7 +27,7 @@ public class SoController {
 	
 	
 	
-	@RequestMapping(value="login/purhome.so", method={RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value="main/purhome.so", method={RequestMethod.GET, RequestMethod.POST })
 	public Object goHome(HttpServletRequest req, HttpServletResponse resp){
 		ModelAndView mv = new ModelAndView();
 		//mv.addObject();
@@ -42,7 +42,7 @@ public class SoController {
 	}
 	
 	
-	@RequestMapping(value="login/listcate.so", method={RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value="main/listcate.so", method={RequestMethod.GET, RequestMethod.POST })
 	public Object listcate(SoVo vo){
 		ModelAndView mv = new ModelAndView();		
 		List<SoVo> list = dao.aMetarial(vo);
@@ -59,15 +59,16 @@ public class SoController {
 	
 	
 	//Purchase_Input
-	@RequestMapping(value="login/purinput.so", method={RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value="main/purinput.so", method={RequestMethod.GET, RequestMethod.POST })
 	public Object goPInput(@RequestParam(value="checkmaterial") String[] checkmaterial){
 		ModelAndView mv = new ModelAndView();
 		//mv.addObject();
 		SoVo vo = new SoVo();
 		List<SoVo>list = dao.checkmaterial(checkmaterial);
-		
+		List<SoVo>list1 = dao.fMetarial(vo);
 				
 		mv.addObject("list",list);
+		mv.addObject("list1",list1);
 		
 		System.out.println(checkmaterial[0]);
 		mv.setViewName("../main/index.jsp?inc=../purchase/purchase_Input.jsp");
@@ -77,7 +78,7 @@ public class SoController {
 	}
 	
 	//Purchase_ReportList
-	@RequestMapping(value="login/purRList.so", method={RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value="main/purRList.so", method={RequestMethod.GET, RequestMethod.POST })
 	public Object goPRList(HttpServletRequest req, HttpServletResponse resp){
 		ModelAndView mv = new ModelAndView();
 		//mv.addObject();
@@ -89,7 +90,7 @@ public class SoController {
 	}
 	
 	//Purchase_ReportView
-	@RequestMapping(value="login/purRView.so", method={RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value="main/purRView.so", method={RequestMethod.GET, RequestMethod.POST })
 	public Object goRView(HttpServletRequest req, HttpServletResponse resp){
 		ModelAndView mv = new ModelAndView();
 		//mv.addObject();
@@ -100,4 +101,4 @@ public class SoController {
 		return mv;
 	}
 	
-	}
+}
