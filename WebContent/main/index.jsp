@@ -154,12 +154,11 @@
             <a href="purhome.so"><img id='indeximg' src="../images/purchase.png"></a>
             <!-- <input type=hidden value="../purchase/purchase_Index.html"> -->
             
-            <a href="../main/index.jsp?inc=../product/product_index.jsp" ><img id='indeximg' src="../images/product.png"></a>
+            <a href="productHome.hoon" ><img id='indeximg' src="../images/product.png"></a>
 
             <!-- <input type=hidden value="../product/product_index.jsp"> -->
             
-            <a href="../main/index.jsp?inc=../sales/sales_home.jsp"><img id='indeximg' src="../images/sales.png"></a>
-            <!-- <input type=hidden value="../sales/sales_index.html"> -->
+            <a href="salesHome.sung"><img id='indeximg' src="../images/sales.png"></a>
             
             <a href=#><img id='indeximg' src="../images/mypage.png"></a>
         </nav>
@@ -178,7 +177,6 @@
             <section id='indexSection'>
                 <div id='indexContent'>
 
-<%-- <%out.print(inc); %> --%>
 			<jsp:include page="<%=inc%>"/>
 
                    <!-- <input type="hidden" id='pathCheck' value="testFile.html"> --> 

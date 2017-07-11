@@ -56,4 +56,18 @@ public class HwanDao {
 		list = session.selectList("hwandb.proInputMatList");
 		return list;
 	}
+	
+	public List<HwanVo> proList(){
+		List<HwanVo> list = null;
+		list = session.selectList("hwandb.proList");
+		return list;
+	}
+	
+	public HwanVo proView(HwanVo vo){
+		HwanVo rvo = null;
+		rvo = session.selectOne("hwandb.proView",vo);
+		
+		return rvo;
+		
+	}
 }

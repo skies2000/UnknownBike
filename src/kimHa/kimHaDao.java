@@ -18,4 +18,46 @@ public class kimHaDao {
 		
 		return list;
 	}
+	
+	//문서
+	public int docInput(kimHaVo vo){
+		int r = 0;
+		try{
+			r = session.insert("kimHadb.docInput",vo); //kimHaDB.xml
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			session.rollback();
+		}
+		session.commit();
+		return r;
+	}
+	
+	public int matInput(kimHaVo vo){
+		int r = 0;
+		try{
+			r = session.insert("kimHadb.matInput",vo);
+		}catch(Exception e){
+			e.printStackTrace();
+			session.rollback();
+		}
+		session.commit();
+		return r;
+	}
+	
+	//Details
+	public List<kimHaVo> matList(){
+		List<kimHaVo> list = null;
+		//kimHa.DB.xml ??namespace !!! . id媛?(kimHaDB.xml??select id)
+		list = session.selectList("kimHadb.matList");
+		return list;
+	}
+	
+	//View
+	
+	public kimHaVo matView(kimHaVo vo){
+		kimHaVo v = null;
+		v = session.selectOne("kimHadb.matView",vo);
+		return v;
+	}
 }

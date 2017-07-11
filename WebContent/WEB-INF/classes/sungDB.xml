@@ -4,7 +4,42 @@
 <!--성은영  -->
 <mapper namespace="sungdb">
 	
+	<resultMap type="sung.DocumentVo" id="documentMap"/>
+	<resultMap type="sung.ProductVo" id="ProductMap"/>
+	<resultMap type="sung.EmployeeVo" id="EmployeeMap"/>
 		
-
-
+	
+	<select id="req_select"  resultMap="documentMap" parameterType="sung.DocumentVo">
+		select * from document 
+		join  SRLIST 
+		on srlCode = dCode where dCate = #{dCate}
+	</select>
+	
+	
+	<select id="pro_list"  resultMap="ProductMap" parameterType="sung.ProductVo">
+		select * from product
+	</select>
+	
+	<!-- select box 값 리턴 -->
+	<select id="pro_list2"  resultMap="ProductMap" parameterType="sung.ProductVo">
+		select * from product where pCate = #{pCate} order by pName ASC
+	</select>
+	
+	
+	<!-- session값으로 user불러오기 -->
+	<select id="loadUser"  resultMap="EmployeeMap" parameterType="sung.EmployeeVo">
+		select * from employees where eCode=${eCode}
+	</select>
+	
+	<!-- 팝업창으로 사원 찾기 -->
+	<select id="searchEmp"  resultMap="EmployeeMap" parameterType="sung.EmployeeVo">
+		select * from employees where ePosition=#{ePosition}
+	</select>
+	
+		<!-- 팝업창으로 사원 찾기 ->사원개인의 개인정보 출력 -->
+	<select id="searchEmp2"  resultMap="EmployeeMap" parameterType="sung.EmployeeVo">
+		select * from employees where eCode=#{eCode}
+	</select>
+	
+	
 </mapper>

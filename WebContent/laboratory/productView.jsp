@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!doctype html>
 
 <html>
@@ -94,7 +96,7 @@
         <div id="pvTitle">제품뷰</div>
         <hr/>
     
-        <img src="../images/khk_V2image.jpg" width="300px" height="200px">
+        <img src="../images/${vo.pimage}" width="300px" height="200px">
         
         <table> 
             <tr>
@@ -103,8 +105,8 @@
                 <td>결재승인자1</td>
             </tr>
             <tr>
-                <td>아무개</td>
-                <td>abcd</td>
+                <td>${vo.pdev}</td>
+                <td>${vo.pname}</td>
                 <td>유재석</td>
             </tr>
             
@@ -114,8 +116,8 @@
                 <td>결재승인자2</td>
             </tr>
             <tr>
-                <td>5000원</td>
-                <td>1000원</td>
+                <td>${vo.pprice}</td>
+                <td>${vo.pcost}</td>
                 <td>강호동</td>
             </tr>
             
@@ -126,12 +128,12 @@
                 <td>결재승인상태</td>
             </tr>
             <tr>
-                <td>2017.06.04</td>
-                <td>22시간</td>
-                <td>승인대기</td>
+                <td>${vo.pdate}</td>
+                <td>${vo.pmanhour}</td>
+                <td>${vo.pstatus}</td>
             </tr>
             <tr>
-                <td>자전거종류</td>
+                <td>${vo.pcate}</td>
                 <td colspan="2"><a class="myButton">자재리스트</a></td>        
             </tr>
         </table>

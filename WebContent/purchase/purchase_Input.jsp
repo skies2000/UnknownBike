@@ -28,6 +28,18 @@
 		
 		
 	}
+	
+	function sign_popup1(){
+		var url = 'sign_popup.so';
+		var popOption = "width=500, height=500,top=0, resizable=no, scrollbars=no, status=no";
+		window.open(url,"",popOption);
+	}
+	function sign_popup2(){
+		var url = 'sign_popup_2.so';
+		var popOption = "width=500, height=500,top=0, resizable=no, scrollbars=no, status=no";
+		window.open(url,"",popOption);
+	}	
+	
 </script>
 </head>
 <body>
@@ -59,7 +71,7 @@ request.setAttribute("today", today);
 
 %>
 <form name='pfrm' method='post'>
-
+ 
 <div id=category>
 		<jsp:include page="../category/submenuPurchase.jsp"></jsp:include>
 	</div>
@@ -96,8 +108,8 @@ request.setAttribute("today", today);
          <div class='pisign2'>
             <div class='piappro'>결&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;재</div> 
             <div class='piwriter'>작성자</div>
-            <div class='piappro1'>결재자1</div>
-            <div class='piappro2'>결재자2</div>
+            <div class='piappro1' id='piappro1' onclick = sign_popup1()>결재자1</div>
+            <div class='piappro2' id='piappro2' onclick = sign_popup2()>결재자2</div>
             <div class='pistamp1'></div>
             <div class='pistamp2'></div>
             <div class='pistamp3'></div>
@@ -151,6 +163,15 @@ request.setAttribute("today", today);
 		
 		
 	<input type='hidden' name='mCode' value="${vo.mCode }"/>
+	
+<!-- hidden들 -->
+
+		<input type='hidden' name='input_writer' id='input_writer'>
+		<input type='hidden' name='h_piappro1' id='h_piappro1'> <!-- 결재자1 사원번호 -->
+		<input type='hidden' name='h_piappro2' id='h_piappro2'> <!-- 결재자2 사원번호 -->
+		<input type='hidden' name='input_term' id='input_term'>
+		<input type='hidden' name='input_date' id='input_date'>
+  
     </div>
 	</form>
 	</body>

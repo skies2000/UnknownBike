@@ -20,6 +20,17 @@
 		<result property="mimage" column="mimage"/>    
 	</resultMap>
 	
+	
+	<!--제품 리스트 출력하기 위한 리절트 맵  -->
+	<resultMap type="hwan.HwanVo" id="proListMap">
+		<result property="pcode" column="pcode"/>
+		<result property="pname" column="pname"/>
+		<result property="pdate" column="pdate"/>
+		<result property="pdev" column="pdev"/>
+		<result property="pstatus" column="pstatus"/>
+		<result property="pimage" column="pimage"/>    
+	</resultMap>
+	
 	<select id = "loginList" resultMap="loginMap">
 		select * from employees
 	</select>
@@ -27,6 +38,13 @@
 	
 	<select id = "appList" resultMap="appMap" >
 		select * from employees
+	</select>
+	
+	
+	
+	<!--view  -->
+	<select id = "proView" resultType="hwan.HwanVo" parameterType="hwan.HwanVo" >
+		select * from product where pcode = #{pcode}
 	</select>
 	
 	
@@ -42,7 +60,11 @@
 		select * from material
 	</select>
 	
-		
+	
+	<!--제품 리스트 쿼리  -->
+	<select id = "proList" resultMap="proListMap">
+		select * from product
+	</select>
 
 
 </mapper>
