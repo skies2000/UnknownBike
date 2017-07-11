@@ -111,29 +111,33 @@ public class SungController {
 	//생산 요청내역 db저장
 	@RequestMapping(value = "main/sales_req_input3.sung", method = { RequestMethod.GET, RequestMethod.POST })
 	public void req_input_db(HttpServletRequest req, HttpServletResponse resp) {
-		ProductVo vo = new ProductVo();
 		PrintWriter out = null;
 		MultipartRequest mul = getMul(req);
 		
-		System.out.println("11111");
-		String[] cate = mul.getParameterValues("list_cate");
-		String[] code = mul.getParameterValues("list_code");
-		String[] ea = mul.getParameterValues("list_ea");
-		String[] term = mul.getParameterValues("calender");
-		System.out.println(Arrays.toString(term));
+		String code = mul.getParameter("list_code");
+		String calender = mul.getParameter("list_term");
+		String ea = mul.getParameter("list_ea");
+		String appro1 = mul.getParameter("appr_eCode1");
+		String appro2 = mul.getParameter("appr_eCode2");
+		String srl = mul.getParameter("input_srl");
+		String date = mul.getParameter("input_date");
+		String writer = mul.getParameter("input_writer");
 		
-		for(int i=0; i<cate.length; i++){
-			vo.setpCate(Integer.parseInt(cate[i]));
-			vo.setCodeName(code[i]);
-			vo.setpEa(Integer.parseInt(ea[i]));
-			vo.setTerm(term[i]);
-		}
 		
-		List<DocumentVo> dList;
 		List<ProductVo> pList;
 		
 		
-
+		System.out.println("code : " + code);
+		System.out.println("ea : " + ea);
+		System.out.println("calender : " + calender);
+		System.out.println("appro1 : " + appro1);
+		System.out.println("appro2 : " + appro2);
+		System.out.println("srl : " + srl);
+		System.out.println("date : " + date);
+		System.out.println("writer : " + writer);
+		
+		List<DocumentVo> dList;
+		
 	}
 	
 	//input page에서 생산요청할 제품 뿌려줄것

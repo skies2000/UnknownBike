@@ -79,8 +79,10 @@ function cate_func(sel){
 					var str = "";
 					str += "<span class='code2' id='code2'>"+text[i].pCate+"</span>";
 					str += "<span class='codeName2' id='codeName2'>"+text[i].pName+"</span>";
+					hidden_frm.list_code.value += text[i].pName +",";
 					str += "<span class='ea2' id='ea2'>"+text[i].pEa+"</span>";
-					str += "<span class='deadline2' id='deadline2'><input name ='calender' class='calender' type='date'> </span>";
+					hidden_frm.list_ea.value += text[i].pEa +",";
+					str += "<span class='deadline2' id='deadline2'><input name ='calender' id='calender' type='date'> </span>";
 					str += "<span id='del' onclick='list_del("+count+")'>삭제</span>";
 					
 					var pro_list = document.createElement("div");
@@ -102,8 +104,8 @@ function cate_func(sel){
 		content.removeChild(pro_list);
 	}
 	
+	//작성완료 버튼
 	function pro_subject(){
-		alert("작성완료버튼");
 		var xhr = new XMLHttpRequest();
 		var url = 'sales_req_input3.sung';
 		var frm = document.getElementById("pro_content");
@@ -111,26 +113,32 @@ function cate_func(sel){
 		var cate = $('.code2').text();
 		var code = $('.codeName2').text();
 		var ea = $('.ea2').text();
-		var writer = 
+		var value ="";
+		 $('input[name=calender]').each(function(idx){
+		      value += $(this).val();
+		      value += ",";
+		   })
 		
 		
 		//hidden에 저장하기
-		frm.list_cate.value = cate;
-		frm.list_code.value = code;
-		frm.list_ea.value = ea;
-		
+		frm.list_term.value = value;
 		
 		var formData = new FormData(frm);
 		 xhr.open("post",url);
-		xhr.send(formData); 
+		xhr.send(formData);  
+		
+		
 		
 	}
 	
+	//결재자1
 	function sign_popup1(){
 		var url = 'sign_popup.sung';
 		var popOption = "width=440, height=500,top=0, resizable=no, scrollbars=no, status=no";
 		window.open(url,"",popOption);
 	}
+	
+	//결재자 2
 	function sign_popup2(){
 		var url = 'sign_popup_2.sung';
 		var popOption = "width=440, height=500,top=0, resizable=no, scrollbars=no, status=no";
@@ -173,11 +181,11 @@ function cate_func(sel){
 
 
 
-
 	<div id=category>
 		<jsp:include page="../category/submenuSales.jsp"></jsp:include>
 	</div>
 
+	<form name='frm' method='post' id='frmId' enctype= "multipart/form-data">
 	<div id='SalesResult'>
 		<div id='body'>
 			<div id='head'>
@@ -220,7 +228,6 @@ function cate_func(sel){
 			
 			<div id='classify'>
 			
-			<form name='frm' method='post' id='frmId' enctype= "multipart/form-data">
 			
 				<div id='sel1'>
 					<select id='pro_Cate' name='pro_Cate' onchange="cate_func(this)">
@@ -266,17 +273,18 @@ function cate_func(sel){
 			
 			
 			<!-- db에 넣어줄 hidden들 -->
-			<input type='hidden' name='list_cate'>
-			<input type='hidden' name='list_code'>
-			<input type='hidden' name='list_ea'>
-			<input type='hidden' name='list_term'>
+			<input type='hidden' name='list_cate'><!-- ok -->
+			<input type='hidden' name='list_code'><!-- ok -->
+			<input type='hidden' name='list_ea'><!-- ok -->
+			<input type='hidden' name='list_term'><!-- ok -->
+			<input type='hidden' name='input_srl' id='input_srl' value='srl'> <!-- ok -->
+			<input type='hidden' name='input_date' id='input_date' value='${today }'>
+			<input type='hidden' name='input_writer' id='input_writer' value='${eList.eName }'>
 			
-			<input type='hidden' name='input_writer' id='input_writer'>
-			<input type='hidden' name='appr_eCode1' id='appr_eCode1'> <!-- 결재자1 사원번호 -->
-			<input type='hidden' name='appr_eCode2' id='appr_eCode2'> <!-- 결재자2 사원번호 -->
-			<input type='hidden' name='input_term' id='input_term'>
-			<input type='hidden' name='input_date' id='input_date'>
-			<input type='hidden' name='input_srl' id='input_srl' value='srl'>
+			<!-- 결재자1 사원번호 -->
+			<input type='hidden' name='appr_eCode1' id='appr_eCode1'> 
+			<!-- 결재자2 사원번호 -->
+			<input type='hidden' name='appr_eCode2' id='appr_eCode2'> 
 			
 			<div id='sendBtn'>
 				<input type='button' value='작성완료' id='sl_btnSend' onclick='pro_subject()'>
