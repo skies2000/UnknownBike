@@ -65,8 +65,30 @@ public class SungDao {
 		
 		return list;
 	}
+	//popup창에서 카테고리선택->이름 출력
+	public List<EmployeeVo> empSearch(EmployeeVo vo) {
+		List<EmployeeVo> list = null;
+		try{
+			list = session.selectList("sungdb.searchEmp", vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	//popup창에서 이름선택->사원정보 띄우기
+	public List<EmployeeVo> empSearch2(EmployeeVo vo) {
+		List<EmployeeVo> list = null;
+		try{
+			list = session.selectList("sungdb.searchEmp2", vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 
-
+	
 
 	
 	

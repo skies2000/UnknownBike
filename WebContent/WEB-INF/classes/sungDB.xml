@@ -6,10 +6,8 @@
 	
 	<resultMap type="sung.DocumentVo" id="documentMap"/>
 	<resultMap type="sung.ProductVo" id="ProductMap"/>
-	<resultMap type="sung.EmployeeVo" id="EmployeeMap">
-		<result property="eCode" column="eCode"/>
-		<result property="eName" column="eName"/>
-	</resultMap>
+	<resultMap type="sung.EmployeeVo" id="EmployeeMap"/>
+		
 	
 	<select id="req_select"  resultMap="documentMap" parameterType="sung.DocumentVo">
 		select * from document 
@@ -33,9 +31,15 @@
 		select * from employees where eCode=${eCode}
 	</select>
 	
+	<!-- 팝업창으로 사원 찾기 -->
+	<select id="searchEmp"  resultMap="EmployeeMap" parameterType="sung.EmployeeVo">
+		select * from employees where ePosition=#{ePosition}
+	</select>
 	
-	
-	
+		<!-- 팝업창으로 사원 찾기 ->사원개인의 개인정보 출력 -->
+	<select id="searchEmp2"  resultMap="EmployeeMap" parameterType="sung.EmployeeVo">
+		select * from employees where eCode=#{eCode}
+	</select>
 	
 	
 </mapper>

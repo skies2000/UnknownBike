@@ -69,6 +69,7 @@ function cate_func(sel){
 		
 		xhr.onreadystatechange=function(){
 			if(xhr.readyState == 4 && xhr.status == 200){
+				var hidden_frm  = document.getElementById('pro_content');
 				var txt = xhr.responseText;
 				var text = JSON.parse(txt);
 				
@@ -102,6 +103,7 @@ function cate_func(sel){
 	}
 	
 	function pro_subject(){
+		alert("작성완료버튼");
 		var xhr = new XMLHttpRequest();
 		var url = 'sales_req_input3.sung';
 		var frm = document.getElementById("pro_content");
@@ -109,22 +111,31 @@ function cate_func(sel){
 		var cate = $('.code2').text();
 		var code = $('.codeName2').text();
 		var ea = $('.ea2').text();
-	
+		var writer = 
+		
+		
 		//hidden에 저장하기
 		frm.list_cate.value = cate;
 		frm.list_code.value = code;
 		frm.list_ea.value = ea;
 		
+		
 		var formData = new FormData(frm);
-		xhr.open("post",url);
-		xhr.send(formData);
+		 xhr.open("post",url);
+		xhr.send(formData); 
 		
 	}
 	
 	function sign_popup1(){
-		window.open('sign_popup.sung','pop','resizeable=no','width=615,height=415, left=150, top=5');
+		var url = 'sign_popup.sung';
+		var popOption = "width=440, height=500,top=0, resizable=no, scrollbars=no, status=no";
+		window.open(url,"",popOption);
 	}
-	
+	function sign_popup2(){
+		var url = 'sign_popup_2.sung';
+		var popOption = "width=440, height=500,top=0, resizable=no, scrollbars=no, status=no";
+		window.open(url,"",popOption);
+	}	
 
 </script>
 
@@ -197,7 +208,7 @@ function cate_func(sel){
 					<div id='appro'>결&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp재</div>
 					<div id='writer'>${eList.eName }</div>
 					<div id='appro1' onclick = sign_popup1()>결재자1</div>
-					<div id='appro2'>결재자2</div>
+					<div id='appro2' onclick = sign_popup2()>결재자2</div>
 					<div id='stamp1'></div>
 					<div id='stamp2'></div>
 					<div id='stamp3'></div>
@@ -251,10 +262,22 @@ function cate_func(sel){
 			</div>
 		<form name='pro_content' id = 'pro_content' method='post' enctype= "multipart/form-data">
 			<div id='content'></div>
+			
+			
+			
+			<!-- db에 넣어줄 hidden들 -->
 			<input type='hidden' name='list_cate'>
 			<input type='hidden' name='list_code'>
 			<input type='hidden' name='list_ea'>
 			<input type='hidden' name='list_term'>
+			
+			<input type='hidden' name='input_writer' id='input_writer'>
+			<input type='hidden' name='appr_eCode1' id='appr_eCode1'> <!-- 결재자1 사원번호 -->
+			<input type='hidden' name='appr_eCode2' id='appr_eCode2'> <!-- 결재자2 사원번호 -->
+			<input type='hidden' name='input_term' id='input_term'>
+			<input type='hidden' name='input_date' id='input_date'>
+			<input type='hidden' name='input_srl' id='input_srl' value='srl'>
+			
 			<div id='sendBtn'>
 				<input type='button' value='작성완료' id='sl_btnSend' onclick='pro_subject()'>
 			</div>

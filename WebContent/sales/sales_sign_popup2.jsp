@@ -89,8 +89,8 @@ function cate_func2(sel){
 
 function Sendfunc(){
 	var frm = document.getElementById("frm");
-	window.opener.document.getElementById("appro1").innerHTML = frm.eName.value;
-	window.opener.document.getElementById("appr_eCode1").value = frm.eCode.value;
+	window.opener.document.getElementById("appro2").innerHTML = frm.eName.value;
+	window.opener.document.getElementById("appr_eCode2").value = frm.eCode.value;
 	self.close();
 }
 
