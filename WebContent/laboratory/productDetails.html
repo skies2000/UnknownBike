@@ -108,6 +108,10 @@
             position: relative;
             top: 1px;
         }
+        
+        #proDetails #serchPro{
+        	color: black;
+        }
 
     </style>
 
@@ -177,6 +181,15 @@
                     $("#laboratorResult").html(str);
                 }
             } 
+        }//end viewFunc()
+        function searchFunc(){
+        	var sp = document.getElementById("serchPro");
+        	if(sp.value==""){
+        		alert("검색어를 입력해 주세요");
+        		return;
+        	}
+        	
+        	
         }
 
     </script>
@@ -187,15 +200,14 @@
         <div id=proTitle>제품상세</div>
 
         <select id=proSelect>
-        <option value="">선택해주세요</option>
         <option value="">전체</option>
         <option value="">제품명</option>
     
   
         
     </select>
-        <input type='text' placeholder="검색어를 입력해주세요." />
-        <a href="#" class="myButton buttonBoder">검색</a>
+        <input id="serchPro" type='text' placeholder="검색어를 입력해주세요." />
+        <a href="#" class="myButton buttonBoder" onclick="searchFunc()">검색</a>
         <hr/>
   
   	<div id = "pdListResult"></div>

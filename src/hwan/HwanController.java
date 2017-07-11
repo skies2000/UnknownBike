@@ -3,6 +3,7 @@ package hwan;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -84,7 +85,8 @@ public class HwanController {
 		MultipartRequest mul= null;
 		
 		
-		String uploadPath = req.getRealPath("images");
+		String uploadPath = req.getRealPath("images/");
+		System.out.println(uploadPath);
 		
 		
 		try{
@@ -138,6 +140,9 @@ public class HwanController {
 			out.print(jarr);
 	}
 	
+	
+	//제품 등록~~~~~~~~~~~~~~~!!!!!!!!!!!!!!!!
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/proInput.hwan", method = {RequestMethod.GET, RequestMethod.POST})
 	public void proInput(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
 		MultipartRequest mul = getMul(req);
@@ -145,8 +150,28 @@ public class HwanController {
 		HwanVo vo =  new HwanVo();
 		String[] pManArr = null;
 		String pManStr = "";
+		String[] mlmCode = null; //자재리스트 자재 코드
+		String[] mlmea = null;   //자재리스트 자재 수량
+		
+		mlmCode = mul.getParameterValues("mlmcode");
+		mlmea = mul.getParameterValues("mlmea");
+		
+		Enumeration<String> files = mul.getFileNames();
+		if(files.hasMoreElements()){
+			String file = files.nextElement();
+			System.out.println("image name : "+mul.getFilesystemName(file));
+			vo.setPimage(mul.getFilesystemName(file));
+		}
 		
 		
+		
+		System.out.println("mlistCode : "+Arrays.toString(mlmCode));
+		System.out.println("mlistEa: "+Arrays.toString(mlmea));
+		
+		
+		
+		
+		vo.setDcont(mul.getParameter("dcont"));
 		vo.setDname(mul.getParameter("dname"));
 		vo.setPname(mul.getParameter("pname"));
 		vo.setPdev((String)session.getAttribute("user"));
