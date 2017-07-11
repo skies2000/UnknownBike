@@ -19,7 +19,7 @@
 		<result property="mdate" column="mdate" />
 		<result property="mstate" column="mstate" />
 		<result property="mdev" column="mdev" />
-		<result property="minage" column="minage" />
+		<result property="mimage" column="mimage" />
 
 	</resultMap>
 	<select id="matList" resultMap="matListMap">
