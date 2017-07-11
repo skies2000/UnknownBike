@@ -29,6 +29,13 @@ public class SoVo {
 	String dCate;
 	
 	
+	//employees
+	
+	private int eCode;
+	private String eName;
+	private int eDepart;
+	private int ePosition;
+	
 	
 	public int getmCode() {
 		return mCode;
@@ -302,6 +309,62 @@ public class SoVo {
 
 	public void setFindStr(String findStr) {
 		this.findStr = findStr;
+	}
+
+
+
+
+	public int geteCode() {
+		return eCode;
+	}
+
+
+
+
+	public void seteCode(int eCode) {
+		this.eCode = eCode;
+	}
+
+
+
+
+	public String geteName() {
+		return eName;
+	}
+
+
+
+
+	public void seteName(String eName) {
+		this.eName = eName;
+	}
+
+
+
+
+	public int geteDepart() {
+		return eDepart;
+	}
+
+
+
+
+	public void seteDepart(int eDepart) {
+		this.eDepart = eDepart;
+	}
+
+
+
+
+	public int getePosition() {
+		return ePosition;
+	}
+
+
+
+
+	public void setePosition(int ePosition) {
+		this.ePosition = ePosition;
 	}
 	
 	

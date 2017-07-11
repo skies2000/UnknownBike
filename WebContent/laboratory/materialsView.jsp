@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!doctype html>
 <html>
 <head>
@@ -18,6 +20,12 @@
             border: 1px solid #aaa;
              
         }
+     /*    #mViewDiv td span{
+        	text-align: center;
+        	display: inline-block;
+        	margin-left: auto;
+        	margin-right: auto;
+        } */
         
 
     </style>
@@ -32,16 +40,16 @@
 
     <form>
         <div>
-            <img src="../images/yyh_empImage30002.jpg">
+            <img src="../images/purchaseimg/${vo.mimage}" width="300px" height="200px">
             <table>
             <tr>
-                <td>작성자</td>
+                <td><span>작성자</span></td>
                 <td>자재명</td>
-                <td>결재승인자1</td>
+                <td>결재승인자</td>
             </tr>
             <tr>
-                <td>아무개</td>
-                <td>ggee</td>
+                <td>${vo.mdev}</td>
+                <td>${vo.mname}</td>
                 <td>유재석</td>
             </tr>
             
@@ -51,19 +59,17 @@
                 <td>결재승인자2</td>
             </tr>
             <tr>
-                <td>5000원</td>
-                <td>핸들</td>
+                <td>${vo.mprice}</td>
+                <td>${vo.mcate}</td>
                 <td>강호동</td>
             </tr>
             <tr>
-                <td>작성일</td>
-                <td>제품생산기간</td>
-                <td>결재승인상태</td>
+                <td colspan="2">작성일</td>
+               <td>결재승인상태</td>
             </tr>
             <tr>
-                <td>2017.06.04</td>
-                <td>22시간</td>
-                <td>승인대기</td>
+                <td colspan="2">${vo.mdate}</td>
+                <td>${vo.mstate}</td>
             </tr>
         </table>
             
