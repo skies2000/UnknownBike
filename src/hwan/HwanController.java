@@ -181,7 +181,7 @@ public class HwanController {
 		}else{
 			r = -1;
 		}
-		out.print(-1);
+		out.print(r);
 	}
 	
 	@RequestMapping(value="/loginCheck.hwan",method={RequestMethod.GET})
@@ -232,5 +232,46 @@ public class HwanController {
 		}
 	}
 	
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/pdList.hwan",method={RequestMethod.GET})
+	public void pdList(HttpServletResponse resp){
+		PrintWriter out = getOut(resp);
+		List<HwanVo> list = dao.proList();
+		
+		
+		
+		JSONArray jarr = new JSONArray();
+		
+		for(int i=0;i<list.size();i++){
+			
+			JSONObject jobj = new JSONObject();
+			
+			jobj.put("pname", list.get(i).getPname());
+			jobj.put("pstatus", list.get(i).getPstatus());
+			jobj.put("pcode", list.get(i).getPcode());
+			jobj.put("pdev", list.get(i).getPdev());
+			jobj.put("pdate", list.get(i).getPdate());
+			jobj.put("pimage", list.get(i).getPimage());
+			
+			jarr.add(jobj);
+		}
+		out.print(jarr);
+	}
+	@RequestMapping(value="/proView.hwan",method = {RequestMethod.POST})
+	public Object proView(HttpServletRequest req){
+		ModelAndView mv = new ModelAndView();
+		MultipartRequest mul = getMul(req);
+		HwanVo vo = new HwanVo();
+		vo.setPcode(Integer.parseInt(mul.getParameter("pcode")));
+		
+		vo = dao.proView(vo);
+		
+		mv.setViewName("/laboratory/productView.jsp");
+		mv.addObject("vo",vo);
+		
+		
+		return mv;
+	}
 	
 }

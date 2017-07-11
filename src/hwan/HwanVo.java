@@ -13,10 +13,68 @@ public class HwanVo {
 	String eimage;
 	
 	//product table
-	int pcate;
-	String pdev;
+	int pcode;
 	String pname;
+	int pea;
+	int pcost;
+	int pprice;
+	String pdev;
+	int pcate;
+	int pstatus;
+	String pdate;
+	String pimage;
+	int pmanhour;
 
+	
+	
+	public int getPea() {
+		return pea;
+	}
+	public void setPea(int pea) {
+		this.pea = pea;
+	}
+	public int getPcost() {
+		return pcost;
+	}
+	public void setPcost(int pcost) {
+		this.pcost = pcost;
+	}
+	public int getPprice() {
+		return pprice;
+	}
+	public void setPprice(int pprice) {
+		this.pprice = pprice;
+	}
+	public int getPmanhour() {
+		return pmanhour;
+	}
+	public void setPmanhour(int pmanhour) {
+		this.pmanhour = pmanhour;
+	}
+	public String getPimage() {
+		return pimage;
+	}
+	public void setPimage(String pimage) {
+		this.pimage = pimage;
+	}
+	public int getPcode() {
+		return pcode;
+	}
+	public void setPcode(int pcode) {
+		this.pcode = pcode;
+	}
+	public String getPdate() {
+		return pdate;
+	}
+	public void setPdate(String pdate) {
+		this.pdate = pdate;
+	}
+	public int getPstatus() {
+		return pstatus;
+	}
+	public void setPstatus(int pstatus) {
+		this.pstatus = pstatus;
+	}
 	//document table
 	String dWrite;
 	String dname;

@@ -1,3 +1,4 @@
+
 <!doctype html>
 
 <html>
@@ -18,7 +19,7 @@
     	});
     	
         function docConInputBtn() {
-            window.open("pDoc.hwan", "", "height=400px, width=600px");
+            window.open("../laboratory/documentContentInput.html", "", "height=400px, width=600px");
         }
 
         function mlist_input() {
@@ -41,7 +42,7 @@
         		if(xhr.readyState == 4 && xhr.status == 200){
         			var txt = xhr.responseText;
         			if(txt=="1"){
-        				alert("정상적으로 등록되었습니다.");
+        				alert("정상적*.");
         				var xhr2 = new XMLHttpRequest();
         	        	xhr2.open("get","../laboratory/laboratoryHome.html");
         	        	xhr2.send();
@@ -171,11 +172,14 @@
 
     <div id=piBody>
         <form id="proInFrm" method="post" enctype="multipart/form-data">
-        <div id = "appResult"> <!--결재자 팝업창에서 선택된 사원 리스트의 결과라 입력될 곳   -->
+        <div id = "appResult"> <!--결재자 팝업창에서 선택된 사원 리스트의 결과가 input[hidden]형태로 생성될 곳   -->
         </div>
         
-        <div id = "docResult">
+        <div id = "docResult"> <!--문서내용 팝업창에서 작성한 값이 input[hidden]형태로 생성될 저장될 곳  -->
         </div>
+        <div id = "mListResult"><!--자재리스트 입력 팝업창에서 선택된 자재 리스트의 결과가 input[hidden]형태로 생성될 저장될 곳  -->
+        </div>
+        
 
             <div id='title'>제품등록</div>
             <hr/>
@@ -204,12 +208,12 @@
                 </tr>
                 <tr>
                     <td>
-                        <a href="#" class="myButton" onClick="mlist_input()">자재리스트 등록</a>
+                        <a href="#" class="myButton" id = "mListInputId" onClick="mlist_input()">자재리스트 등록</a>
 
                     </td>
                     <td>
 
-                        <a href="#" class="myButton" onClick="docConInputBtn()">문서 내용 입력</a>
+                        <a href="#" class="myButton" id = "docConId" onClick="docConInputBtn()">문서 내용 입력</a>
                     </td>
                 </tr>
                 <tr>

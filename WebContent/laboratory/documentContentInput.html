@@ -63,6 +63,7 @@
         <script>
 
         function docInput() {
+        	if(!confirm("등록 하시겠습니까?")) return;
         	
         var dci = document.getElementById("dciContent");
         var doc = window.opener.document.getElementById("docResult");
@@ -72,6 +73,7 @@
         input_h.setAttribute("value", dci.value);
         doc.appendChild(input_h);
         alert("정상적으로 입력 되었습니다.");
+        window.opener.document.getElementById("docConId").innerHTML="문서 내용 등록 완료(수정)";
         self.close();
         }
         </script>

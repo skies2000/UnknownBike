@@ -19,6 +19,7 @@ public class kimHaDao {
 		return list;
 	}
 	
+	//문서
 	public int docInput(kimHaVo vo){
 		int r = 0;
 		try{
@@ -47,7 +48,7 @@ public class kimHaDao {
 	//Details
 	public List<kimHaVo> matList(){
 		List<kimHaVo> list = null;
-		//kimHa.DB.xml 의 namespace !!! . id값!(kimHaDB.xml의 select id)
+		//kimHa.DB.xml ??namespace !!! . id媛?(kimHaDB.xml??select id)
 		list = session.selectList("kimHadb.matList");
 		return list;
 	}
