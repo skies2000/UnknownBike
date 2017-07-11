@@ -167,17 +167,13 @@ public class kimHaController {
 	// view
 	@RequestMapping(value = "/matView.kimHa", method = { RequestMethod.GET, RequestMethod.POST })
 	public Object matView(HttpServletRequest req) {
-		kimHaVo vo = new kimHaVo();
+		ModelAndView mv = new ModelAndView();
 		MultipartRequest mul = getMul(req);
+		kimHaVo vo = new kimHaVo();
 		vo.setMcode(Integer.parseInt(mul.getParameter("mcode")));
 		vo = dao.matView(vo);
-		
-		System.out.println(vo.mcode);
-		System.out.println(vo.mname);
-		System.out.println(vo.mdev);
-		
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/laboratory/materialsView.html");
+		mv.setViewName("/laboratory/materialsView.jsp");
+		mv.addObject("vo",vo);
 		return mv;
 	}
 
