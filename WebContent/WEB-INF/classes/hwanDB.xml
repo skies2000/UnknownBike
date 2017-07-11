@@ -49,11 +49,11 @@
 	
 	
 	<insert id="docInput" parameterType="hwan.HwanVo">
-	insert into document(dcode,dname,ddate, dwrite, dSign, dStatus) values(5555,#{dname},sysdate, #{dWrite}, #{dSign},#{dStatus})
+	insert into document(dcode,dname,ddate, dwrite, dSign, dStatus, dcont) values(5555,#{dname},sysdate, #{dWrite}, #{dSign},#{dStatus},#{dcont})
 	</insert>
 	
 	<insert id="proInput" parameterType="hwan.HwanVo">
-	insert into product(pcode,pname,pea,pdev,pcate,pstatus,pdate) values(10012,#{pname},0,#{pdev},#{pcate},0,sysdate)
+	insert into product(pcode,pname,pea,pdev,pcate,pstatus,pdate,pimage) values(10012,#{pname},0,#{pdev},#{pcate},0,sysdate,#{pimage})
 	</insert>
 	
 	<select id = "proInputMatList" resultMap="proInMatMap">

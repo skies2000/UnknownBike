@@ -2,6 +2,8 @@ package so;
 import java.util.ArrayList;
 import java.util.List;
 import myba.UnknownFactory;
+import sung.EmployeeVo;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.type.IntegerTypeHandler;
 
@@ -39,4 +41,32 @@ public class SoDao {
 		return list;
 		
 	}
+	
+	
+	//popup창에서 카테고리선택->이름 출력
+	public List<SoVo> empSearch(SoVo vo) {
+		List<SoVo> list = null;
+		try{
+			list = session.selectList("sodb.searchEmp", vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	//popup창에서 이름선택->사원정보 띄우기
+	public List<SoVo> empSearch2(SoVo vo) {
+		List<SoVo> list = null;
+		try{
+			list = session.selectList("sodb.searchEmp2", vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	
+	
 }
+	

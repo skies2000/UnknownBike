@@ -35,4 +35,15 @@
     	
  </select>
 
+	<!-- 팝업창으로 사원 찾기 -->
+	<select id="searchEmp"  resultMap="voMap" parameterType="so.SoVo">
+		select * from employees where ePosition=#{ePosition}
+	</select>
+	
+		<!-- 팝업창으로 사원 찾기 ->사원개인의 개인정보 출력 -->
+	<select id="searchEmp2"  resultMap="voMap" parameterType="so.SoVo">
+		select * from employees where eCode=#{eCode}
+	</select>
+
+
 </mapper>

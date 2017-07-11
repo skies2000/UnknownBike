@@ -12,7 +12,7 @@
 function cate_func(sel){
 	
 	var xhr = new XMLHttpRequest();
-	var url = 'sign_popup2.sung';
+	var url = 'sign_popup2.so';
 	var frm = document.getElementById("frm");
 	//select값을 this로 가져옴
 	var cate = sel.options[sel.options.selectedIndex].value;
@@ -38,7 +38,7 @@ function cate_func(sel){
 				sel2.options[i]=null;
 			  }
 			for(var i=0; i<jData.length;i++){
-				var op = document.createElement("option");//select option을 계속 생성
+				var op = document.createElement("option");
 				op.text=jData[i].eName;
 				op.value=jData[i].eCode;
 				sel2.options.add(op);
@@ -49,7 +49,7 @@ function cate_func(sel){
 
 function cate_func2(sel){
 	var xhr = new XMLHttpRequest();
-	var url = 'sign_popup3.sung';
+	var url = 'sign_popup3.so';
 	var frm = document.getElementById("frm");
 	//select값을 this로 가져옴
 	var code = sel.options[sel.options.selectedIndex].value;
@@ -89,8 +89,8 @@ function cate_func2(sel){
 
 function Sendfunc(){
 	var frm = document.getElementById("frm");
-	window.opener.document.getElementById("appro1").innerHTML = frm.eName.value;
-	window.opener.document.getElementById("appr_eCode1").value = frm.eCode.value;
+	window.opener.document.getElementById("piappro2").innerHTML = frm.eName.value;
+	window.opener.document.getElementById("h_piappro2").value = frm.eCode.value;
 	self.close();
 }
 
@@ -100,6 +100,7 @@ function Sendfunc(){
 </head>
 <body>
 <form name='frm'  method='post' id='frm' enctype= "multipart/form-data">
+<br/>
 	<div id='head'>사원 찾기</div>
 	<div class='select'>
 	<div id='sel1'>

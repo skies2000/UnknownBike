@@ -38,9 +38,9 @@
 	</c:forEach>
 </div>
 	
-	<div id='productResult'>
+	<!-- <div id='productResult'>
 		생상 요청서 조회<br/>
 		<a href='#' id='index.jsp?inc=../product/product_request_view.jsp'>상세 보기</a>
-	</div>	
+	</div>	 -->
 </body>
 </html>
