@@ -113,24 +113,71 @@
 
     <script>
         $(document).ready(function() {
-            $("#proDetails .pdList img").click(function() {
-                var xhr = new XMLHttpRequest();
-                var str = "";
-                xhr.open("get", "../laboratory/productView.html");
-                xhr.send();
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                        str = xhr.responseText;
-                        $("#laboratorResult").html(str);
-                    }
-                }
+        	var xhr = new XMLHttpRequest();
+        	var url = "../pdList.hwan";
 
-
-
-
-
-            });
+        	xhr.open("get",url);
+        	xhr.send();
+        	
+        	xhr.onreadystatechange = function(){
+        		if(xhr.readyState == 4 && xhr.status == 200){
+        			var txt = xhr.responseText;
+        			
+        			var jd = JSON.parse(txt);
+        			
+        			var resultDiv = document.getElementById("pdListResult");
+        			
+        			for(var i = 0; i<jd.length; i++){
+        				var d1 = document.createElement("div");
+        				var im = document.createElement("img");
+        				var span1 = document.createElement("span");
+        				var span2 = document.createElement("span");
+        				var span3 = document.createElement("span");
+        				var span4 = document.createElement("span");
+        				
+        				d1.setAttribute("class", "pdList");
+        				
+        				im.setAttribute("class", "proImg");
+        				im.setAttribute("src", "../images/"+jd[i].pimage);
+        				im.setAttribute("onclick", "viewFunc("+jd[i].pcode+")");
+        				
+        				span1.innerHTML = jd[i].pname;
+        				span1.setAttribute("class", "proModel");
+        				
+        				span2.innerHTML = jd[i].pdate;
+        				span3.innerHTML = jd[i].pstatus;
+        				span4.innerHTML = jd[i].pdev;
+        				
+        				d1.appendChild(im);
+        				d1.appendChild(span1);
+        				d1.appendChild(span2);
+        				d1.appendChild(span3);
+        				d1.appendChild(span4);
+        				
+        				resultDiv.appendChild(d1);
+        			}
+        			
+        		}
+        	}//end xhr.onreadystatechange
+        	
+            
         });
+        
+        function viewFunc(pcode) {
+            var xhr = new XMLHttpRequest();
+            var str = "";
+            var frm = document.getElementById("pddFrm");
+            frm.pcode.value = pcode;
+            var fd = new FormData(frm);
+            xhr.open("post", "../proView.hwan");
+            xhr.send(fd);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    str = xhr.responseText;
+                    $("#laboratorResult").html(str);
+                }
+            } 
+        }
 
     </script>
 </head>
@@ -151,36 +198,15 @@
         <a href="#" class="myButton buttonBoder">검색</a>
         <hr/>
   
-        <div class='pdList'>
-            <img src="../images/khk_RAMBLE2image.jpg" class="proImg">
-            <span class=proModel>모델명1</span>
-            <span>등록일</span>
-            <span>결재승인상태</span>
-            <span>최종등록자</span>
-        </div>
-
-        <div class='pdList'>
-            <img src="../images/khk_RAMBLE2image.jpg" class=proImg>
-            <span class=proModel>모델명1</span>
-            <span>등록일</span>
-            <span>결재승인상태</span>
-            <span>최종등록자</span>
-        </div>
-        <div class='pdList'>
-            <img src="../images/khk_RAMBLE2image.jpg" class=proImg>
-            <span class=proModel>모델명1</span>
-            <span>등록일</span>
-            <span>결재승인상태</span>
-            <span>최종등록자</span>
-        </div>
-        <div class='pdList'>
-            <img src="../images/khk_RAMBLE2image.jpg" class=proImg>
-            <span class=proModel>모델명1</span>
-            <span>등록일</span>
-            <span>결재승인상태</span>
-            <span>최종등록자</span>
-        </div>
-    </div>
+  	<div id = "pdListResult"></div>
+  	</div>
+  	
+  	<form id = "pddFrm" method="post" enctype="multipart/form-data">
+  	<input type='hidden' name="pcode">
+  	
+  	</form>
+  	
+  	
 </body>
 
 </html>

@@ -6,51 +6,62 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel='stylesheet' href='../category/sales_market_sale_input.css' />
+
+<style>
+#aaa{
+	border-bottom : 1px solid white;
+	height : 50px;
+	width : 100%;
+}
+
+</style>
+
+
 </head>
 <body>
 	<div id=category>
 		<jsp:include page="../category/submenuSales.jsp"></jsp:include>
 	</div>
 
-	<div id='SalesResult'>
+	<div id='sey_SalesResult'>
 
 
-		<div id='body'>
-			<div id='head'>
-				<div id='head1'></div>
-				<div id='head2'>판매 품의서</div>
-				<div id='head3'>
-					<div id='head3-1'>
-						<div id='head31'>문서분류</div>
-						<div id='head32'></div>
+		<div id='sey_body'>
+			<div id='sey_head'>
+				<div id='sey_head1'></div>
+				<div id='sey_head2'>판매 품의서</div>
+				<div id='sey_head3'>
+					<div id='sey_head3-1'>
+						<div id='sey_head31'>문서번호</div>
+						<div id='sey_head32'></div>
 					</div>
-					<div id='head3-2'>
-						<div id='head31'>작성자</div>
-						<div id='head32'></div>
+					<div id='sey_head3-2'>
+						<div id='sey_head31'>작성자</div>
+						<div id='sey_head32'></div>
 					</div>
-					<div id='head3-3'>
-						<div id='head31'>날짜</div>
-						<div id='head32'></div>
+					<div id='sey_head3-3'>
+						<div id='sey_head31'>날짜</div>
+						<div id='sey_head32'></div>
 					</div>
 				</div>
 			</div>
-			<div id='sign'>
-				<div id='sign1'>아래와 같이 판매품의 합니다.</div>
-				<div id='sign2'>
-					<div id='appro'>결&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp재</div>
-					<div id='writer'>작성자</div>
-					<div id='appro1'>결재자1</div>
-					<div id='appro2'>결재자2</div>
-					<div id='stamp1'></div>
-					<div id='stamp2'></div>
-					<div id='stamp3'></div>
-					<div id='date1'>2017.06.27</div>
-					<div id='date2'>2017.06.27</div>
-					<div id='date3'>2017.06.27</div>
+			<div id='sey_sign'>
+				<div id='sey_sign1'>아래와 같이 판매품의 합니다.</div>
+				<div id='sey_sign2'>
+					<div id='sey_appro'>결&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp재</div>
+					<div id='sey_writer'>작성자</div>
+					<div id='sey_appro1'>결재자1</div>
+					<div id='sey_appro2'>결재자2</div>
+					<div id='sey_stamp1'></div>
+					<div id='sey_stamp2'></div>
+					<div id='sey_stamp3'></div>
+					<div id='sey_date1'>2017.06.27</div>
+					<div id='sey_date2'>2017.06.27</div>
+					<div id='sey_date3'>2017.06.27</div>
 				</div>
 			</div>
-			<div id='classify'>
-				<div id='sel1'>
+			<div id='sey_classify'>
+				<div id='sey_sel1'>
 					<select>
 						<option selected>- 카테고리 -</option>
 						<option>외발자전거</option>
@@ -58,8 +69,7 @@
 						<option>세발자전거</option>
 					</select>
 				</div>
-				<div id='sel2'>
-
+				<div id='sey_sel2'>
 					<select>
 						<option selected>- Code -</option>
 						<option>a001</option>
@@ -67,38 +77,42 @@
 						<option>a003</option>
 					</select>
 				</div>
+				
 
-				<div id='add'>
-					<input type='button' value='추가' id='sl_btnInput'>
+
+				<div id='sey_add'>
+					<input type='button' value='추가' id='sey_sl_btnInput'>
 				</div>
 			</div>
-			<div id='subject'>
-				<span id='code'>제품코드</span>
-				<span id='codeName'>제품명</span> 
-				<span id='custom'>거래처</span>
-				<span id='ea'>수량</span>
-				<span id='unit'>단가</span>
-				<span id='total'>총액</span> 
-				<span id='saledate'>판매일자</span>
+			<div class='aa'></div>
+			
+			<div id='sey_subject'>
+				<span id='sey_code'>제품코드</span>
+				<span id='sey_codeName'>제품명</span> 
+				<span id='sey_custom'>거래처</span>
+				<span id='sey_ea'>수량</span>
+				<span id='sey_unit'>단가</span>
+				<span id='sey_total'>총액</span> 
+				<span id='sey_saledate'>판매일자</span>
 			</div>
-			<div id='sl_content'>
-				<div class='content_list'>
-					<span id='code'>a001</span>
-					<span id='codeName'>외발자전거-red</span> 
-					<span id='custom'>삼성생명</span> 
-					<span id='ea'>500</span> 
-					<span id='unit'>500,000</span>
-					<span id='total'>250,000,000</span> 
-					<span id='saledate'>2017-06-28</span>
-					<span id='del'>삭제</span>
+			<div id='sey_sl_content'>
+				<div class='sey_content_list'>
+					<span id='sey_code'>a001</span>
+					<span id='sey_codeName'>외발자전거-red</span> 
+					<span id='sey_custom'>삼성생명</span> 
+					<span id='sey_ea'>500</span> 
+					<span id='sey_unit'>500,000</span>
+					<span id='sey_total'>250,000,000</span> 
+					<span id='sey_saledate'>2017-06-28</span>
+					<span id='sey_del'>삭제</span>
 				</div>
 
 
 			</div>
 
 		</div>
-		<div id='sendBtn'>
-			<input type='button' value='작성완료' id='sl_btnSend'>
+		<div id='sey_sendBtn'>
+			<input type='button' value='작성완료' id='sey_sl_btnSend'>
 		</div>
 
 	</div>

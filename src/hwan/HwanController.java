@@ -1,12 +1,16 @@
 package hwan;
 
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 @Controller
 public class HwanController {
@@ -25,61 +30,39 @@ public class HwanController {
 
 	
 	public HwanController(HwanDao dao){
+		
 		this.dao = dao;
+		
+		
 	}
-	@RequestMapping(value="login/login.hwan", method={RequestMethod.GET, RequestMethod.POST })
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/login.hwan", method={RequestMethod.GET, RequestMethod.POST })
 	public void login(HttpServletRequest req, HttpServletResponse resp){
-		resp.setCharacterEncoding("utf-8");
-		PrintWriter out = null;
+		PrintWriter out = getOut(resp);
 		List<HwanVo> list = dao.loginList();
-		StringBuffer sb = new StringBuffer();
-		sb.append("[");
+		JSONArray ja = new JSONArray();
 		try{
-			out = resp.getWriter();
 			
 			for(int i=0; i<list.size();i++){
-				sb.append("{'ecode':'"+list.get(i).ecode+"','epwd':'"+list.get(i).epwd+"'},");
+				JSONObject jo = new JSONObject();
+				jo.put("ecode", list.get(i).getEcode());
+				jo.put("epwd", list.get(i).getEpwd());
+				ja.add(jo);
 			}
-			sb.append("]");
-			String str = sb.toString();
-			str = str.replaceAll("'", "\"");
-			str = str.replaceAll(",]", "]");
-			out.print(str);
+			out.print(ja);
 		}catch(Exception e){ 
 			e.printStackTrace();
 		}
 	}
-	@SuppressWarnings("finally")
-	@RequestMapping(value="ajaxTest.hwan", method={RequestMethod.POST,RequestMethod.GET})
-	public Object ajaxTest(HttpServletRequest req){
-		ModelAndView mv = new ModelAndView();
-		MultipartRequest mul= null;
-		try{
-			mul = getMul(req);
-		mv.setViewName("testResult.jsp");
-		System.out.println("ajaxTest.hwan 실행");
-		System.out.println(mul.getParameter("text1"));
-		System.out.println(mul.getParameter("text2"));
-		System.out.println(mul.getParameter("text3"));
-		System.out.println(mul.getParameter("text4"));
-		mv.addObject("msg1",mul.getParameter("text1"));
-		mv.addObject("msg2",mul.getParameter("text2"));
-		mv.addObject("msg3",mul.getParameter("text3"));
-		mv.addObject("msg4",mul.getParameter("text4"));
-		}finally{ 
-			
-			return mv;
-		}
-	}
+
 	
-	@RequestMapping(value = "login/mainIndex", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "main/mainIndex.hwan", method = {RequestMethod.GET, RequestMethod.POST})
 	public Object mainIndex( HttpServletRequest req){
 		ModelAndView mv = new ModelAndView();
 		MultipartRequest mul = getMul(req);
 		HttpSession session =  req.getSession();
-		mv.setViewName("../main/index.jsp");
-		System.out.println("유저 아이디 : "+mul.getParameter("userid"));
-		System.out.println("유저 비밀번호 : "+mul.getParameter("userpwd"));
+		mv.setViewName("index.jsp");
 		session.setAttribute("user", mul.getParameter("userid"));
 		return mv;
 		
@@ -96,7 +79,7 @@ public class HwanController {
 	
 	
 	
-	@SuppressWarnings({ "finally", "deprecation" })
+	@SuppressWarnings({ "finally", "deprecation" })//MultipartiRequest생성 절차 메소드로 구성
 	public MultipartRequest getMul(HttpServletRequest req){
 		MultipartRequest mul= null;
 		
@@ -114,4 +97,181 @@ public class HwanController {
 		}
 		
 	}
+	@RequestMapping(value = "main/pDoc.hwan", method = {RequestMethod.GET, RequestMethod.POST})
+	public Object pDoc(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("../laboratory/documentContentInput.html");
+		return mv;
+	}
+	
+	@RequestMapping(value = "main/appOne.hwan", method = {RequestMethod.GET, RequestMethod.POST})
+	public Object appOne(){
+		ModelAndView mv = new ModelAndView();
+		List<HwanVo> list = null;
+		list =  dao.appList(); 
+		mv.setViewName("../laboratory/approveMan_one.jsp");
+		mv.addObject("obj",list);
+		return mv;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/appTwo.hwan", method = {RequestMethod.GET, RequestMethod.POST})
+	public void appTwo(HttpServletResponse resp){
+		PrintWriter out = getOut(resp);
+	
+		
+		List<HwanVo> list = null;
+		list = dao.appList();
+		JSONArray jarr = new JSONArray();
+		
+		
+		for(int i=0; i<list.size();i++){
+			
+			JSONObject json = new JSONObject();
+			json.put("ecode", list.get(i).getEcode());
+			json.put("ename", list.get(i).getEname());
+			json.put("eimage", list.get(i).getEimage());
+			
+			jarr.add(json);
+			
+		}
+			out.print(jarr);
+	}
+	
+	@RequestMapping(value = "/proInput.hwan", method = {RequestMethod.GET, RequestMethod.POST})
+	public void proInput(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
+		MultipartRequest mul = getMul(req);
+		PrintWriter out = getOut(resp);
+		HwanVo vo =  new HwanVo();
+		String[] pManArr = null;
+		String pManStr = "";
+		
+		
+		vo.setDname(mul.getParameter("dname"));
+		vo.setPname(mul.getParameter("pname"));
+		vo.setPdev((String)session.getAttribute("user"));
+		vo.setdWrite(vo.getPdev());
+		vo.setPcate(Integer.parseInt(mul.getParameter("pcate")));
+		pManArr = mul.getParameterValues("appMember");
+		pManStr = pManArr[0];
+		
+		for(int i=1; i<pManArr.length; i++){
+			pManStr+=","+pManArr[i];
+		}
+		vo.setdSign(pManStr);
+		vo.setdStatus(pManArr.length);
+		
+		
+		
+		System.out.println("pdev : "+vo.getPdev());
+		
+		System.out.println("arr : "+Arrays.toString(pManArr));
+		System.out.println("arr-len: "+pManArr.length);
+		System.out.println("str-split : "+pManStr);
+		
+		System.out.println("pcate : "+vo.getPcate());
+		
+	
+		
+		int r = 0;
+		String msg = "";
+		r = dao.proInput(vo);
+		if(r>0){
+			r = 1;
+		}else{
+			r = -1;
+		}
+		out.print(r);
+	}
+	
+	@RequestMapping(value="/loginCheck.hwan",method={RequestMethod.GET})
+	public void loginCheck(HttpSession session, HttpServletResponse resp){
+		PrintWriter out = getOut(resp);
+		
+		out.print(session.getAttribute("user"));
+		
+	}
+	@RequestMapping(value="/login/logout.hwan",method={RequestMethod.GET})
+	public Object logOut(HttpSession session){
+		
+		if(session.getAttribute("user") != null)
+			session.invalidate();
+		return "login.jsp";
+	}
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/pro_mat_List.hwan",method={RequestMethod.GET})
+	public void pro_mat_List(HttpServletResponse resp){
+			PrintWriter out = getOut(resp);
+			List<HwanVo>list = dao.proInputMatList();
+			JSONArray jArr = new JSONArray();
+			
+			for(int i=0; i<list.size();i++){
+				JSONObject jObj = new JSONObject();
+				jObj.put("mcode", list.get(i).getMcode());
+				jObj.put("mname", list.get(i).getMname());
+				jObj.put("mimage", list.get(i).getMimage());
+				
+				jArr.add(jObj);
+			}
+			out.print(jArr);
+	}
+	
+	
+	
+	@SuppressWarnings("finally")//out.print 쓰기위한 절차 메소드로 구성
+	public PrintWriter getOut(HttpServletResponse resp){
+		resp.setCharacterEncoding("utf-8");
+		PrintWriter out = null;
+		
+		try{
+			out = resp.getWriter();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			return out;
+		}
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/pdList.hwan",method={RequestMethod.GET})
+	public void pdList(HttpServletResponse resp){
+		PrintWriter out = getOut(resp);
+		List<HwanVo> list = dao.proList();
+		
+		
+		
+		JSONArray jarr = new JSONArray();
+		
+		for(int i=0;i<list.size();i++){
+			
+			JSONObject jobj = new JSONObject();
+			
+			jobj.put("pname", list.get(i).getPname());
+			jobj.put("pstatus", list.get(i).getPstatus());
+			jobj.put("pcode", list.get(i).getPcode());
+			jobj.put("pdev", list.get(i).getPdev());
+			jobj.put("pdate", list.get(i).getPdate());
+			jobj.put("pimage", list.get(i).getPimage());
+			
+			jarr.add(jobj);
+		}
+		out.print(jarr);
+	}
+	@RequestMapping(value="/proView.hwan",method = {RequestMethod.POST})
+	public Object proView(HttpServletRequest req){
+		ModelAndView mv = new ModelAndView();
+		MultipartRequest mul = getMul(req);
+		HwanVo vo = new HwanVo();
+		vo.setPcode(Integer.parseInt(mul.getParameter("pcode")));
+		
+		vo = dao.proView(vo);
+		
+		mv.setViewName("/laboratory/productView.jsp");
+		mv.addObject("vo",vo);
+		
+		
+		return mv;
+	}
+	
 }

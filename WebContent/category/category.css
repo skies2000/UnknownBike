@@ -6,26 +6,33 @@
   list-style: none;
   box-sizing: border-box;
 }
+
+
 body {
   font-family: arial, tahoma;
 }
 #uipgMenuWrap {
   margin: 0px auto;
+
 }
-#uipgMenuWrap .hover, #uipgMenuWrap li, #uipgMenuWrap li:before, #uipgMenuWrap a {
+
+/* 페이지 이동할때마다 메뉴깜빡거리는 현상 제거 (2017.07.04 황주희) */
+/* #uipgMenuWrap .hover, #uipgMenuWrap li, #uipgMenuWrap li:before, #uipgMenuWrap a {
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   -ms-transition: all 0.2s;
   -o-transition: all 0.2s;
   transition: all 0.2s;
-}
+} */
+
 #uipgMenuWrap.uipgD {
-  width: 50%;
+  width: 100%; 
   /*max-width:485px;*/
 }
 .uipgD .uipgMenu, .uipgD .uipgMenu ul {
-  float: left;
+ 
   display: block;
+  text-align: left;
 }
 .uipgD .uipgMenu {
   width: 100%;
@@ -152,4 +159,3 @@ body {
   color: #7e8389;
 
 }
-
