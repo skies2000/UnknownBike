@@ -39,6 +39,10 @@
 #result {
 	display: inline-block;
 	width: 100%;
-	height: 500px;
 	background-color: #999999;
+}
+
+input[type='text'] {
+	width: 150px;
+	height: 26px;
 }

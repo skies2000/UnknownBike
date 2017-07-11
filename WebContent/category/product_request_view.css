@@ -123,17 +123,15 @@
 /* ------------------생산요청목록-------------------- */
 
 #list_title{
-	height: 13%;
 	margin : 10px;
 }
 #list_content{
 	border : 1px solid white;
-	height: 87%;
-	padding : 5px;
+	margin : 10px;
 }
 #code{
 	display: inline-block;
-	width: 160px;
+	width: 150px;
 	text-align: center;
 }
 #codename{
@@ -148,6 +146,11 @@
 }
 #deadline{
 	display: inline-block;
-	width: 400px;
+	width: 280px;
+	text-align: center;
+}
+#set {
+	display: inline-block;
+	width: 110px;
 	text-align: center;
 }
