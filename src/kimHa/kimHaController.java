@@ -2,6 +2,7 @@ package kimHa;
 
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,7 +57,7 @@ public class kimHaController {
 	public MultipartRequest getMul(HttpServletRequest req) {
 		MultipartRequest mul = null;
 
-		String uploadPath = req.getRealPath("images");
+		String uploadPath = req.getRealPath("images/materialimg");
 
 		try {
 			mul = new MultipartRequest(req, uploadPath, 1024 * 10000, "utf-8", new DefaultFileRenamePolicy());
@@ -75,6 +76,14 @@ public class kimHaController {
 		ModelAndView mv = new ModelAndView();
 		PrintWriter out = getOut(resp);
 		MultipartRequest mul = getMul(req);
+		String mimage = "";
+
+		// 사진
+		Enumeration<String> files = mul.getFileNames(); // 파일의 이름을 알아내기 위한 절차.
+		if (files.hasMoreElements()) {
+			String file = files.nextElement();
+			mimage = mul.getFilesystemName(file); // file 안에 file 이름이 들어간다.
+		}
 
 		// 문서
 		kimHaVo vo = new kimHaVo();
@@ -101,15 +110,11 @@ public class kimHaController {
 		String mdev = (String) session.getAttribute("user"); // 작성자
 		int mcate = Integer.parseInt(mul.getParameter("mcate"));
 
-		System.out.println(mname);
-		System.out.println(mprice);
-		System.out.println(mdev);
-		System.out.println(mcate);
-
 		vo2.setMname(mname);
 		vo2.setMprice(mprice);
 		vo2.setMdev(mdev);
 		vo2.setMcate(mcate);
+		vo2.setMimage(mimage);
 
 		int r = 0;
 		r = dao.docInput(vo); // 문서
@@ -173,7 +178,7 @@ public class kimHaController {
 		vo.setMcode(Integer.parseInt(mul.getParameter("mcode")));
 		vo = dao.matView(vo);
 		mv.setViewName("/laboratory/materialsView.jsp");
-		mv.addObject("vo",vo);
+		mv.addObject("vo", vo);
 		return mv;
 	}
 

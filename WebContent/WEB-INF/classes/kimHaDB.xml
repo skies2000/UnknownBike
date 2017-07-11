@@ -42,7 +42,7 @@
 	<insert id="matInput" parameterType="kimHa.kimHaVo">
 		insert into
 		material(mcode,mname,mea,mprice,mdev,mcate,mstate,mdate,mimage)
-		values(20005,#{mname},0,#{mprice},#{mdev},#{mcate},0,sysdate,'F-03.jpg')
+		values(20005,#{mname},0,#{mprice},#{mdev},#{mcate},0,sysdate,#{mimage})
 
 	</insert>
 </mapper>
