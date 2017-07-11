@@ -1,8 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
 <!--임소영  -->
 <mapper namespace="sodb">
 
+<resultMap type="so.SoVo" id="voMap"/>
+
+ <select id='material_flist' resultMap="voMap" parameterType="so.SoVo">
+     	select * from material order by mCode 
+    	
+ </select>
+
+
+
+ <select id='material_list' resultMap="voMap" parameterType="so.SoVo">
+     	select * from material
+     
+     	<if test="mCate != null">
+     		where mCate = #{mCate} order by mCode 
+     	</if>
+    	
+ </select>
+
+ <select id='check_mlist' resultMap="voMap" parameterType="so.SoVo">
+     	select * from material where mCode = #{mCode}
+    	
+ </select>
+ 
+<!-- 문서요청서  -->
+ <select id='pdoc' resultMap="voMap" parameterType="so.SoVo">
+     	select * from document order by dCode
+    	
+ </select>
 
 </mapper>
