@@ -21,7 +21,7 @@
 	<div id='list'>
 		<!-- 요청서 리스트를 뿌려주는 곳 -->
 		<span class='list1'>문서번호</span>
-		<span class='list1'>제품코드</span> 
+		<span class='list1'>제품코드</span>
 		<span class='list1'>제품명</span> 
 		<span class='list3'>수량</span> 
 		<span class='list2'>작업라인</span> 

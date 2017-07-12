@@ -11,11 +11,22 @@
     <meta name="viewport" content="initial-scale=1.0">
 	<script>
 		
-	$('#proView a').click(function(){
+	$('#proView #mListFunc').click(function(){
 		window.open("../laboratory/materialsList.html","","height=500px, width=500px");	
 	});
 	
-	
+	$('#proView #backBtn').click(function(){
+		var xhr = new XMLHttpRequest();
+		xhr.open("get","../laboratory/productDetails.html");
+		xhr.send();
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				var txt = xhr.responseText;
+				$("#laboratorResult").html(txt);
+			}
+		}
+	});
+	 
 	</script>
 
     <style>
@@ -61,17 +72,15 @@
             position: relative;
             top: 1px;
         }
-    
-    
-    
      
         #proView {
-            width: 60%;
+        position: relative;
+            width: 300px;
             margin: auto;
         }
         #proView table{
             border: 1px solid #aaa;
-            border-spacing: 0px;
+            border-spacing: 0px; 
         }
         #proView table td{
             border: 1px solid #aaa;
@@ -86,6 +95,12 @@
         
         
         }
+        #proView #backBtn{
+        border: 1px solid white;
+        margin-left: 70%; 
+         } 
+         
+        
 
     </style>
 </head>
@@ -134,10 +149,10 @@
             </tr>
             <tr>
                 <td>${vo.pcate}</td>
-                <td colspan="2"><a class="myButton">자재리스트</a></td>        
+                <td colspan="2"><a class="myButton" id="mListFunc">자재리스트</a></td>        
             </tr>
         </table>
-        
+        <a href=# id = "backBtn" class = "myButton" >뒤로</a>
     </div>
 
 </body>

@@ -116,13 +116,14 @@
 		if(!confirm("선택하시겠습니까?")) return;
 		var ck = document.getElementsByClassName("memberCk");
 		var opele = window.opener.document.getElementById("appResult");
-		opele.innerHTML="";
+		opele.innerHTML = "";
 		var checkFlag = false;
 		var resultStr = "선택된 사원\n";
 		for(var i=0; i<ck.length;i++){
 			if(ck[i].checked==true)
 				{
 					var la = document.createElement("input");
+					alert(ck[i].value);
 					la.setAttribute("type", "hidden")
 					la.setAttribute("name", "appMember")
 					la.setAttribute("value", ck[i].value);

@@ -111,11 +111,15 @@
 	width: 60%;
 	margin: 0 auto;
 }
+
+#maDetails #matsearch {
+	color: black;
+}
 </style>
 
 <script>
 	//디테일 materialsDetails.html 
-	//controller로가서 자재 list를 가져옴
+	//controller로 가서 자재 list를 가져옴
 	$(document).ready(function() {
 		var xhr = new XMLHttpRequest();
 		var url = "../matList.kimHa";
@@ -143,7 +147,7 @@
 					img.setAttribute("class", "mdImg");
 					img.setAttribute("width", "300px");
 					img.setAttribute("height", "200px");
-					img.setAttribute("src", "../images/purchaseimg/" + json[i].mimage);
+					img.setAttribute("src", "../images/materialimg/" + json[i].mimage);
 					img.setAttribute("onclick", "viewFunc(" + json[i].mcode + ")");
 					span1.setAttribute("class", "mdModel");
 					span1.innerHTML = json[i].mname;
@@ -164,11 +168,6 @@
 			}
 		}
 
-
-
-
-
-
 	});
 
 	// 이미지를 클릭했을 때, view 로 넘어감.
@@ -176,17 +175,28 @@
 		var xhr = new XMLHttpRequest();
 		var str = "";
 		var frm = document.getElementById("mat_frm");
-		frm.mcode.value=mcode;
+		frm.mcode.value = mcode;
 		var fd = new FormData(frm);
-		
+
 		xhr.open("post", "../matView.kimHa");
 		xhr.send(fd);
-				
+
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState == 4 && xhr.status == 200) {
 				str = xhr.responseText;
 				$("#laboratorResult").html(str);
 			}
+		}
+
+	}
+
+	//검색
+
+	function mSearch() {
+		var matsearch = document.getElementById("matsearch");
+		if (matsearch.value == "") {
+			alert("검색어를 입력해주세요.");
+			return;
 		}
 
 	}
@@ -201,13 +211,12 @@
 
 			<select id=maSelect>
 
-				<option value="">선택해주세요</option>
 				<option value="">전체</option>
 				<option value="">모델명</option>
 
 
-			</select> <input type='text' placeholder="검색어를 입력해주세요." /> <a href="#"
-				class="myButton buttonBoder">검색</a>
+			</select> <input type='text' id='matsearch' placeholder="검색어를 입력해주세요." /> <a
+				href="#" class="myButton buttonBoder" onclick="mSearch()">검색</a>
 
 			<hr />
 			<div id="matListResult"></div>

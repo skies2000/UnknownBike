@@ -24,9 +24,28 @@ public class HwanVo {
 	String pdate;
 	String pimage;
 	int pmanhour;
+	
+	//document table
+	String dWrite;
+	String dname;
+	String dSign;
+	int dStatus; 
+	String dcont;
+	
+	
+	//metarial table
+	String mcode;
+	String mname;
+	String mimage;
 
 	
 	
+	public String getDcont() {
+		return dcont;
+	}
+	public void setDcont(String dcont) {
+		this.dcont = dcont;
+	}
 	public int getPea() {
 		return pea;
 	}
@@ -75,17 +94,7 @@ public class HwanVo {
 	public void setPstatus(int pstatus) {
 		this.pstatus = pstatus;
 	}
-	//document table
-	String dWrite;
-	String dname;
-	String dSign;
-	int dStatus; 
-	
-	
-	//metarial table
-	String mcode;
-	String mname;
-	String mimage;
+
 	
 	
 	public String getMcode() {

@@ -8,8 +8,6 @@
 <title>Insert title here</title>
 </head>
 <style>
-
-
 #headereff {
    width: 100%;
 }
@@ -86,10 +84,20 @@
    font-size: 15pt;
    text-align: left;
 }
-
 </style>
+<script type="text/javascript">
 
+function start() {
+	var frm = document.frm;
+	var btnS = frm.getElementById("btnSearch");
+	alert("1");
+	btnS.onclick = function () {
+		alert("2");
+	}
+	
+}
 
+</script>
 <body>
 <form name='frm' method='post'>
    <div id=category>
@@ -144,11 +152,10 @@
    </div>
          
          
-      
-      
-      
-      
    </div>
 </form>
+
+<script type="text/javascript">start()</script>	
+
 </body>
 </html>
