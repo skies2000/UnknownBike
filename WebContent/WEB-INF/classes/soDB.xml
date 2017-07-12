@@ -10,22 +10,28 @@
 
  <select id='material_flist' resultMap="voMap" parameterType="so.SoVo">
      	select * from material order by mCode 
-    	
  </select>
 
 
 
  <select id='material_list' resultMap="voMap" parameterType="so.SoVo">
-     	select * from material
-     
+     	select * from material 
      	<if test="mCate != null">
      		where mCate = #{mCate} order by mCode 
-     	</if>
-    	
+     	</if>    	
  </select>
 
+	<select id='material_nlist' resultMap="voMap" parameterType="so.SoVo">
+     	 <![CDATA[ 
+     	 select * from material where mEa <= 50 order by mCode
+     	 ]]>
+ 	</select>
+ 	
+ 	<select id='material_slist' resultMap="voMap" parameterType="so.SoVo">
+     	 
+     	 select * from material where mCode = #{findStr}
+     	 
+ 	</select>
+ 
 
-
-
-
-</mapper>
+</mapper>	

@@ -55,8 +55,20 @@ public class SoController {
 		return mv;
 	}
 	
+@RequestMapping(value="login/needcate.so", method={RequestMethod.GET, RequestMethod.POST })
+	public Object needcate(){
+		SoVo vo = new SoVo(); 
+		ModelAndView mv = new ModelAndView();		
+		
+		List<SoVo> list2 = dao.nMetarial(vo);
+				
+		mv.addObject("list",list2);
+		
+		mv.setViewName("../main/index.jsp?inc=../purchase/purchase_home.jsp");
 	
-	
+	    //index.jsp?inc=./board/purchase_home.jsp
+		return mv;
+	}
 	
 	//Purchase_Input
 	@RequestMapping(value="login/purinput.so", method={RequestMethod.GET, RequestMethod.POST })
@@ -94,4 +106,14 @@ public class SoController {
 		return mv;
 	}
 	
+	@RequestMapping(value="login/pursearch.so", method={RequestMethod.GET, RequestMethod.POST })
+	public Object goSearch(SoVo vo){
+		ModelAndView mv = new ModelAndView();	
+		
+		List<SoVo> list = dao.sMetarial(vo);
+		mv.addObject("list",list);
+		mv.setViewName("../main/index.jsp?inc=../purchase/purchase_home.jsp");	
+	    //index.jsp?inc=./board/purchase_home.jsp
+		return mv;
+	}
 	}

@@ -5,9 +5,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-
+	
 <html>
 	<head>
+	<link rel='stylesheet' href='../purchase/purchase_modal.css' />
+	<script src='../jq_lib/jquery-3.2.1.min.js'></script>
 		<script>	
 		
 			function gowheel(mCate){
@@ -17,17 +19,33 @@
 				frm.submit();
 				}
 			function wholewheel(){
-				var frm = document.frm;
+				var frm = document.frm;	
 				frm.action = 'purhome.so';
 				frm.submit();
 				}
-			function purbuy(){
-				var frm = document.frm;
-				frm.
+			function needwheel(){
+				var frm = document.frm;		
+				frm.action = 'needcate.so';
+				frm.submit();
 				}
-			
-			
+			function pursearch(){
+				var frm1= document.frm1;
+				frm1.action = 'pursearch.so';
+				frm1.submit();					
+				}				
+			//여러개일때...		
+			function purch_img(abc){
+				var modal = document.getElementById('myModal');
+				modal.style.display = "block";
+				}
+			window.onclick = function(event) {
+				var modal = document.getElementById('myModal');
+			    if (event.target == modal) {
+			        modal.style.display = "none";
+			    }
+			} 
 		</script>
+		
 		
 		
 		<title>Page Title</title>
@@ -55,8 +73,7 @@
 		*/
 	}
 
-	#purchase_home_btn{
-		
+	#purchase_home_btn{		
 		text-align: center;
 	}
 	.phcate {
@@ -101,13 +118,31 @@
 		text-align: center;
 		*/
 	}
+	
+	#pur_search{
+		text-align: right;
+		margin-bottom: 15px;
+	}
+	
+	
+	
+	
 	</style>
 	</head>
     
 	<body>
+	
+
 	<div id=category>
 		<jsp:include page="../category/submenuPurchase.jsp"></jsp:include>
 	</div>
+	<form name='frm1' method='post'>
+	<div id=pur_search>
+	<input type="text" style="height:25px;" size="25" name="findStr"><span id='purchase_src_btn'>
+		<a href='#' id='plok' class='pibutton' onclick="pursearch()">검색 </a>		
+		</span>		
+	</div>
+	</form>
     <!-- 카테고리 영역 -->
     <div id=pur_home_category>
    		<a href="#" onclick="wholewheel()"><span class='phcate'>전체</span></a>
@@ -128,7 +163,7 @@
     	<span class='phbar'>ㅣ</span>   
     	<a href="#" onclick="gowheel(8)"><span class='phcate'>페달</span></a>
     	<span class='phbar'>ㅣ</span>   
-    	<a href="#" onclick="purbuy()"><span class='phcate_need'>구매필요</span></a>
+    	<a href="#" onclick="needwheel()"><span class='phcate_need'>구매필요</span></a>
     </div>
     
     
@@ -142,15 +177,16 @@
 		
 		<div class='phviewitem'>
 		
-		<%-- 여기 로긴어떻게 나눠줄까요오오오오오 (2017.07.07 황주희)
-		<c:if test="${vo.}"> --%>
+		
 			<div id='phcheckbox'>
 			<input type="checkbox">
 			</div>
 			<!-- 이미지부분 -->
 			<div class='phviewimg'>
-			<img id='purimg' src='../images/purchaseimg/${vo.mImage }'><br/>
-			</div>
+			
+			<img id='purimg' src='../images/purchaseimg/${vo.mImage }' onclick="purch_img(this)"><br/></a>
+			</div>			
+			
 			<!-- 설명부분 -->
 			<span class='phviewtxt'>
 				자재코드: ${vo.mCode }<br/>
@@ -164,7 +200,7 @@
 			
 				
 			</span>
-		<%-- </c:if>		 --%>
+		
 		</div>
 		
 		</c:forEach> 
@@ -181,5 +217,27 @@
 	<form name='frm' method='post'>
 		<input type='hidden' name='mCate'>
 	</form>
+	
+	<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      
+      <h2>상세 제품 정보</h2>
+    </div>
+    <div class="modal-body">
+		<span class='phviewtxt'>
+		
+		</span>
+    </div>
+
+  </div>
+
+</div>		
+	
+	
+	
 	</body>
 </html>
