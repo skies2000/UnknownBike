@@ -10,7 +10,7 @@ public class PurListVo {
 	private int dWrite = 0;
 	private String dSign;
 	private int dStatus = 0;
-	private String dCate;
+	private String dCate = "";
 	
 	// srList table
 	private int srlCode = 0;
@@ -23,7 +23,7 @@ public class PurListVo {
 	
 	// product
 	private int pCode = 0;
-	private String pName;
+	private String pName = "";
 	private int pCate = 0;
 	private int pCost = 0;
 	private String pDate;
@@ -33,7 +33,7 @@ public class PurListVo {
 	
 	// material
 	private int mCode = 0;
-	private String mName;
+	private String mName = "";
 	private int mCate = 0;
 	private int mPrice = 0;
 	private String mDate;

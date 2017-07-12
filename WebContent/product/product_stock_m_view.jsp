@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<img src="../images/purchaseimg/${vo.mImage }">
+<img src="../images/purchaseimg/${vo.mImage }" style="width: 600px; height:auto;">
 
 </body>
 </html>

@@ -40,7 +40,7 @@ function saveData() {
 		<label>제품명</label>
 		<span>${vo.pName }</span><br>
 		<label>수량</label>
-		<span class='test444'>1${vo.srlEa }</span><br>
+		<span class='test444'>${vo.srlEa }</span><br>
 		<label>작업 라인</label>
 		<select name="workLine">
 			<option selected>1라인</option>

@@ -18,14 +18,14 @@ function purList() {
 
 // 제품 재고 조회
 function stockP() {
-	var frm = document.frm;
+	var frm = document.frm2;
 	frm.action = 'listP.hoon';
 	frm.submit();
 }
 
 // 자재 재고 조회
 function stockM() {
-	var frm = document.frm;
+	var frm = document.frm2;
 	frm.action = 'listM.hoon';
 	frm.submit();
 }
@@ -55,5 +55,7 @@ function stockM() {
 	<form name='frm' method='post'>
 		<input type='hidden' name='dCate'>
 	</form>
+	<!-- hidden에 값을 넘겨야되는 메뉴는 frm으로, 넘길 필요 없는 메뉴는 frm2로 -->
+	<form name='frm2' method='post'></form>
 </body>
 </html>
