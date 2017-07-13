@@ -28,5 +28,10 @@ public class SoDao {
 		List<SoVo> list2 = session.selectList("sodb.material_slist", vo);
 		return list2;
 	}
+	
+	public SoVo dMetarial(SoVo vo){
+		SoVo list = session.selectOne("sodb.material_dlist", vo);
+		return list;
+	}
 
 }

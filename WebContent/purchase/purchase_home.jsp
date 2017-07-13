@@ -37,7 +37,76 @@
 			function purch_img(abc){
 				var modal = document.getElementById('myModal');
 				modal.style.display = "block";
+				var purfrm = document.getElementById("purhome_form");
+				purfrm.mCode.value = abc;
+				var abcabc = new FormData(purfrm);
+				var abcxml = new XMLHttpRequest();
+				abcxml.open("post","../detailinfo.so");
+				abcxml.send(abcabc);
+				abcxml.onreadystatechange = function(){
+					if(abcxml.readyState == 4 && abcxml.status == 200){
+							var deff = abcxml.responseText;
+							var deff2 = JSON.parse(deff);
+
+							var productDetailInfoDiv = document.getElementById("productDetailInfoDiv");
+
+							var phviewitemDiv = document.createElement("div");
+
+							var phcheckboxDiv = document.createElement("div");
+							var phcheckbox = document.createElement("input");
+
+							var imgDiv = document.createElement("div");
+							var img = document.createElement("img");
+							
+							var phviewtxtSpab = document.createElement("span");
+
+							var phstatusSpan = document.createElement("span");
+
+							
+							phviewitemDiv.setAttribute("class", "phviewitem");
+							
+							imgDiv.setAttribute("class", "phviewimg");
+							img.setAttribute("src", "../images/purchaseimg/"+deff2[0].mImage);
+							img.setAttribute("id", "purimg");
+							
+							phcheckboxDiv.setAttribute("class", "phcheckbox");
+							phcheckbox.setAttribute("type", "checkbox");
+							
+							
+							phviewtxtSpab.setAttribute("class", "phviewtxt");
+
+
+							
+							phviewtxtSpab.innerHTML="자재코드:"+deff2[0].mCode;
+							phviewtxtSpab.appendChild(document.createElement("br"));
+							phviewtxtSpab.innerHTML+="자재명:"+deff2[0].mName;
+							phviewtxtSpab.appendChild(document.createElement("br"));
+
+
+							
+							phstatusSpan.innerHTML=deff2[0].mEa+"개";
+							phstatusSpan.setAttribute("class", "phstatus");
+							if(deff2[0].mEa<=50){
+								phstatusSpan.setAttribute("style","color:#a6827e");
+							}else{
+								phstatusSpan.setAttribute("style","color:white");
+							}
+
+
+							phcheckboxDiv.appendChild(phcheckbox);
+							imgDiv.appendChild(img);
+
+							phviewitemDiv.appendChild(phcheckboxDiv);
+							phviewitemDiv.appendChild(imgDiv);
+							phviewitemDiv.appendChild(phviewtxtSpab);
+							phviewitemDiv.appendChild(phstatusSpan);
+
+							productDetailInfoDiv.appendChild(phviewitemDiv);
+							
+						}
+					}
 				}
+			
 			window.onclick = function(event) {
 				var modal = document.getElementById('myModal');
 			    if (event.target == modal) {
@@ -125,6 +194,15 @@
 	}
 	
 	
+	/*상세 제품 정보에 추가되는 내용이 새로로 추가가 되서 가로로 추가 되게 css 먹여봄  */
+	#productDetailInfoDiv .phviewitem{
+		display: inline-block;
+		width: 100px;
+		border: 1px solid red;
+		float: left;
+		
+	}
+	
 	
 	
 	</style>
@@ -184,7 +262,7 @@
 			<!-- 이미지부분 -->
 			<div class='phviewimg'>
 			
-			<img id='purimg' src='../images/purchaseimg/${vo.mImage }' onclick="purch_img(this)"><br/></a>
+			<img id='purimg' src='../images/purchaseimg/${vo.mImage }' onclick="purch_img(${vo.mCode })"><br/>
 			</div>			
 			
 			<!-- 설명부분 -->
@@ -214,8 +292,9 @@
 	</div>	
 
 		
-	<form name='frm' method='post'>
+	<form name='frm' method='post' id=purhome_form enctype="multipart/form-data">
 		<input type='hidden' name='mCate'>
+		<input type='hidden' name='mCode'>
 	</form>
 	
 	<!-- The Modal -->
@@ -226,11 +305,11 @@
     <div class="modal-header">
       
       <h2>상세 제품 정보</h2>
-    </div>
-    <div class="modal-body">
-		<span class='phviewtxt'>
+    </div >
+    <div class="modal-body" id = "productDetailInfoDiv">
 		
-		</span>
+		
+		
     </div>
 
   </div>

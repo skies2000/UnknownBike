@@ -33,5 +33,11 @@
      	 
  	</select>
  
+ 	<select id='material_dlist' resultType="so.SoVo" parameterType="so.SoVo">
+     	 
+     	 select * from material where mCode = #{mCode}
+     	 
+ 	</select>
+ 
 
 </mapper>	

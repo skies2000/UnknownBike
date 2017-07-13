@@ -1,15 +1,21 @@
 package so;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 
 @Controller
@@ -53,6 +59,54 @@ public class SoController {
 	
 	    //index.jsp?inc=./board/purchase_home.jsp
 		return mv;
+	}
+	
+	@SuppressWarnings({ "deprecation", "finally" })
+	public MultipartRequest getMul(HttpServletRequest req){
+		MultipartRequest mul= null;
+		
+		String uploadPath = req.getRealPath("images");
+				
+		try{
+			mul = new MultipartRequest(req,uploadPath, 1024*10000,"utf-8",new DefaultFileRenamePolicy());
+		}catch(Exception e){
+			e.printStackTrace();
+			
+		}finally {
+			return mul;
+		}
+		
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/detailinfo.so", method={RequestMethod.POST })
+	public void detailinfo(HttpServletRequest req, HttpServletResponse res){
+		MultipartRequest mul = getMul(req);
+		PrintWriter out = null;
+		res.setCharacterEncoding("utf-8");
+		
+		try {
+			 out = res.getWriter();
+			 
+		} catch (IOException e) {
+			
+		}
+		
+		Integer.parseInt(mul.getParameter("mCode"));
+		SoVo detailpur = new SoVo();
+		detailpur.setmCode(Integer.parseInt(mul.getParameter("mCode")));
+		SoVo ddpur = dao.dMetarial(detailpur);
+		
+		JSONArray hjh = new JSONArray();
+		JSONObject jjh = new JSONObject();
+		jjh.put("mCode", ddpur.getmCode());
+		jjh.put("mName", ddpur.getmName());
+		jjh.put("mImage", ddpur.getmImage());
+		jjh.put("nEa", ddpur.getmEa());
+		hjh.add(jjh);
+		out.print(hjh);
+	
 	}
 	
 @RequestMapping(value="login/needcate.so", method={RequestMethod.GET, RequestMethod.POST })
