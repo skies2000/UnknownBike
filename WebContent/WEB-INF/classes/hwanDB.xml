@@ -14,10 +14,13 @@
 		<result property="eimage" column="eimage"/> 	 	
 	</resultMap>
 	
+	
+	<!--자재 리스트 등록 팝업창에서 출력된 자재 리스트 리절트맵  -->
 	<resultMap type="hwan.HwanVo" id="proInMatMap">
 		<result property="mcode" column="mcode"/>
 		<result property="mname" column="mname"/>
-		<result property="mimage" column="mimage"/>    
+		<result property="mimage" column="mimage"/>
+		<result property="mprice" column="mprice"/>    
 	</resultMap>
 	
 	
@@ -55,11 +58,13 @@
 	
 	
 	<insert id="docInput" parameterType="hwan.HwanVo">
-	insert into document(dcode,dname,ddate, dwrite, dSign, dStatus, dcont,dcate) values(seq_document_dcode.nextval,#{dname},sysdate, #{dWrite}, #{dSign},0,#{dcont},'dl')
+	insert into document(dcode,dname,ddate, dwrite, dSign, dStatus, dcont,dcate) values((select max(dCode)+1 as dCode from Document),#{dname},sysdate, #{dWrite}, #{dSign},0,#{dcont},'dl')
 	</insert>
 	
+	
+	<!--제품테이블 등록  -->
 	<insert id="proInput" parameterType="hwan.HwanVo">
-	insert into product(pcode,pname,pea,pdev,pcate,pstatus,pdate,pimage) values(seq_product_pcode.nextval,#{pname},0,#{pdev},#{pcate},0,sysdate,#{pimage})
+	insert into product(pcode,pname,pea,pdev,pcate,pstatus,pdate,pimage,pprice,pcost) values(seq_product_pcode.nextval,#{pname},0,#{pdev},#{pcate},0,sysdate,#{pimage},#{pprice},#{pcost})
 	</insert>
 	
 	<select id = "proInputMatList" resultMap="proInMatMap">
@@ -80,7 +85,12 @@
 	
 	<!--연구소 리스트 테이블 값 입력  -->
 	<insert id="labListInput" >
-	insert into dlist(dldcode,dlacode) values(seq_document_dcode.currval, seq_product_pcode.currval)
+	insert into dlist(dldcode,dlacode) values((select max(dCode)+1 as dCode from Document), seq_product_pcode.currval)
+	</insert>
+	
+	<!--제품등록할때 자재리스트 등록  -->
+	<insert id="mListInput" parameterType="hwan.HwanVo">
+	insert into mlist(mlpcode, mlmcode, mlmea) values(seq_product_pcode.currval,#{mlmcode},#{mlmea})
 	</insert>
 
 </mapper>

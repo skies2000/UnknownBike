@@ -37,6 +37,12 @@ public class HwanVo {
 	String mcode;
 	String mname;
 	String mimage;
+	int mprice;
+	
+	//MList table
+	int mlpcode;
+	int mlmcode;
+	int mlmea;
 	
 	//검색어
 	String findStr;
@@ -46,6 +52,34 @@ public class HwanVo {
 	String appTwo;
 	
 	
+	
+	
+	
+	
+	public int getMlpcode() {
+		return mlpcode;
+	}
+	public void setMlpcode(int mlpcode) {
+		this.mlpcode = mlpcode;
+	}
+	public int getMlmcode() {
+		return mlmcode;
+	}
+	public void setMlmcode(int mlmcode) {
+		this.mlmcode = mlmcode;
+	}
+	public int getMlmea() {
+		return mlmea;
+	}
+	public void setMlmea(int mlmea) {
+		this.mlmea = mlmea;
+	}
+	public int getMprice() {
+		return mprice;
+	}
+	public void setMprice(int mprice) {
+		this.mprice = mprice;
+	}
 	public String getAppOne() {
 		return appOne;
 	}

@@ -86,4 +86,18 @@ public class HwanDao {
 		rvo = session.selectOne("hwandb.appOne",vo);
 		return rvo;
 	}
+	
+	//자재리스트 등록
+	public int mListInput(HwanVo vo){
+		int r = 0;
+		try{
+			r = session.insert("hwandb.mListInput",vo);
+		}catch (Exception e) {
+			r=-1;
+			e.printStackTrace();
+			session.rollback();
+		}
+		session.commit();
+		return r;
+	}
 }
