@@ -5,7 +5,7 @@
 <html>
 <link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC|Roboto+Condensed|Shadows+Into+Light" rel="stylesheet">
 <head>
-    <title>메인</title>
+    <title>메인</title> 
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0">
     <link rel='stylesheet' href='../category/category.css' />
@@ -13,11 +13,33 @@
     <script src='../jq_lib/jquery-3.2.1.min.js'></script>
     <script src='../jq_lib/common.js'></script>
     <script>
-    	function sessionCheck(user){
+    $(document).ready(function(){
+    	/*로그아웃  */
+    	$('#indexLogoutId').click(function(){
+    		if(!confirm("로그아웃 하시겠습니까?")) return;
+    		location.href="../login/logout.hwan";
     		
-    		
-    		
-    	}
+    	});
+    	
+    });
+    
+    	/*로그인 체크 */
+    	function loginCheck(){
+	    	var xhr = new XMLHttpRequest();
+	    	xhr.open("get","../loginCheck.hwan");
+	    	xhr.send();
+	    	xhr.onreadystatechange = function(){
+	    		if(xhr.readyState == 4 && xhr.status ==200){
+	    			var txt = xhr.responseText;
+	    			if(txt=="null"){
+	    				alert("로그인 정보가 없습니다.");
+	    				location.href="../login/login.jsp";
+	    			}
+	    			
+	    		}
+	    	}
+    	} // end loginCheck()
+    
     </script>
   
 
@@ -114,10 +136,12 @@
     		inc = request.getParameter("inc");
     }
     %> 
+<script >loginCheck();</script><!--로그인 체크 메소드  -->
 </head>
 
 
 <body id=indexbody>
+
     <div id=allBody>
  
         <nav id='indexNav'>
@@ -130,26 +154,21 @@
             <a href="purhome.so"><img id='indeximg' src="../images/purchase.png"></a>
             <!-- <input type=hidden value="../purchase/purchase_Index.html"> -->
             
-            <a href="../main/index.jsp?inc=../product/product_index.jsp" ><img id='indeximg' src="../images/product.png"></a>
+            <a href="productHome.hoon" ><img id='indeximg' src="../images/product.png"></a>
 
             <!-- <input type=hidden value="../product/product_index.jsp"> -->
             
-            <a href="../main/index.jsp?inc=../sales/sales_home.jsp"><img id='indeximg' src="../images/sales.png"></a>
-            <!-- <input type=hidden value="../sales/sales_index.html"> -->
+            <a href="salesHome.sung"><img id='indeximg' src="../images/sales.png"></a>
             
             <a href=#><img id='indeximg' src="../images/mypage.png"></a>
         </nav>
     <div id='mainBody'>
 
             <header id='indexHeader'>
-            <div id="loginSessionTemp"><!--css가 너무 악먹혀서 임시로 일단 absolute로 함..나중에 변경할꺼  -->
-            <script>sessionCheck('<%session.getAttribute("user");%>');</script>
+            <div id="loginSessionTemp">
             <%out.print(session.getAttribute("user")); %>님 로그인(임시 session키값은 user)
-            </div>
-            
-            
-            
-                <a href="#"><img id='indeximg' src="../images/logout.png"></a>
+            </div> 
+                <a href="#" id="indexLogoutId"><img id='indeximg' src="../images/logout.png"></a> <!--로그아웃 이벤트 적용시키기 위하여 indexLogoutId 아이디 만듦  -->
             </header>
        
             <!--각 팀들 카테고리 들어갈 부분(수정:2017 06 26 / 황주희)-->
@@ -158,7 +177,6 @@
             <section id='indexSection'>
                 <div id='indexContent'>
 
-<%-- <%out.print(inc); %> --%>
 			<jsp:include page="<%=inc%>"/>
 
                    <!-- <input type="hidden" id='pathCheck' value="testFile.html"> --> 

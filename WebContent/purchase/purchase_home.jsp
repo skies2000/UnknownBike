@@ -13,9 +13,11 @@
 		<script>	
 		
 			function gowheel(mCate){
+
 				var frm = document.frm;
 				frm.mCate.value = mCate;
 				frm.action = 'listcate.so';
+				alert("ggg");
 				frm.submit();
 				}
 			function wholewheel(){
@@ -113,6 +115,7 @@
 			        modal.style.display = "none";
 			    }
 			} 
+
 		</script>
 		
 		
@@ -248,16 +251,17 @@
     
     
     <!-- 자재 페이지 그리드 형식 조회 -->	
-	<div id=pur_home_view>
 	
 	<!-- for 문 돌아가는거 -->	
+		<form name='frm2' method='post'>
+			<div id=pur_home_view>
 		<c:forEach items="${list}" var="vo"> 
 		
 		<div class='phviewitem'>
 		
 		
 			<div id='phcheckbox'>
-			<input type="checkbox">
+			<input type="checkbox" name='checkmaterial' value='${vo.mCode }'>
 			</div>
 			<!-- 이미지부분 -->
 			<div class='phviewimg'>
@@ -282,13 +286,13 @@
 		</div>
 		
 		</c:forEach> 
-	</div>
+				</div>
+		</form>
 
 		
 	<!-- 버튼 -->
 	<div id='purchase_home_btn'>
-		<a href='purinput.so' id='plok' class='pibutton'>구매보고서작성</a>
-		
+		<a href='#' id='plok' class='pibutton' onclick='goinput()'>구매보고서작성</a>
 	</div>	
 
 		
@@ -318,5 +322,6 @@
 	
 	
 	
+
 	</body>
 </html>

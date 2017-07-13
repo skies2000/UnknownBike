@@ -21,11 +21,7 @@
      	</if>    	
  </select>
 
-	<select id='material_nlist' resultMap="voMap" parameterType="so.SoVo">
-     	 <![CDATA[ 
-     	 select * from material where mEa <= 50 order by mCode
-     	 ]]>
- 	</select>
+	
  	
  	<select id='material_slist' resultMap="voMap" parameterType="so.SoVo">
      	 
@@ -40,4 +36,26 @@
  	</select>
  
 
-</mapper>	
+ <select id='check_mlist' resultMap="voMap" parameterType="so.SoVo">
+     	select * from material where mCode = #{mCode}
+    	
+ </select>
+ 
+<!-- 문서요청서  -->
+ <select id='pdoc' resultMap="voMap" parameterType="so.SoVo">
+     	select * from document order by dCode
+    	
+ </select>
+
+	<!-- 팝업창으로 사원 찾기 -->
+	<select id="searchEmp"  resultMap="voMap" parameterType="so.SoVo">
+		select * from employees where ePosition=#{ePosition}
+	</select>
+	
+		<!-- 팝업창으로 사원 찾기 ->사원개인의 개인정보 출력 -->
+	<select id="searchEmp2"  resultMap="voMap" parameterType="so.SoVo">
+		select * from employees where eCode=#{eCode}
+	</select>
+
+
+</mapper>

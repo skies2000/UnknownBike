@@ -88,7 +88,7 @@ select{
     display: inline-block;
     width: 16%;
 }
-#purihead6{padding:25px;box-sizing:border-box;}
+#purihead6{padding:25px;box-sizing:border-box;text-align: center;}
 #plok{/* width:105px;margin-left:37%; */text-align: center;}
 #plcancle{width:106px;margin-left:2%;text-align: center;}
 
@@ -248,8 +248,13 @@ select{
     height:30px;
 }
 
+.pea > #peatext{
+	width:80px;
+	text-align:center;
+}
+
 /*★☆★☆★☆★구매보고서조회☆★☆★☆★☆★  */
-@CHARSET "UTF-8";
+
 
 #top_line {
    border-bottom: 1px solid #ffffff;
@@ -304,11 +309,11 @@ select{
 
 .list2 {
     display: inline-block;
-    width: 12%;
+    width: 15%;
 }
 .list3 {
     display: inline-block;
-    width: 12%;
+    width: 27%;
 }
 
 .list4 {
@@ -318,7 +323,7 @@ select{
 
 .list5 {
     display: inline-block;
-    width: 12%;
+    width: 13%;
 }
 
 .list6 {
@@ -326,5 +331,16 @@ select{
     width: 12%;
 }
 
+#result {
+   display: inline-block;
+   width: 100%;
+   height: 500px;
+   background-color: #999999;
+   color: #000000;
+}
 
-
+#prList{
+	text-align: center;
+	margin-bottom:10px;
+	
+}

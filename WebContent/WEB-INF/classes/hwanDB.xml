@@ -10,7 +10,25 @@
 	
 	<resultMap type="hwan.HwanVo" id="appMap">
 		<result property="ecode" column="ecode"/>
-		<result property="ename" column="ename"/> 	
+		<result property="ename" column="ename"/>
+		<result property="eimage" column="eimage"/> 	 	
+	</resultMap>
+	
+	<resultMap type="hwan.HwanVo" id="proInMatMap">
+		<result property="mcode" column="mcode"/>
+		<result property="mname" column="mname"/>
+		<result property="mimage" column="mimage"/>    
+	</resultMap>
+	
+	
+	<!--제품 리스트 출력하기 위한 리절트 맵  -->
+	<resultMap type="hwan.HwanVo" id="proListMap">
+		<result property="pcode" column="pcode"/>
+		<result property="pname" column="pname"/>
+		<result property="pdate" column="pdate"/>
+		<result property="pdev" column="pdev"/>
+		<result property="pstatus" column="pstatus"/>
+		<result property="pimage" column="pimage"/>    
 	</resultMap>
 	
 	<select id = "loginList" resultMap="loginMap">
@@ -22,16 +40,47 @@
 		select * from employees
 	</select>
 	
+	<select id = "appOne" parameterType="hwan.HwanVo" resultType="hwan.HwanVo" >
+		select * from employees where ecode = #{ecode}
+	</select>
+	
+	
+	
+	<!--view 제품리스트 들이 출력 되는 화면에서 해당 제품 이미지를 클릭하면 나오는 제품 상세 정보를 화면에 뿌려줄 제품 정보  -->
+	<select id = "proView" resultType="hwan.HwanVo" parameterType="hwan.HwanVo" >
+		<!-- select * from product where pcode = #{pcode} -->
+		select p.*,doc.dsign from dlist dl join product p on dl.dlacode = p.pcode
+	join document doc on dl.dldcode = doc.dcode where p.pcode = #{pcode}
+	</select>
+	
 	
 	<insert id="docInput" parameterType="hwan.HwanVo">
-	insert into document(dcode,dname) values(5555,#{dname})
+	insert into document(dcode,dname,ddate, dwrite, dSign, dStatus, dcont,dcate) values(seq_document_dcode.nextval,#{dname},sysdate, #{dWrite}, #{dSign},0,#{dcont},'dl')
 	</insert>
 	
 	<insert id="proInput" parameterType="hwan.HwanVo">
-	insert into product(pcode,pname) values(10012,#{pname})
+	insert into product(pcode,pname,pea,pdev,pcate,pstatus,pdate,pimage) values(seq_product_pcode.nextval,#{pname},0,#{pdev},#{pcate},0,sysdate,#{pimage})
 	</insert>
 	
-		
-
+	<select id = "proInputMatList" resultMap="proInMatMap">
+		select * from material
+	</select>
+	
+	
+	<!--제품 리스트 쿼리  -->
+	<select id = "proList" resultMap="proListMap" parameterType="hwan.HwanVo">
+		select * from product where pname like '%${findStr}%' 
+	</select>
+	
+	<select id = "proListAllSearch" resultMap="proListMap" parameterType="hwan.HwanVo">
+		select * from product where pname like '%${findStr}%' 
+								 or pcode like '%${findStr}%'
+								 or pdev like '%${findStr}%'
+	</select>
+	
+	<!--연구소 리스트 테이블 값 입력  -->
+	<insert id="labListInput" >
+	insert into dlist(dldcode,dlacode) values(seq_document_dcode.currval, seq_product_pcode.currval)
+	</insert>
 
 </mapper>

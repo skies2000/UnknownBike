@@ -2,6 +2,8 @@ package beanhoon;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ibatis.session.SqlSession;
 
 import myba.UnknownFactory;
@@ -13,7 +15,7 @@ public class HoonDao {
 		this.session=factory.getFactory().openSession();
 	}
 	
-	// »ı»ê¿äÃ»¼­ ¸®½ºÆ® ºÒ·¯¿À±â
+	// Request List
 	public List<PurListVo> list(PurListVo vo) {
 		List<PurListVo> list = null;
 		
@@ -25,9 +27,144 @@ public class HoonDao {
 			return list;
 		}
 	}
+	
+	// Request View
+	public PurListVo view(PurListVo vo) {
+		PurListVo v = null;
+		
+		try {
+			v = session.selectOne("hoondb.pur_view", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return v;
+		}
+	}
+	
+	// Request Work
+	public List<PurListVo> work(PurListVo vo) {
+		List<PurListVo> list = null;
+		
+		try {
+			list = session.selectList("hoondb.pur_work", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
+	// Request Set
+	public PurListVo set(PurListVo vo) {
+		PurListVo v = null;
+		
+		try {
+			v = session.selectOne("hoondb.pur_set", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return v;
+		}
+	}
+	
+	// Save Data
+	public String saveData(PurListVo vo) {
+		String msg = "";
+		
+		try {
+			int r = session.insert("hoondb.save_data", vo);
+			System.out.println("3");
+			if (r>0) {
+				msg = "ì‘ì—… ì„¤ì •ì´ ì •ìƒì ìœ¼ë¡œ ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤";
+			} else {
+				msg = "ì €ì¥ ì¤‘ ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤";
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			session.rollback();
+		} finally {
+			session.commit();
+			return msg;
+		}
+	}
+	
+	// Product List
+	public List<PurListVo> listPro(PurListVo vo) {
+		List<PurListVo> list = null;
+		
+		try {
+			list = session.selectList("hoondb.list_p", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
+	// Product List
+	public PurListVo viewP(PurListVo vo) {
+		PurListVo v = null;
+		
+		try {
+			v = session.selectOne("hoondb.view_img_p", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return v;
+		}
+	}
+	
+	// Material Search
+	public List<PurListVo> searchPro(PurListVo vo) {
+		List<PurListVo> list = null;
+			
+		try {
+			list = session.selectList("hoondb.search_p", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
+	// Material List
+	public List<PurListVo> listMte(PurListVo vo) {
+		List<PurListVo> list = null;
+		
+		try {
+			list = session.selectList("hoondb.list_m", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
+	// Material List
+	public PurListVo viewM(PurListVo vo) {
+		PurListVo v = null;
+		
+		try {
+			v = session.selectOne("hoondb.view_img_m", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return v;
+		}
+	}
+	
+	// Material Search
+	public List<PurListVo> searchMte(PurListVo vo) {
+		List<PurListVo> list = null;
+		
+		try {
+			list = session.selectList("hoondb.search_m", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
+	
 }
-
-
-
-
-

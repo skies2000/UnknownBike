@@ -8,53 +8,169 @@
 		<title>Page Title</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="initial-scale=1.0">
-	</head>
-	<script>
-	
+		<style>
+		
+		.myButton {
+            -moz-box-shadow: inset 0px 1px 0px 0px #000000;
+            -webkit-box-shadow: inset 0px 1px 0px 0px #000000;
+            box-shadow: inset 0px 1px 0px 0px #000000;
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000), color-stop(1, #000000));
+            background: -moz-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -webkit-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -o-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -ms-linear-gradient(top, #000000 5%, #000000 100%);
+            background: linear-gradient(to bottom, #000000 5%, #000000 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#000000', GradientType=0);
+            background-color: #000000;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            border: 1px solid #000000;
+            display: inline-block;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: Arial;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 6px 24px;
+            text-decoration: none;
+            text-shadow: 0px 1px 0px #000000;
+        }
+        
+        .myButton:hover {
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000), color-stop(1, #000000));
+            background: -moz-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -webkit-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -o-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -ms-linear-gradient(top, #000000 5%, #000000 100%);
+            background: linear-gradient(to bottom, #000000 5%, #000000 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#000000', GradientType=0);
+            background-color: #000000;
+        }
+        
+        .myButton:active {
+            position: relative;
+            top: 1px;
+            
+       
+        }
+        
+        #apmtResult .imgHoverSize:HOVER {
+			display: inline-block;
+			width: 100px;
+		}
+		#apmtResult .memMberListLabel:HOVER{
+			cursor: pointer;
+		}
+		
+		#apmtResult *{
+			transition: all 0.5s;
+		}
+		#apBtnPosition{
+			float:left;
+			position: fixed;
+			margin-left: 220px;
+		}
+		#fieldWidth{
+			width: 200px;
+		}
+		</style>
+		<script>
+	var jt; // 사원 이미지랑, 이름, 사원코드 포함 = 켜는 순간 DB에서 data를 가져옴.
 	var xhr = new XMLHttpRequest();
-	xhr.open('get','appTwo.hwan');
+	xhr.open('get','../appTwo.hwan');
 	xhr.send();
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			var txt = xhr.responseText;
-			var jt = JSON.parse(txt);
+			jt = JSON.parse(txt);
 			var re = document.getElementById("apmtResult");
 			
 			for(var i = 0 ; i< jt.length; i++){
 				var div1 =  document.createElement("div");
 				var check = document.createElement("input");
 				var la = document.createElement("label");
+				var img = document.createElement("img");
 				
+				img.setAttribute("src", "../images/"+jt[i].eimage);
+				img.setAttribute("width", "40px");
+				img.setAttribute("class", "imgHoverSize")
 				
 				check.setAttribute("type", "checkbox");
-				check.setAttribute("name",jt[i].ename);
+				check.setAttribute("value",jt[i].ecode);
 				check.setAttribute("class","memberCk");
 				la.appendChild(check);
-				la.innerHTML+=jt[i].ename+", "+jt[i].ecode;
+				la.appendChild(img);
+				la.innerHTML+=jt[i].ename;
+				la.setAttribute("class", "memMberListLabel");
+				
 				div1.appendChild(la);
 				re.appendChild(div1);
 				
 			}
 		}
-		
-		
 	}
 	function checkBtn(){
-		
-		var ck = document.getElementsByClassName("memberCk");
-		
-		for(var i; i<ck.length;i++){
-			alert(ck[i]);
+		if(!confirm("선택하시겠습니까?")) return;
+		var ck = document.getElementsByClassName("memberCk"); //배열
+		var opele = window.opener.document.getElementById("appResult");
+		opele.innerHTML = "";// 초기화 (그렇지 않으면 사원이 계속 추가 됨.)
+		var checkFlag = false;
+		var count = 0; //체크박스에서 count 된 수.
+		for(var i=0; i<ck.length;i++){
+			if(ck[i].checked==true){
+			count++;
+				
+			}
 		}
+		
+		if(count!=2) {
+			alert("두 명만 선택해주세요.");
+			return;
+		}
+		
+		var resultStr = "선택된 사원\n";
+		for(var i=0; i<ck.length;i++){
+			if(ck[i].checked==true)
+				{
+					var la = document.createElement("input");
+					alert(ck[i].value);
+					la.setAttribute("type", "hidden")
+					la.setAttribute("name", "appMember")
+					la.setAttribute("value", ck[i].value);
+					opele.appendChild(la);
+					checkFlag = true;
+					resultStr += jt[i].ename+"\n";
+					
+				}
+		}
+		if(checkFlag){
+			alert(resultStr);
+			window.opener.document.getElementById("appMemberId").innerHTML="결재자 등록완료(수정)"; //opener = materials input에서 열어준다!
+			self.close();
+		}else{
+			alert("선택된 사원이 없습니다.");
+		}
+		
 	}
 	</script>
+	</head>
+	
 
 	<body>
 
-	
+	<fieldset id="fieldWidth">
+		<legend>
+		<label>
+		사원 목록
+		</label>		
+		</legend>
+<div id="apBtnPosition">
+<a href=# onclick="checkBtn()" class="myButton">선택완료</a>
+</div>
+		
 <div id='apmtResult'>
 </div>
-
-<a href=# onclick="checkBtn()">선택완료</a>
+	</fieldset>
 	</body>
 </html>

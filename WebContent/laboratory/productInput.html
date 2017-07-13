@@ -1,37 +1,94 @@
+
 <!doctype html>
 
 <html>
 
 <head>
+<title>Page Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0">
     <script>
+    	$(document).ready(function(){
+    		var ff = document.getElementById("proInFrm");
+    		$("#pcateSelect").change(function(){
+    			var sel = document.getElementById("pcateSelect");
+    			var ix = sel.options[sel.options.selectedIndex].value;
+    			ff.pcate.value = ix;
+    			
+    		});
+    	});
+    	
         function docConInputBtn() {
-            window.open("pDoc.hwan", "", "height=400px, width=600px");
+            window.open("../laboratory/documentContentInput.html", "", "height=400px, width=600px");
         }
 
         function mlist_input() {
             window.open("../laboratory/p_materialList_Input.html", "", "height=300px, width=500px");
         }
 
-        function approveMan_one() {
-            window.open("appOne.hwan", "", "height=300px, width=500px");
-        }
 
         function approveMan_two() {
             window.open("../laboratory/approveMan_two.jsp", "", "height=300px, width=500px");
         }
         function pInputBtn(){
+        	if(!confirm("등록하시겠습니까?")) return;
         	var ff = document.getElementById("proInFrm");
-        	var url = "proInput.hwan"
-        	ff.action =  url;
-        	ff.submit();
+        	var fd = new FormData(ff);
+        	var url = "../proInput.hwan"
+        	var xhr = new XMLHttpRequest();
+        	xhr.open("post",url);
+        	xhr.send(fd);
+        	xhr.onreadystatechange = function(){
+        		if(xhr.readyState == 4 && xhr.status == 200){
+        			var txt = xhr.responseText;
+        			if(txt=="1"){
+        				alert("정상적*.");
+        				var xhr2 = new XMLHttpRequest();
+        	        	xhr2.open("get","../laboratory/laboratoryHome.html");
+        	        	xhr2.send();
+        				
+        	        	 xhr2.onreadystatechange=function(){
+        	                   if(xhr2.readyState == 4 && xhr2.status == 200){
+        	                      var txt = xhr2.responseText;
+        	                       
+        	                       $('#laboratorResult').html(txt);
+        	                   } 
+        	               }
+        				
+        			}else if(txt == "-1"){
+        				alert("다시 입력해 주세요");
+        			}
+        			
+        		}
+        	}//end onreadystatechange
+        	
         
-        }
+        } // end pInputBtn 
+        
+        function imgClickBtn(ev){
+        	var event = ev || window.event;
+    		if(event == null)return;
+    		
+    		var file = event.srcElement; //이벤트가 발생한 요소
+    		
+    			/*이미지인지 체크 */
+				if(!(file.value.lastIndexOf(".jpg") >0 ||
+				   file.value.lastIndexOf(".JPG") >0   ||	
+				   file.value.lastIndexOf(".png") >0   ||	
+				   file.value.lastIndexOf(".PNG") >0   ||
+				   file.value.lastIndexOf(".gif") >0   ||
+				   file.value.lastIndexOf(".GIF") >0   ||
+				   file.value.lastIndexOf(".JPEG") >0  ||
+				   file.value.lastIndexOf(".jpeg") >0  ||
+				   file.value.lastIndexOf(".BMP") >0   ||
+				   file.value.lastIndexOf(".bmp") >0)
+				){
+				alert("사진을 올려 주세요");
+    			file.value = "";
+				}    		
+    		}
 
     </script>
-
-    <title>Page Title</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale=1.0">
     
     <style>
         #piBody #title {
@@ -135,7 +192,15 @@
 <body>
 
     <div id=piBody>
-        <form id="proInFrm">
+        <form id="proInFrm" method="post" enctype="multipart/form-data">
+        <div id = "appResult"> <!--결재자 팝업창에서 선택된 사원 리스트의 결과가 input[hidden]형태로 생성될 곳   -->
+        </div>
+        
+        <div id = "docResult"> <!--문서내용 팝업창에서 작성한 값이 input[hidden]형태로 생성될 저장될 곳  -->
+        </div>
+        <div id = "mListResult"><!--자재리스트 입력 팝업창에서 선택된 자재 리스트의 결과가 input[hidden]형태로 생성될 저장될 곳  -->
+        </div>
+        
 
             <div id='title'>제품등록</div>
             <hr/>
@@ -151,39 +216,34 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <select>
-    <option value="">---자전거 종류---</option>
-    <option value="">1. 외발 자전거</option>
-    <option value="">2. 두발 자전거</option>
-    <option value="">3. 세발 자전거</option>
-    <option value="">4. 네발 자전거</option>
-    <option value="">5. 하이브리드 자전거</option>
+                        <select id="pcateSelect">
+    <option value="0">---자전거 종류---</option>
+    <option value="1">1. 외발 자전거</option>
+    <option value="2">2. 두발 자전거</option>
+    <option value="3">3. 세발 자전거</option>
+    <option value="4">4. 네발 자전거</option>
+    <option value="5">5. 하이브리드 자전거</option>
 </select>
+	<input type="hidden" name="pcate" value = "0"/>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <a href="#" class="myButton" onClick="approveMan_one()">결재승인자1</a>
+                        <a href="#" class="myButton" id = "mListInputId" onClick="mlist_input()">자재리스트 등록</a>
 
                     </td>
                     <td>
-                        <a href="#" class="myButton" onClick="approveMan_two()">결재승인자2</a>
 
+                        <a href="#" class="myButton" id = "docConId" onClick="docConInputBtn()">문서 내용 입력</a>
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <a href="#" class="myButton" onClick="mlist_input()">자재리스트 등록</a>
+                	                    <td>
+                        <a href="#" class="myButton" id = "appMemberId" onClick="approveMan_two()">결재자 선택</a>
 
                     </td>
-                    <td>
-
-                        <a href="#" class="myButton" onClick="docConInputBtn()">문서 내용 입력</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <label>사진첨부 : </label><input type='file' value='사진첨부' />
+                    <td >
+                        <label>사진첨부 : </label><input type='file' value='사진첨부' onchange="imgClickBtn()" name="pimage" />
                     </td>
                 </tr>
             </table>

@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!doctype html>
 
 <html>
@@ -9,11 +11,22 @@
     <meta name="viewport" content="initial-scale=1.0">
 	<script>
 		
-	$('#proView a').click(function(){
+	$('#proView #mListFunc').click(function(){
 		window.open("../laboratory/materialsList.html","","height=500px, width=500px");	
 	});
 	
-	
+	$('#proView #backBtn').click(function(){
+		var xhr = new XMLHttpRequest();
+		xhr.open("get","../laboratory/productDetails.html");
+		xhr.send();
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				var txt = xhr.responseText;
+				$("#laboratorResult").html(txt);
+			}
+		}
+	});
+	 
 	</script>
 
     <style>
@@ -59,17 +72,15 @@
             position: relative;
             top: 1px;
         }
-    
-    
-    
      
         #proView {
-            width: 60%;
+        position: relative;
+            width: 300px;
             margin: auto;
         }
         #proView table{
             border: 1px solid #aaa;
-            border-spacing: 0px;
+            border-spacing: 0px; 
         }
         #proView table td{
             border: 1px solid #aaa;
@@ -84,6 +95,12 @@
         
         
         }
+        #proView #backBtn{
+        border: 1px solid white;
+        margin-left: 70%; 
+         } 
+         
+        
 
     </style>
 </head>
@@ -94,7 +111,7 @@
         <div id="pvTitle">제품뷰</div>
         <hr/>
     
-        <img src="../images/khk_V2image.jpg" width="300px" height="200px">
+        <img src="../images/${vo.pimage}" width="300px" height="200px">
         
         <table> 
             <tr>
@@ -103,9 +120,9 @@
                 <td>결재승인자1</td>
             </tr>
             <tr>
-                <td>아무개</td>
-                <td>abcd</td>
-                <td>유재석</td>
+                <td>${vo.pdev}</td>
+                <td>${vo.pname}</td>
+                <td>${vo.appOne}</td>
             </tr>
             
             <tr>
@@ -114,9 +131,9 @@
                 <td>결재승인자2</td>
             </tr>
             <tr>
-                <td>5000원</td>
-                <td>1000원</td>
-                <td>강호동</td>
+                <td>${vo.pprice}</td>
+                <td>${vo.pcost}</td>
+                <td>${vo.appTwo}</td>
             </tr>
             
             
@@ -126,16 +143,16 @@
                 <td>결재승인상태</td>
             </tr>
             <tr>
-                <td>2017.06.04</td>
-                <td>22시간</td>
-                <td>승인대기</td>
+                <td>${vo.pdate}</td>
+                <td>${vo.pmanhour}</td>
+                <td>${vo.pstatus}</td>
             </tr>
             <tr>
-                <td>자전거종류</td>
-                <td colspan="2"><a class="myButton">자재리스트</a></td>        
+                <td>${vo.pcate}</td>
+                <td colspan="2"><a class="myButton" id="mListFunc">자재리스트</a></td>        
             </tr>
         </table>
-        
+        <a href=# id = "backBtn" class = "myButton" >뒤로</a>
     </div>
 
 </body>

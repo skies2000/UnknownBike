@@ -1,25 +1,34 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>생산 요청서 상세 페이지</title>
 <link rel='stylesheet' href='../category/product_request_view.css' />
+<script>
+function onSetting(srlCode, srlMCode) {
+	var gsWin = window.open("", "winName", 'width=410, height=550, resizable=no');
+    var frm = document.getElementById('fff');
+    frm.srlCode.value = srlCode;
+    frm.srlMCode.value = srlMCode;
+    frm.action = "reqSet.hoon";
+    frm.target = "winName";
+    frm.submit();
+}
+</script>
 </head>
 <body>
 	<div id=category>
-		<jsp:include page="../category/submenuProduct.jsp"></jsp:include>
+		<jsp:include page="../category/submenuProduct.jsp"/>
 	</div>
 
-	<div id='body'>
-	<!--  ------------------상단타이틀--------------------  -->
-		<div id='title'>생산 요청서</div>
-	<!--  ------------------헤더--------------------  -->
+	<div id='body'><!--  상단타이틀  -->
+		<div id='title'>생산 요청서</div><!--  헤더  -->
 		<div class='head'>
 			<div id='sign1'>
 				<label>문서번호</label><br/>
-				<label>DC-01234</label>
+				<label>${vo.dCode }</label>
 			</div>
 			<div id='sign2'>
 				<div id='appro'>결&nbsp재&nbsp내&nbsp역</div> 
@@ -41,51 +50,46 @@
 				</div>
 			</div>
 		</div>
-	<!--  ------------------제목--------------------  -->
-		<div id='subject'>
-			<span id='labeltitle'>
-				<label>제목</label>
-			</span>
-			<span id='subcontent'>
-				빨리 결재해주세여 빨리여빨리
-			</span>
+	
+		<div id='subject'> <!--  제목  -->
+			<span id='labeltitle'><label>제목</label></span>
+			<span id='subcontent'>	${vo.dName }</span>
 		</div>
-	<!--  ------------------내용--------------------  -->
-		<div id='content'>
-			<span id='labeltitle'>
-				<label>내용</label>
-			</span>
-			<span id='concontent'>
-				여기 공간에 내용을 집어넣ㄹ는다
-			</span>
+	
+		<div id='content'> <!--  내용  -->
+			<span id='labeltitle'><label>내용</label></span>
+			<span id='concontent'>${vo.dCont }</span>
 		</div>
-	<!--  ------------------생산요청목록 타이틀--------------------  -->
-		<div id='list_header'>
+	
+		<div id='list_header'> <!--  생산요청목록 타이틀  -->
 			요청 제품 리스트
 		</div> 
-	<!--  ------------------생산요청목록--------------------  -->
-		<div id='sale_list'>
+	
+		<div id='sale_list'><!--  생산요청목록  -->
 			<div id='list_title'>
-				<div id='code'>제품코드</div>
-				<div id='codename'>제품명</div>
-				<div id='ea'>수량</div>
-				<div id='deadline'>생산기한</div>
+				<span id='code'>제품코드</span>
+				<span id='codename'>제품명</span>
+				<span id='ea'>요청 수량</span>
+				<span id='deadline'>요청 기한일</span>
+				<span id='set'>작업 설정</span>
 			</div>
 			<div id='list_content'>
-				<span id='code'>a001</span>
-				<span id='codename'>외발자전거-red</span>
-				<span id='ea'>1,500</span>
-				<span id='deadline'>2017-06-28</span>
-				<span id='code'>a001</span>
-				<span id='codename'>외발자전거-red</span>
-				<span id='ea'>1,500</span>
-				<span id='deadline'>2017-06-28</span>
-				<span id='code'>a001</span>
-				<span id='codename'>외발자전거-red</span>
-				<span id='ea'>1,500</span>
-				<span id='deadline'>2017-06-28</span>
+			<c:forEach items="${list }" var="workList">
+				<span id='code'>${workList.srlCode }</span>
+				<span id='codename'>${workList.pName }</span>
+				<span id='ea'>${workList.srlEa }</span>
+				<span id='deadline'>${workList.srlTerm }</span>
+				<span id='set'><label ></label>
+					<div id='setOK' onclick="onSetting(${workList.srlCode }, ${workList.srlMCode })">설정 필요</div>
+				</span>
+			</c:forEach>
 			</div>
 		</div>
 	</div>
+	
+	<form name='frm' method='post' id='fff'>
+		<input type='hidden' name='srlCode'>
+		<input type='hidden' name='srlMCode'>
+	</form>
 </body>
 </html>
