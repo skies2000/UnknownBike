@@ -5,7 +5,7 @@
 <html>
 <link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC|Roboto+Condensed|Shadows+Into+Light" rel="stylesheet">
 <head>
-    <title>메인</title>
+    <title>메인</title> 
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0">
     <link rel='stylesheet' href='../category/category.css' />

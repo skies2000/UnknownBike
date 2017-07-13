@@ -37,15 +37,39 @@ public class HwanVo {
 	String mcode;
 	String mname;
 	String mimage;
-
+	
+	//검색어
+	String findStr;
+	
+	//결재 승인자 1, 2
+	String appOne;
+	String appTwo;
 	
 	
+	public String getAppOne() {
+		return appOne;
+	}
+	public void setAppOne(String appOne) {
+		this.appOne = appOne;
+	}
+	public String getAppTwo() {
+		return appTwo;
+	}
+	public void setAppTwo(String appTwo) {
+		this.appTwo = appTwo;
+	}
+	public String getFindStr() {
+		return findStr;
+	}
+	public void setFindStr(String findStr) {
+		this.findStr = findStr;
+	}
 	public String getDcont() {
 		return dcont;
 	}
 	public void setDcont(String dcont) {
 		this.dcont = dcont;
-	}
+	} 
 	public int getPea() {
 		return pea;
 	}

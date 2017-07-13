@@ -120,51 +120,14 @@
         	var xhr = new XMLHttpRequest();
         	var url = "../pdList.hwan";
 
-        	xhr.open("get",url);
-        	xhr.send();
+        	var frm = document.getElementById("pddFrm");
+        	var fd = new FormData(frm);
+        	xhr.open("post",url);
+        	xhr.send(fd);
         	
         	xhr.onreadystatechange = function(){
-        		if(xhr.readyState == 4 && xhr.status == 200){
-        			var txt = xhr.responseText;
-        			
-        			var jd = JSON.parse(txt);
-        			
-        			var resultDiv = document.getElementById("pdListResult");
-        			
-        			for(var i = 0; i<jd.length; i++){
-        				var d1 = document.createElement("div");
-        				var im = document.createElement("img");
-        				var span1 = document.createElement("span");
-        				var span2 = document.createElement("span");
-        				var span3 = document.createElement("span");
-        				var span4 = document.createElement("span");
-        				
-        				d1.setAttribute("class", "pdList");
-        				
-        				im.setAttribute("class", "proImg");
-        				im.setAttribute("src", "../images/"+jd[i].pimage);
-        				im.setAttribute("onclick", "viewFunc("+jd[i].pcode+")");
-        				
-        				span1.innerHTML = jd[i].pname;
-        				span1.setAttribute("class", "proModel");
-        				
-        				span2.innerHTML = jd[i].pdate;
-        				span3.innerHTML = jd[i].pstatus;
-        				span4.innerHTML = jd[i].pdev;
-        				
-        				d1.appendChild(im);
-        				d1.appendChild(span1);
-        				d1.appendChild(span2);
-        				d1.appendChild(span3);
-        				d1.appendChild(span4);
-        				
-        				resultDiv.appendChild(d1);
-        			}
-        			
-        		}
-        	}//end xhr.onreadystatechange
-        	
-            
+        	ResultList(xhr);
+        	}
         });
         
         function viewFunc(pcode) {
@@ -189,35 +152,94 @@
         		return;
         	}
         	
+        	var xhr = new XMLHttpRequest();
+        	var url ="../pdList.hwan";
+        	var frm = document.getElementById("pddFrm");
+        	var fd = new FormData(frm);
+        	xhr.open("post",url);
+        	xhr.send(fd);
+        	
+        	xhr.onreadystatechange = function(){
+        	ResultList(xhr);
+        	}
         	
         }
-
+        
+        function proSelFunc(sel){
+        	var sval = sel.options[sel.options.selectedIndex].value;
+        	var ss = document.getElementById("sShearch");
+        	ss.value = sval; 
+        }
+        
+        
+        function ResultList(xhr){
+    		if(xhr.readyState == 4 && xhr.status == 200){
+    			var txt = xhr.responseText;
+    			
+    			var jd = JSON.parse(txt);
+    			
+    			var resultDiv = document.getElementById("pdListResult");
+    			resultDiv.innerHTML="";
+    			for(var i = 0; i<jd.length; i++){
+    				var d1 = document.createElement("div");
+    				var im = document.createElement("img");
+    				var span1 = document.createElement("span");
+    				var span2 = document.createElement("span");
+    				var span3 = document.createElement("span");
+    				var span4 = document.createElement("span");
+    				
+    				d1.setAttribute("class", "pdList");
+    				
+    				im.setAttribute("class", "proImg");
+    				im.setAttribute("src", "../images/"+jd[i].pimage);
+    				im.setAttribute("onclick", "viewFunc("+jd[i].pcode+")");
+    				
+    				span1.innerHTML = jd[i].pname;
+    				span1.setAttribute("class", "proModel");
+    				
+    				span2.innerHTML = jd[i].pdate;
+    				span3.innerHTML = jd[i].pstatus;
+    				span4.innerHTML = jd[i].pdev;
+    				
+    				d1.appendChild(im);
+    				d1.appendChild(span1);
+    				d1.appendChild(span2);
+    				d1.appendChild(span3);
+    				d1.appendChild(span4);
+    				
+    				
+    				resultDiv.appendChild(d1);
+    			}
+    			
+    		}
+    	}//end xhr.onreadystatechange
     </script>
 </head>
 
 <body>
-    <div id=proDetails>
+    <div id=proDetails >
+    <form id = "pddFrm" method="post" enctype="multipart/form-data">
         <div id=proTitle>제품상세</div>
 
-        <select id=proSelect>
-        <option value="">전체</option>
-        <option value="">제품명</option>
-    
-  
+        <select id="proSelect" onchange="proSelFunc(this)">
+        <option value="0">전체</option>
+        <option value="1">제품명</option>
         
     </select>
-        <input id="serchPro" type='text' placeholder="검색어를 입력해주세요." />
+        <input id="serchPro" type='text' placeholder="검색어를 입력해주세요." name="findStr"/>
         <a href="#" class="myButton buttonBoder" onclick="searchFunc()">검색</a>
         <hr/>
-  
-  	<div id = "pdListResult"></div>
-  	</div>
-  	
-  	<form id = "pddFrm" method="post" enctype="multipart/form-data">
   	<input type='hidden' name="pcode">
   	
-  	</form>
+  	<input type='hidden' name="sShearch" id="sShearch" value="0">
+  
+  	<div id = "pdListResult"></div>
   	
+  	
+  	
+  	
+  	</form>
+  	</div>
   	
 </body>
 
