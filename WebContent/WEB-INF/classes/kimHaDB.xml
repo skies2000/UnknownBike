@@ -20,9 +20,6 @@
 		<result property="mstate" column="mstate" />
 		<result property="mdev" column="mdev" />
 		<result property="mimage" column="mimage" />
-
-
-
 	</resultMap>
 	<!-- 자재상세(검색어로 검색) list -->
 	<select id="matList" resultMap="matListMap" parameterType="kimHa.kimHaVo">

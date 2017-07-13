@@ -41,6 +41,19 @@ public class HoonDao {
 		}
 	}
 	
+	// Request Work
+	public List<PurListVo> work(PurListVo vo) {
+		List<PurListVo> list = null;
+		
+		try {
+			list = session.selectList("hoondb.pur_work", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
 	// Request Set
 	public PurListVo set(PurListVo vo) {
 		PurListVo v = null;
@@ -101,6 +114,19 @@ public class HoonDao {
 		}
 	}
 	
+	// Material Search
+	public List<PurListVo> searchPro(PurListVo vo) {
+		List<PurListVo> list = null;
+			
+		try {
+			list = session.selectList("hoondb.search_p", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
 	// Material List
 	public List<PurListVo> listMte(PurListVo vo) {
 		List<PurListVo> list = null;
@@ -126,4 +152,19 @@ public class HoonDao {
 			return v;
 		}
 	}
+	
+	// Material Search
+	public List<PurListVo> searchMte(PurListVo vo) {
+		List<PurListVo> list = null;
+		
+		try {
+			list = session.selectList("hoondb.search_m", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
+	
 }

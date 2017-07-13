@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<img src="../images/${vo.pImage }">
+<img src="../images/${vo.pImage }" style="width: 600px; height:auto;">
 
 </body>
 </html>

@@ -74,13 +74,15 @@ function onSetting(srlCode, srlMCode) {
 				<span id='set'>작업 설정</span>
 			</div>
 			<div id='list_content'>
-				<span id='code'>${vo.srlCode }</span>
-				<span id='codename'>${vo.pName }</span>
-				<span id='ea'>${vo.srlEa }</span>
-				<span id='deadline'>${vo.srlTerm }</span>
+			<c:forEach items="${list }" var="workList">
+				<span id='code'>${workList.srlCode }</span>
+				<span id='codename'>${workList.pName }</span>
+				<span id='ea'>${workList.srlEa }</span>
+				<span id='deadline'>${workList.srlTerm }</span>
 				<span id='set'><label ></label>
-					<div id='setOK' onclick="onSetting(${vo.srlCode }, ${vo.srlMCode })">설정 필요</div>
+					<div id='setOK' onclick="onSetting(${workList.srlCode }, ${workList.srlMCode })">설정 필요</div>
 				</span>
+			</c:forEach>
 			</div>
 		</div>
 	</div>
