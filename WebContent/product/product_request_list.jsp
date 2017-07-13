@@ -8,30 +8,16 @@
 <title>생산 요청서 조회</title>
 <link rel='stylesheet' href='../category/product_request_list.css' />
 <script>
-/* 	$('#product_request_view_go').click(function() {
-		xhr = new XMLHttpRequest();
-		xhr.open('get', '../product/product_request_view.jsp'); // url요청 정보
-		xhr.send(); // 서버에 전송
-		var str = '';
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState == 4 && xhr.status == 200) {
-				str = xhr.responseText;
-				$('#productResult').html(str);
-			}
-		}
-	});
- */
-	// 제목을 누르면 PK(문서번호??)를 가지고 가야대
-	function purView(code) {
-		var frm = document.getElementById('fff');
-		frm.dCode.value = code;
-		frm.action = 'reqView.hoon';
-		frm.submit();
-	}
- 	function search() {
- 		
- 	}
- 
+// 제목을 누르면 PK(문서번호??)를 가지고 가야대
+function purView(code) {
+	var frm = document.getElementById('fff');
+	frm.dCode.value = code;
+	frm.action = 'reqView.hoon';
+	frm.submit();
+}
+function search() {
+	
+}
 </script>
 </head>
 <body>
@@ -46,13 +32,12 @@
 		<hr>
 	</div>
 	
-	<div id='prList'>
+	<div id='list'>
 		<!-- 요청서 리스트를 뿌려주는 곳 -->
 		<span class='list1'>문서 번호</span> 
 		<span class='list1'>문서 종류</span> 
 		<span	class='list3'>문서 제목</span> 
 		<span class='list2'>작성일</span> 
-		<span	class='list2'>마감일</span> 
 		<span class='list1'>작성자</span> 
 		<span class='list1'>상태</span>
 	</div>
@@ -60,23 +45,16 @@
 	<div id='result'>
 		<!-- DB에서 요청서 불러오는 곳 -->
 		<c:forEach items="${list }" var="purList">
-			<div id='con'>
+			<div id='list'>
 				<span class='list1'>${purList.dCode } </span> 
 				<span class='list1'>${purList.dCate }	</span> 
 				<span class='list3'><a href='#' onclick="purView(${purList.dCode })">${purList.dName } </a></span> 
 				<span class='list2'>${purList.dDate } </span> 
-				<span class='list2'>${purList.srlTerm }</span> 
 				<span class='list1'>${purList.eName } </span> 
 				<span class='list1'>${purList.dStatus }</span>
 			</div>
 		</c:forEach>
 	</div>
-
-	<div id='productResult'>
-		생상 요청서 조회<br /> 
-		<a href='#' 	id='index.jsp?inc=../product/product_request_view.jsp'>상세 보기</a>
-	</div>
-
 	<form name='frm' method='post' id='fff'>
 		<input type='hidden' name='dCode'>
 	</form>
