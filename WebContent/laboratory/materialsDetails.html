@@ -113,7 +113,13 @@
 }
 
 #maDetails #matsearch {
-	color: black;
+	color: white;
+	background: black;
+}
+
+#maDetails #matSelect {
+	color: white;
+	background: black;
 }
 </style>
 
@@ -122,50 +128,15 @@
 	//controller로 가서 자재 list를 가져옴
 	$(document).ready(function() {
 		var xhr = new XMLHttpRequest();
+		var frm = document.getElementById("mat_frm");
+		var fd = new FormData(frm);
 		var url = "../matList.kimHa";
 		var str = "";
-		xhr.open("get", url);
-		xhr.send();
+		xhr.open("post", url);
+		xhr.send(fd);
 
 		xhr.onreadystatechange = function() {
-			if (xhr.readyState == 4 && xhr.status == 200) {
-				str = xhr.responseText;
-				var json = JSON.parse(str); // 문자열을 json 형태로 변환
-
-
-				var matListResult = document.getElementById("matListResult");
-
-				for (var i = 0; i < json.length; i++) {
-					var div = document.createElement("div");
-					var img = document.createElement("img");
-					var span1 = document.createElement("span");
-					var span2 = document.createElement("span");
-					var span3 = document.createElement("span");
-					var span4 = document.createElement("span");
-
-					div.setAttribute("class", "mdList");
-					img.setAttribute("class", "mdImg");
-					img.setAttribute("width", "300px");
-					img.setAttribute("height", "200px");
-					img.setAttribute("src", "../images/materialimg/" + json[i].mimage);
-					img.setAttribute("onclick", "viewFunc(" + json[i].mcode + ")");
-					span1.setAttribute("class", "mdModel");
-					span1.innerHTML = json[i].mname;
-					span2.innerHTML = json[i].mdate;
-					span3.innerHTML = json[i].mstate;
-					span4.innerHTML = json[i].mdev;
-
-
-					div.appendChild(img);
-					div.appendChild(span1);
-					div.appendChild(span2);
-					div.appendChild(span3);
-					div.appendChild(span4);
-
-					matListResult.appendChild(div);
-				}
-
-			}
+			ResultList(xhr);
 		}
 
 	});
@@ -190,8 +161,7 @@
 
 	}
 
-	//검색
-
+	//검색어를 가지고 검색
 	function mSearch() {
 		var matsearch = document.getElementById("matsearch");
 		if (matsearch.value == "") {
@@ -199,6 +169,65 @@
 			return;
 		}
 
+		var xhr = new XMLHttpRequest;
+		var url = "../matList.kimHa";
+		var frm = document.getElementById("mat_frm");
+		var fd = new FormData(frm);
+		xhr.open("post", url);
+		xhr.send(fd);
+
+		xhr.onreadystatechange = function() {
+			ResultList(xhr);
+		}
+	}
+	//select 값 
+	function matFunc(sel) {
+		var select = sel.options[sel.options.selectedIndex].value
+		var ss = document.getElementById("sSearch");
+		ss.value = select;
+
+	}
+
+	//뿌려주는 부분.
+	function ResultList(xhr) {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			str = xhr.responseText;
+			var json = JSON.parse(str); // 문자열을 json 형태로 변환
+
+
+			var matListResult = document.getElementById("matListResult");
+			matListResult.innerHTML = "";
+			for (var i = 0; i < json.length; i++) {
+				var div = document.createElement("div");
+				var img = document.createElement("img");
+				var span1 = document.createElement("span");
+				var span2 = document.createElement("span");
+				var span3 = document.createElement("span");
+				var span4 = document.createElement("span");
+
+				div.setAttribute("class", "mdList");
+				img.setAttribute("class", "mdImg");
+				img.setAttribute("width", "300px");
+				img.setAttribute("height", "200px");
+				img.setAttribute("src", "../images/materialimg/" + json[i].mimage);
+				img.setAttribute("onclick", "viewFunc(" + json[i].mcode + ")");
+				span1.setAttribute("class", "mdModel");
+				span1.innerHTML = json[i].mname;
+				span2.innerHTML = json[i].mdate;
+				span3.innerHTML = json[i].mstate;
+				span4.innerHTML = json[i].mdev;
+
+
+				div.appendChild(img);
+				div.appendChild(span1);
+				div.appendChild(span2);
+				div.appendChild(span3);
+				div.appendChild(span4);
+
+				matListResult.appendChild(div);
+			}
+
+		}
 	}
 </script>
 </head>
@@ -209,20 +238,22 @@
 			<div id=maTitle>자재상세</div>
 
 
-			<select id=maSelect>
+			<select id="matSelect" onchange="matFunc(this)">
 
-				<option value="">전체</option>
-				<option value="">모델명</option>
+				<option value="0">전체</option>
+				<option value="1">모델명</option>
 
 
-			</select> <input type='text' id='matsearch' placeholder="검색어를 입력해주세요." /> <a
-				href="#" class="myButton buttonBoder" onclick="mSearch()">검색</a>
+			</select> <input type='text' id='matsearch' name='findStr'
+				placeholder="검색어를 입력해주세요." /> <a href="#"
+				class="myButton buttonBoder" onclick="mSearch()">검색</a>
 
 			<hr />
 			<div id="matListResult"></div>
 
 
-			<input type='hidden' name='mcode' />
+			<input type='hidden' name='mcode' /> <input type='hidden'
+				name='sSearch' id='sSearch' value='0'/>
 
 			<!-- <div>
 				<div class='mdList'>
