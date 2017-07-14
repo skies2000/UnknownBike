@@ -19,11 +19,8 @@
 		<result property="mdate" column="mdate" />
 		<result property="mstate" column="mstate" />
 		<result property="mdev" column="mdev" />
-<<<<<<< HEAD
-		<result property="mimage" column="mimage"/>
-=======
 		<result property="mimage" column="mimage" />
->>>>>>> 38a8c60fd59486d9290b3c867d0b83b90764e1be
+
 
 	</resultMap>
 	<select id="matList" resultMap="matListMap">
