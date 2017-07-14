@@ -2,6 +2,7 @@ package so;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,15 +52,21 @@ public class SoController {
 	
 	
 	@RequestMapping(value="main/listcate.so", method={RequestMethod.GET, RequestMethod.POST })
-	public Object listcate(SoVo vo){
-		ModelAndView mv = new ModelAndView();		
-		List<SoVo> list = dao.aMetarial(vo);
-				
-		mv.addObject("list",list);
+	public Object listcate(HttpServletRequest req, HttpServletResponse res){
+		res.setCharacterEncoding("utf-8");
+		MultipartRequest mul = getMul(req);
 		
+		int mCate = Integer.parseInt(mul.getParameter("mCate"));
+		List<SoVo> list = new ArrayList<SoVo>();
+		
+		SoVo vo = new SoVo();
+		vo.setmCate(mCate);
+		list = dao.aMetarial(vo);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("list",list);
 		mv.setViewName("../main/index.jsp?inc=../purchase/purchase_home.jsp");
 	
-	    //index.jsp?inc=./board/purchase_home.jsp
 		return mv;
 	}
 	
@@ -95,8 +102,8 @@ public class SoController {
 	
 	}
 	
-@RequestMapping(value="login/needcate.so", method={RequestMethod.GET, RequestMethod.POST })
-	public Object needcate(){
+@RequestMapping(value="main/needcate.so", method={RequestMethod.GET, RequestMethod.POST })
+	public Object needcate(HttpServletRequest req, HttpServletResponse res){
 		SoVo vo = new SoVo(); 
 		ModelAndView mv = new ModelAndView();		
 		
@@ -110,6 +117,22 @@ public class SoController {
 		return mv;
 	}
 	
+//보고서 상세
+@RequestMapping(value="main/purviewdetail.so", method={RequestMethod.GET, RequestMethod.POST })
+public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
+	ModelAndView mv = new ModelAndView();
+	//mv.addObject();
+
+	mv.setViewName("../main/index.jsp?inc=../purchase/purchase_ReportView.jsp");
+
+    //index.jsp?inc=./board/purchase_home.jsp
+	return mv;
+}
+
+
+
+
+
 	//Purchase_Input
 	@RequestMapping(value="main/purinput.so", method={RequestMethod.GET, RequestMethod.POST })
 	public Object goPInput(@RequestParam(value="checkmaterial") String[] checkmaterial){
