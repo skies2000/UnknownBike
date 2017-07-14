@@ -307,6 +307,7 @@ public class HwanController {
 			 list = dao.proList(vo);
 		}
 		
+		
 		System.out.println(vo.getFindStr());
 		System.out.println(findStr);
 		System.out.println("list Size : "+list.size());
@@ -360,7 +361,7 @@ public class HwanController {
 		
 		//얻어온  두번째 사원 정보(이름)을 vo에 담는다 vo는 view페이지에서 사용될 클래스
 		vo.setAppTwo(appVo.getEname());
-		
+		 
 		
 		
 		mv.setViewName("/laboratory/productView.jsp");
@@ -368,5 +369,24 @@ public class HwanController {
 		
 		return mv;
 	}
+	
+	@RequestMapping(value="/mList.hwan", method={RequestMethod.POST})
+	public Object mList(HwanVo vo){
+		ModelAndView mv = new ModelAndView();
+		List<HwanVo>list = null;
+		
+		System.out.println(vo.getMlpcode());
+		list = dao.proViewMatList(vo.getMlpcode());
+		
+		mv.setViewName("laboratory/materialsList.jsp");
+		mv.addObject("list",list);
+		
+		
+		return mv;
+		
+		
+	}
+	
+	
 	
 }

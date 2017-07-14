@@ -7,8 +7,10 @@ import org.apache.ibatis.session.SqlSession;
 import myba.UnknownFactory;
 
 
+	
 public class HwanDao {
 	SqlSession session;
+	HwanPageVo pVo = null;
 	
 	public HwanDao(){
 		this.session = UnknownFactory.getFactory().openSession();
@@ -68,6 +70,10 @@ public class HwanDao {
 	//전체 검색
 	public List<HwanVo> proListAllSearch(HwanVo vo){
 		List<HwanVo> list = null;
+		
+		pageCompute(vo,5,5);
+		
+		
 		list = session.selectList("hwandb.proListAllSearch",vo);
 		return list;
 	}
@@ -98,4 +104,66 @@ public class HwanDao {
 		session.commit();
 		return r;
 	}
+	
+	public void pageCompute(HwanVo v, int listSize, int blockSize){
+		  pVo = new HwanPageVo(listSize,blockSize);
+		  
+		  int totList = 0; //리스트 전체 개수
+		  int totPage = 0; // 전체 페이지수
+		  int totBlock = 0;	//전체 블럭수
+		  
+		  int nowBlock = 1; // 현재 블럭
+		  int startNo = 0; //리스트 목록의 시작위치
+		  int endNo = 0; //리스트 목록의 마지막 위치
+		  
+		  int startPage = 0; // 한블럭에 표시할 시작 페이지 번호
+		  int endPage = 0; // 한블럭에 표시할 마지막 페이지 번호
+		  
+		   
+		  int nowPage =  v.getNowPage(); // 현재 페이지
+		  
+		  
+		  String findStr = v.getFindStr();
+		  
+		  int a = session.selectOne("hwandb.productCnt");
+		  System.out.println("productCnt : "+a);
+		 
+			  
+			  
+			  totPage = (int)Math.ceil(totList/(pVo.getListSize()*1.0));
+			  totBlock = (int)Math.ceil(totPage/(pVo.getBlockSize()*1.0));
+			  nowBlock = (int)Math.ceil(nowPage/(pVo.getBlockSize()*1.0));
+			  
+			  endPage = nowBlock * pVo.getBlockSize();
+			  startPage = endPage - pVo.getBlockSize()+1;
+			  endNo = nowPage * pVo.getListSize(); 
+			  startNo = endNo - pVo.getListSize()+1;
+			  
+			  if(endPage > totPage) endPage = totPage;
+			  if(endNo > totList) endNo = totList;
+			  
+			  pVo.setTotList(totList);
+			  pVo.setTotBlock(totBlock);
+			  pVo.setEndNo(endNo);
+			  pVo.setEndPage(endPage);
+			  pVo.setNowBlock(nowBlock);
+			  pVo.setStartNo(startNo);
+			  pVo.setStartPage(startPage);
+			  pVo.setTotPage(totPage);
+			  pVo.setNowPage(nowPage);
+			  
+				  
+	  }
+	
+	public List<HwanVo> proViewMatList(int mlpcode){
+		List<HwanVo> list = null;
+		System.out.println("mlpcode : "+mlpcode);
+		
+		list = session.selectList("hwandb.proViewMatList",mlpcode);
+		
+		return list;
+		
+	}
+	
+	
 }
