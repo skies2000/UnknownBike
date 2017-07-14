@@ -138,7 +138,7 @@
 		for (var i = 0; i < ck.length; i++) {
 			if (ck[i].checked == true) {
 				var la = document.createElement("input");
-				alert(ck[i].value);
+		
 				la.setAttribute("type", "hidden")
 				la.setAttribute("name", "appMember")
 				la.setAttribute("value", ck[i].value);
@@ -149,7 +149,7 @@
 			}
 		}
 		if (checkFlag) {
-			alert(resultStr);
+			
 			window.opener.document.getElementById("appMemberId").innerHTML = "결재자 등록완료(수정)"; //opener = materials input에서 열어준다!
 			self.close();
 		} else {
