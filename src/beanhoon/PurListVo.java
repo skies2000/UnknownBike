@@ -18,6 +18,7 @@ public class PurListVo {
 	private int srlMCode = 0;
 	private int srlEa = 0;
 	private String srlTerm;
+	private int srlStatus = 0;
 	
 	// employees
 	private String eName;
@@ -158,6 +159,12 @@ public class PurListVo {
 	}
 	public void setSrlTerm(String srlTerm) {
 		this.srlTerm = srlTerm;
+	}
+	public int getSrlStatus() {
+		return srlStatus;
+	}
+	public void setSrlStatus(int srlStatus) {
+		this.srlStatus = srlStatus;
 	}
 	
 	// employees getter setter

@@ -13,7 +13,7 @@
 	</div>
 	
 	<div id='productResult'>
-		<img src='../images/yyh_empImage30001.jpg'>
+		<img src='../images/product_home.jpg' style="width: 700px; height:auto;">
 	</div>
 </body>
 </html>

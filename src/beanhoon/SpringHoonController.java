@@ -108,11 +108,14 @@ public class SpringHoonController {
 		mv.setViewName("product_request_set_result");
 		
 		try {
-			
-			String msg = dao.saveData(vo);
-			
 			// 메세지를 오브젝트에 저장
+			String msg = dao.saveData(vo);
 			mv.addObject("msg", msg);
+			
+			// 작업 상태를 따로 담는다
+			int srlStatus = dao.updateData(vo);
+			vo.setSrlStatus(srlStatus);
+			mv.addObject("vo", vo);
 			
 		} catch (Exception ex) {
 			mv.setViewName("product_request_set");
