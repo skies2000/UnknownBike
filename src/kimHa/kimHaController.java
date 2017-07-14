@@ -119,6 +119,7 @@ public class kimHaController {
 		int r = 0;
 		r = dao.docInput(vo); // 문서
 		r = dao.matInput(vo2); // 자재
+		r = dao.labInput(); // 연구소 리스트 테이블
 		if (r > 0) {
 			r = 1;
 		} else {
@@ -143,12 +144,24 @@ public class kimHaController {
 		}
 	}
 
-	// 상세보기
+	// 상세보기 검색어
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/matList.kimHa", method = { RequestMethod.GET, RequestMethod.POST })
-	public void matList(HttpServletResponse resp) {
+	public void matList(HttpServletRequest req, HttpServletResponse resp) {
+		MultipartRequest mul = getMul(req);
 		PrintWriter out = getOut(resp);
-		List<kimHaVo> list = dao.matList();
+		List<kimHaVo> list = null;
+		kimHaVo vo = new kimHaVo();
+
+		// 전체 리스트
+		int sSearch = Integer.parseInt(mul.getParameter("sSearch"));
+		vo.setFindStr(mul.getParameter("findStr"));
+
+		if (sSearch == 0) {// 전체검색
+			list = dao.matAllSearch(vo);
+		} else if (sSearch == 1) {// 검색어에 한에서 검색
+			list = dao.matList(vo);
+		}
 
 		JSONArray json = new JSONArray();
 
@@ -170,13 +183,41 @@ public class kimHaController {
 	}
 
 	// view
+	// 자재 리스트들이 출력되는 화면에서 해당 자재 이미지를 클릭하면 나오는 자재 상세 정보를 화면에 뿌려줄 자재 정보
 	@RequestMapping(value = "/matView.kimHa", method = { RequestMethod.GET, RequestMethod.POST })
 	public Object matView(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
 		MultipartRequest mul = getMul(req);
 		kimHaVo vo = new kimHaVo();
+		kimHaVo appVo = new kimHaVo(); // 결재자
+		String dsign = "";
 		vo.setMcode(Integer.parseInt(mul.getParameter("mcode")));
 		vo = dao.matView(vo);
+		dsign = vo.getDsign();
+		// System.out.println(dsign);
+		String[] dsArr = dsign.split(",");
+		// System.out.println(Arrays.toString(dsArr));
+
+		// 사원코드를 이용해서 사원 정보를 얻어온다.
+		appVo.setEcode(Integer.parseInt(dsArr[0]));
+		appVo = dao.appOne(appVo);// 사원컬럼들이 전부 다 들어감.
+
+		// 얻어온 사원 정보(이름)을 vo에 담는다.
+		// vo는 view 페이지에서 사용될 클래스
+		vo.setAppOne(appVo.getEname());
+
+		
+		//--------------------------------------------------
+		
+		// 두 번째 사원코드를 이용해서 사원 정보를 얻어온다.
+		appVo.setEcode(Integer.parseInt(dsArr[1]));
+		appVo = dao.appOne(appVo);// 사원컬럼들이 전부 다 들어감.
+		
+
+		// 얻어온 사원 정보(이름)을 vo에 담는다.
+		// vo는 view 페이지에서 사용될 클래스
+		vo.setAppTwo(appVo.getEname());
+
 		mv.setViewName("/laboratory/materialsView.jsp");
 		mv.addObject("vo", vo);
 		return mv;

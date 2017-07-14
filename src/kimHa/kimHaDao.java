@@ -1,6 +1,7 @@
 package kimHa;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -45,11 +46,33 @@ public class kimHaDao {
 		return r;
 	}
 	
+	//연구소 리스트 테이블
+	public int labInput(){
+		int r = 0;
+		try{
+			r=session.insert("kimHadb.labInput");
+		}catch(Exception e){
+			e.printStackTrace();
+			r=-1;
+			session.rollback();
+		}
+		session.commit();
+		return r;
+	}
+	
 	//Details
-	public List<kimHaVo> matList(){
+	public List<kimHaVo> matList(kimHaVo vo){
 		List<kimHaVo> list = null;
 		//kimHa.DB.xml ??namespace !!! . id媛?(kimHaDB.xml??select id)
-		list = session.selectList("kimHadb.matList");
+		list = session.selectList("kimHadb.matList",vo);
+		return list;
+	}
+	// 상세페이지에서 전체 리스트 검색. 출력.
+	
+	public List<kimHaVo> matAllSearch(kimHaVo vo){
+		List<kimHaVo> list = null;
+		//kimHa.DB.xml ??namespace !!! . id媛?(kimHaDB.xml??select id)
+		list = session.selectList("kimHadb.matAllsearch",vo);
 		return list;
 	}
 	
@@ -58,6 +81,12 @@ public class kimHaDao {
 	public kimHaVo matView(kimHaVo vo){
 		kimHaVo v = null;
 		v = session.selectOne("kimHadb.matView",vo);
+		return v;
+	}
+	
+	public kimHaVo appOne(kimHaVo vo){
+		kimHaVo v = null;
+		v = session.selectOne("kimHadb.appOne",vo);
 		return v;
 	}
 }

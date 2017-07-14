@@ -122,7 +122,7 @@
             <tr>
                 <td>${vo.pdev}</td>
                 <td>${vo.pname}</td>
-                <td>유재석</td>
+                <td>${vo.appOne}</td>
             </tr>
             
             <tr>
@@ -133,7 +133,7 @@
             <tr>
                 <td>${vo.pprice}</td>
                 <td>${vo.pcost}</td>
-                <td>강호동</td>
+                <td>${vo.appTwo}</td>
             </tr>
             
             

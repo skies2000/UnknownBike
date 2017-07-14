@@ -117,7 +117,7 @@ $('#maViewDiv #backBtn').click(function(){
 
 		<form>
 			<div>
-				<img src="../images/purchaseimg/${vo.mimage}" width="300px"
+				<img src="../images/materialimg/${vo.mimage}" width="300px"
 					height="200px">
 				<table width="300px">
 					<tr>
@@ -128,7 +128,7 @@ $('#maViewDiv #backBtn').click(function(){
 					<tr>
 						<td>${vo.mdev}</td>
 						<td>${vo.mname}</td>
-						<td>유재석</td>
+						<td>${vo.appOne }</td>
 					</tr>
 
 					<tr>
@@ -139,7 +139,7 @@ $('#maViewDiv #backBtn').click(function(){
 					<tr>
 						<td>${vo.mprice}</td>
 						<td>${vo.mcate}</td>
-						<td>강호동</td>
+						<td>${vo.appTwo}</td>
 					</tr>
 					<tr>
 						<td colspan="2">작성일</td>

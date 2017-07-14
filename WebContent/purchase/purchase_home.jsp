@@ -5,9 +5,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-
+	
 <html>
 	<head>
+	<link rel='stylesheet' href='../purchase/purchase_modal.css' />
+	<script src='../jq_lib/jquery-3.2.1.min.js'></script>
 		<script>	
 		
 			function gowheel(mCate){
@@ -19,21 +21,103 @@
 				frm.submit();
 				}
 			function wholewheel(){
-				var frm = document.frm;
+				var frm = document.frm;	
 				frm.action = 'purhome.so';
 				frm.submit();
 				}
-			function purbuy(){
-				var frm = document.frm;
-				
-				}
-			function goinput(){
-				var frm = document.frm2;
-				frm.action = 'purinput.so';
+			function needwheel(){
+				var frm = document.frm;		
+				frm.action = 'needcate.so';
 				frm.submit();
-			}
+				}
+			function pursearch(){
+				var frm1= document.frm1;
+				frm1.action = 'pursearch.so';
+				frm1.submit();					
+				}				
+			//여러개일때...		
+			function purch_img(abc){
+				var modal = document.getElementById('myModal');
+				modal.style.display = "block";
+				var purfrm = document.getElementById("purhome_form");
+				purfrm.mCode.value = abc;
+				var abcabc = new FormData(purfrm);
+				var abcxml = new XMLHttpRequest();
+				abcxml.open("post","../detailinfo.so");
+				abcxml.send(abcabc);
+				abcxml.onreadystatechange = function(){
+					if(abcxml.readyState == 4 && abcxml.status == 200){
+							var deff = abcxml.responseText;
+							var deff2 = JSON.parse(deff);
+
+							var productDetailInfoDiv = document.getElementById("productDetailInfoDiv");
+
+							var phviewitemDiv = document.createElement("div");
+
+							var phcheckboxDiv = document.createElement("div");
+							var phcheckbox = document.createElement("input");
+
+							var imgDiv = document.createElement("div");
+							var img = document.createElement("img");
+							
+							var phviewtxtSpab = document.createElement("span");
+
+							var phstatusSpan = document.createElement("span");
+
+							
+							phviewitemDiv.setAttribute("class", "phviewitem");
+							
+							imgDiv.setAttribute("class", "phviewimg");
+							img.setAttribute("src", "../images/purchaseimg/"+deff2[0].mImage);
+							img.setAttribute("id", "purimg");
+							
+							phcheckboxDiv.setAttribute("class", "phcheckbox");
+							phcheckbox.setAttribute("type", "checkbox");
+							
+							
+							phviewtxtSpab.setAttribute("class", "phviewtxt");
+
+
+							
+							phviewtxtSpab.innerHTML="자재코드:"+deff2[0].mCode;
+							phviewtxtSpab.appendChild(document.createElement("br"));
+							phviewtxtSpab.innerHTML+="자재명:"+deff2[0].mName;
+							phviewtxtSpab.appendChild(document.createElement("br"));
+
+
+							
+							phstatusSpan.innerHTML=deff2[0].mEa+"개";
+							phstatusSpan.setAttribute("class", "phstatus");
+							if(deff2[0].mEa<=50){
+								phstatusSpan.setAttribute("style","color:#a6827e");
+							}else{
+								phstatusSpan.setAttribute("style","color:white");
+							}
+
+
+							phcheckboxDiv.appendChild(phcheckbox);
+							imgDiv.appendChild(img);
+
+							phviewitemDiv.appendChild(phcheckboxDiv);
+							phviewitemDiv.appendChild(imgDiv);
+							phviewitemDiv.appendChild(phviewtxtSpab);
+							phviewitemDiv.appendChild(phstatusSpan);
+
+							productDetailInfoDiv.appendChild(phviewitemDiv);
+							
+						}
+					}
+				}
+			
+			window.onclick = function(event) {
+				var modal = document.getElementById('myModal');
+			    if (event.target == modal) {
+			        modal.style.display = "none";
+			    }
+			} 
 
 		</script>
+		
 		
 		
 		<title>Page Title</title>
@@ -61,8 +145,7 @@
 		*/
 	}
 
-	#purchase_home_btn{
-		
+	#purchase_home_btn{		
 		text-align: center;
 	}
 	.phcate {
@@ -107,13 +190,40 @@
 		text-align: center;
 		*/
 	}
+	
+	#pur_search{
+		text-align: right;
+		margin-bottom: 15px;
+	}
+	
+	
+	/*상세 제품 정보에 추가되는 내용이 새로로 추가가 되서 가로로 추가 되게 css 먹여봄  */
+	#productDetailInfoDiv .phviewitem{
+		display: inline-block;
+		width: 100px;
+		border: 1px solid red;
+		float: left;
+		
+	}
+	
+	
+	
 	</style>
 	</head>
     
 	<body>
+	
+
 	<div id=category>
 		<jsp:include page="../category/submenuPurchase.jsp"></jsp:include>
 	</div>
+	<form name='frm1' method='post'>
+	<div id=pur_search>
+	<input type="text" style="height:25px;" size="25" name="findStr"><span id='purchase_src_btn'>
+		<a href='#' id='plok' class='pibutton' onclick="pursearch()">검색 </a>		
+		</span>		
+	</div>
+	</form>
     <!-- 카테고리 영역 -->
     <div id=pur_home_category>
    		<a href="#" onclick="wholewheel()"><span class='phcate'>전체</span></a>
@@ -134,7 +244,7 @@
     	<span class='phbar'>ㅣ</span>   
     	<a href="#" onclick="gowheel(8)"><span class='phcate'>페달</span></a>
     	<span class='phbar'>ㅣ</span>   
-    	<a href="#" onclick="purbuy()"><span class='phcate_need'>구매필요</span></a>
+    	<a href="#" onclick="needwheel()"><span class='phcate_need'>구매필요</span></a>
     </div>
     
     
@@ -149,15 +259,16 @@
 		
 		<div class='phviewitem'>
 		
-		<%-- 여기 로긴어떻게 나눠줄까요오오오오오 (2017.07.07 황주희)
-		<c:if test="${vo.}"> --%>
+		
 			<div id='phcheckbox'>
 			<input type="checkbox" name='checkmaterial' value='${vo.mCode }'>
 			</div>
 			<!-- 이미지부분 -->
 			<div class='phviewimg'>
-			<img id='purimg' src='../images/purchaseimg/${vo.mImage }'><br/>
-			</div>
+			
+			<img id='purimg' src='../images/purchaseimg/${vo.mImage }' onclick="purch_img(${vo.mCode })"><br/>
+			</div>			
+			
 			<!-- 설명부분 -->
 			<span class='phviewtxt'>
 				자재코드: ${vo.mCode }<br/>
@@ -171,7 +282,7 @@
 			
 				
 			</span>
-		<%-- </c:if>		 --%>
+		
 		</div>
 		
 		</c:forEach> 
@@ -185,13 +296,32 @@
 	</div>	
 
 		
-	<form name='frm' method='post'>
+	<form name='frm' method='post' id=purhome_form enctype="multipart/form-data">
 		<input type='hidden' name='mCate'>
-		
+		<input type='hidden' name='mCode'>
 	</form>
 	
+	<!-- The Modal -->
+<div id="myModal" class="modal">
 
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      
+      <h2>상세 제품 정보</h2>
+    </div >
+    <div class="modal-body" id = "productDetailInfoDiv">
 		
+		
+		
+    </div>
+
+  </div>
+
+</div>		
+	
+	
+	
 
 	</body>
 </html>
