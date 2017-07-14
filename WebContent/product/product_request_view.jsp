@@ -79,8 +79,15 @@ function onSetting(srlCode, srlMCode) {
 				<span id='codename'>${workList.pName }</span>
 				<span id='ea'>${workList.srlEa }</span>
 				<span id='deadline'>${workList.srlTerm }</span>
-				<span id='set'><label ></label>
-					<div id='setOK' onclick="onSetting(${workList.srlCode }, ${workList.srlMCode })">설정 필요</div>
+				<span id='set'>
+					<c:choose>
+						<c:when test="${workList.srlStatus == 0}">
+							<div id='setOK' onclick="onSetting(${workList.srlCode }, ${workList.srlMCode })"><font color='yellow'>설정 필요</font></div>
+						</c:when>
+						<c:when test="${workList.srlStatus == 9}">
+							<div id='setOK'><font color='green'>설정 완료</font></div>
+						</c:when>
+					</c:choose>
 				</span>
 			</c:forEach>
 			</div>

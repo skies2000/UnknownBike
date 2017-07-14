@@ -19,13 +19,7 @@
 	<select id='pur_list' resultMap="voMap" parameterType="beanhoon.PurListVo">
 		select d.dCode, d.dCate, d.dName, d.dDate, e.eName 
 		from document d join employees e on d.dWrite = e.eCode 
-		where d.dStatus = 0 and d.dcate = #{dCate }
-	</select>
-	
-	<!-- 생산요청서 내용 확인(상단) -->
-	<select id='pur_view' resultMap="voMap" parameterType="beanhoon.PurListVo">
-		select dCode, dWrite, substr(dSign, 0, 5) dSign1, substr(dSign, 7, 5) dSign2, dName, dCont, dDate 
-		from document where dCode = #{dCode }
+		where d.dStatus = 0 and d.dcate = #{dCate } order by d.dCode desc
 	</select>
 	
 	<!-- 요청서 검색 -->
@@ -36,6 +30,12 @@
 		(d.dName like '%${findStr}%' or e.eName like '%${findStr}%')
 	</select>
 	
+	<!-- 생산요청서 내용 확인(상단) -->
+	<select id='pur_view' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select dCode, dWrite, substr(dSign, 0, 5) dSign1, substr(dSign, 7, 5) dSign2, dName, dCont, dDate 
+		from document where dCode = #{dCode }
+	</select>
+	
 	<!-- 생산요청서 작성자와 결재자들의 사원 코드를 사원 이름으로 변경 -->
 	<select id='pur_sign' resultType="String" parameterType="String">
 		select eName from employees where eCode = #{str }
@@ -43,7 +43,7 @@
 	
 	<!-- 생산요청서 내용 확인(하단 작업 리스트) -->
 	<select id='pur_work' resultMap="voMap" parameterType="beanhoon.PurListVo">
-		select s.srlCode, p.pName, s.srlEa, s.srlTerm, s.srlMCode  
+		select s.srlCode, p.pName, s.srlEa, s.srlTerm, s.srlMCode, s.srlStatus  
 		from srList s join product p on s.srlMcode = p.pCode
 		where s.srlCode = #{dCode }
 	</select>
@@ -56,11 +56,16 @@
 	</select>
 	
 	<!-- 세팅된 설정을 DB에 저장 -->
-	<select id='save_data' resultMap="voMap" parameterType="beanhoon.PurListVo">
+	<insert id='save_data' parameterType="beanhoon.PurListVo">
 		insert into fList(workCode, flDcode, flPcode, flpEa, workLine, workPeople, workTime, workStartDate, workEndDate, dys) 
 		values(#{srlCode } || #{srlMCode }, 
 		#{srlCode }, #{srlMCode }, #{srlEa }, #{workLine }, #{workPeople }, #{pManhour }, #{workStartDate }, #{workEndDate }, #{dys })
-	</select>
+	</insert>
+	
+	<!-- update_status -->
+	<update id='update_status' parameterType="beanhoon.PurListVo">
+		update srList set srlStatus = 9 where srlCode = #{srlCode } and srlMCode = #{srlMCode }
+	</update>
 	
 	<!-- 제품 재고 조회 -->
 	<select id='list_p' resultMap="voMap" parameterType="beanhoon.PurListVo">
