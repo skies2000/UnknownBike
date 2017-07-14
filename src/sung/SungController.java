@@ -1,6 +1,7 @@
 package sung;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,8 +48,32 @@ public class SungController {
 	@RequestMapping(value = "main/sales_req_list.sung", method = { RequestMethod.GET, RequestMethod.POST })
 	public Object goReq_list(DocumentVo vo) {
 		ModelAndView mv = new ModelAndView(); 
+		vo.setdCate("srl");
 		try{
 			List<DocumentVo> docuList = dao.docu_reqList(vo);
+			
+			mv.addObject("docuList", docuList);
+			mv.setViewName("sales_market_req_list");
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return mv;
+	}
+	
+	//list 검색
+	
+	@RequestMapping(value = "main/search_list.sung", method = { RequestMethod.GET, RequestMethod.POST })
+	public Object search_list(DocumentVo vo) {
+		ModelAndView mv = new ModelAndView(); 
+		
+		System.out.println(vo.getFindStr());
+		vo.setdCate("srl");
+		try{
+			List<DocumentVo> docuList = dao.list_find(vo);
+			for(int i=0; i<docuList.size(); i++){
+				System.out.println(docuList.get(i).getpName());
+				
+			}
 			mv.addObject("docuList", docuList);
 			mv.setViewName("sales_market_req_list");
 		}catch(Exception ex){
@@ -94,7 +119,8 @@ public class SungController {
 		try{
 			out = resp.getWriter();
 			for(int i=0; i<proList.size(); i++){
-				sb.append("{'pName':'"+proList.get(i).getpName()+"'},");
+				sb.append("{'pName':'"+proList.get(i).getpName()+"',");
+				sb.append("'pCode':'"+proList.get(i).getpCode()+"'},");
 			}
 			sb.append("]");
 			String str = sb.toString();
@@ -110,9 +136,12 @@ public class SungController {
 	
 	//생산 요청내역 db저장
 	@RequestMapping(value = "main/sales_req_input3.sung", method = { RequestMethod.GET, RequestMethod.POST })
-	public void req_input_db(HttpServletRequest req, HttpServletResponse resp) {
+	public void req_input_db(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 		PrintWriter out = null;
 		MultipartRequest mul = getMul(req);
+		
+		//세션 아이디값 가져오기
+		String userId = (String)session.getAttribute("user");
 		
 		String code = mul.getParameter("list_code");
 		String calender = mul.getParameter("list_term");
@@ -121,23 +150,39 @@ public class SungController {
 		String appro2 = mul.getParameter("appr_eCode2");
 		String srl = mul.getParameter("input_srl");
 		String date = mul.getParameter("input_date");
-		String writer = mul.getParameter("input_writer");
+		int writer = Integer.parseInt(userId);
+		String subject = "생산요청서";
+		String content = "아래와 같이 생산을 요청합니다.";
+		String signer = appro1 + "," + appro2;
 		
+		/*if(code)*/
+		String[] spl_code = code.split(",");
+		String[] spl_ea = ea.split(",");
+		String[] spl_calender = calender.split(",");
+		String[] status = signer.split(",");
 		
-		List<ProductVo> pList;
+		//srl에 넣을것
+		for(int i=0; i<spl_calender.length; i++){
+			ProductVo pvo = new ProductVo();
+			
+				pvo.setCodeName(spl_code[i]);
+				pvo.setpEa(Integer.parseInt(spl_ea[i]));
+				pvo.setTerm(spl_calender[i]);
+			
+				pvo = dao.srlInput(pvo);
+		}
 		
+		//document에 넣을 것
+		DocumentVo dvo = new DocumentVo();
+		dvo.setdName(subject);
+		dvo.setdCont(content);
+		dvo.setdDate(date);
+		dvo.setdWrite(writer);
+		dvo.setdSign(signer);
+		dvo.setdStatus(status.length);
+		dvo.setdCate(srl);
 		
-		System.out.println("code : " + code);
-		System.out.println("ea : " + ea);
-		System.out.println("calender : " + calender);
-		System.out.println("appro1 : " + appro1);
-		System.out.println("appro2 : " + appro2);
-		System.out.println("srl : " + srl);
-		System.out.println("date : " + date);
-		System.out.println("writer : " + writer);
-		
-		List<DocumentVo> dList;
-		
+		String msg = dao.document_input(dvo);
 	}
 	
 	//input page에서 생산요청할 제품 뿌려줄것
@@ -200,11 +245,46 @@ public class SungController {
 	
 	
 	@RequestMapping(value = "main/sales_req_view.sung", method = { RequestMethod.GET, RequestMethod.POST })
-	public Object goReq_view() {
+	public Object goReq_view(DocumentVo dvo) {
 		ModelAndView mv = new ModelAndView(); 
-
-		  mv.setViewName("sales_market_req_view");
-
+		try{
+			//상세보기 상단
+			dvo.setdCate("srl");
+			DocumentVo vo = dao.req_view(dvo);
+			mv.addObject("vo", vo);
+			
+			//상세보기 하단 요청제품리스트
+			List<DocumentVo> list = dao.req_view2(dvo);
+			mv.addObject("list", list);
+			
+			//사원코드로 사원이름불러오기
+			EmployeeVo evo = new EmployeeVo();
+			int wirte = vo.getdWrite();
+			evo.seteCode(wirte);
+			EmployeeVo writer = new EmployeeVo();
+			writer = dao.findEname(evo);
+			mv.addObject("writer", writer); //작성자
+			
+			String sign = vo.getdSign();
+			String[] appro = sign.split(",");
+			int appro1 = Integer.parseInt(appro[0]);
+			int appro2 = Integer.parseInt(appro[1]);
+			
+			EmployeeVo app1 = new EmployeeVo();
+			evo.seteCode(appro1);
+			app1 = dao.findEname(evo);
+			mv.addObject("app1", app1); //결재자1
+			
+			EmployeeVo app2 = new EmployeeVo();
+			evo.seteCode(appro2);
+			app2 = dao.findEname(evo);
+			mv.addObject("app2", app2); //결재자2
+			
+			
+			mv.setViewName("sales_market_req_view");
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		return mv;
 	}
 	
@@ -214,9 +294,13 @@ public class SungController {
 	
 	
 	@RequestMapping(value = "main/sales_sale_input.sung", method = { RequestMethod.GET, RequestMethod.POST })
-	public Object goSale_input() {
+	public Object goSale_input(ProductVo vo, HttpSession session) {
 		ModelAndView mv = new ModelAndView(); 
-
+		//세션 아이디값 가져오기
+		String userId = (String)session.getAttribute("user");
+				
+		EmployeeVo evo = new EmployeeVo();
+		evo.seteCode(Integer.parseInt(userId));
 		  mv.setViewName("sales_market_sale_input");
 
 		return mv;

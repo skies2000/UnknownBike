@@ -16,7 +16,7 @@ function viewImg(code) {
 	frm.submit();
 }
 function search() {
-var frm = document.getElementById('frm');
+	var frm = document.getElementById('frm');
 	
 	// 검색어로 사용할 변수들
 	var pco = frm.txtCode.value;
@@ -63,10 +63,10 @@ var frm = document.getElementById('frm');
 		<hr>
 	</div>
 <div id='list'> <!-- 검색결과 타이틀 범위 -->
-	<span>제품 코드</span>
+	<span class='css'>제품 코드</span>
 	<span>제품 명</span>
 	<span>카테고리</span>
-	<span>원가</span>
+	<span>가격</span>
 	<span>등록일</span>
 	<span>재고</span>
 	<span>제품 이미지</span>
@@ -75,7 +75,7 @@ var frm = document.getElementById('frm');
 	<!-- DB에서 요청서 불러오는 곳 -->
 	<c:forEach items="${list }" var="listP">
 	<div id='list'>
-		<span>${listP.pCode }</span>
+		<span class='css'>${listP.pCode }</span>
 		<span>${listP.pName }</span>
 		<span>
 			<c:choose>
@@ -86,10 +86,12 @@ var frm = document.getElementById('frm');
 				<c:when test="${listP.pCate == 5}">하이브리드</c:when>
 			</c:choose>
 		</span>
-		<span>${listP.pCost }</span>
+		<span>${listP.pPrice }</span>
 		<span>${listP.pDate }</span>
 		<span>${listP.pEa }</span>
-		<span><input type='button' value='이미지 보기' name='btnImg' onclick="viewImg(${listP.pCode })"></span>
+		<span class="wrap">
+			<input type='button' value='이미지 보기' id='btnImg' onclick="viewImg(${listP.pCode })">
+		</span>
 	</div>
 	</c:forEach>
 </div>

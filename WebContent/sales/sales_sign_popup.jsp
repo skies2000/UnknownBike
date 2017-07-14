@@ -75,6 +75,7 @@ function cate_func2(sel){
 			str += "<div class='ePosition' id='ePosition'>СїБо : " + jData[0].ePosition + " </div>";
 			
 			var divAdd = document.createElement("div");
+			
 			divAdd.innerHTML = str;
 			content.appendChild(divAdd);
 			

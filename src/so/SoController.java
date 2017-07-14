@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -20,6 +21,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import sung.EmployeeVo;
+import sung.ProductVo;
 
 
 @Controller
@@ -154,12 +156,48 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 	
 	//Purchase_ReportList
 	@RequestMapping(value="main/purRList.so", method={RequestMethod.GET, RequestMethod.POST })
-	public Object goPRList(HttpServletRequest req, HttpServletResponse resp){
+	public Object goPRList(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
 		ModelAndView mv = new ModelAndView();
-		//mv.addObject();
-	
-		mv.setViewName("../main/index.jsp?inc=../purchase/purchase_ReportList.jsp");
-	
+		PrintWriter out = getOut(resp);
+		MultipartRequest mul = getMul(req);
+		
+		SoVo vo = new SoVo();
+		
+		String dName = mul.getParameter("pising1-1");//문서제목
+		String dCate = mul.getParameter("input_pur");//문서종류
+		String dDate = mul.getParameter("input_date");
+		String dWriter = (String)session.getAttribute("user");
+		String appro1 = mul.getParameter("h_piappro1");
+		String appro2 = mul.getParameter("h_piappro2");
+		String pur = mul.getParameter("input_pur");
+		String signer = appro1 + "," + appro2;
+		
+		String mCode = mul.getParameter("mCode");
+		String mName = mul.getParameter("mName");
+		String mPo = mul.getParameter("mPo");
+		String mEa = mul.getParameter("mEa");
+		String mPrice = mul.getParameter("mPrice");
+		
+		/*if(code)*/
+		String[] spl_code = mCode.split(",");
+		String[] spl_name = mName.split(",");
+		String[] spl_po = mPo.split(",");
+		String[] spl_ea = mEa.split(",");
+		String[] spl_price = mPrice.split(",");
+		String[] status = signer.split(",");
+		
+		//구매리스트에 추가.. .. ... .. ...
+		for(int i=0;i<spl_code.length;i++){
+			SoVo v = new SoVo();
+			v.setPlMCode(Integer.parseInt(spl_code[i]));
+			v.setPlModel(spl_name[i]);
+			v.setPlPur(spl_po[i]);
+			v.setmEa(Integer.parseInt(spl_ea[i]));
+			v.setmPrice(Integer.parseInt(spl_price[i]));
+			
+			v = dao.purInput(v);
+		}
+		
 	    //index.jsp?inc=./board/purchase_home.jsp
 		return mv;
 	}
@@ -177,7 +215,57 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 	}
 	
 
+	// PrintWriter를 쓰려고 정환오빠 controller에서 받아온거 
+	@SuppressWarnings("finally")
+	public PrintWriter getOut(HttpServletResponse resp){
+		resp.setCharacterEncoding("utf-8");
+		PrintWriter out = null;
+		
+		try{
+			out = resp.getWriter();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			return out;
+		}
+	}
 	
+	//Purchase_ReportView
+		@SuppressWarnings("unchecked")
+		@RequestMapping(value="/purchase_req_input2.so", method={RequestMethod.GET, RequestMethod.POST })
+		public void goInput2(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
+			PrintWriter out = getOut(resp);
+			MultipartRequest Mul = getMul(req);
+			SoVo vo = new SoVo();
+			String mCode = Mul.getParameter("mCode");
+			String mEa = Mul.getParameter("mEa");
+			/*String user = Mul.getParameter("user");?????*/
+		
+			String str = "";
+		
+			vo = dao.materialSelectOne(mCode);
+			JSONArray ja = new JSONArray();
+			JSONObject jo = new JSONObject();
+			jo.put("mCode", mCode);
+			jo.put("mName", vo.getmName());
+			jo.put("mPo", vo.getmPo());
+			jo.put("mPrice", vo.getmPrice());
+			jo.put("mEa", mEa);
+			jo.put("user", (String)session.getAttribute("user"));//사원이름으로
+			
+			ja.add(jo);
+			
+			str+=Mul.getParameter("mEa");
+			str+=vo.getmName();
+			out.print(ja);
+			
+		    //index.jsp?inc=./board/purchase_home.jsp
+			
+		}
+	
+	
+	
+
 /*-------------------------------------팝업창--------------------------------------*/
 	
 	@SuppressWarnings({ "finally", "deprecation" })

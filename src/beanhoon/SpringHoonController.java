@@ -16,17 +16,27 @@ public class SpringHoonController {
 		this.dao = dao;
 	}
 	
-	
+	// 생산 메인 화면으로 이동
 	@RequestMapping(value="main/productHome.hoon", method={RequestMethod.GET, RequestMethod.POST})
 	public Object product_home(){
 		ModelAndView mv = new ModelAndView();
-		// index.jsp?inc=./board/product_home.jsp
 		mv.setViewName("product_home");
-		
 		return mv;
 	}
 	
-	// 생산요청서 리스트를 조회 (request list)
+	// 생산 오더 관리 화면으로 이동
+	@RequestMapping(value="main/reqOdd.hoon", method={RequestMethod.GET, RequestMethod.POST})
+	public Object product_odd(PurListVo vo){
+		ModelAndView mv = new ModelAndView();
+		
+		List<PurListVo> list = dao.odd(vo);
+		
+		mv.addObject("list", list);
+		mv.setViewName("product_order");
+		return mv;
+	}
+	
+	// 생산 요청서 리스트를 조회 (request list)
 	@RequestMapping(value="main/reqList.hoon", method={RequestMethod.GET, RequestMethod.POST})
 	public Object product_reqList(PurListVo vo){
 		ModelAndView mv = new ModelAndView();
@@ -35,7 +45,6 @@ public class SpringHoonController {
 		
 		mv.addObject("list", list);
 		mv.setViewName("product_request_list");
-		
 		return mv;
 	}
 	
@@ -46,6 +55,16 @@ public class SpringHoonController {
 		
 		// 요청서 상단은 요청서 하나만 보기 때문에 list에 담지 않고 vo에 담는다
 		PurListVo v = dao.view(vo);
+		
+		// 작성자와 결재자들 따로 담아서 sign 메소드 실행
+		String eName = dao.sign(v.getdWrite()+"");
+		String eName1 = dao.sign(v.getdSign1());
+		String eName2 = dao.sign(v.getdSign2());
+		
+		v.seteName(eName);
+		v.seteName1(eName1);
+		v.seteName2(eName2);
+		
 		mv.addObject("vo", v);
 		
 		// 요청서 하단은 여러 작업 정보를 담아와야 하기 때문에 list에 담는다
@@ -53,6 +72,18 @@ public class SpringHoonController {
 		mv.addObject("list", list); 
 		
 		mv.setViewName("product_request_view");
+		return mv;
+	}
+	
+	// 요청서 리스트 검색
+	@RequestMapping(value="main/search.hoon", method={RequestMethod.GET, RequestMethod.POST})
+	public Object product_search(PurListVo vo){
+		ModelAndView mv = new ModelAndView();
+		
+		List<PurListVo> list = dao.search(vo);
+		mv.addObject("list", list);
+		mv.setViewName("product_request_list");
+		
 		return mv;
 	}
 	
@@ -77,11 +108,14 @@ public class SpringHoonController {
 		mv.setViewName("product_request_set_result");
 		
 		try {
-			
-			String msg = dao.saveData(vo);
-			
 			// 메세지를 오브젝트에 저장
+			String msg = dao.saveData(vo);
 			mv.addObject("msg", msg);
+			
+			// 작업 상태를 따로 담는다
+			int srlStatus = dao.updateData(vo);
+			vo.setSrlStatus(srlStatus);
+			mv.addObject("vo", vo);
 			
 		} catch (Exception ex) {
 			mv.setViewName("product_request_set");
@@ -117,7 +151,7 @@ public class SpringHoonController {
 	}
 	
 	// 제품 검색 (product search)
-		@RequestMapping(value="main/searchP.hoon", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="main/searchP.hoon", method={RequestMethod.GET, RequestMethod.POST})
 	public Object product_searchPro(PurListVo vo){
 		ModelAndView mv = new ModelAndView();
 		

@@ -26,6 +26,7 @@ public class kimHaVo {
 	int mcode=0; 
 	String mdate=""; // 등록일
 	int mstate =0; //결재상태
+	String mstateStr="";//결재상태 String 형태
 	String mimage = "";
 	int mea = 0; // 단가
 	
@@ -34,7 +35,21 @@ public class kimHaVo {
 	//결재승인자 1,2
 	String appOne = "";
 	String appTwo = "";
+	String mcateStr = "";
 	
+
+	public String getMstateStr() {
+		return mstateStr;
+	}
+	public void setMstateStr(String mstateStr) {
+		this.mstateStr = mstateStr;
+	}
+	public String getMcateStr() {
+		return mcateStr;
+	}
+	public void setMcateStr(String mcateStr) {
+		this.mcateStr = mcateStr;
+	}
 	public String getAppOne() {
 		return appOne;
 	}

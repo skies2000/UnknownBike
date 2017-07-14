@@ -56,12 +56,12 @@ select{
 
 .pcode {
     display: inline-block;
-    width: 15%;
+    width:12%;
 }
 
 .pmname {
     display: inline-block;
-    width: 12%;
+    width: 10%;
 }
 
 .ppur {
@@ -253,6 +253,14 @@ select{
 	text-align:center;
 }
 
+#piappro1 >a{
+	text-decoration: none;
+	color:white;
+}
+#piappro2 >a{
+	text-decoration: none;
+	color:white;
+}
 /*★☆★☆★☆★구매보고서조회☆★☆★☆★☆★  */
 
 

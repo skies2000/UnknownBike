@@ -1,20 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!doctype html>
+<!doctype htm                                                                                                             l>
 <html>
 <head>
 <title>Page Title</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="initial-scale=1.0">
 <style>
+
+
+#maView{
+	margin-bottom: 10%;
+}
 #maViewDiv {
 	width: 60%;
-	margin: auto;
+	margin-left:auto;
+	margin-right: auto;
+	
 }
 
 #maViewDiv table {
 	border: 1px solid #aaa;
 	border-spacing: 0px;
+	margin-top:5%; 
+	text-align: center;
 }
 
 #maViewDiv table td {
@@ -70,15 +79,15 @@
 
 #maViewDiv {
 	position: relative;
-	width: 300px;
+	width: 700px;
 }
 
 #maViewDiv #backBtn {
-	margin-left: 220px;
+	margin-left: 600px;
 }
 
 #myButton {
-	margin-left: 240px;
+	margin-left: 500px;
 }
 
 /*    #mViewDiv td span{
@@ -117,37 +126,29 @@ $('#maViewDiv #backBtn').click(function(){
 
 		<form>
 			<div>
-				<img src="../images/materialimg/${vo.mimage}" width="300px"
-					height="200px">
-				<table width="300px">
+				<img src="../images/materialimg/${vo.mimage}" width="700px"
+					height="300px" id='viewImg'>
+				<table width="700px">
 					<tr>
 						<td><span>작성자</span></td>
 						<td>자재명</td>
-						<td>결재승인자</td>
+						<td>결재승인자1</td>
+						<td>결재승인자2</td>
+						<td>단가</td>
+						<td>자재종류</td>
+						<td colspan="2">작성일</td>
+						<td>결재승인상태</td>
 					</tr>
 					<tr>
 						<td>${vo.mdev}</td>
 						<td>${vo.mname}</td>
 						<td>${vo.appOne }</td>
-					</tr>
-
-					<tr>
-						<td>단가</td>
-						<td>자재종류</td>
-						<td>결재승인자2</td>
-					</tr>
-					<tr>
-						<td>${vo.mprice}</td>
-						<td>${vo.mcate}</td>
 						<td>${vo.appTwo}</td>
-					</tr>
-					<tr>
-						<td colspan="2">작성일</td>
-						<td>결재승인상태</td>
-					</tr>
-					<tr>
+						<td>${vo.mprice}</td>
+						<td>${vo.mcateStr}</td>
 						<td colspan="2">${vo.mdate}</td>
-						<td>${vo.mstate}</td>
+						<td>${vo.mstateStr}</td>
+				
 					</tr>
 				</table>
 				<a href="#" id='backBtn' class="myButton">뒤로</a>

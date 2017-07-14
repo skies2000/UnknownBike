@@ -15,6 +15,19 @@ public class HoonDao {
 		this.session=factory.getFactory().openSession();
 	}
 	
+	// odder List
+	public List<PurListVo> odd(PurListVo vo) {
+		List<PurListVo> list = null;
+		
+		try {
+			list = session.selectList("hoondb.odd_list", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
 	// Request List
 	public List<PurListVo> list(PurListVo vo) {
 		List<PurListVo> list = null;
@@ -34,6 +47,32 @@ public class HoonDao {
 		
 		try {
 			v = session.selectOne("hoondb.pur_view", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return v;
+		}
+	}
+	
+	// Request Search
+	public List<PurListVo> search(PurListVo vo) {
+		List<PurListVo> list = null;
+			
+		try {
+			list = session.selectList("hoondb.search", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
+	// Request Sign
+	public String sign(String str) {
+		String v = null;
+		
+		try {
+			v = session.selectOne("hoondb.pur_sign", str);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
@@ -73,7 +112,6 @@ public class HoonDao {
 		
 		try {
 			int r = session.insert("hoondb.save_data", vo);
-			System.out.println("3");
 			if (r>0) {
 				msg = "작업 설정이 정상적으로 저장되었습니다";
 			} else {
@@ -85,6 +123,21 @@ public class HoonDao {
 		} finally {
 			session.commit();
 			return msg;
+		}
+	}
+	
+	// Update Data
+	public int updateData(PurListVo vo) {
+		int v = 0;
+		
+		try {
+			v = session.update("hoondb.update_status", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			session.rollback();
+		} finally {
+			session.commit();
+			return v;
 		}
 	}
 	

@@ -16,8 +16,50 @@ public class DocumentVo {
 	private int srlMcode; //제품코드
 	private int srlEa; //수량
 	private String srlTerm;
+	private String eName;
+	private String pName;
+	private int pCode;
+	private int appro1;
+	private int appro2;
+	private String findStr;
 	
 	
+	public String getFindStr() {
+		return findStr;
+	}
+	public void setFindStr(String findStr) {
+		this.findStr = findStr;
+	}
+	public int getAppro1() {
+		return appro1;
+	}
+	public void setAppro1(int appro1) {
+		this.appro1 = appro1;
+	}
+	public int getAppro2() {
+		return appro2;
+	}
+	public void setAppro2(int appro2) {
+		this.appro2 = appro2;
+	}
+	public String getpName() {
+		return pName;
+	}
+	public void setpName(String pName) {
+		this.pName = pName;
+	}
+	public int getpCode() {
+		return pCode;
+	}
+	public void setpCode(int pCode) {
+		this.pCode = pCode;
+	}
+	public String geteName() {
+		return eName;
+	}
+	public void seteName(String eName) {
+		this.eName = eName;
+	}
 	public int getdCode() {
 		return dCode;
 	}
