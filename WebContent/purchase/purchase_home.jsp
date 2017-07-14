@@ -34,7 +34,13 @@
 				var frm1= document.frm1;
 				frm1.action = 'pursearch.so';
 				frm1.submit();					
-				}				
+				}	
+			
+			function goinput(){
+				 var frm = document.frm2;
+				 frm.action = 'purinput.so';
+				 frm.submit();
+			}
 			//여러개일때...		
 			function purch_img(abc){
 				var modal = document.getElementById('myModal');

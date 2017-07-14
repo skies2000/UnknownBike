@@ -30,6 +30,7 @@ function keyup(kk){
 	
 	
 }
+//추가버튼 눌렀을 때 들어가는 내용.. 
 function plus(){
 	var xhr = new XMLHttpRequest();
 	var url = '../purchase_req_input2.so';
@@ -56,7 +57,7 @@ function plus(){
 	
 	
 	
-	
+	//순서중요~!@~@~@먼저 넣어주기
 	var formData = new FormData(frm);
 	xhr.open('post',url);//(get방식/post방식,url);
 	xhr.send(formData);//submit할떄는 formData를 넘겨준다. input태그들이 다 넘어간다 .so로
@@ -65,7 +66,7 @@ function plus(){
 		if(xhr.readyState == 4 && xhr.status == 200){//완료되면
 			var txt = xhr.responseText;//화면에 출력되는 값을 가져올 수 있음. controller에서 void -> out.print;
 			var jData = JSON.parse(txt);//txt가 문자열 그 자체니까..=> json타입으로 바꿔줌.
-		alert(txt);
+		
 			
 			var content = document.getElementById("content");
 			var divpurihead5 = document.createElement("div");
@@ -76,8 +77,10 @@ function plus(){
 			var spanpcode5 = document.createElement("span");
 			var spanpcode6 = document.createElement("span");
 			var spanpcode7 = document.createElement("span");
+			var spanpcode8 = document.createElement("span");
 			var input1 = document.createElement("input");
 			var input2 = document.createElement("input");
+			var a = document.createElement("a");
 			
 			divpurihead5.setAttribute("class","purihead5");
 			divpurihead5.setAttribute("id","purihead5");
@@ -88,25 +91,37 @@ function plus(){
 			spanpcode5.setAttribute("class","pea");
 			spanpcode6.setAttribute("class","pprice");
 			spanpcode7.setAttribute("class","pamount");
+			/* spanpcode8.setAttribute("class","pdel"); */
 			
 			input1.setAttribute("type","number");
 			input1.setAttribute("id","peatext");
 			input1.setAttribute("name","peatext");
 			input1.setAttribute("value",jData[0].mEa);
 			input1.setAttribute("onkeyup","keyup(this)");
+			
 			input2.setAttribute("type","hidden");
 			input2.setAttribute("id","pprice");
 			input2.setAttribute("value",jData[0].mPrice);
+			/* a.setAttribute("href","#");
+			a.setAttribute("onclick","pdel()"); */
+			
 			
 			spanpcode1.innerHTML=jData[0].mCode;
+			frm.mCode.value = jData[0].mCode+",";//,를 넣어야 split으로 짤라서 담을수 있따.
 			spanpcode2.innerHTML=jData[0].mName;
+			frm.mName.value = jData[0].mName+",";
 			spanpcode3.innerHTML=jData[0].mPo;
+			frm.mPo.value=jData[0].mPo+",";
 			spanpcode4.innerHTML=jData[0].user;
+			
 			spanpcode5.appendChild(input1);
 			spanpcode6.appendChild(input2);//span태그안에 input1이 붙는다.
 			spanpcode6.innerHTML+=jData[0].mPrice;
+			frm.mPrice.value=jData[0].mPrice+",";
 			spanpcode7.innerHTML=jData[0].mEa*jData[0].mPrice;
-		
+			
+			
+			
 			divpurihead5.appendChild(spanpcode1);
 			divpurihead5.appendChild(spanpcode2);
 			divpurihead5.appendChild(spanpcode3);
@@ -136,7 +151,7 @@ function plus(){
 	    <span class='pemp'>${user}</span><!-- dWriter로..바꿔야됨 -->
 	    <span class='pea'><input type='number' id='peatext' name='peatext'></span>
 	    <span class='pprice'><input type='hidden' id='pprice' value='${vo.mPrice}'>${vo.mPrice}</span>
-	    <span class='pamount'></span>
+	    <span class='pamount'></span><a href='#' onclick='pdel(count)'>[X]</a></span>
 	  
 	    </div>
 	    
@@ -183,16 +198,42 @@ function plus(){
 		var amount = Ea*price;
 	}
 	
+	//작성완료
 	function plok(mCode){
-		var frm = document.pfrm2;
-		frm.action = 'purRList.so';
-		frm.mCode.value = mCode;
-		frm.submit();
+		var xhr = new XMLHttpRequest();
+		if(!confirm("등록하시겠습니까?")) return;
+	
+		var frm = document.pfrm;
+		var url = 'purRList.so';
+		var mcode = $('.pcode').text();//그냥 넘기는게 아니라 값이 hidden에 들어가있어야함.. .. 
+		var mname = $('.pmname').text();
+		var mpur = $('.ppur').text();
+		var mea = $('.pea').text();
+		var mprice = $('.pprice').text();
+	
 		
+		
+		
+		var fd = new FormData(frm);
+		xhr.open("POST",url);
+		xhr.send(fd);
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				var txt = xhr.responseText;
+				if(txt=="1"){
+					alert("정상적으로 등록됐습니다.");
+				
+				}
+			}	
+		 }
 	}
-	
+		
+	//작성취소
 	function plcancle(){
-	
+	var frm = document.pfrm2;
+	frm.action = 'purhome.so';
+	frm.submit();
 	}
 	
 	function sign_popup1(){
@@ -239,14 +280,22 @@ String today = year+"."+ monthstr+"."+ daystr;
 request.setAttribute("today", today);
 
 %>
+
 <form name='pfrm' id='pfrm' method='post'>
 
-<input type='hidden' name='mCode'>
+				<input type='hidden' name='mCode'>
 				<input type='hidden' name='mName'>
 				<input type='hidden' name='mPo'>
 				<input type='hidden' name='mEa'>
 				<input type='hidden' name='mPrice'>
 				<input type='hidden' name='count' value='0'>
+				
+				<input type='hidden' name='input_writer' id='input_writer'>
+				
+		 <input type='hidden' name='h_piappro1' id='h_piappro1'> <!-- 결재자1 사원번호 -->
+		 <input type='hidden' name='h_piappro2' id='h_piappro2'> <!-- 결재자2 사원번호 -->
+		 <input type='hidden' name='input_pur' id='input_pur' value='pur'>
+		 <input type='hidden' name='input_date' id='input_date' value='${today }'>
  
 <div id=category>
 		<jsp:include page="../category/submenuPurchase.jsp"></jsp:include>
@@ -265,7 +314,7 @@ request.setAttribute("today", today);
          <div class='pihead3'>
             <div class='pihead3-1'>
                <div class='pihead31'>문서번호</div>
-               <div class='pihead32'></div>
+               <div class='pihead32'>pur</div>
             </div> 
             <div class='pihead3-2'>
                <div class='pihead31'>작성자</div>
@@ -285,14 +334,14 @@ request.setAttribute("today", today);
          <div class='pisign2'>
             <div class='piappro'>결&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;재</div> 
             <div class='piwriter'>작성자</div>
-            <div class='piappro1' id='piappro1' onclick = 'sign_popup1()'>결재자1</div>
-            <div class='piappro2' id='piappro2' onclick = 'sign_popup2()'>결재자2</div>
+            <div class='piappro1' id='piappro1' onclick = 'sign_popup1()'><a href='#'>결재자1</a></div>
+            <div class='piappro2' id='piappro2' onclick = 'sign_popup2()'><a href='#'>결재자2</a></div>
             <div class='pistamp1'></div>
             <div class='pistamp2'></div>
             <div class='pistamp3'></div>
             <div class='pidate1'>${today }</div>
-            <div class='pidate2'>2017.06.27</div>
-            <div class='pidate3'>2017.06.27</div>
+            <div class='pidate2'></div>
+            <div class='pidate3'></div>
          </div>
       </div>
 
@@ -310,7 +359,6 @@ request.setAttribute("today", today);
         <a href='#' class='pibutton' id='pibutton' name='pibutton' onclick="plus()">추가</a>
     </div>
     
-    <!-- hidden값들 -->
     	
     		    
     		    
@@ -320,14 +368,14 @@ request.setAttribute("today", today);
 
 
 <form name='pfrm2' method='post'>
-<div id='purihead4'><span class='pcode'>자재코드</span><span class='pmname'>자재명</span><span class='ppur'>거래처</span><span class='pemp'>구매담당자</span><span class='pea'>수량</span><span class='pprice'>단가</span><span class='pamount'>총액</span>
+<div id='purihead4'><span class='pcode'>자재코드</span><span class='pmname'>자재명</span><span class='ppur'>거래처</span><span class='pemp'>구매담당자</span><span class='pea'>수량</span><span class='pprice'>단가</span><span class='pamount'>총액</span><!-- <span class='pdel' style='color: black'>[X]</span> -->
     
 </div>
 
 
 <div id='content'>
 <c:forEach items="${list}" var="vo"> 
-<div class='purihead5' id='purihead5'><span class='pcode'>${vo.mCode}</span><span class='pmname'>${vo.mName}</span><span class='ppur'>${vo.mPo}</span><span class='pemp'>${user}</span><span class='pea'><input type='number' id='peatext' name='peatext' onkeyup='keyup(this)'></span><span class='pprice'><input type='hidden' id='pprice' value='${vo.mPrice}'>${vo.mPrice}</span><span class='pamount'></span>
+<div class='purihead5' id='purihead5'><span class='pcode'>${vo.mCode}</span><span class='pmname'>${vo.mName}</span><span class='ppur'>${vo.mPo}</span><span class='pemp'>${user}</span><span class='pea'><input type='number' id='peatext' name='peatext' onkeyup='keyup(this)'></span><span class='pprice'><input type='hidden' id='pprice' value='${vo.mPrice}'>${vo.mPrice}</span><span class='pamount'></span><!--<span class='pdel'> <a href='#' onclick='pdel(count)'>[X]</a></span> -->
 </div>
     
     </c:forEach>
@@ -353,6 +401,8 @@ request.setAttribute("today", today);
   
     </div>
 	</form>
+	
+	
 	</body>
 	
 	
