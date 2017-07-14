@@ -34,7 +34,6 @@ function cate_func(sel){
 				var txt = xhr.responseText;
 				var jData = JSON.parse(txt);
 				
-				var str = "";
 				var sel2 = document.getElementById("abc");
 				for(i=sel2.length; i>=1; i--){
 					sel2.options[i]=null;
@@ -42,10 +41,11 @@ function cate_func(sel){
 				for(var i=0; i<jData.length;i++){
 					var op = document.createElement("option");
 					op.text=jData[i].pName;
-					op.value=jData[i].pName;
+					op.value=jData[i].pCode;
 					sel2.options.add(op);
 				}
 			}
+			
 		}
 	} 
 	
@@ -124,10 +124,15 @@ function cate_func(sel){
 		frm.list_term.value = value;
 		
 		var formData = new FormData(frm);
-		 xhr.open("post",url);
+		xhr.open("post",url);
 		xhr.send(formData);  
 		
-		
+		xhr.onreadystatechange=function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				alert("정산적으로 작성되었습니다.");
+				window.location.reload();
+				}
+			}
 		
 	}
 	
@@ -172,7 +177,7 @@ function cate_func(sel){
 		} else {
 			daystr = String.valueOf(day);
 		}
-		String today = year + "." + monthstr + "." + daystr;
+		String today = year + "-" + monthstr + "-" + daystr;
 		request.setAttribute("today", today);
 		
 		String userID = (String)session.getAttribute("user");

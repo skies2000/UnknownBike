@@ -64,20 +64,25 @@
 				<div id='sey_sel1'>
 					<select>
 						<option selected>- 카테고리 -</option>
-						<option>외발자전거</option>
-						<option>두발자전거</option>
-						<option>세발자전거</option>
+						<option value = '1'>외발자전거</option>	
+						<option value = '2'>두발자전거</option>	
+						<option value = '3'>세발자전거</option>	
+						<option value = '4'>네발자전거</option>	
+						<option value = '5'>하이브리드자전거</option>			
 					</select>
 				</div>
 				<div id='sey_sel2'>
 					<select>
 						<option selected>- Code -</option>
-						<option>a001</option>
-						<option>a002</option>
-						<option>a003</option>
+						
 					</select>
 				</div>
-				
+				<div id='sey_sel3'>
+					<select>
+						<option selected>- 거래처 -</option>
+						
+					</select>
+				</div>	
 
 
 				<div id='sey_add'>

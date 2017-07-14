@@ -10,11 +10,21 @@
 		
 	
 	<select id="req_select"  resultMap="documentMap" parameterType="sung.DocumentVo">
-		select * from document 
-		join  SRLIST 
-		on srlCode = dCode where dCate = #{dCate}
+		select * from document d join srList s 
+		on srlCode = dCode join employees e 
+		on dWrite = eCode join product on srlMcode=pCode
+		where dCate = #{dCate}
 	</select>
 	
+ 	<!-- req_list에서 검색 -->
+	<select id="list_find"  resultMap="documentMap" parameterType="sung.DocumentVo">
+		select * from document
+  		join srList on srlCode = dCode
+  		join employees on dWrite = eCode
+  		join product on srlMcode=pCode
+		where dCate = 'srl'
+		and (pName like '%${findStr}%' or eName like '%${findStr}%')
+	</select>  
 	
 	<select id="pro_list"  resultMap="ProductMap" parameterType="sung.ProductVo">
 		select * from product
@@ -40,6 +50,35 @@
 	<select id="searchEmp2"  resultMap="EmployeeMap" parameterType="sung.EmployeeVo">
 		select * from employees where eCode=#{eCode}
 	</select>
+	
+	<!-- documnet 테이블 입력 -->
+ 	<insert id='insert_document' parameterType='sung.DocumentVo'>
+		insert into document(dCode, dName, dCont, dDate, dWrite, dSign, dStatus, dCate)
+		values((select max(dCode)+1 as dCode from Document),#{dName},#{dCont},#{dDate},#{dWrite},#{dSign},#{dStatus},#{dCate})
+	</insert> 
+	
+	<!-- srlist테이블 입력 -->
+ 	<insert id='insert_srl' parameterType='sung.ProductVo'>
+		insert into srList(srlCode, srlMcode, srlEa, srlTerm, srlCate)
+		values((select max(dCode)+1 as dCode from Document), #{CodeName}, #{pEa}, #{term}, 'srl')
+	</insert> 
+	
+	<!-- req_view페이지 상단 로드 -->
+ 	<select id='req_view' resultMap="documentMap" parameterType="sung.DocumentVo">
+		select * from document where dCode=#{dCode} and dCate=#{dCate}
+	</select> 
+	
+	<!-- req_view페이지 하단 로드 -->
+ 	<select id='req_view2' resultMap="documentMap" parameterType="sung.DocumentVo">
+		select * from SRLIST join PRODUCT on srlMcode=pCode where srlCode=#{dCode}
+	</select> 
+	
+	<!-- 사원 이름 찾기 -->
+ 	<select id='find_name' resultMap="EmployeeMap" parameterType="sung.EmployeeVo">
+		select * from employees where eCode = #{eCode}
+	</select> 
+	
+	
 	
 	
 </mapper>

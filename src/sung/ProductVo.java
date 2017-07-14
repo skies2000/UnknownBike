@@ -10,8 +10,15 @@ public class ProductVo {
 	private int pEa;
 	private String CodeName;	
 	private String term;
+	private String eName;
 	
 	
+	public String geteName() {
+		return eName;
+	}
+	public void seteName(String eName) {
+		this.eName = eName;
+	}
 	public String getTerm() {
 		return term;
 	}

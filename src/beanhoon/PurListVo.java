@@ -8,7 +8,8 @@ public class PurListVo {
 	private String dCont;
 	private String dDate;
 	private int dWrite = 0;
-	private String dSign;
+	private String dSign1;
+	private String dSign2;
 	private int dStatus = 0;
 	private String dCate = "";
 	
@@ -25,7 +26,7 @@ public class PurListVo {
 	private int pCode = 0;
 	private String pName = "";
 	private int pCate = 0;
-	private int pCost = 0;
+	private int pPrice = 0;
 	private String pDate;
 	private int pEa = 0;
 	private int pManhour = 0;
@@ -41,11 +42,41 @@ public class PurListVo {
 	private String mImage;
 	
 	// fList
+	private int fldCode = 0;
+	private int flpCode = 0;
+	private int flpEa = 0;
+	private long workCode = 0;
 	private String workLine;
 	private int workPeople = 0;
 	private int workTime = 0;
 	private String workStartDate;
 	private String workEndDate;
+	private int dys = 0;
+	
+	// 결재자 & 검색어
+	private String eName1;
+	private String eName2;
+	private String findStr;
+	
+	// 결재자 & 검색어 getter setter
+	public String geteName1() {
+		return eName1;
+	}
+	public void seteName1(String eName1) {
+		this.eName1 = eName1;
+	}
+	public String geteName2() {
+		return eName2;
+	}
+	public void seteName2(String eName2) {
+		this.eName2 = eName2;
+	}
+	public String getFindStr() {
+		return findStr;
+	}
+	public void setFindStr(String findStr) {
+		this.findStr = findStr;
+	}
 	
 	// document getter setter
 	public int getdCode() {
@@ -78,11 +109,17 @@ public class PurListVo {
 	public void setdWrite(int dWrite) {
 		this.dWrite = dWrite;
 	}
-	public String getdSign() {
-		return dSign;
+	public String getdSign1() {
+		return dSign1;
 	}
-	public void setdSign(String dSign) {
-		this.dSign = dSign;
+	public void setdSign1(String dSign1) {
+		this.dSign1 = dSign1;
+	}
+	public String getdSign2() {
+		return dSign2;
+	}
+	public void setdSign2(String dSign2) {
+		this.dSign2 = dSign2;
 	}
 	public int getdStatus() {
 		return dStatus;
@@ -156,11 +193,11 @@ public class PurListVo {
 	public void setpCate(int pCate) {
 		this.pCate = pCate;
 	}
-	public int getpCost() {
-		return pCost;
+	public int getpPrice() {
+		return pPrice;
 	}
-	public void setpCost(int pCost) {
-		this.pCost = pCost;
+	public void setpPrice(int pPrice) {
+		this.pPrice = pPrice;
 	}
 	public String getpDate() {
 		return pDate;
@@ -226,6 +263,30 @@ public class PurListVo {
 	}
 	
 	// fList getter setter
+	public int getFldCode() {
+		return fldCode;
+	}
+	public void setFldCode(int fldCode) {
+		this.fldCode = fldCode;
+	}
+	public int getFlpCode() {
+		return flpCode;
+	}
+	public void setFlpCode(int flpCode) {
+		this.flpCode = flpCode;
+	}
+	public int getFlpEa() {
+		return flpEa;
+	}
+	public void setFlpEa(int flpEa) {
+		this.flpEa = flpEa;
+	}
+	public long getWorkCode() {
+		return workCode;
+	}
+	public void setWorkCode(long workCode) {
+		this.workCode = workCode;
+	}
 	public String getWorkLine() {
 		return workLine;
 	}
@@ -255,5 +316,11 @@ public class PurListVo {
 	}
 	public void setWorkEndDate(String workEndDate) {
 		this.workEndDate = workEndDate;
+	}
+	public int getDys() {
+		return dys;
+	}
+	public void setDys(int dys) {
+		this.dys = dys;
 	}
 }

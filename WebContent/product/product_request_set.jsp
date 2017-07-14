@@ -19,6 +19,7 @@ function saveData() {
 	var wT = frm1.workTime.value;
 	var sD = frm1.startDate.value;
 	var eD = frm1.endDate.value;
+	var dy = frm1.dysEa.value;
 	
 	// 히든값에 저장
 	frm2.workLine.value = wL;
@@ -26,6 +27,7 @@ function saveData() {
 	frm2.pManhour.value = wT;
 	frm2.workStartDate.value = sD;
 	frm2.workEndDate.value = eD;
+	frm2.dys.value = dy;
 	
 	frm2.action = 'saveData.hoon';
 	frm2.submit();
@@ -60,6 +62,8 @@ function saveData() {
 		<input type='date' id='startD' name='startDate'><br>
 		<label>완료일</label>
 		<input type='date' id='endD' name='endDate'><br>
+		<label>불량 발생</label>
+		<input type='text' id='Tmfprl' placeholder=' 불량 수를 입력하세요' name='dysEa'><br>
 		<label>생산 기한</label>
 		<span>${vo.srlTerm }</span>
 	</div>
@@ -70,7 +74,7 @@ function saveData() {
 </div>
 </form>
 <form name='frm' method='post' id='fff'>
-	<!-- fList table에 저장할 값 8개 -->
+	<!-- fList table에 저장할 값 9개 -->
 	<input type='hidden' name='srlCode' value='${vo.srlCode }'>
 	<input type='hidden' name='srlMCode' value='${vo.srlMCode }'>
 	<input type='hidden' name='srlEa' value='${vo.srlEa }'>
@@ -79,6 +83,7 @@ function saveData() {
 	<input type='hidden' name='pManhour'>
 	<input type='hidden' name='workStartDate'>
 	<input type='hidden' name='workEndDate'>
+	<input type='hidden' name='dys'>
 </form>
 <script>start()</script>
 </body>

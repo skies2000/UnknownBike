@@ -14,7 +14,7 @@ public class SoDao {
 	}
 	
 	public List<SoVo> fMetarial(SoVo vo){
-		List<SoVo> list1 = session.selectList("sodb.material_flist", vo);
+		List<SoVo> list1 = session.selectList("sodb.material_flist", vo);//session.어떤종류의 쿼리를 부를건지
 		return list1;
 	}
 	
@@ -81,7 +81,16 @@ public class SoDao {
 		return list;
 	}
 
-	
+	public SoVo materialSelectOne(String mCode) {
+		SoVo list = null;
+		try{
+			list = session.selectOne("sodb.materialSelectOne", mCode);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 	
 }
 	

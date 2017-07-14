@@ -19,7 +19,7 @@
 		<result property="mdate" column="mdate" />
 		<result property="mstate" column="mstate" />
 		<result property="mdev" column="mdev" />
-		<result property="mimage" column="mimage"/>
+		<result property="mimage" column="mimage" />
 
 
 	</resultMap>
@@ -70,6 +70,6 @@ JOIN DOCUMENT doc on dl.dldcode = doc.dcode where mat.mcode = #{mcode}
 	<insert id="labInput">
 		insert into
 		dlist(dldcode,dlacode)
-		values((select max(dCode)+1 as dCode from Document),seq_material_mcode.currval)
+		values((select max(dCode) as dCode from Document),seq_material_mcode.currval)
 </insert>
 </mapper>

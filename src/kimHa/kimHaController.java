@@ -184,7 +184,7 @@ public class kimHaController {
 
 	// view
 	// 자재 리스트들이 출력되는 화면에서 해당 자재 이미지를 클릭하면 나오는 자재 상세 정보를 화면에 뿌려줄 자재 정보
-	@RequestMapping(value = "/matView.kimHa", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/matView.kimHa", method = { RequestMethod.POST,RequestMethod.GET })
 	public Object matView(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
 		MultipartRequest mul = getMul(req);
@@ -192,6 +192,7 @@ public class kimHaController {
 		kimHaVo appVo = new kimHaVo(); // 결재자
 		String dsign = "";
 		vo.setMcode(Integer.parseInt(mul.getParameter("mcode")));
+		//System.out.println(mul.getParameter("mcode"));
 		vo = dao.matView(vo);
 		dsign = vo.getDsign();
 		// System.out.println(dsign);
