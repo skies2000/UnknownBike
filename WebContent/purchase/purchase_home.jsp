@@ -51,7 +51,8 @@
 							var deff2 = JSON.parse(deff);
 
 							var productDetailInfoDiv = document.getElementById("productDetailInfoDiv");
-
+							productDetailInfoDiv.innerHTML = "";
+							
 							var phviewitemDiv = document.createElement("div");
 
 							var phcheckboxDiv = document.createElement("div");
