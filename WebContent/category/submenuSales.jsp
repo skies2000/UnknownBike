@@ -8,23 +8,7 @@
 <link rel='stylesheet' href='../category/category.css' />
      
     <script src='../jq_lib/common.js'></script>
-<script>
-	function sales_req_list(){
-		 var frm = document.frm;
-		frm.dCate.value = 'srl';
-		frm.action = 'sales_req_list.sung';
-		frm.submit(); 
-		
-	}
-	<%-- function sales_req_input(){
-		var frm = document.frm;
-		frm.userId.value = <%=userId%>;
-		frm.action = 'sales_req_input.sung';
-		frm.submit();
-	} --%>
 
-</script>
-	
 
 </head>
 <body>
@@ -44,14 +28,14 @@
     
     <li><a href="##">생산관리</a>
       <ul>
-        <li><a href="#" onclick='sales_req_list()'>생산요청서 조회</a>
-        	
+        <!-- <li><a href="#" onclick='sales_req_list()'>생산요청서 조회</a> -->
+        	<li><a href="sales_req_list.sung">생산요청서 조회</a>
         </li>
         
         <li><a href="sales_req_input.sung">생산요청서 작성</a>
         </li> 
-        <li><a href="sales_req_view.sung">생산요청서 상세</a>
-        </li>
+       <!--  <li><a href="sales_req_view.sung">생산요청서 상세</a>
+        </li> -->
       </ul>
     </li>
     
