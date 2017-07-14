@@ -68,10 +68,10 @@ function search() {
 		<hr>
 	</div>
 <div id='list'> <!-- 검색결과 타이틀 범위 -->
-	<span>자재 코드</span>
+	<span class='css'>자재 코드</span>
 	<span>자재 명</span>
 	<span>카테고리</span>
-	<span>가격</span>
+	<span>원가</span>
 	<span>등록일</span>
 	<span>재고</span>
 	<span>자재 이미지</span>
@@ -80,7 +80,7 @@ function search() {
 	<!-- DB에서 요청서 불러오는 곳 -->
 	<c:forEach items="${list }" var="listM">
 	<div id='list'>
-		<span>${listM.mCode }</span>
+		<span class='css'>${listM.mCode }</span>
 		<span>${listM.mName }</span>
 		<span>
 			<c:choose>
@@ -99,7 +99,7 @@ function search() {
 		<span>${listM.mPrice }</span>
 		<span>${listM.mDate }</span>
 		<span>${listM.mEa }</span>
-		<span><input type='button' value='이미지 보기' name='btnImg' onclick="viewImg(${listM.mCode })"></span>
+		<span><input type='button' value='이미지 보기' id='btnImg' onclick="viewImg(${listM.mCode })"></span>
 	</div>
 	</c:forEach>
 </div>
