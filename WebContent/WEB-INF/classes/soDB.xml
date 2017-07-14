@@ -10,19 +10,31 @@
 
  <select id='material_flist' resultMap="voMap" parameterType="so.SoVo">
      	select * from material order by mCode 
-    	
  </select>
 
 
 
  <select id='material_list' resultMap="voMap" parameterType="so.SoVo">
-     	select * from material
-     
+     	select * from material 
      	<if test="mCate != null">
      		where mCate = #{mCate} order by mCode 
-     	</if>
-    	
+     	</if>    	
  </select>
+
+	
+ 	
+ 	<select id='material_slist' resultMap="voMap" parameterType="so.SoVo">
+     	 
+     	 select * from material where mCode = #{findStr}
+     	 
+ 	</select>
+ 
+ 	<select id='material_dlist' resultType="so.SoVo" parameterType="so.SoVo">
+     	 
+     	 select * from material where mCode = #{mCode}
+     	 
+ 	</select>
+ 
 
  <select id='check_mlist' resultMap="voMap" parameterType="so.SoVo">
      	select * from material where mCode = #{mCode}

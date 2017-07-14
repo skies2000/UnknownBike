@@ -28,6 +28,7 @@
                     	var img = document.createElement("img");
                     	var check = document.createElement("input");
                     	var num = document.createElement("input");
+                    	
 						
                     	check.setAttribute("type", "checkbox");
                     	check.setAttribute("name", "mcode");
@@ -88,6 +89,7 @@
 						
         			var inp1 = document.createElement("input");
         			var inp2 = document.createElement("input");
+        			var inp3 = document.createElement("input");
         			
 					inp1.setAttribute("type", "hidden")
 					inp1.setAttribute("name", "mlmcode");
@@ -97,8 +99,13 @@
 					inp2.setAttribute("name", "mlmea");
 					inp2.setAttribute("value", numVal);
 					
+					inp3.setAttribute("type", "hidden");
+					inp3.setAttribute("name", "mprice");
+					inp3.setAttribute("value", jt[i].mprice);
+					
 					mlr.appendChild(inp1);
 					mlr.appendChild(inp2);
+					mlr.appendChild(inp3);
 					
 					checkFlag = true;
 					

@@ -86,7 +86,6 @@ public class HwanController {
 		
 		
 		String uploadPath = req.getRealPath("images/");
-		System.out.println(uploadPath);
 		
 		
 		try{
@@ -152,9 +151,20 @@ public class HwanController {
 		String pManStr = "";
 		String[] mlmCode = null; //자재리스트 자재 코드
 		String[] mlmea = null;   //자재리스트 자재 수량
-		
+		String[] mpriceArr = null;
+		int totalpCost = 0;
 		mlmCode = mul.getParameterValues("mlmcode");
 		mlmea = mul.getParameterValues("mlmea");
+		mpriceArr = mul.getParameterValues("mprice");
+		
+		
+		
+		//자재리스트에서 선택된 자재를 통해 제품 가격 계산
+		for(int i=0; i<mpriceArr.length;i++){
+			totalpCost += (Integer.parseInt(mlmea[i])) * (Integer.parseInt(mpriceArr[i]));
+		}
+		
+		System.out.println("pprice : "+totalpCost);
 		
 		Enumeration<String> files = mul.getFileNames();
 		if(files.hasMoreElements()){
@@ -168,9 +178,11 @@ public class HwanController {
 		System.out.println("mlistCode : "+Arrays.toString(mlmCode));
 		System.out.println("mlistEa: "+Arrays.toString(mlmea));
 		
+		 
 		
-		
-		
+		 
+		vo.setPcost(totalpCost);
+		vo.setPprice(totalpCost*10);
 		vo.setDcont(mul.getParameter("dcont"));
 		vo.setDname(mul.getParameter("dname"));
 		vo.setPname(mul.getParameter("pname"));
@@ -199,9 +211,20 @@ public class HwanController {
 	
 		
 		int r = 0;
+		boolean rFlag = true;
 		String msg = "";
 		r = dao.proInput(vo);
-		if(r>0){
+		for(int i=0; i<mlmCode.length;i++){
+			System.out.println();
+			HwanVo mLlitVo = new HwanVo();
+			System.out.println("mlmcode : "+Integer.parseInt(mlmCode[i]));
+			System.out.println("mlmea : "+Integer.parseInt(mlmea[i]));
+			
+			mLlitVo.setMlmcode(Integer.parseInt(mlmCode[i]));
+			mLlitVo.setMlmea(Integer.parseInt(mlmea[i]));
+			if(dao.mListInput(mLlitVo)<=0) rFlag = false; 
+		}
+		if(r>0 && rFlag){
 			r = 1;
 		}else{
 			r = -1;
@@ -223,6 +246,11 @@ public class HwanController {
 			session.invalidate();
 		return "login.jsp";
 	}
+	
+	
+	
+	
+	//자재 리스트 팝업창이 열리면서 뿌려질 자재 리스트 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/pro_mat_List.hwan",method={RequestMethod.GET})
 	public void pro_mat_List(HttpServletResponse resp){
@@ -235,7 +263,8 @@ public class HwanController {
 				jObj.put("mcode", list.get(i).getMcode());
 				jObj.put("mname", list.get(i).getMname());
 				jObj.put("mimage", list.get(i).getMimage());
-				
+				jObj.put("mprice", list.get(i).getMprice());
+				 
 				jArr.add(jObj);
 			}
 			out.print(jArr);
@@ -258,16 +287,30 @@ public class HwanController {
 	}
 	
 	
+	
+	
+	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value="/pdList.hwan",method={RequestMethod.GET})
-	public void pdList(HttpServletResponse resp){
+	@RequestMapping(value="/pdList.hwan",method={RequestMethod.GET,RequestMethod.POST })
+	public void pdList(HttpServletResponse resp, HttpServletRequest req){
+		MultipartRequest mul = getMul(req);
 		PrintWriter out = getOut(resp);
-		List<HwanVo> list = dao.proList();
+		HwanVo vo = new HwanVo();
+		List<HwanVo> list = null;
 		
+		int sShearch = Integer.parseInt(mul.getParameter("sShearch"));
+		String findStr = mul.getParameter("findStr");
+		vo.setFindStr(findStr);
+		if(sShearch == 0){ //전체 검색
+			 list = dao.proListAllSearch(vo);
+		}else if(sShearch == 1){ //제품명으로 검색
+			 list = dao.proList(vo);
+		}
 		
-		
+		System.out.println(vo.getFindStr());
+		System.out.println(findStr);
+		System.out.println("list Size : "+list.size());
 		JSONArray jarr = new JSONArray();
-		
 		for(int i=0;i<list.size();i++){
 			
 			JSONObject jobj = new JSONObject();
@@ -283,13 +326,42 @@ public class HwanController {
 		}
 		out.print(jarr);
 	}
+	
+	/*view 제품리스트 들이 출력 되는 화면에서 해당 제품 이미지를 클릭하면 나오는 제품 상세 정보를 화면에 뿌려줄 제품 정보*/ 
 	@RequestMapping(value="/proView.hwan",method = {RequestMethod.POST})
 	public Object proView(HttpServletRequest req){
 		ModelAndView mv = new ModelAndView();
 		MultipartRequest mul = getMul(req);
 		HwanVo vo = new HwanVo();
+		HwanVo appVo = new HwanVo();
+		String dsign = "";
 		vo.setPcode(Integer.parseInt(mul.getParameter("pcode")));
 		vo = dao.proView(vo);
+		dsign = vo.getdSign();
+		String [] strArr = dsign.split(",");
+		
+		
+		//사원 코드를 이용해서 사원 정보를 얻어 온다.
+		appVo.setEcode(strArr[0]);
+		appVo = dao.appOne(appVo);
+		
+		
+		//얻어온 사원 정보(이름)을 vo에 담는다 vo는 view페이지에서 사용될 클래스
+		vo.setAppOne(appVo.getEname());
+		
+		
+		
+		//-------------------------------------------//
+		//두번 째 사원 코드를 이용해서 사원 정보를 얻어 온다.
+		appVo.setEcode(strArr[1]);
+		appVo = dao.appOne(appVo);
+		
+		
+		//얻어온  두번째 사원 정보(이름)을 vo에 담는다 vo는 view페이지에서 사용될 클래스
+		vo.setAppTwo(appVo.getEname());
+		
+		
+		
 		mv.setViewName("/laboratory/productView.jsp");
 		mv.addObject("vo",vo);
 		

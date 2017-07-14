@@ -19,7 +19,9 @@
 		<result property="mdate" column="mdate" />
 		<result property="mstate" column="mstate" />
 		<result property="mdev" column="mdev" />
-		<result property="mimage" column="mimage" />
+		<result property="mimage" column="mimage"/>
+
+
 	</resultMap>
 	<!-- 자재상세(검색어로 검색) list -->
 	<select id="matList" resultMap="matListMap" parameterType="kimHa.kimHaVo">
@@ -53,7 +55,7 @@ JOIN DOCUMENT doc on dl.dldcode = doc.dcode where mat.mcode = #{mcode}
 	<insert id="docInput" parameterType="kimHa.kimHaVo">
 		insert into
 		document(dcode,dname,dcont,ddate,dwrite,dsign,dstatus,dcate)
-		values(seq_document_dcode.nextval,#{dname},#{dcont},sysdate,#{dwrite},#{dsign},0,'dl')
+		values((select max(dCode)+1 as dCode from Document),#{dname},#{dcont},sysdate,#{dwrite},#{dsign},0,'dl')
 
 	</insert>
 	<!-- 자재 -->
@@ -68,6 +70,6 @@ JOIN DOCUMENT doc on dl.dldcode = doc.dcode where mat.mcode = #{mcode}
 	<insert id="labInput">
 		insert into
 		dlist(dldcode,dlacode)
-		values(seq_document_dcode.currval,seq_material_mcode.currval)
+		values((select max(dCode) as dCode from Document),seq_material_mcode.currval)
 </insert>
 </mapper>

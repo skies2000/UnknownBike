@@ -1,5 +1,6 @@
 package so;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -62,8 +63,52 @@ public class SoController {
 		return mv;
 	}
 	
+
 	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/detailinfo.so", method={RequestMethod.POST })
+	public void detailinfo(HttpServletRequest req, HttpServletResponse res){
+		MultipartRequest mul = getMul(req);
+		PrintWriter out = null;
+		res.setCharacterEncoding("utf-8");
+		
+		try {
+			 out = res.getWriter();
+			 
+		} catch (IOException e) {
+			
+		}
+		
+		Integer.parseInt(mul.getParameter("mCode"));
+		SoVo detailpur = new SoVo();
+		detailpur.setmCode(Integer.parseInt(mul.getParameter("mCode")));
+		SoVo ddpur = dao.dMetarial(detailpur);
+		
+		JSONArray hjh = new JSONArray();
+		JSONObject jjh = new JSONObject();
+		jjh.put("mCode", ddpur.getmCode());
+		jjh.put("mName", ddpur.getmName());
+		jjh.put("mImage", ddpur.getmImage());
+		jjh.put("nEa", ddpur.getmEa());
+		hjh.add(jjh);
+		out.print(hjh);
 	
+	}
+	
+@RequestMapping(value="login/needcate.so", method={RequestMethod.GET, RequestMethod.POST })
+	public Object needcate(){
+		SoVo vo = new SoVo(); 
+		ModelAndView mv = new ModelAndView();		
+		
+		List<SoVo> list2 = dao.nMetarial(vo);
+				
+		mv.addObject("list",list2);
+		
+		mv.setViewName("../main/index.jsp?inc=../purchase/purchase_home.jsp");
+	
+	    //index.jsp?inc=./board/purchase_home.jsp
+		return mv;
+	}
 	
 	//Purchase_Input
 	@RequestMapping(value="main/purinput.so", method={RequestMethod.GET, RequestMethod.POST })
@@ -108,6 +153,7 @@ public class SoController {
 		return mv;
 	}
 	
+
 	
 /*-------------------------------------팝업창--------------------------------------*/
 	
@@ -149,6 +195,7 @@ public class SoController {
 		return mv; 
 	}
 	//결재자 카테고리 선택시
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "main/sign_popup2.so", method = { RequestMethod.GET, RequestMethod.POST })
 	public void sign_popup2(HttpServletRequest req, HttpServletResponse resp) {
 		resp.setCharacterEncoding("UTF-8");
@@ -180,6 +227,7 @@ public class SoController {
 		out.print(jsonList);
 		
 	}	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "main/sign_popup3.so", method = { RequestMethod.GET, RequestMethod.POST })
 	public void sign_popup3(HttpServletRequest req, HttpServletResponse resp) {
 		resp.setCharacterEncoding("UTF-8");
@@ -213,9 +261,6 @@ public class SoController {
 		req.setAttribute("ePosition", list.get(0).getePosition());*/
 		
 	}	
-	
-	
-	
 	
 	
 	
