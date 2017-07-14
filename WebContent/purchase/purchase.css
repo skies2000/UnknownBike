@@ -253,6 +253,14 @@ select{
 	text-align:center;
 }
 
+#piappro1 >a{
+	text-decoration: none;
+	color:white;
+}
+#piappro2 >a{
+	text-decoration: none;
+	color:white;
+}
 /*★☆★☆★☆★구매보고서조회☆★☆★☆★☆★  */
 
 

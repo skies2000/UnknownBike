@@ -21,13 +21,19 @@
      	</if>    	
  </select>
 
+<select id='material_nlist' resultMap="voMap" parameterType="so.SoVo">
+      	 <![CDATA[ 
+      	 select * from material where mEa <= 50 order by mCode
+      	 ]]>
+  	</select>
+  	
+  	<select id='material_slist' resultMap="voMap" parameterType="so.SoVo">
+      	 
+      	 select * from material where mCode = #{findStr}
+      	 
+  	</select>
 	
- 	
- 	<select id='material_slist' resultMap="voMap" parameterType="so.SoVo">
-     	 
-     	 select * from material where mCode = #{findStr}
-     	 
- 	</select>
+
  
  	<select id='material_dlist' resultType="so.SoVo" parameterType="so.SoVo">
      	 
@@ -66,5 +72,11 @@
 	<select id="materialSelectOne"  resultType="so.SoVo" parameterType="String">
 		select * from material where mCode=#{mCode}
 	</select>
+	
+	<!-- 
+	<insert id="PurInput" parameterType="so.SoVo">
+		insert into plist(plmcode,plmodel,plpur,plmea,plprice)
+		values((select max()))
+	</insert> -->
 
 </mapper>

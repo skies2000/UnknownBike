@@ -160,6 +160,7 @@ public class SungController {
 		String[] spl_ea = ea.split(",");
 		String[] spl_calender = calender.split(",");
 		String[] status = signer.split(",");
+		
 		//srl에 넣을것
 		for(int i=0; i<spl_calender.length; i++){
 			ProductVo pvo = new ProductVo();

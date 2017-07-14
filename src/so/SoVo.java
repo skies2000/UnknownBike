@@ -36,6 +36,18 @@ public class SoVo {
 	private int eDepart;
 	private int ePosition;
 	
+	//구매_리스트(PList)
+	int plDcode;//문서번호
+	int plMCode;//자재코드
+	int plMEa;//수량
+	int plPrice;//단가
+	String plModel;//모델명
+	String plPur;//구매처
+	String plPerson;//구매담당자
+	Date plDate;//날짜
+	int plStatus;//상태
+	int plnow;//구매상태
+	
 	
 	public int getmCode() {
 		return mCode;
@@ -365,6 +377,146 @@ public class SoVo {
 
 	public void setePosition(int ePosition) {
 		this.ePosition = ePosition;
+	}
+
+
+
+
+	public int getPlDcode() {
+		return plDcode;
+	}
+
+
+
+
+	public void setPlDcode(int plDcode) {
+		this.plDcode = plDcode;
+	}
+
+
+
+
+	public int getPlMCode() {
+		return plMCode;
+	}
+
+
+
+
+	public void setPlMCode(int plMCode) {
+		this.plMCode = plMCode;
+	}
+
+
+
+
+	public int getPlMEa() {
+		return plMEa;
+	}
+
+
+
+
+	public void setPlMEa(int plMEa) {
+		this.plMEa = plMEa;
+	}
+
+
+
+
+	public int getPlPrice() {
+		return plPrice;
+	}
+
+
+
+
+	public void setPlPrice(int plPrice) {
+		this.plPrice = plPrice;
+	}
+
+
+
+
+	public String getPlModel() {
+		return plModel;
+	}
+
+
+
+
+	public void setPlModel(String plModel) {
+		this.plModel = plModel;
+	}
+
+
+
+
+	public String getPlPur() {
+		return plPur;
+	}
+
+
+
+
+	public void setPlPur(String plPur) {
+		this.plPur = plPur;
+	}
+
+
+
+
+	public String getPlPerson() {
+		return plPerson;
+	}
+
+
+
+
+	public void setPlPerson(String plPerson) {
+		this.plPerson = plPerson;
+	}
+
+
+
+
+	public Date getPlDate() {
+		return plDate;
+	}
+
+
+
+
+	public void setPlDate(Date plDate) {
+		this.plDate = plDate;
+	}
+
+
+
+
+	public int getPlStatus() {
+		return plStatus;
+	}
+
+
+
+
+	public void setPlStatus(int plStatus) {
+		this.plStatus = plStatus;
+	}
+
+
+
+
+	public int getPlnow() {
+		return plnow;
+	}
+
+
+
+
+	public void setPlnow(int plnow) {
+		this.plnow = plnow;
 	}
 	
 	

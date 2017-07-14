@@ -59,7 +59,12 @@ public class SoDao {
 		
 	}
 	
+	//input..작성완료
+	public List<SoVo> insertDB(SoVo vo){
+		List<SoVo> list2 = session.selectList("sodb.material_slist", vo);
+	return list2;
 	
+	}
 	//popup창에서 카테고리선택->이름 출력
 	public List<SoVo> empSearch(SoVo vo) {
 		List<SoVo> list = null;
@@ -92,6 +97,18 @@ public class SoDao {
 		}
 		
 		return list;
+	}
+
+	public SoVo purInput(SoVo v) {
+		
+		try{
+			int r = session.insert("sodb.PurInput",v);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			session.commit();
+		}
+		return v;
 	}
 	
 }

@@ -265,6 +265,11 @@ function cate_func(sel){
 				<input type='hidden' name='count' value='0'>
 				</div>
 				</form>
+<<<<<<< HEAD
+=======
+				
+			</div>
+>>>>>>> 8ae783292baa0c97ed510b0ceefbfdf24e4daac7
 			<div class='aa'></div>
 			<div id='subject'>
 				<div id='code'>카테고리</div>
