@@ -19,7 +19,7 @@
 		<result property="mdate" column="mdate" />
 		<result property="mstate" column="mstate" />
 		<result property="mdev" column="mdev" />
-		<result property="mimage" column="mimage"/>
+		<result property="mimage" column="mimage" />
 
 
 	</resultMap>

@@ -27,7 +27,7 @@
 	text-align: center;
 }
 
-.list1, .list2, .list3 {
+.list1, .list2, .list3, .list9 {
 	display: inline-block;
 	text-align: center;
 	margin-bottom: 10px;
@@ -46,8 +46,17 @@
 	width: 250px;
 }
 
+.list9 {
+	width: 90px;
+}
+
 #result {
 	display: inline-block;
 	width: 100%;
 	background-color: #999999;
+	height: auto;
+}
+
+a {
+	text-decoration: none;
 }

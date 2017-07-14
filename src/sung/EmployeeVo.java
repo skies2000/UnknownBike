@@ -7,6 +7,7 @@ public class EmployeeVo {
 	private int ePosition;
 	
 	
+	
 	public int geteDepart() {
 		return eDepart;
 	}

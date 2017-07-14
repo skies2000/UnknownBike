@@ -16,7 +16,14 @@ function purView(code) {
 	frm.submit();
 }
 function search() {
+	var frm = document.getElementById('find');
 	
+	// 검색어 불러와서 히든에 처넣는다
+	var find = document.getElementById('findStr').value;
+	frm.findStr.value = find;
+	
+	frm.action = 'search.hoon';
+	frm.submit();
 }
 </script>
 </head>
@@ -27,7 +34,7 @@ function search() {
 	<div id=top_line>
 		<!-- 맨 위 -->
 		<span class='top_main'>생산 요청서 조회</span> 
-			<input type='text' 	id='findStr'> 
+			<input type='text' id='findStr' placeholder="문서제목이나 작성자로 검색"> 
 			<input type='button' id='btnFind' value='문서 검색'	onclick="search()">
 		<hr>
 	</div>
@@ -51,12 +58,19 @@ function search() {
 				<span class='list3'><a href='#' onclick="purView(${purList.dCode })">${purList.dName } </a></span> 
 				<span class='list2'>${purList.dDate } </span> 
 				<span class='list1'>${purList.eName } </span> 
-				<span class='list1'>${purList.dStatus }</span>
+				<span class='list1'>
+					<c:choose>
+						<c:when test="${purList.dStatus == 0}">승인 완료</c:when>
+					</c:choose>
+				</span>
 			</div>
 		</c:forEach>
 	</div>
 	<form name='frm' method='post' id='fff'>
 		<input type='hidden' name='dCode'>
+	</form>
+	<form name='f' method='post' id='find'>
+		<input type='hidden' name='findStr'>
 	</form>
 </body>
 </html>

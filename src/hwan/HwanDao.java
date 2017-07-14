@@ -47,8 +47,6 @@ public class HwanDao {
 			r = -1;
 			session.rollback();
 		}
-			
-		
 		session.commit();
 		return r;
 	}

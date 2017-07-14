@@ -8,21 +8,25 @@
 
 <script src='../jq_lib/common.js'></script>
 <script>
-// 생산요청서 조회
+// 생산 오더 관리
+function purOdd() {
+	var frm = document.frm2;
+	frm.action = 'reqOdd.hoon';
+	frm.submit();
+}
+// 생산 요청서 조회
 function purList() {
 	var frm = document.frm;
 	frm.dCate.value = 'srl';
 	frm.action = 'reqList.hoon';
 	frm.submit();
 }
-
 // 제품 재고 조회
 function stockP() {
 	var frm = document.frm2;
 	frm.action = 'listP.hoon';
 	frm.submit();
 }
-
 // 자재 재고 조회
 function stockM() {
 	var frm = document.frm2;
@@ -38,8 +42,8 @@ function stockM() {
 				<li><a href="index.jsp?inc=../product/product_home.jsp">HOME</a>
 				<li><a href="index.jsp?inc=../product/product_management.jsp">생산관리</a>
 				<ul>
-					<li><a href="index.jsp?inc=../product/product_order.jsp">생산오더관리</a> 
-					<li><a href="#" onclick="purList()">생산요청서 조회</a> 
+					<li><a href="#" onclick="purOdd()">생산 오더 관리</a> 
+					<li><a href="#" onclick="purList()">생산 요청서 조회</a> 
 					<li><a href="index.jsp?inc=../product/product_eff.jsp">생산효율관리</a> 
 				</ul>
 				</li>

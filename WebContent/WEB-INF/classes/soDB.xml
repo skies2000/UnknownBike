@@ -57,5 +57,14 @@
 		select * from employees where eCode=#{eCode}
 	</select>
 
+	<!-- Map은 ArrayList로 배열/ resultType은 하나만 추가할때
+	(추가버튼을 눌렀을 때 하나의 항목만 추가되면 되니까 resultMap을 안써도 됨..!!)
+	parameterType은 매개변수 타입이니까 Dao의 매개변수를 String형으로 쓰고 #{}안의 값과
+	매개변수명과 같아야 한다. 
+	
+	-->
+	<select id="materialSelectOne"  resultType="so.SoVo" parameterType="String">
+		select * from material where mCode=#{mCode}
+	</select>
 
 </mapper>

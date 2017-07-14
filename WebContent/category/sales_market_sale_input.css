@@ -110,7 +110,7 @@
 }
 
 select  {
-	width: 150px;
+	width: 130px;
 	height: 30px;
 	padding-left: 10px;
 	font-size: 18px;
@@ -121,15 +121,15 @@ select  {
 	background: black;
 	
 	}
-#sey_sel1, #sey_sel2{
-	margin-left : 80px;
+#sey_sel1, #sey_sel2, #sey_sel3{
+	margin-left : 30px;
 	padding : 18px;
 	float : left;
 }
 
 
 #sey_add{
-	margin-left : 100px;
+	margin-left : 50px;
 	padding : 25px;
 	float : left;
 }
