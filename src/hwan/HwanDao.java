@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import myba.UnknownFactory;
 
 
+
+
 public class HwanDao {
 	SqlSession session;
 	

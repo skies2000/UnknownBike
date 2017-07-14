@@ -300,9 +300,49 @@ public class SungController {
 				
 		EmployeeVo evo = new EmployeeVo();
 		evo.seteCode(Integer.parseInt(userId));
-		  mv.setViewName("sales_market_sale_input");
+		VenderVo vVo = new VenderVo();
+		
+		try{
+			List<VenderVo> list = dao.vender(vVo);
+			EmployeeVo eList = dao.loadUser(evo);
+			List<ProductVo> proList = dao.proList(vo);
+			
+			mv.addObject("list", list);
+			mv.addObject("proList", proList);
+			mv.addObject("eList", eList);
+			mv.setViewName("sales_market_sale_input");
+		}catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		
+		mv.setViewName("sales_market_sale_input");
 
 		return mv;
+	}
+	
+	@RequestMapping(value = "main/sales_sale_input2.sung", method = { RequestMethod.GET, RequestMethod.POST })
+	public void sale_input2(HttpServletRequest req, HttpServletResponse resp) {
+		ProductVo vo = new ProductVo();
+		JSONArray jList = new JSONArray();
+		PrintWriter out = null;
+		MultipartRequest mul = getMul(req);
+		int pCate = Integer.parseInt(mul.getParameter("pCate"));
+		vo.setpCate(pCate);
+		List<ProductVo> proList = dao.proList2(vo);
+		for(int i=0; i<proList.size(); i++){
+			JSONObject obj = new JSONObject();
+			obj.put("pName", proList.get(i).getpName());
+			obj.put("pCode", proList.get(i).getpCode());
+			jList.add(obj);
+		}
+		try{
+			out = resp.getWriter();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		out.print(jList);
+		
 	}
 	
 	@RequestMapping(value = "main/sales_sale_list.sung", method = { RequestMethod.GET, RequestMethod.POST })

@@ -7,7 +7,7 @@
 	<resultMap type="sung.DocumentVo" id="documentMap"/>
 	<resultMap type="sung.ProductVo" id="ProductMap"/>
 	<resultMap type="sung.EmployeeVo" id="EmployeeMap"/>
-		
+	<resultMap type="sung.VenderVo" id="VenderMap"/>
 	
 	<select id="req_select"  resultMap="documentMap" parameterType="sung.DocumentVo">
 		select * from document d join srList s 
@@ -78,7 +78,10 @@
 		select * from employees where eCode = #{eCode}
 	</select> 
 	
-	
+	<!-- 거래처 뿌려주기 -->
+ 	<select id='vender' resultMap="VenderMap" parameterType="sung.VenderVo">
+		select * from vender
+	</select> 
 	
 	
 </mapper>

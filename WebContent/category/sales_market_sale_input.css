@@ -127,7 +127,20 @@ select  {
 	float : left;
 }
 
-
+#ea_div{
+	margin-left : 40px;
+	padding-top : 20px;
+	float : left;
+}
+#sey_input_ea{
+	height: 25px;
+	width : 80px;
+	color : white;
+	font-size: 14px;
+	border: 1px solid white;
+	background-color: black;
+	text-align: center;
+}
 #sey_add{
 	margin-left : 50px;
 	padding : 25px;

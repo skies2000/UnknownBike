@@ -170,6 +170,16 @@ public class SungDao {
 		return vo;
 	}
 
+	public List<VenderVo> vender(VenderVo vVo) {
+		List<VenderVo> list = null;
+		try{
+			list = session.selectList("sungdb.vender", vVo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 
 
 	

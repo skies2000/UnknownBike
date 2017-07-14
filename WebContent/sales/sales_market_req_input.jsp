@@ -263,8 +263,8 @@ function cate_func(sel){
 				<input type='hidden' name='pName'>
 				<input type='hidden' name='pEa'>
 				<input type='hidden' name='count' value='0'>
+				</div>
 				</form>
-			</div>
 			<div class='aa'></div>
 			<div id='subject'>
 				<div id='code'>카테고리</div>
