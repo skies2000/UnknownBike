@@ -85,7 +85,7 @@
 	
 	<!--연구소 리스트 테이블 값 입력  -->
 	<insert id="labListInput" >
-	insert into dlist(dldcode,dlacode) values((select max(dCode)+1 as dCode from Document), seq_product_pcode.currval)
+	insert into dlist(dldcode,dlacode) values((select max(dCode) as dCode from Document), seq_product_pcode.currval)
 	</insert>
 	
 	<!--제품등록할때 자재리스트 등록  -->

@@ -336,6 +336,7 @@ public class HwanController {
 		HwanVo appVo = new HwanVo();
 		String dsign = "";
 		vo.setPcode(Integer.parseInt(mul.getParameter("pcode")));
+		System.out.println(Integer.parseInt(mul.getParameter("pcode")));
 		vo = dao.proView(vo);
 		dsign = vo.getdSign();
 		String [] strArr = dsign.split(",");
