@@ -2,6 +2,7 @@ package kimHa;
 
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,7 +57,7 @@ public class kimHaController {
 	public MultipartRequest getMul(HttpServletRequest req) {
 		MultipartRequest mul = null;
 
-		String uploadPath = req.getRealPath("images");
+		String uploadPath = req.getRealPath("images/materialimg");
 
 		try {
 			mul = new MultipartRequest(req, uploadPath, 1024 * 10000, "utf-8", new DefaultFileRenamePolicy());
@@ -75,6 +76,14 @@ public class kimHaController {
 		ModelAndView mv = new ModelAndView();
 		PrintWriter out = getOut(resp);
 		MultipartRequest mul = getMul(req);
+		String mimage = "";
+
+		// 사진
+		Enumeration<String> files = mul.getFileNames(); // 파일의 이름을 알아내기 위한 절차.
+		if (files.hasMoreElements()) {
+			String file = files.nextElement();
+			mimage = mul.getFilesystemName(file); // file 안에 file 이름이 들어간다.
+		}
 
 		// 문서
 		kimHaVo vo = new kimHaVo();
@@ -101,19 +110,16 @@ public class kimHaController {
 		String mdev = (String) session.getAttribute("user"); // 작성자
 		int mcate = Integer.parseInt(mul.getParameter("mcate"));
 
-		System.out.println(mname);
-		System.out.println(mprice);
-		System.out.println(mdev);
-		System.out.println(mcate);
-
 		vo2.setMname(mname);
 		vo2.setMprice(mprice);
 		vo2.setMdev(mdev);
 		vo2.setMcate(mcate);
+		vo2.setMimage(mimage);
 
 		int r = 0;
 		r = dao.docInput(vo); // 문서
 		r = dao.matInput(vo2); // 자재
+		r = dao.labInput(); // 연구소 리스트 테이블
 		if (r > 0) {
 			r = 1;
 		} else {
@@ -138,12 +144,24 @@ public class kimHaController {
 		}
 	}
 
-	// 상세보기
+	// 상세보기 검색어
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/matList.kimHa", method = { RequestMethod.GET, RequestMethod.POST })
-	public void matList(HttpServletResponse resp) {
+	public void matList(HttpServletRequest req, HttpServletResponse resp) {
+		MultipartRequest mul = getMul(req);
 		PrintWriter out = getOut(resp);
-		List<kimHaVo> list = dao.matList();
+		List<kimHaVo> list = null;
+		kimHaVo vo = new kimHaVo();
+
+		// 전체 리스트
+		int sSearch = Integer.parseInt(mul.getParameter("sSearch"));
+		vo.setFindStr(mul.getParameter("findStr"));
+
+		if (sSearch == 0) {// 전체검색
+			list = dao.matAllSearch(vo);
+		} else if (sSearch == 1) {// 검색어에 한에서 검색
+			list = dao.matList(vo);
+		}
 
 		JSONArray json = new JSONArray();
 
@@ -165,15 +183,43 @@ public class kimHaController {
 	}
 
 	// view
+	// 자재 리스트들이 출력되는 화면에서 해당 자재 이미지를 클릭하면 나오는 자재 상세 정보를 화면에 뿌려줄 자재 정보
 	@RequestMapping(value = "/matView.kimHa", method = { RequestMethod.GET, RequestMethod.POST })
 	public Object matView(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
 		MultipartRequest mul = getMul(req);
 		kimHaVo vo = new kimHaVo();
+		kimHaVo appVo = new kimHaVo(); // 결재자
+		String dsign = "";
 		vo.setMcode(Integer.parseInt(mul.getParameter("mcode")));
 		vo = dao.matView(vo);
+		dsign = vo.getDsign();
+		// System.out.println(dsign);
+		String[] dsArr = dsign.split(",");
+		// System.out.println(Arrays.toString(dsArr));
+
+		// 사원코드를 이용해서 사원 정보를 얻어온다.
+		appVo.setEcode(Integer.parseInt(dsArr[0]));
+		appVo = dao.appOne(appVo);// 사원컬럼들이 전부 다 들어감.
+
+		// 얻어온 사원 정보(이름)을 vo에 담는다.
+		// vo는 view 페이지에서 사용될 클래스
+		vo.setAppOne(appVo.getEname());
+
+		
+		//--------------------------------------------------
+		
+		// 두 번째 사원코드를 이용해서 사원 정보를 얻어온다.
+		appVo.setEcode(Integer.parseInt(dsArr[1]));
+		appVo = dao.appOne(appVo);// 사원컬럼들이 전부 다 들어감.
+		
+
+		// 얻어온 사원 정보(이름)을 vo에 담는다.
+		// vo는 view 페이지에서 사용될 클래스
+		vo.setAppTwo(appVo.getEname());
+
 		mv.setViewName("/laboratory/materialsView.jsp");
-		mv.addObject("vo",vo);
+		mv.addObject("vo", vo);
 		return mv;
 	}
 

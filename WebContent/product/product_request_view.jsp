@@ -32,21 +32,21 @@ function onSetting(srlCode, srlMCode) {
 			</div>
 			<div id='sign2'>
 				<div id='appro'>결&nbsp재&nbsp내&nbsp역</div> 
-				<div id='writer'>작성자</div>
-				<div id='appro1'>결재자1</div>
-				<div id='appro2'>결재자2</div>
+				<div id='writer'>${vo.eName }</div>
+				<div id='appro1'>${vo.eName1 }</div>
+				<div id='appro2'>${vo.eName2 }</div>
 				
 				<div id='stamp1'>
 					<div id='status'>작성</div>
-					<div id='app_date'>2017-06-28</div>
+					<div id='app_date'>${vo.dDate }</div>
 				</div>
 				<div id='stamp2'>
 					<div id='status'>승인</div>
-					<div id='app_date'>2017-06-28</div>
+					<div id='app_date'>${vo.dDate }</div>
 				</div>
 				<div id='stamp3'>
 					<div id='status'>대기</div>
-					<div id='app_date'>2017-06-28</div>
+					<div id='app_date'>${vo.dDate }</div>
 				</div>
 			</div>
 		</div>
@@ -74,13 +74,15 @@ function onSetting(srlCode, srlMCode) {
 				<span id='set'>작업 설정</span>
 			</div>
 			<div id='list_content'>
-				<span id='code'>${vo.srlCode }</span>
-				<span id='codename'>${vo.pName }</span>
-				<span id='ea'>${vo.srlEa }</span>
-				<span id='deadline'>${vo.srlTerm }</span>
+			<c:forEach items="${list }" var="workList">
+				<span id='code'>${workList.srlMCode }</span>
+				<span id='codename'>${workList.pName }</span>
+				<span id='ea'>${workList.srlEa }</span>
+				<span id='deadline'>${workList.srlTerm }</span>
 				<span id='set'><label ></label>
-					<div id='setOK' onclick="onSetting(${vo.srlCode }, ${vo.srlMCode })">설정 필요</div>
+					<div id='setOK' onclick="onSetting(${workList.srlCode }, ${workList.srlMCode })">설정 필요</div>
 				</span>
+			</c:forEach>
 			</div>
 		</div>
 	</div>

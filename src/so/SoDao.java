@@ -22,6 +22,21 @@ public class SoDao {
 		List<SoVo> list = session.selectList("sodb.material_list", vo);
 		return list;
 	}
+	
+	public List<SoVo> nMetarial(SoVo vo){
+		List<SoVo> list2 = session.selectList("sodb.material_nlist", vo);
+		return list2;
+	}
+	
+	public List<SoVo> sMetarial(SoVo vo){
+		List<SoVo> list2 = session.selectList("sodb.material_slist", vo);
+		return list2;
+	}
+	
+	public SoVo dMetarial(SoVo vo){
+		SoVo list = session.selectOne("sodb.material_dlist", vo);
+		return list;
+	}
 
 	public List<SoVo>checkmaterial(String[] checkmaterial){
 		

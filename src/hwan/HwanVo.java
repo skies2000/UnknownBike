@@ -24,9 +24,86 @@ public class HwanVo {
 	String pdate;
 	String pimage;
 	int pmanhour;
-
+	
+	//document table
+	String dWrite;
+	String dname;
+	String dSign;
+	int dStatus; 
+	String dcont;
 	
 	
+	//metarial table
+	String mcode;
+	String mname;
+	String mimage;
+	int mprice;
+	
+	//MList table
+	int mlpcode;
+	int mlmcode;
+	int mlmea;
+	
+	//검색어
+	String findStr;
+	
+	//결재 승인자 1, 2
+	String appOne;
+	String appTwo;
+	
+	
+	
+	
+	
+	
+	public int getMlpcode() {
+		return mlpcode;
+	}
+	public void setMlpcode(int mlpcode) {
+		this.mlpcode = mlpcode;
+	}
+	public int getMlmcode() {
+		return mlmcode;
+	}
+	public void setMlmcode(int mlmcode) {
+		this.mlmcode = mlmcode;
+	}
+	public int getMlmea() {
+		return mlmea;
+	}
+	public void setMlmea(int mlmea) {
+		this.mlmea = mlmea;
+	}
+	public int getMprice() {
+		return mprice;
+	}
+	public void setMprice(int mprice) {
+		this.mprice = mprice;
+	}
+	public String getAppOne() {
+		return appOne;
+	}
+	public void setAppOne(String appOne) {
+		this.appOne = appOne;
+	}
+	public String getAppTwo() {
+		return appTwo;
+	}
+	public void setAppTwo(String appTwo) {
+		this.appTwo = appTwo;
+	}
+	public String getFindStr() {
+		return findStr;
+	}
+	public void setFindStr(String findStr) {
+		this.findStr = findStr;
+	}
+	public String getDcont() {
+		return dcont;
+	}
+	public void setDcont(String dcont) {
+		this.dcont = dcont;
+	} 
 	public int getPea() {
 		return pea;
 	}
@@ -75,17 +152,7 @@ public class HwanVo {
 	public void setPstatus(int pstatus) {
 		this.pstatus = pstatus;
 	}
-	//document table
-	String dWrite;
-	String dname;
-	String dSign;
-	int dStatus; 
-	
-	
-	//metarial table
-	String mcode;
-	String mname;
-	String mimage;
+
 	
 	
 	public String getMcode() {

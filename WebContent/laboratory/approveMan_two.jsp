@@ -76,7 +76,7 @@
 		}
 		</style>
 		<script>
-	var jt;
+	var jt; // 사원 이미지랑, 이름, 사원코드 포함 = 켜는 순간 DB에서 data를 가져옴.
 	var xhr = new XMLHttpRequest();
 	xhr.open('get','../appTwo.hwan');
 	xhr.send();
@@ -109,20 +109,32 @@
 				
 			}
 		}
-		
-		
 	}
 	function checkBtn(){
 		if(!confirm("선택하시겠습니까?")) return;
-		var ck = document.getElementsByClassName("memberCk");
+		var ck = document.getElementsByClassName("memberCk"); //배열
 		var opele = window.opener.document.getElementById("appResult");
-		opele.innerHTML="";
+		opele.innerHTML = "";// 초기화 (그렇지 않으면 사원이 계속 추가 됨.)
 		var checkFlag = false;
+		var count = 0; //체크박스에서 count 된 수.
+		for(var i=0; i<ck.length;i++){
+			if(ck[i].checked==true){
+			count++;
+				
+			}
+		}
+		
+		if(count!=2) {
+			alert("두 명만 선택해주세요.");
+			return;
+		}
+		
 		var resultStr = "선택된 사원\n";
 		for(var i=0; i<ck.length;i++){
 			if(ck[i].checked==true)
 				{
 					var la = document.createElement("input");
+					alert(ck[i].value);
 					la.setAttribute("type", "hidden")
 					la.setAttribute("name", "appMember")
 					la.setAttribute("value", ck[i].value);

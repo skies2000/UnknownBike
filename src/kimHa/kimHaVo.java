@@ -29,7 +29,30 @@ public class kimHaVo {
 	String mimage = "";
 	int mea = 0; // 단가
 	
+	String findStr="";//검색어
 	
+	//결재승인자 1,2
+	String appOne = "";
+	String appTwo = "";
+	
+	public String getAppOne() {
+		return appOne;
+	}
+	public void setAppOne(String appOne) {
+		this.appOne = appOne;
+	}
+	public String getAppTwo() {
+		return appTwo;
+	}
+	public void setAppTwo(String appTwo) {
+		this.appTwo = appTwo;
+	}
+	public String getFindStr() {
+		return findStr;
+	}
+	public void setFindStr(String findStr) {
+		this.findStr = findStr;
+	}
 	public String getMimage() {
 		return mimage;
 	}

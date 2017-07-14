@@ -16,14 +16,18 @@ function saveData() {
 	// 상단 폼에 있는 데이터를 변수에 저장
 	var wL = frm1.workLine.value;
 	var wP = frm1.workPeople.value;
+	var wT = frm1.workTime.value;
 	var sD = frm1.startDate.value;
 	var eD = frm1.endDate.value;
+	var dy = frm1.dysEa.value;
 	
 	// 히든값에 저장
 	frm2.workLine.value = wL;
 	frm2.workPeople.value = wP;
+	frm2.pManhour.value = wT;
 	frm2.workStartDate.value = sD;
 	frm2.workEndDate.value = eD;
+	frm2.dys.value = dy;
 	
 	frm2.action = 'saveData.hoon';
 	frm2.submit();
@@ -40,7 +44,7 @@ function saveData() {
 		<label>제품명</label>
 		<span>${vo.pName }</span><br>
 		<label>수량</label>
-		<span class='test444'>1${vo.srlEa }</span><br>
+		<span class='test444'>${vo.srlEa }</span><br>
 		<label>작업 라인</label>
 		<select name="workLine">
 			<option selected>1라인</option>
@@ -51,13 +55,15 @@ function saveData() {
 			<option>6라인</option>
 		</select><br>
 		<label>작업 인원</label>
-		<input type='text' id='workP' placeholder='인원을 입력하세요' name='workPeople'><br>
-		<label>소요 시간</label>
-		<span>${vo.pManhour }</span><br>
+		<input type='text' id='workP' placeholder=' 인원을 입력하세요' name='workPeople'><br>
+		<label>작업 시간</label>
+		<input type='text' id='workP' placeholder=" 개당 공수 : ${vo.pManhour }" name='workTime'><br>
 		<label>시작일</label>
 		<input type='date' id='startD' name='startDate'><br>
 		<label>완료일</label>
 		<input type='date' id='endD' name='endDate'><br>
+		<label>불량 발생</label>
+		<input type='text' id='Tmfprl' placeholder=' 불량 수를 입력하세요' name='dysEa'><br>
 		<label>생산 기한</label>
 		<span>${vo.srlTerm }</span>
 	</div>
@@ -68,15 +74,16 @@ function saveData() {
 </div>
 </form>
 <form name='frm' method='post' id='fff'>
-	<!-- fList table에 저장할 값 8개 -->
+	<!-- fList table에 저장할 값 9개 -->
 	<input type='hidden' name='srlCode' value='${vo.srlCode }'>
 	<input type='hidden' name='srlMCode' value='${vo.srlMCode }'>
 	<input type='hidden' name='srlEa' value='${vo.srlEa }'>
 	<input type='hidden' name='workLine'>
 	<input type='hidden' name='workPeople'>
-	<input type='hidden' name='pManhour' value='${vo.pManhour }'>
+	<input type='hidden' name='pManhour'>
 	<input type='hidden' name='workStartDate'>
 	<input type='hidden' name='workEndDate'>
+	<input type='hidden' name='dys'>
 </form>
 <script>start()</script>
 </body>

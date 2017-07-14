@@ -15,6 +15,19 @@ public class HoonDao {
 		this.session=factory.getFactory().openSession();
 	}
 	
+	// odder List
+	public List<PurListVo> odd(PurListVo vo) {
+		List<PurListVo> list = null;
+		
+		try {
+			list = session.selectList("hoondb.odd_list", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
 	// Request List
 	public List<PurListVo> list(PurListVo vo) {
 		List<PurListVo> list = null;
@@ -41,6 +54,45 @@ public class HoonDao {
 		}
 	}
 	
+	// Request Search
+	public List<PurListVo> search(PurListVo vo) {
+		List<PurListVo> list = null;
+			
+		try {
+			list = session.selectList("hoondb.search", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
+	// Request Sign
+	public String sign(String str) {
+		String v = null;
+		
+		try {
+			v = session.selectOne("hoondb.pur_sign", str);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return v;
+		}
+	}
+	
+	// Request Work
+	public List<PurListVo> work(PurListVo vo) {
+		List<PurListVo> list = null;
+		
+		try {
+			list = session.selectList("hoondb.pur_work", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
 	// Request Set
 	public PurListVo set(PurListVo vo) {
 		PurListVo v = null;
@@ -60,7 +112,6 @@ public class HoonDao {
 		
 		try {
 			int r = session.insert("hoondb.save_data", vo);
-			System.out.println("3");
 			if (r>0) {
 				msg = "작업 설정이 정상적으로 저장되었습니다";
 			} else {
@@ -101,6 +152,19 @@ public class HoonDao {
 		}
 	}
 	
+	// Material Search
+	public List<PurListVo> searchPro(PurListVo vo) {
+		List<PurListVo> list = null;
+			
+		try {
+			list = session.selectList("hoondb.search_p", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
 	// Material List
 	public List<PurListVo> listMte(PurListVo vo) {
 		List<PurListVo> list = null;
@@ -126,4 +190,19 @@ public class HoonDao {
 			return v;
 		}
 	}
+	
+	// Material Search
+	public List<PurListVo> searchMte(PurListVo vo) {
+		List<PurListVo> list = null;
+		
+		try {
+			list = session.selectList("hoondb.search_m", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
+	
 }
