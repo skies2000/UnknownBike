@@ -184,16 +184,55 @@ public class kimHaController {
 
 	// view
 	// 자재 리스트들이 출력되는 화면에서 해당 자재 이미지를 클릭하면 나오는 자재 상세 정보를 화면에 뿌려줄 자재 정보
-	@RequestMapping(value = "/matView.kimHa", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/matView.kimHa", method = { RequestMethod.POST,RequestMethod.GET })
 	public Object matView(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
 		MultipartRequest mul = getMul(req);
 		kimHaVo vo = new kimHaVo();
 		kimHaVo appVo = new kimHaVo(); // 결재자
 		String dsign = "";
+		String str="";
+		String str2 = "";
 		vo.setMcode(Integer.parseInt(mul.getParameter("mcode")));
+		
+		//System.out.println(mul.getParameter("mcode"));
 		vo = dao.matView(vo);
-		dsign = vo.getDsign();
+		dsign = vo.getDsign();//결재자
+		int mSate = vo.getMstate(); //결재상태
+		int mcate = vo.getMcate();
+	
+		switch(mcate) {
+		case 1 : str = "바퀴";
+		break;
+		case 2: str="핸들";
+		break;
+		case 3: str="프레임";
+		break;
+		case 4: str="바구니";
+		break;
+		case 5: str="안장";
+		break;
+		case 6: str="보조바퀴";
+		break;
+		case 7: str="브레이크";
+		break;
+		case 8: str="벨";
+		break;
+		case 9: str="라이트";
+		break;
+		case 10: str="페달";
+		break;
+		
+		}
+		if(mSate == 0) {
+			str2 = "대기상태";
+		}else{
+			str2 ="결재완료";
+		}
+		
+		vo.setMcateStr(str);
+		vo.setMstateStr(str2);
+		
 		// System.out.println(dsign);
 		String[] dsArr = dsign.split(",");
 		// System.out.println(Arrays.toString(dsArr));

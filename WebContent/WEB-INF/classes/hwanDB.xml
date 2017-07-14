@@ -23,6 +23,12 @@
 		<result property="mprice" column="mprice"/>    
 	</resultMap>
 	
+	<resultMap type="hwan.HwanVo" id="proViewMatListMap">
+	<result property="mlmcode" column="mlmcode"/>
+	<result property="mlmea" column="mlmea"/>
+	
+	</resultMap>
+	
 	
 	<!--제품 리스트 출력하기 위한 리절트 맵  -->
 	<resultMap type="hwan.HwanVo" id="proListMap">
@@ -85,12 +91,23 @@
 	
 	<!--연구소 리스트 테이블 값 입력  -->
 	<insert id="labListInput" >
-	insert into dlist(dldcode,dlacode) values((select max(dCode)+1 as dCode from Document), seq_product_pcode.currval)
+	insert into dlist(dldcode,dlacode) values((select max(dCode) as dCode from Document), seq_product_pcode.currval)
 	</insert>
 	
 	<!--제품등록할때 자재리스트 등록  -->
 	<insert id="mListInput" parameterType="hwan.HwanVo">
 	insert into mlist(mlpcode, mlmcode, mlmea) values(seq_product_pcode.currval,#{mlmcode},#{mlmea})
 	</insert>
+	
+	<!--등록된 제품 개수 확인  -->
+	<select id="productCnt" resultType="int">
+		select count(*) cnt from product
+	</select>
+	
+	
+	<select id="proViewMatList" resultMap="proViewMatListMap" parameterType="int">
+			select * from mlist where mlpcode = #{mlpcode}  
+	</select>
+					    
 
 </mapper>

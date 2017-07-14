@@ -127,6 +127,21 @@ public class HoonDao {
 		}
 	}
 	
+	// Update Data
+	public int updateData(PurListVo vo) {
+		int v = 0;
+		
+		try {
+			v = session.update("hoondb.update_status", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			session.rollback();
+		} finally {
+			session.commit();
+			return v;
+		}
+	}
+	
 	// Product List
 	public List<PurListVo> listPro(PurListVo vo) {
 		List<PurListVo> list = null;
