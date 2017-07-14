@@ -16,43 +16,79 @@ public class SpringHoonController {
 		this.dao = dao;
 	}
 	
-	
-	@RequestMapping(value="login/productHome.hoon", method={RequestMethod.GET, RequestMethod.POST})
+	// 생산 메인 화면으로 이동
+	@RequestMapping(value="main/productHome.hoon", method={RequestMethod.GET, RequestMethod.POST})
 	public Object product_home(){
 		ModelAndView mv = new ModelAndView();
-		// index.jsp?inc=./board/product_home.jsp
 		mv.setViewName("product_home");
-		
 		return mv;
 	}
 	
-	// 생산요청서 리스트를 조회 (request list)
-	@RequestMapping(value="login/reqList.hoon", method={RequestMethod.GET, RequestMethod.POST})
+	// 생산 오더 관리 화면으로 이동
+	@RequestMapping(value="main/reqOdd.hoon", method={RequestMethod.GET, RequestMethod.POST})
+	public Object product_odd(PurListVo vo){
+		ModelAndView mv = new ModelAndView();
+		
+		List<PurListVo> list = dao.odd(vo);
+		
+		mv.addObject("list", list);
+		mv.setViewName("product_order");
+		return mv;
+	}
+	
+	// 생산 요청서 리스트를 조회 (request list)
+	@RequestMapping(value="main/reqList.hoon", method={RequestMethod.GET, RequestMethod.POST})
 	public Object product_reqList(PurListVo vo){
 		ModelAndView mv = new ModelAndView();
 		
 		List<PurListVo> list = dao.list(vo);
+		
+		mv.addObject("list", list);
+		mv.setViewName("product_request_list");
+		return mv;
+	}
+	
+	// 조회한 리스트에서 보고 싶은 요청서를 클릭했을 때 (request view)
+	@RequestMapping(value="main/reqView.hoon", method={RequestMethod.GET, RequestMethod.POST})
+	public Object product_reqView(PurListVo vo){
+		ModelAndView mv = new ModelAndView();
+		
+		// 요청서 상단은 요청서 하나만 보기 때문에 list에 담지 않고 vo에 담는다
+		PurListVo v = dao.view(vo);
+		
+		// 작성자와 결재자들 따로 담아서 sign 메소드 실행
+		String eName = dao.sign(v.getdWrite()+"");
+		String eName1 = dao.sign(v.getdSign1());
+		String eName2 = dao.sign(v.getdSign2());
+		
+		v.seteName(eName);
+		v.seteName1(eName1);
+		v.seteName2(eName2);
+		
+		mv.addObject("vo", v);
+		
+		// 요청서 하단은 여러 작업 정보를 담아와야 하기 때문에 list에 담는다
+		List<PurListVo> list = dao.work(vo);
+		mv.addObject("list", list); 
+		
+		mv.setViewName("product_request_view");
+		return mv;
+	}
+	
+	// 요청서 리스트 검색
+	@RequestMapping(value="main/search.hoon", method={RequestMethod.GET, RequestMethod.POST})
+	public Object product_search(PurListVo vo){
+		ModelAndView mv = new ModelAndView();
+		
+		List<PurListVo> list = dao.search(vo);
 		mv.addObject("list", list);
 		mv.setViewName("product_request_list");
 		
 		return mv;
 	}
 	
-	// 조회한 리스트에서 보고 싶은 요청서를 클릭했을 때 (request view)
-	@RequestMapping(value="login/reqView.hoon", method={RequestMethod.GET, RequestMethod.POST})
-	public Object product_reqView(PurListVo vo){
-		ModelAndView mv = new ModelAndView();
-		
-		// 요청서 하나만 보기 때문에 list에 담지 않고 vo에 담는다
-		PurListVo v = dao.view(vo);
-		
-		mv.addObject("vo", v);
-		mv.setViewName("product_request_view");
-		return mv;
-	}
-	
 	// 요청서에서 설정이 필요한 작업 버튼을 눌렀을 때 (request set)
-	@RequestMapping(value="login/reqSet.hoon", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="main/reqSet.hoon", method={RequestMethod.GET, RequestMethod.POST})
 	public Object product_reqSet(PurListVo vo){
 		ModelAndView mv = new ModelAndView();
 
@@ -65,7 +101,7 @@ public class SpringHoonController {
 	}
 	
 	// 작업 설정 화면에서 저장된 데이터를 DB에 저장
-	@RequestMapping(value="login/saveData.hoon", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="main/saveData.hoon", method={RequestMethod.GET, RequestMethod.POST})
 	public Object product_saveD(PurListVo vo){
 		ModelAndView mv = new ModelAndView();
 		
@@ -87,7 +123,7 @@ public class SpringHoonController {
 	}
 	
 	// 제품 재고 조회 (product list)
-	@RequestMapping(value="login/listP.hoon", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="main/listP.hoon", method={RequestMethod.GET, RequestMethod.POST})
 	public Object product_listProduct(PurListVo vo){
 		ModelAndView mv = new ModelAndView();
 		
@@ -99,7 +135,7 @@ public class SpringHoonController {
 	}
 	
 	// 제품 이미지 조회 (material img)
-	@RequestMapping(value="login/viewPimg.hoon", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="main/viewPimg.hoon", method={RequestMethod.GET, RequestMethod.POST})
 	public Object product_productImg(PurListVo vo){
 		ModelAndView mv = new ModelAndView();
 		
@@ -111,8 +147,20 @@ public class SpringHoonController {
 		return mv;
 	}
 	
+	// 제품 검색 (product search)
+	@RequestMapping(value="main/searchP.hoon", method={RequestMethod.GET, RequestMethod.POST})
+	public Object product_searchPro(PurListVo vo){
+		ModelAndView mv = new ModelAndView();
+		
+		List<PurListVo> list = dao.searchPro(vo);
+		mv.addObject("list", list);
+		mv.setViewName("product_stock_product");
+		
+		return mv;
+	}
+	
 	// 자재 재고 조회 (material list)
-	@RequestMapping(value="login/listM.hoon", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="main/listM.hoon", method={RequestMethod.GET, RequestMethod.POST})
 	public Object product_listMaterial(PurListVo vo){
 		ModelAndView mv = new ModelAndView();
 		
@@ -124,7 +172,7 @@ public class SpringHoonController {
 	}
 	
 	// 자재 이미지 조회 (material img)
-	@RequestMapping(value="login/viewMimg.hoon", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="main/viewMimg.hoon", method={RequestMethod.GET, RequestMethod.POST})
 	public Object product_mateialImg(PurListVo vo){
 		ModelAndView mv = new ModelAndView();
 		
@@ -135,5 +183,18 @@ public class SpringHoonController {
 		mv.setViewName("product_stock_m_view");
 		return mv;
 	}
+
+	// 자재 검색 (material search)
+	@RequestMapping(value="main/searchM.hoon", method={RequestMethod.GET, RequestMethod.POST})
+	public Object product_searchMte(PurListVo vo){
+		ModelAndView mv = new ModelAndView();
+
+		List<PurListVo> list = dao.searchMte(vo);
+		mv.addObject("list", list);
+		mv.setViewName("product_stock_material");
 		
+		return mv;
+	}
+	
+	
 }

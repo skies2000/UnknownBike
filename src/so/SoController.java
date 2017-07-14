@@ -1,10 +1,12 @@
 package so;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -18,6 +20,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import sung.EmployeeVo;
+import sung.ProductVo;
 
 
 @Controller
@@ -62,8 +65,52 @@ public class SoController {
 		return mv;
 	}
 	
+
 	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/detailinfo.so", method={RequestMethod.POST })
+	public void detailinfo(HttpServletRequest req, HttpServletResponse res){
+		MultipartRequest mul = getMul(req);
+		PrintWriter out = null;
+		res.setCharacterEncoding("utf-8");
+		
+		try {
+			 out = res.getWriter();
+			 
+		} catch (IOException e) {
+			
+		}
+		
+		Integer.parseInt(mul.getParameter("mCode"));
+		SoVo detailpur = new SoVo();
+		detailpur.setmCode(Integer.parseInt(mul.getParameter("mCode")));
+		SoVo ddpur = dao.dMetarial(detailpur);
+		
+		JSONArray hjh = new JSONArray();
+		JSONObject jjh = new JSONObject();
+		jjh.put("mCode", ddpur.getmCode());
+		jjh.put("mName", ddpur.getmName());
+		jjh.put("mImage", ddpur.getmImage());
+		jjh.put("nEa", ddpur.getmEa());
+		hjh.add(jjh);
+		out.print(hjh);
 	
+	}
+	
+@RequestMapping(value="login/needcate.so", method={RequestMethod.GET, RequestMethod.POST })
+	public Object needcate(){
+		SoVo vo = new SoVo(); 
+		ModelAndView mv = new ModelAndView();		
+		
+		List<SoVo> list2 = dao.nMetarial(vo);
+				
+		mv.addObject("list",list2);
+		
+		mv.setViewName("../main/index.jsp?inc=../purchase/purchase_home.jsp");
+	
+	    //index.jsp?inc=./board/purchase_home.jsp
+		return mv;
+	}
 	
 	//Purchase_Input
 	@RequestMapping(value="main/purinput.so", method={RequestMethod.GET, RequestMethod.POST })
@@ -108,7 +155,58 @@ public class SoController {
 		return mv;
 	}
 	
+
+	// PrintWriter를 쓰려고 정환오빠 controller에서 받아온거 
+	@SuppressWarnings("finally")
+	public PrintWriter getOut(HttpServletResponse resp){
+		resp.setCharacterEncoding("utf-8");
+		PrintWriter out = null;
+		
+		try{
+			out = resp.getWriter();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			return out;
+		}
+	}
 	
+	//Purchase_ReportView
+		@SuppressWarnings("unchecked")
+		@RequestMapping(value="/purchase_req_input2.so", method={RequestMethod.GET, RequestMethod.POST })
+		public void goInput2(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
+			PrintWriter out = getOut(resp);
+			MultipartRequest Mul = getMul(req);
+			SoVo vo = new SoVo();
+			String mCode = Mul.getParameter("mCode");
+			String mEa = Mul.getParameter("mEa");
+			/*String user = Mul.getParameter("user");?????*/
+		
+			String str = "";
+		
+			vo = dao.materialSelectOne(mCode);
+			JSONArray ja = new JSONArray();
+			JSONObject jo = new JSONObject();
+			jo.put("mCode", mCode);
+			jo.put("mName", vo.getmName());
+			jo.put("mPo", vo.getmPo());
+			jo.put("mPrice", vo.getmPrice());
+			jo.put("mEa", mEa);
+			jo.put("user", (String)session.getAttribute("user"));//사원이름으로
+			
+			ja.add(jo);
+			
+			str+=Mul.getParameter("mEa");
+			str+=vo.getmName();
+			out.print(ja);
+			
+		    //index.jsp?inc=./board/purchase_home.jsp
+			
+		}
+	
+	
+	
+
 /*-------------------------------------팝업창--------------------------------------*/
 	
 	@SuppressWarnings({ "finally", "deprecation" })
@@ -149,6 +247,7 @@ public class SoController {
 		return mv; 
 	}
 	//결재자 카테고리 선택시
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "main/sign_popup2.so", method = { RequestMethod.GET, RequestMethod.POST })
 	public void sign_popup2(HttpServletRequest req, HttpServletResponse resp) {
 		resp.setCharacterEncoding("UTF-8");
@@ -180,6 +279,7 @@ public class SoController {
 		out.print(jsonList);
 		
 	}	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "main/sign_popup3.so", method = { RequestMethod.GET, RequestMethod.POST })
 	public void sign_popup3(HttpServletRequest req, HttpServletResponse resp) {
 		resp.setCharacterEncoding("UTF-8");
@@ -213,9 +313,6 @@ public class SoController {
 		req.setAttribute("ePosition", list.get(0).getePosition());*/
 		
 	}	
-	
-	
-	
 	
 	
 	

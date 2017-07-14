@@ -64,10 +64,31 @@
         	
         
         } // end pInputBtn 
+        
+        function imgClickBtn(ev){
+        	var event = ev || window.event;
+    		if(event == null)return;
+    		
+    		var file = event.srcElement; //이벤트가 발생한 요소
+    		
+    			/*이미지인지 체크 */
+				if(!(file.value.lastIndexOf(".jpg") >0 ||
+				   file.value.lastIndexOf(".JPG") >0   ||	
+				   file.value.lastIndexOf(".png") >0   ||	
+				   file.value.lastIndexOf(".PNG") >0   ||
+				   file.value.lastIndexOf(".gif") >0   ||
+				   file.value.lastIndexOf(".GIF") >0   ||
+				   file.value.lastIndexOf(".JPEG") >0  ||
+				   file.value.lastIndexOf(".jpeg") >0  ||
+				   file.value.lastIndexOf(".BMP") >0   ||
+				   file.value.lastIndexOf(".bmp") >0)
+				){
+				alert("사진을 올려 주세요");
+    			file.value = "";
+				}    		
+    		}
 
     </script>
-
-    
     
     <style>
         #piBody #title {
@@ -222,7 +243,7 @@
 
                     </td>
                     <td >
-                        <label>사진첨부 : </label><input type='file' value='사진첨부' />
+                        <label>사진첨부 : </label><input type='file' value='사진첨부' onchange="imgClickBtn()" name="pimage" />
                     </td>
                 </tr>
             </table>

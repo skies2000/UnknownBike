@@ -7,18 +7,45 @@
 <!-- sql문 작성 -->
 <resultMap type="beanhoon.PurListVo" id="voMap"/>
 
+	<!-- 생산오더관리 리스트 조회 -->
+	<select id='odd_list' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select f.workCode, srlCode, srlMCode, pName, srlEa, workLine, workPeople, workTime, 
+		to_char(workStartDate, 'yyyy.mm.dd') workStartDate, to_char(workEndDate, 'yyyy.mm.dd') workEndDate 
+		from fList f join product p on flpCode = pCode join srList s on fldCode = srlCode and flpCode = srlMCode
+		order by f.workCode desc
+	</select>
+	
 	<!-- 생산요청서 리스트 조회 -->
 	<select id='pur_list' resultMap="voMap" parameterType="beanhoon.PurListVo">
-		select d.dCode, d.dCate, d.dName, to_char(d.dDate, 'yyyy.mm.dd') dDate, to_char(s.srlTerm, 'yyyy.mm.dd') srlTerm, e.eName 
-		from document d join srList s on d.dCode = s.srlCode join employees e on d.dWrite = e.eCode 
+		select d.dCode, d.dCate, d.dName, d.dDate, e.eName 
+		from document d join employees e on d.dWrite = e.eCode 
 		where d.dStatus = 0 and d.dcate = #{dCate }
 	</select>
 	
-	<!-- 생산요청서 내용 확인 -->
+	<!-- 생산요청서 내용 확인(상단) -->
 	<select id='pur_view' resultMap="voMap" parameterType="beanhoon.PurListVo">
-		select d.dCode, d.dSign, d.dName, d.dCont, s.srlCode, p.pName, s.srlEa, s.srlTerm, s.srlMCode  
-		from document d join srList s on d.dCode = s.srlCode join product p on s.srlMcode = p.pCode
-		where d.dCode = #{dCode }
+		select dCode, dWrite, substr(dSign, 0, 5) dSign1, substr(dSign, 7, 5) dSign2, dName, dCont, dDate 
+		from document where dCode = #{dCode }
+	</select>
+	
+	<!-- 요청서 검색 -->
+	<select id='search' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select d.dCode, d.dCate, d.dName, d.dDate, e.eName 
+		from document d join employees e on d.dWrite = e.eCode 
+		where d.dStatus = 0 and d.dcate = 'srl' and 
+		(d.dName like '%${findStr}%' or e.eName like '%${findStr}%')
+	</select>
+	
+	<!-- 생산요청서 작성자와 결재자들의 사원 코드를 사원 이름으로 변경 -->
+	<select id='pur_sign' resultType="String" parameterType="String">
+		select eName from employees where eCode = #{str }
+	</select>
+	
+	<!-- 생산요청서 내용 확인(하단 작업 리스트) -->
+	<select id='pur_work' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select s.srlCode, p.pName, s.srlEa, s.srlTerm, s.srlMCode  
+		from srList s join product p on s.srlMcode = p.pCode
+		where s.srlCode = #{dCode }
 	</select>
 	
 	<!-- 생산 설정 세팅 -->
@@ -30,13 +57,14 @@
 	
 	<!-- 세팅된 설정을 DB에 저장 -->
 	<select id='save_data' resultMap="voMap" parameterType="beanhoon.PurListVo">
-		insert into fList(flDcode, flPcode, flpEa, workLine, workPeople, workTime, workStartDate, workEndDate) 
-		values(#{srlCode }, #{srlMCode }, #{srlEa }, #{workLine }, #{workPeople }, #{pManhour }, #{workStartDate }, #{workEndDate })
+		insert into fList(workCode, flDcode, flPcode, flpEa, workLine, workPeople, workTime, workStartDate, workEndDate, dys) 
+		values(#{srlCode } || #{srlMCode }, 
+		#{srlCode }, #{srlMCode }, #{srlEa }, #{workLine }, #{workPeople }, #{pManhour }, #{workStartDate }, #{workEndDate }, #{dys })
 	</select>
 	
 	<!-- 제품 재고 조회 -->
 	<select id='list_p' resultMap="voMap" parameterType="beanhoon.PurListVo">
-		select pCode, pName, pCate, pPrice, to_char(pDate, 'yyyy.mm.dd') pDate, pEa, pImage from product
+		select pCode, pName, pCate, pPrice, to_char(pDate, 'yyyy.mm.dd') pDate, pEa, pImage from product order by pCode
 	</select>
 	
 	<!-- 제품 이미지 조회 -->
@@ -44,9 +72,38 @@
 		select pImage from product where pCode = #{pCode }
 	</select>
 	
+	<!-- 제품 검색 -->
+	<select id='search_p' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select pCode, pName, pCate, pPrice, to_char(pDate, 'yyyy.mm.dd') pDate, pEa, pImage from product
+		where 
+		<choose>
+			<when test="pCode != 0 and pName != null and pCate != 0"> <!-- 검색조건 123 전부 있다 -->
+				pCode = #{pCode } and pName like '%${pName }%' and pCate = #{pCate }
+			</when>
+			<when test="pCode != 0 and pName != null and pCate == 0"> <!-- 검색조건 12만 있다 -->
+				pCode = #{pCode } and pName like '%${pName }%'
+			</when>
+			<when test="pCode != 0 and pName == null and pCate != 0"> <!-- 검색조건 13만 있다 -->
+				pName like '%${pName }%' and pCate = #{pCate }
+			</when>
+			<when test="pCode == 0 and pName != null and pCate != 0"> <!-- 검색조건 23만 있다 -->
+				pName like '%${pName }%' and pCate = #{pCate }
+			</when>
+			<when test="pCode != 0 and pName == null and pCate == 0"> <!-- 검색조건 1만 있다 -->
+				pCode = #{pCode }
+			</when>
+			<when test="pCode == 0 and pName != null and pCate == 0"> <!-- 검색조건 2만 있다 -->
+				pName like '%${pName }%'
+			</when>
+			<when test="pCode == 0 and pName == null and pCate != 0"> <!-- 검색조건 3만 있다 -->
+				pCate = #{pCate }
+			</when>
+		</choose>
+	</select>
+	
 	<!-- 자재 재고 조회 -->
 	<select id='list_m' resultMap="voMap" parameterType="beanhoon.PurListVo">
-		select mCode, mName, mCate, mPrice, to_char(mDate, 'yyyy.mm.dd') mDate, mEa, mImage from material
+		select mCode, mName, mCate, mPrice, to_char(mDate, 'yyyy.mm.dd') mDate, mEa, mImage from material order by mCode
 	</select>
 	
 	<!-- 자재 이미지 조회 -->
@@ -54,6 +111,33 @@
 		select mImage from material where mCode = #{mCode }
 	</select>
 	
-	
+	<!-- 자재 검색 -->
+	<select id='search_m' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select mCode, mName, mCate, mPrice, to_char(mDate, 'yyyy.mm.dd') mDate, mEa, mImage from material
+		where 
+		<choose>
+			<when test="mCode != 0 and mName != null and mCate != 0"> <!-- 검색조건 123 전부 있다 -->
+				mCode = #{mCode } and mName like '%${mName }%' and mCate = #{mCate }
+			</when>
+			<when test="mCode != 0 and mName != null and mCate == 0"> <!-- 검색조건 12만 있다 -->
+				mCode = #{mCode } and mName like '%${mName }%'
+			</when>
+			<when test="mCode != 0 and mName == null and mCate != 0"> <!-- 검색조건 13만 있다 -->
+				mName like '%${mName }%' and mCate = #{mCate }
+			</when>
+			<when test="mCode == 0 and mName != null and mCate != 0"> <!-- 검색조건 23만 있다 -->
+				mName like '%${mName }%' and mCate = #{mCate }
+			</when>
+			<when test="mCode != 0 and mName == null and mCate == 0"> <!-- 검색조건 1만 있다 -->
+				mCode = #{mCode }
+			</when>
+			<when test="mCode == 0 and mName != null and mCate == 0"> <!-- 검색조건 2만 있다 -->
+				mName like '%${mName }%'
+			</when>
+			<when test="mCode == 0 and mName == null and mCate != 0"> <!-- 검색조건 3만 있다 -->
+				mCate = #{mCate }
+			</when>
+		</choose>
+	</select>
 	
 </mapper>

@@ -13,8 +13,8 @@
 	margin-left: 20%;
 }
 
-#maBody input[type='text'],#maBody input[type='number'], #maBody select *, #maBody select, #maBody input[type='file']
-	{
+#maBody input[type='text'], #maBody input[type='number'], #maBody select *,
+	#maBody select, #maBody input[type='file'] {
 	color: white;
 	background-color: black;
 	margin: 5px;
@@ -104,28 +104,55 @@
 
 <script>
 	//select
-	$(document).ready(function(){
+	$(document).ready(function() {
 		var ff = document.getElementById("mat_frm");
-		$("#mSelect").change(function(){
+		$("#mSelect").change(function() {
 			var sel = document.getElementById("mSelect");
 			var ix = sel.options[sel.options.selectedIndex].value;
-			ff.mcate.value=ix;
+			ff.mcate.value = ix;
 			alert(ff.mcate.value);//확인용
 		});
 	});
 
-
 	function docConInputBtn() {
 		/* window.open("../laboratory/documentContentInput.html", "", "width=600px, height=400px"); */
-		window.open("../laboratory/documentContentInput.html", "", "width=600px, height=400px");
+		window.open("../laboratory/documentContentInput.html", "",
+				"width=600px, height=400px");
 	}
 
 	function mapproveMan_two() {
-		window.open("../laboratory/approveMan_two.jsp", "", "width=500px, height=300px");
+		window.open("../laboratory/approveMan_two.jsp", "",
+				"width=500px, height=300px");
+	}
+
+	function imgSelect(ev) {
+		var event = ev || window.event;
+		if (event == null)
+			return;
+
+		var file = event.srcElement; //이벤트가 발생한 요소
+		
+		/*이미지인지 체크 */
+        if(!(file.value.lastIndexOf(".jpg") >0 ||
+           file.value.lastIndexOf(".JPG") >0 ||   
+           file.value.lastIndexOf(".png") >0 ||   
+           file.value.lastIndexOf(".PNG") >0 ||
+           file.value.lastIndexOf(".gif") >0 ||
+           file.value.lastIndexOf(".GIF") >0 ||
+           file.value.lastIndexOf(".JPEG") >0 ||
+           file.value.lastIndexOf(".jpeg") >0 ||
+           file.value.lastIndexOf(".BMP") >0 ||
+           file.value.lastIndexOf(".bmp") >0)
+        ){
+        	alert("이미지 파일을 올려주세요.");
+        	file.value=""; //선택한 파일이 없다는 뜻.
+        }
+		
 	}
 	//등록버튼!!!!!!!!!!!!!!!!!!!!!!!!
 	function mInputBtn() {
-		if (!confirm("등록하시겠습니까?")) return; //취소 했을 때!
+		if (!confirm("등록하시겠습니까?"))
+			return; //취소 했을 때!
 		var ff = document.getElementById("mat_frm");
 		var fd = new FormData(ff); // form을 만드는 과정. 
 		var url = "../matInput.kimHa"; ///////// controller로!
@@ -144,10 +171,10 @@
 					xhr2.onreadystatechange = function() {
 						if (xhr2.readyState == 4 && xhr2.status == 200) {
 							var txt = xhr2.responseText;
-	
+
 							$('#laboratorResult').html(txt);
 						}
-						
+
 					}
 				} else if (txt = "-1") {
 					alert("다시 입력해 주세요.")
@@ -164,20 +191,24 @@
 		<div id=mTitle>자재등록</div>
 
 		<form id="mat_frm" method="post" enctype="multipart/form-data">
-		
-		
-			<div id="appResult"></div> <!-- 사원코드 -->
-			
-			
-			<div id="docResult"></div> <!-- 문서 -->
-			
+
+
+			<div id="appResult"></div>
+			<!-- 사원코드 -->
+
+
+			<div id="docResult"></div>
+			<!-- 문서 -->
+
 			<!--결재자 팝업창에서 선택된 사원 리스트의 결과가 입력될 곳   -->
 			<table>
 				<tr>
-					<td colspan="2"><input type='text' name="dname" placeholder="문서제목" /></td>
+					<td colspan="2"><input type='text' name="dname"
+						placeholder="문서제목" /></td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type='text' name="mname" placeholder="자재명" /></td>
+					<td colspan="2"><input type='text' name="mname"
+						placeholder="자재명" /></td>
 				</tr>
 				<tr>
 					<td><select id="mSelect">
@@ -189,14 +220,15 @@
 							<option value="5">체인</option>
 							<option value="6">라이트</option>
 					</select> <input type="hidden" name="mcate" value="0" /></td>
-					<td><input type='number' name="mprice" placeholder="가격을 입력해주세요." /></td>
+					<td><input type='number' name="mprice"
+						placeholder="가격을 입력해주세요." /></td>
 				</tr>
-				
-				
+
+
 				<tr>
 
-					<td><a href="#" class="myButton" id= "appMemberId" onclick="mapproveMan_two()">결재자
-							선택</a></td>
+					<td><a href="#" class="myButton" id="appMemberId"
+						onclick="mapproveMan_two()">결재자 선택</a></td>
 					<td><a href="#" class="myButton" onclick="docConInputBtn()">문서
 							내용 입력</a></td>
 				</tr>
@@ -204,7 +236,7 @@
 
 
 					<td colspan="2"><label>사진첨부</label><input type='file'
-						value='사진첨부' /></td>
+						value='사진첨부' name='mImage'onchange="imgSelect()" /></td>
 				</tr>
 			</table>
 
