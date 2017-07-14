@@ -151,9 +151,20 @@ public class HwanController {
 		String pManStr = "";
 		String[] mlmCode = null; //자재리스트 자재 코드
 		String[] mlmea = null;   //자재리스트 자재 수량
-		
+		String[] mpriceArr = null;
+		int totalpCost = 0;
 		mlmCode = mul.getParameterValues("mlmcode");
 		mlmea = mul.getParameterValues("mlmea");
+		mpriceArr = mul.getParameterValues("mprice");
+		
+		
+		
+		//자재리스트에서 선택된 자재를 통해 제품 가격 계산
+		for(int i=0; i<mpriceArr.length;i++){
+			totalpCost += (Integer.parseInt(mlmea[i])) * (Integer.parseInt(mpriceArr[i]));
+		}
+		
+		System.out.println("pprice : "+totalpCost);
 		
 		Enumeration<String> files = mul.getFileNames();
 		if(files.hasMoreElements()){
@@ -170,6 +181,8 @@ public class HwanController {
 		 
 		
 		 
+		vo.setPcost(totalpCost);
+		vo.setPprice(totalpCost*10);
 		vo.setDcont(mul.getParameter("dcont"));
 		vo.setDname(mul.getParameter("dname"));
 		vo.setPname(mul.getParameter("pname"));
@@ -198,9 +211,20 @@ public class HwanController {
 	
 		
 		int r = 0;
+		boolean rFlag = true;
 		String msg = "";
 		r = dao.proInput(vo);
-		if(r>0){
+		for(int i=0; i<mlmCode.length;i++){
+			System.out.println();
+			HwanVo mLlitVo = new HwanVo();
+			System.out.println("mlmcode : "+Integer.parseInt(mlmCode[i]));
+			System.out.println("mlmea : "+Integer.parseInt(mlmea[i]));
+			
+			mLlitVo.setMlmcode(Integer.parseInt(mlmCode[i]));
+			mLlitVo.setMlmea(Integer.parseInt(mlmea[i]));
+			if(dao.mListInput(mLlitVo)<=0) rFlag = false; 
+		}
+		if(r>0 && rFlag){
 			r = 1;
 		}else{
 			r = -1;
@@ -222,6 +246,11 @@ public class HwanController {
 			session.invalidate();
 		return "login.jsp";
 	}
+	
+	
+	
+	
+	//자재 리스트 팝업창이 열리면서 뿌려질 자재 리스트 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/pro_mat_List.hwan",method={RequestMethod.GET})
 	public void pro_mat_List(HttpServletResponse resp){
@@ -234,7 +263,8 @@ public class HwanController {
 				jObj.put("mcode", list.get(i).getMcode());
 				jObj.put("mname", list.get(i).getMname());
 				jObj.put("mimage", list.get(i).getMimage());
-				
+				jObj.put("mprice", list.get(i).getMprice());
+				 
 				jArr.add(jObj);
 			}
 			out.print(jArr);
