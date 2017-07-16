@@ -88,6 +88,44 @@ select{
     display: inline-block;
     width: 16%;
 }
+
+
+.pcode1 {
+    display: inline-block;
+    width:12%;
+}
+
+.pmname1 {
+    display: inline-block;
+    width: 10%;
+}
+
+.ppur1 {
+    display: inline-block;
+    width: 12%;
+}
+
+.pemp1 {
+    display: inline-block;
+    width: 15%;
+}
+
+.pea1 {
+    display: inline-block;
+    width: 12%;
+}
+
+.pprice1 {
+    display: inline-block;
+    width: 12%;
+}
+
+.pamount1 {
+    display: inline-block;
+    width: 16%;
+}
+
+
 #purihead6{padding:25px;box-sizing:border-box;text-align: center;}
 #plok{/* width:105px;margin-left:37%; */text-align: center;}
 #plcancle{width:106px;margin-left:2%;text-align: center;}

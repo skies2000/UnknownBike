@@ -169,7 +169,6 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 		String dWriter = (String)session.getAttribute("user");
 		String appro1 = mul.getParameter("h_piappro1");
 		String appro2 = mul.getParameter("h_piappro2");
-		String pur = mul.getParameter("input_pur");
 		String signer = appro1 + "," + appro2;
 		
 		String mCode = mul.getParameter("mCode");
@@ -177,6 +176,22 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 		String mPo = mul.getParameter("mPo");
 		String mEa = mul.getParameter("mEa");
 		String mPrice = mul.getParameter("mPrice");
+
+		System.out.println(dName);
+		System.out.println(dCate);
+		System.out.println(dDate);
+		System.out.println(dWriter);
+		
+		System.out.println(appro1);
+		System.out.println(appro2);
+		System.out.println(signer);
+		
+		System.out.println(mCode);
+		System.out.println(mName);
+		System.out.println(mPo);
+		System.out.println(mEa);
+		System.out.println(mPrice);
+		
 		
 		/*if(code)*/
 		String[] spl_code = mCode.split(",");
