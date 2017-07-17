@@ -13,7 +13,6 @@ function start() {
 	
 	// product_request_view에서 setOK값을 가져온다
 	window.opener.document.getElementById('setOK').innerHTML = "<font color='green'>설정 완료</font>";
-	
 	window.close();
 }
 </script>

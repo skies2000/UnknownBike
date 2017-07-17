@@ -11,6 +11,9 @@
 		select * from employees
 	</select>
 
+
+
+
 	<!-- 상세보기 materialDetails -->
 
 	<resultMap type="kimHa.kimHaVo" id="matListMap">
@@ -23,6 +26,24 @@
 
 
 	</resultMap>
+	<!--삭제 -->
+	<!-- material 삭제 -->
+	<delete id="kimDel" parameterType="kimHa.kimHaVo">
+		delete from material where
+		mcode=#{mcode}
+	</delete>
+	<!-- document 삭제 -->
+	<delete id="kimDeldoc" parameterType="kimHa.kimHaVo">
+		DELETE from DOCUMENT doc
+		WHERE doc.dcode=(SELECT dl.dldcode from dlist dl WHERE doc.dcode =
+		dl.dldcode and dl.DLACODE=#{mcode})
+	</delete>
+	<!-- dlist 삭제 -->
+	<delete id="kimDeldl" parameterType="kimHa.kimHaVo">
+		DELETE from dlist where
+		dlacode = #{mcode}
+	</delete>
+
 	<!-- 자재상세(검색어로 검색) list -->
 	<select id="matList" resultMap="matListMap" parameterType="kimHa.kimHaVo">
 		select * from material where mname like '%${findStr}%'
@@ -37,25 +58,28 @@
 
 	</select>
 
-	<!-- view 자재 리스트들이 출력되는 화면에서 해당 자재 이미지를 클릭하면 나오는 자재 상세 정보를 화면에 뿌려줄 자재 정보-->
+	<!-- view 자재 리스트들이 출력되는 화면에서 해당 자재 이미지를 클릭하면 나오는 자재 상세 정보를 화면에 뿌려줄 자재 정보 -->
 	<select id="matView" resultType="kimHa.kimHaVo" parameterType="kimHa.kimHaVo">
 		<!-- select * from material where mcode = #{mcode} -->
-		select mat.*, doc.dsign from dlist dl JOIN MATERIAL mat ON dl.dlacode = mat.mcode
-JOIN DOCUMENT doc on dl.dldcode = doc.dcode where mat.mcode = #{mcode}
+		select mat.*, doc.dsign from dlist dl JOIN MATERIAL mat ON dl.dlacode
+		= mat.mcode
+		JOIN DOCUMENT doc on dl.dldcode = doc.dcode where mat.mcode
+		= #{mcode}
 	</select>
-	
+
 	<!-- 사원코드만 가져오는 쿼리 -->
 
 	<select id="appOne" parameterType="kimHa.kimHaVo" resultType="kimHa.kimHaVo">
 		select * from employees where ecode = #{ecode}
 	</select>
-	
+
 
 	<!-- materialsInput 문서 등록!!!!!!!!!!!!!!!!! -->
 	<insert id="docInput" parameterType="kimHa.kimHaVo">
 		insert into
 		document(dcode,dname,dcont,ddate,dwrite,dsign,dstatus,dcate)
-		values((select max(dCode)+1 as dCode from Document),#{dname},#{dcont},sysdate,#{dwrite},#{dsign},0,'dl')
+		values((select max(dCode)+1 as dCode from
+		Document),#{dname},#{dcont},sysdate,#{dwrite},#{dsign},0,'dl')
 
 	</insert>
 	<!-- 자재 -->
@@ -66,10 +90,11 @@ JOIN DOCUMENT doc on dl.dldcode = doc.dcode where mat.mcode = #{mcode}
 
 	</insert>
 
-<!-- 연구소 리스트 테이블에 값을 넣기 -->
+	<!-- 연구소 리스트 테이블에 값을 넣기 -->
 	<insert id="labInput">
 		insert into
 		dlist(dldcode,dlacode)
-		values((select max(dCode) as dCode from Document),seq_material_mcode.currval)
-</insert>
+		values((select
+		max(dCode) as dCode from Document),seq_material_mcode.currval)
+	</insert>
 </mapper>
