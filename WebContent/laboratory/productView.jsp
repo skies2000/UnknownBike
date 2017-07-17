@@ -31,7 +31,21 @@
 			}
 		}
 	});
-	 
+	/* $('#proView #delBtn').click(function(){
+		var xhr = new XMLHttpRequest();
+		var frm = document.getElementById("proViewFrm");
+		alert(frm.pcode.value);
+		var fd = new FormData(frm);
+		
+		xhr.open("post","../productDel.hwan");
+		xhr.send(fd);
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				var txt = xhr.responseText;
+				$("#laboratorResult").html(txt);
+			}
+		} 
+	}); */
 	</script>
 
     <style>
@@ -100,7 +114,7 @@
         
         
         }
-        #proView #backBtn{
+        #proView #backBtn, #proView #delBtn{
         border: 1px solid white;
         margin-left: 70%; 
          } 
@@ -160,6 +174,12 @@
             </tr>
         </table>
         <a href=# id = "backBtn" class = "myButton" >뒤로</a>
+        <a href=# id = "delBtn" class = "myButton" >삭제</a>
+        
+        <form method = 'post' id = "proViewFrm"enctype="multipart/form-data">
+        <input type="hidden" name = "pcode" value = '${vo.pcode}'>
+        	
+        </form>
     </div>
 
 </body>

@@ -93,8 +93,7 @@
             width: 90%;           
             background-color: #222;    
         }
-        */
-        #indeximage{
+        */        #indeximage{
         transition: .5s ease;
         backface-visibility: hidden;
         }

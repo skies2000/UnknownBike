@@ -24,9 +24,6 @@
 	</resultMap>
 	
 	<resultMap type="hwan.HwanVo" id="proViewMatListMap">
-	<result property="mlmcode" column="mlmcode"/>
-	<result property="mlmea" column="mlmea"/>
-	
 	</resultMap>
 	
 	
@@ -106,7 +103,9 @@
 	
 	
 	<select id="proViewMatList" resultMap="proViewMatListMap" parameterType="int">
-			select * from mlist where mlpcode = #{mlpcode}  
+			select mat.*, ml.*
+			  from mlist ml join material mat
+			   on ml.mlmcode = mat.mcode where ml.mlpcode=#{mlpcode} 
 	</select>
 					    
 
