@@ -128,7 +128,7 @@ function denyFunc(code){
       <c:if test="${obj.dStatus==2 && obj.appTwo==obj.userid}">
       결재 대기중..
       </c:if>
-       <c:if test="${obj.dStatus==0 || obj.dStatus==1 && obj.appOne}">
+       <c:if test="${obj.dStatus==0 || obj.dStatus==1 && obj.appOne==obj.userid}">
        결재가 완료된 상태 입니다.
        </c:if>
        <c:if test="${obj.dStatus==-1}">
