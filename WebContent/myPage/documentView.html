@@ -16,11 +16,20 @@
         body *{
             margin:0;
             padding: 0;
+            font-size: 0;
+            box-sizing: border-box;
+            
         }
+        
+        body span{
+            font-size: 15px;
+        }
+        
         #aprooveCheck{
             border: 1px solid white;
-            width: 387px;
-            height: 100px;
+            width: 284px;
+            height: 105px;
+            margin-left:100px;
         }
         
         #aprooveCheck div{
@@ -30,28 +39,34 @@
         
         #aprooveCheck .div1{
             height: 100%;
+            width: 10%;
         }
         
         #aprooveCheck .foatLeft{
             float: left;
         }
         
-        #aprooveCheck .both{
-            
+        #aprooveCheck *{
+            text-align: center;
         }
         
         #aprooveCheck #approoveDiv{
-            
+            width:  90%;
         }
         #aprooveCheck #approoveDiv div{
-            height: 70%;
+            height: 70px;
+            width: 33.33%;
+            padding-top:10px
+            
+                
         }
         
         #aprooveCheck #approoveManDiv{
-            
+            width:  90%;
         }
         #aprooveCheck #approoveManDiv div{
-            height: 30%;
+            height: 30px;
+            width: 33.33%;;
         }
         
     
@@ -61,30 +76,31 @@
 
 	<body>
 	
-	
+	<div>
+	    
+	    <span>문서번호</span>
 	<div id=aprooveCheck>
         <div class="div1 foatLeft">
-            결<br>재<br>내<br>역</div >
-    <div id=approoveManDiv><div class="div2 foatLeft">강호동</div>
-	    <div class="div2 foatLeft">유재석</div>
-	    <div class="div2 foatLeft">박명수</div>
-</div>
+            <span>결<br>재<br>내<br>역</span></div >
+    <div id=approoveManDiv><div class="div2 foatLeft"><span>강호동</span></div>
+	    <div class="div2 foatLeft"><span>유재석</span></div>
+	    <div class="div2 foatLeft"><span>박명수</span></div></div>
     <div id=approoveDiv>
-        
-	    <div class="div2">
-	        작성<br/>
-	        2017-06-28
+	    <div class="div2 foatLeft">
+	        <span>작성<br/>
+	        2017-06-28</span>
 	    </div >
 	    <div class="div2 foatLeft">
-	        승인<br/>
-	        2017-06-28
+	        <span>승인<br/>
+	        2017-06-28</span>
 	    </div>
 	    <div class="div2 foatLeft">
-	        승인<br/>
-	        2017-06-28
+	        <span>승인<br/>
+	        2017-06-28</span>
 	    </div>
     </div>
 	    
+	</div>
 	</div>
 
 	</body>
