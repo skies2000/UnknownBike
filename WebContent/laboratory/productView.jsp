@@ -12,7 +12,12 @@
 	<script>
 		
 	$('#proView #mListFunc').click(function(){
-		window.open("../laboratory/materialsList.html","","height=500px, width=500px");	
+		window.open("","mList","height=1000px, width=1000px");
+		var frm = document.getElementById("pviewFrm");
+		frm.action = "../mList.hwan";
+		frm.target = "mList";
+		frm.submit();
+		
 	});
 	
 	$('#proView #backBtn').click(function(){
@@ -101,7 +106,6 @@
          } 
          
         
-
     </style>
 </head>
 
@@ -110,6 +114,9 @@
     <div id=proView>
         <div id="pvTitle">제품뷰</div>
         <hr/>
+        <form method="post" id="pviewFrm">
+	        <input type="hidden" name="mlpcode" value='${vo.pcode}'>
+        </form>
     
         <img src="../images/${vo.pimage}" width="300px" height="200px">
         
@@ -158,4 +165,3 @@
 </body>
 
 </html>
-

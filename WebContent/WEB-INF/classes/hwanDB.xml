@@ -23,6 +23,12 @@
 		<result property="mprice" column="mprice"/>    
 	</resultMap>
 	
+	<resultMap type="hwan.HwanVo" id="proViewMatListMap">
+	<result property="mlmcode" column="mlmcode"/>
+	<result property="mlmea" column="mlmea"/>
+	
+	</resultMap>
+	
 	
 	<!--제품 리스트 출력하기 위한 리절트 맵  -->
 	<resultMap type="hwan.HwanVo" id="proListMap">
@@ -92,5 +98,16 @@
 	<insert id="mListInput" parameterType="hwan.HwanVo">
 	insert into mlist(mlpcode, mlmcode, mlmea) values(seq_product_pcode.currval,#{mlmcode},#{mlmea})
 	</insert>
+	
+	<!--등록된 제품 개수 확인  -->
+	<select id="productCnt" resultType="int">
+		select count(*) cnt from product
+	</select>
+	
+	
+	<select id="proViewMatList" resultMap="proViewMatListMap" parameterType="int">
+			select * from mlist where mlpcode = #{mlpcode}  
+	</select>
+					    
 
 </mapper>

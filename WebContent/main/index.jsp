@@ -160,7 +160,7 @@
             
             <a href="salesHome.sung"><img id='indeximg' src="../images/sales.png"></a>
             
-            <a href=#><img id='indeximg' src="../images/mypage.png"></a>
+            <a href="../main/index.jsp?inc=../myPage/passwordCheck.html"><img id='indeximg' src="../images/mypage.png"></a>
         </nav>
     <div id='mainBody'>
 

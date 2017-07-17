@@ -70,7 +70,9 @@
         var input_h = document.createElement("input");
         input_h.setAttribute("type", "hidden");
         input_h.setAttribute("name", "dcont");
+        input_h.setAttribute("id", "docHidden");
         input_h.setAttribute("value", dci.value);
+      
         doc.appendChild(input_h);
         alert("정상적으로 입력 되었습니다.");
         self.close();

@@ -52,10 +52,18 @@ public class HwanVo {
 	String appTwo;
 	
 	
+	int nowPage;
 	
 	
 	
 	
+	
+	public int getNowPage() {
+		return nowPage;
+	}
+	public void setNowPage(int nowPage) {
+		this.nowPage = nowPage;
+	}
 	public int getMlpcode() {
 		return mlpcode;
 	}
