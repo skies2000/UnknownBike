@@ -205,13 +205,52 @@ function plus(){
 	
 		var frm = document.pfrm;
 		var url = 'purRList.so';
-		var mcode = $('.pcode').text();//그냥 넘기는게 아니라 값이 hidden에 들어가있어야함.. .. 
-		var mname = $('.pmname').text();
-		var mpur = $('.ppur').text();
-		var mea = $('.pea').text();
-		var mprice = $('.pprice').text();
-	
+		var mcode = document.getElementsByClassName("pcode");//그냥 넘기는게 아니라 값이 hidden에 들어가있어야함.. .. 
+		var cc = mcode[0].innerHTML; //cc를 히든에 넣기
+		for(var i=1; i<mcode.length; i++){
+				cc += ","+mcode[i].innerHTML;
+		}
+		alert(cc);
 		
+		
+		var mname = document.getElementsByClassName("pmname");
+		var dd = mname[0].innerHTML;
+		for(var i=0; i<mname.length;i++){
+				dd += ","+mname[i].innerHTML; //input태그는 .value로 값을 가져오는데 span이나 a태그들은 value로 안되서.. innerHTMl을 써준다.
+			}
+		
+		alert(dd);
+		var mpur =  document.getElementsByClassName("ppur");
+		var ee = mpur[0].innerHTML;
+		for(var i=0; i<mpur.length; i++){
+			ee += ","+mpur[i].innerHTML;
+			}
+		
+		var mea = document.getElementsByClassName("pea");
+		var ff = mea[0].innerHTML;
+		for(var i=0; i<mea.length; i++){
+			ff += ","+mea[i].innerHTML;
+			}
+		
+		var mprice = document.getElementsByClassName("pprice");
+		var gg = mprice[0].innerHTML;
+		for(var i=0; i<mprice.length; i++){
+			gg += ","+mprice[i].innerHTML;
+			}
+		
+		
+		frm.mCode.value=cc;
+		frm.mName.value=dd;
+		frm.mPo.value=ee;
+		frm.mEa.value=ff;
+		frm.mPrice.value=gg;
+		
+/* 		<input type='hidden' name='mCode' value='cc'>
+		<input type='hidden' name='mName'>
+		<input type='hidden' name='mPo'>
+		<input type='hidden' name='mEa'>
+		<input type='hidden' name='mPrice'>
+		<input type='hidden' name='count' value='0'> */
 		
 		
 		var fd = new FormData(frm);
@@ -283,7 +322,7 @@ request.setAttribute("today", today);
 
 <form name='pfrm' id='pfrm' method='post'>
 
-				<input type='hidden' name='mCode'>
+				<input type='hidden' name='mCode' value='cc'>
 				<input type='hidden' name='mName'>
 				<input type='hidden' name='mPo'>
 				<input type='hidden' name='mEa'>
@@ -368,7 +407,7 @@ request.setAttribute("today", today);
 
 
 <form name='pfrm2' method='post'>
-<div id='purihead4'><span class='pcode'>자재코드</span><span class='pmname'>자재명</span><span class='ppur'>거래처</span><span class='pemp'>구매담당자</span><span class='pea'>수량</span><span class='pprice'>단가</span><span class='pamount'>총액</span><!-- <span class='pdel' style='color: black'>[X]</span> -->
+<div id='purihead4'><span class='pcode1'>자재코드</span><span class='pmname1'>자재명</span><span class='ppur1'>거래처</span><span class='pemp1'>구매담당자</span><span class='pea1'>수량</span><span class='pprice1'>단가</span><span class='pamount1'>총액</span><!-- <span class='pdel' style='color: black'>[X]</span> -->
     
 </div>
 

@@ -22,8 +22,50 @@ public class DocumentVo {
 	private int appro1;
 	private int appro2;
 	private String findStr;
+	private int vCode;
+	private String vName;
+	private int pEa;
+	private int pPrice;
+	private int pCost;
+	private int splpEa;
 	
 	
+	public int getSplpEa() {
+		return splpEa;
+	}
+	public void setSplpEa(int splpEa) {
+		this.splpEa = splpEa;
+	}
+	public int getpCost() {
+		return pCost;
+	}
+	public void setpCost(int pCost) {
+		this.pCost = pCost;
+	}
+	public int getpPrice() {
+		return pPrice;
+	}
+	public void setpPrice(int pPrice) {
+		this.pPrice = pPrice;
+	}
+	public int getpEa() {
+		return pEa;
+	}
+	public void setpEa(int pEa) {
+		this.pEa = pEa;
+	}
+	public int getvCode() {
+		return vCode;
+	}
+	public void setvCode(int vCode) {
+		this.vCode = vCode;
+	}
+	public String getvName() {
+		return vName;
+	}
+	public void setvName(String vName) {
+		this.vName = vName;
+	}
 	public String getFindStr() {
 		return findStr;
 	}

@@ -62,7 +62,8 @@
 						
 					</ul>
 				</li>	
-
+				<li><a href="purviewdetail.so">보고서어어</a>
+				</li>
 			</ul>
 		</div>
 	</div>

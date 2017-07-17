@@ -13,11 +13,9 @@
 		<script>	
 		
 			function gowheel(mCate){
-
 				var frm = document.frm;
 				frm.mCate.value = mCate;
 				frm.action = 'listcate.so';
-				alert("ggg");
 				frm.submit();
 				}
 			function wholewheel(){
@@ -84,10 +82,11 @@
 							
 							phviewtxtSpab.setAttribute("class", "phviewtxt");
 
-
 							
 							phviewtxtSpab.innerHTML="자재코드:"+deff2[0].mCode;
 							phviewtxtSpab.appendChild(document.createElement("br"));
+							phviewtxtSpab.setAttribute("style","text-align:center")
+							
 							phviewtxtSpab.innerHTML+="자재명:"+deff2[0].mName;
 							phviewtxtSpab.appendChild(document.createElement("br"));
 
@@ -102,7 +101,7 @@
 							}
 
 
-							phcheckboxDiv.appendChild(phcheckbox);
+							/* phcheckboxDiv.appendChild(phcheckbox); */
 							imgDiv.appendChild(img);
 
 							phviewitemDiv.appendChild(phcheckboxDiv);
@@ -207,10 +206,7 @@
 	/*상세 제품 정보에 추가되는 내용이 새로로 추가가 되서 가로로 추가 되게 css 먹여봄  */
 	#productDetailInfoDiv .phviewitem{
 		display: inline-block;
-		width: 100px;
-		border: 1px solid red;
-		float: left;
-		
+		width: 100px;		
 	}
 	
 	
@@ -307,7 +303,7 @@
 		<input type='hidden' name='mCate'>
 		<input type='hidden' name='mCode'>
 	</form>
-	
+
 	<!-- The Modal -->
 <div id="myModal" class="modal">
 

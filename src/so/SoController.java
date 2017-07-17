@@ -2,6 +2,7 @@ package so;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,15 +54,21 @@ public class SoController {
 	
 	
 	@RequestMapping(value="main/listcate.so", method={RequestMethod.GET, RequestMethod.POST })
-	public Object listcate(SoVo vo){
-		ModelAndView mv = new ModelAndView();		
-		List<SoVo> list = dao.aMetarial(vo);
-				
-		mv.addObject("list",list);
+	public Object listcate(HttpServletRequest req, HttpServletResponse res){
+		res.setCharacterEncoding("utf-8");
+		MultipartRequest mul = getMul(req);
 		
+		int mCate = Integer.parseInt(mul.getParameter("mCate"));
+		List<SoVo> list = new ArrayList<SoVo>();
+		
+		SoVo vo = new SoVo();
+		vo.setmCate(mCate);
+		list = dao.aMetarial(vo);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("list",list);
 		mv.setViewName("../main/index.jsp?inc=../purchase/purchase_home.jsp");
 	
-	    //index.jsp?inc=./board/purchase_home.jsp
 		return mv;
 	}
 	
@@ -97,8 +104,8 @@ public class SoController {
 	
 	}
 	
-@RequestMapping(value="login/needcate.so", method={RequestMethod.GET, RequestMethod.POST })
-	public Object needcate(){
+@RequestMapping(value="main/needcate.so", method={RequestMethod.GET, RequestMethod.POST })
+	public Object needcate(HttpServletRequest req, HttpServletResponse res){
 		SoVo vo = new SoVo(); 
 		ModelAndView mv = new ModelAndView();		
 		
@@ -112,6 +119,22 @@ public class SoController {
 		return mv;
 	}
 	
+//보고서 상세
+@RequestMapping(value="main/purviewdetail.so", method={RequestMethod.GET, RequestMethod.POST })
+public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
+	ModelAndView mv = new ModelAndView();
+	//mv.addObject();
+
+	mv.setViewName("../main/index.jsp?inc=../purchase/purchase_ReportView.jsp");
+
+    //index.jsp?inc=./board/purchase_home.jsp
+	return mv;
+}
+
+
+
+
+
 	//Purchase_Input
 	@RequestMapping(value="main/purinput.so", method={RequestMethod.GET, RequestMethod.POST })
 	public Object goPInput(@RequestParam(value="checkmaterial") String[] checkmaterial){
@@ -146,7 +169,6 @@ public class SoController {
 		String dWriter = (String)session.getAttribute("user");
 		String appro1 = mul.getParameter("h_piappro1");
 		String appro2 = mul.getParameter("h_piappro2");
-		String pur = mul.getParameter("input_pur");
 		String signer = appro1 + "," + appro2;
 		
 		String mCode = mul.getParameter("mCode");
@@ -154,6 +176,22 @@ public class SoController {
 		String mPo = mul.getParameter("mPo");
 		String mEa = mul.getParameter("mEa");
 		String mPrice = mul.getParameter("mPrice");
+
+		System.out.println(dName);
+		System.out.println(dCate);
+		System.out.println(dDate);
+		System.out.println(dWriter);
+		
+		System.out.println(appro1);
+		System.out.println(appro2);
+		System.out.println(signer);
+		
+		System.out.println(mCode);
+		System.out.println(mName);
+		System.out.println(mPo);
+		System.out.println(mEa);
+		System.out.println(mPrice);
+		
 		
 		/*if(code)*/
 		String[] spl_code = mCode.split(",");
