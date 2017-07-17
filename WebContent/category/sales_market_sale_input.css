@@ -1,22 +1,22 @@
 @CHARSET "EUC-KR";
 
 	/* 전체 바디 */
-#body{
+#sey_body{
 	border: 1px solid white;
 }
 	/* -----------------헤드------------------- */
-#head{
+#sey_head{
 	height : 150px;
 	width : 100%;
 	border-bottom: 1px solid white;
 }
-#head1{
+#sey_head1{
 	border-right:1px solid white;
     height : 150px;
 	width : 20%;
     float: left;
 }
-#head2{
+#sey_head2{
 	border-right:1px solid white;
     height : 150px;
 	width : 55%;
@@ -25,15 +25,15 @@
     text-align:center;
     font-size : 50px;
     }
-#head3{
+#sey_head3{
     height : 150px;
 	width : 25%;
     float: left;
 }
-#head3 div {
+#sey_head3 div {
 	height:50px;
 }
-#head31{
+#sey_head31{
 	border-bottom:1px solid white;
 	border-right:1px solid white;
 	width : 35%;
@@ -41,7 +41,7 @@
     padding-top : 11px;
     text-align:center;
 }
-#head32{
+#sey_head32{
 	border-bottom:1px solid white;
 	width : 65%;
     float: left;
@@ -49,11 +49,11 @@
     text-align:center;
 }
 	/* -----------------결재칸------------------- */
-#sign{
+#sey_sign{
 	height : 125px;
 	width : 100%;
 }
-#sign1{
+#sey_sign1{
 	border-right:1px solid white;
 	height : 125px; 
 	width : 70%;
@@ -62,12 +62,12 @@
 	padding : 50px;
 	font-size: 20px;
 }
-#sign2{
+#sey_sign2{
 	height : 125px;
 	width : 30%;
 	float: left;
 }
-#appro{
+#sey_appro{
 	
 	writing-mode: tb-rl;
 	padding-right : 7px;
@@ -78,15 +78,16 @@
 	 float: left;
 	 height : 125px;
 }
-#writer, #appro1, #appro2{
+#sey_writer, #appro1, #appro2{
 	border-bottom:1px solid white;
 	border-left:1px solid white;
 	width : 29%;
 	float: left;
 	height : 25px;
 	text-align: center;
+	cursor: pointer;
 }
-#date1, #date2, #date3{
+#sey_date1, #sey_date2, #sey_date3{
 	width : 29%;
 	border : 1px solid white;
 	float: left;
@@ -95,14 +96,14 @@
 	text-align: center;
 	padding: 3px;
 }
-#stamp1, #stamp2, #stamp3{
+#sey_stamp1, #sey_stamp2, #sey_stamp3{
 	border-left:1px solid white;
 	height : 75px;
 	width : 29%;
 	float: left;
 }
 	/* -----------------분류칸------------------- */
-#classify{
+#sey_classify{
 	
 	height : 70px;
 	width : 100%;
@@ -110,84 +111,105 @@
 }
 
 select  {
-	width: 150px;
+	width: 130px;
 	height: 30px;
 	padding-left: 10px;
 	font-size: 18px;
-	color: black;
+	color : white;
 	border: 1px solid white;
 	border-radius: 3px;
 	outline:none;
 	background: black;
 	
 	}
-#sel1, #sel2{
-	margin-left : 100px;
+#sey_sel1, #sey_sel2, #sey_sel3{
+	margin-left : 30px;
 	padding : 18px;
 	float : left;
 }
-#add{
-	margin-left : 100px;
+
+#ea_div{
+	margin-left : 40px;
+	padding-top : 20px;
+	float : left;
+}
+#sey_input_ea{
+	height: 25px;
+	width : 80px;
+	color : white;
+	font-size: 14px;
+	border: 1px solid white;
+	background-color: black;
+	text-align: center;
+}
+#sey_add{
+	margin-left : 50px;
 	padding : 25px;
 	float : left;
 }
 
- #sl_btnInput{
+.aa {
+	clear:both;
+}
+
+
+ #sey_sl_btnInput{
 	background-color: black;
 	border: 1px solid white;
 	font-size: 13px;
 	width: 50px;
 	cursor: pointer;
+	color : white;
 }   
 	/* -----------------카테고리------------------- */
-#subject{
+#sey_subject{
 	border-bottom : 1px solid white;
 	height : 50px;
 	width : 100%;
 }
-#code{
+#sey_code{
 	display: inline-block;
 	height : 50px;
 	width : 80px;
 	text-align:center;
 	padding-top : 14px;
 }
-#codeName{
+#sey_codeName{
 	display: inline-block;
-	height : 40px;
+	height : 50px;
 	width : 140px;
 	text-align:center;
 	padding : 14px;
 }
-#custom{
+#sey_custom{
 	display: inline-block;
 	height : 50px;
 	width : 100px;
 	text-align:center;
 	padding : 14px;
 }
-#ea{
+#sey_ea{
 	display: inline-block;
 	height : 50px;
 	width : 70px;
 	text-align:center;
 	padding : 14px;
 }
-#unit{
+#sey_unit{
 	display: inline-block;
 	height : 50px;
 	width : 120px;
 	text-align:center;
 	padding : 14px;
 }
-#total{
+#sey_total{
 	display: inline-block;
 	height : 50px;
 	width : 150px;
 	text-align:center;
 	padding : 14px;
 }
-#saledate{
+#sey_saledate{
 	display: inline-block;
 	height : 50px;
 	width : 150px;
@@ -195,13 +217,62 @@ select  {
 	padding : 14px;
 }
 	/* -----------------판매내역내용------------------- */
-#sl_content{
+#sey_sl_content{
 	width : 100%;
 	font-size : 13px;
 	position : relative;
 }
+#list_pCode{
+	display: inline-block;
+	height : 50px;
+	width : 80px;
+	text-align:center;
+	padding-top : 14px;
+}
+#list_pName{
+	display: inline-block;
+	height : 50px;
+	width : 140px;
+	text-align:center;
+	padding : 14px;
+}
+#list_vName{
+	display: inline-block;
+	height : 50px;
+	width : 120px;
+	text-align:center;
+	padding : 14px;
+}
+#list_pEa{
+	display: inline-block;
+	height : 50px;
+	width : 70px;
+	text-align:center;
+	padding : 14px;
+}
+#list_pCost{
+	display: inline-block;
+	height : 50px;
+	width : 120px;
+	text-align:center;
+	padding : 14px;
+}
+#list_pPrice{
+	display: inline-block;
+	height : 50px;
+	width : 150px;
+	text-align:center;
+	padding : 14px;
+}
+#sey_saledate{
+	display: inline-block;
+	height : 50px;
+	width : 150px;
+	text-align:center;
+	padding : 14px;
+}
 
-#del{
+#sey_del{
 	display: inline-block;
 	cursor: pointer;
 	height : 50px;
@@ -210,17 +281,30 @@ select  {
 	padding-top : 15px;
 	font-size: 12px;
 }
+#calender{
+	background-color: black;
+	color : white;
+	border : 1px solid white;
+}
+#deadline2{
+	display : inline-block;
+	height : 50px;
+	width : 150px;
+	text-align:center;
+	padding : 14px;
+} 
 /* -----------------작성완료 버튼------------------- */
-#sendBtn{
+#sey_sendBtn{
 	padding : 10px;
 	margin-left: 400px;
 }
 
- #sl_btnSend{
+ #sey_sl_btnSend{
  	height : 30px;
 	background-color: black;
 	border: 1px solid white; 
 	font-size: 13px;
 	width: 70px;
 	cursor: pointer; /* 글씨위에만 커서 올라가게 수정하기~!@ */
+	color : white;
 }  

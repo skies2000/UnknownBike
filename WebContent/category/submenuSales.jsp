@@ -9,38 +9,13 @@
      
     <script src='../jq_lib/common.js'></script>
 
-	<!--  <script>
-        $(document).ready(
-			function(){
-                xhr = new XMLHttpRequest();
-	           xhr.open('get','../sales/sales_home.jsp'); // url요청 정보
-	           xhr.send(); // 서버에 전송
-               var str='';
-               xhr.onreadystatechange=function(){
-                   if(xhr.readyState == 4 && xhr.status == 200){
-                       str = xhr.responseText;
-                       $('#SalesResult').html(str);
-                   }
-               }
-            $(".uipgMenu a").click(function(){
-            	
-            var url = $(this).next('input').val();
-                xhr = new XMLHttpRequest();
-	           xhr.open('get',url); // url요청 정보
-	           xhr.send(); // 서버에 전송
-               var str='';
-               xhr.onreadystatechange=function(){
-                   if(xhr.readyState == 4 && xhr.status == 200){
-                       str = xhr.responseText;
-                       $('#SalesResult').html(str);
-                   }
-               }
-            });
-            });
-    </script> -->
 
 </head>
 <body>
+<%
+	String userId = (String)session.getAttribute("user");
+%>
+
 	<div id='uipgMenuWrap'>
 		<div class='uipgMenu'>
 		  <ul>
@@ -53,28 +28,26 @@
     
     <li><a href="##">생산관리</a>
       <ul>
-        <li><a href="index.jsp?inc=../sales/sales_market_req_list.jsp">생산요청서 조회</a>
-        <!-- <input type=hidden value="../sales/sales_market_req_list.jsp"/> -->
+        <!-- <li><a href="#" onclick='sales_req_list()'>생산요청서 조회</a> -->
+        	<li><a href="sales_req_list.sung">생산요청서 조회</a>
         </li>
         
-        <li><a href="index.jsp?inc=../sales/sales_market_req_input.jsp">생산요청서 작성</a>
-        <!-- <input type=hidden value="../sales/sales_market_req_input.jsp"/> -->
+        <li><a href="sales_req_input.sung">생산요청서 작성</a>
         </li> 
-        <li><a href="index.jsp?inc=../sales/sales_market_req_view.jsp">생산요청서 상세</a>
-        <!-- <input type=hidden value="../sales/sales_market_req_view.jsp"/> -->
-        </li>
+       <!--  <li><a href="sales_req_view.sung">생산요청서 상세</a>
+        </li> -->
       </ul>
     </li>
     
     <li><a href="##">판매관리</a>
       <ul>
-        <li><a href="index.jsp?inc=../sales/sales_market_sale_list.jsp">판매품의서 조회</a>
+        <li><a href="sales_sale_list.sung">판매품의서 조회</a>
         <!-- <input type=hidden value="../sales/sales_market_sale_list.jsp"/> -->
         </li>
-        <li><a href="index.jsp?inc=../sales/sales_market_sale_input.jsp">판매품의서 작성</a>
+        <li><a href="sales_sale_input.sung">판매품의서 작성</a>
         <!-- <input type=hidden value="../sales/sales_market_sale_input.jsp"/> -->
         </li>
-        <li><a href="index.jsp?inc=../sales/sales_market_sale_view.jsp">판매품의서 상세</a>
+        <li><a href="sales_sale_view.sung">판매품의서 상세</a>
         <!-- <input type=hidden value="../sales/sales_market_sale_view.jsp"/> -->
         </li>
       </ul>
@@ -82,11 +55,11 @@
     
     <li><a href="##">손익,내역</a>
       <ul>
-        <li><a href="index.jsp?inc=../sales/sales_profit_view.jsp">손익관리</a>
+        <li><a href="sales_profit_view.sung">손익관리</a>
         <!-- <input type=hidden value="../sales/sales_profit_view.jsp"/> -->
         </li>
         
-        <li><a href="index.jsp?inc=../sales/sales_profit_list.jsp">판매 내역 관리</a>
+        <li><a href="sales_profit_list.sung">판매 내역 관리</a>
         <!-- <input type=hidden value="../sales/sales_profit_list.jsp"/> -->
         
         </li>
@@ -98,5 +71,12 @@
   </ul>
 		</div>
 	</div>
+	
+	<form name = 'frm' method = 'post'>
+		<input type='hidden' name='dCate'>
+		<input type='hidden' name='userId'>
+	</form>
+	
+	
 </body>
 </html>

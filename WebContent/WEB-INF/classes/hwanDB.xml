@@ -14,6 +14,32 @@
 		<result property="eimage" column="eimage"/> 	 	
 	</resultMap>
 	
+	
+	<!--자재 리스트 등록 팝업창에서 출력된 자재 리스트 리절트맵  -->
+	<resultMap type="hwan.HwanVo" id="proInMatMap">
+		<result property="mcode" column="mcode"/>
+		<result property="mname" column="mname"/>
+		<result property="mimage" column="mimage"/>
+		<result property="mprice" column="mprice"/>    
+	</resultMap>
+	
+	<resultMap type="hwan.HwanVo" id="proViewMatListMap">
+	</resultMap>
+	
+	<resultMap type="hwan.HwanVo" id="myPageDocListMap">
+	</resultMap>
+	
+	
+	<!--제품 리스트 출력하기 위한 리절트 맵  -->
+	<resultMap type="hwan.HwanVo" id="proListMap">
+		<result property="pcode" column="pcode"/>
+		<result property="pname" column="pname"/>
+		<result property="pdate" column="pdate"/>
+		<result property="pdev" column="pdev"/>
+		<result property="pstatus" column="pstatus"/>
+		<result property="pimage" column="pimage"/>    
+	</resultMap>
+	
 	<select id = "loginList" resultMap="loginMap">
 		select * from employees
 	</select>
@@ -23,16 +49,103 @@
 		select * from employees
 	</select>
 	
+	<select id = "appOne" parameterType="hwan.HwanVo" resultType="hwan.HwanVo" >
+		select * from employees where ecode = #{ecode}
+	</select>
+	<select id = "appOneStr" parameterType="String" resultType="hwan.HwanVo" >
+		select * from employees where ecode = #{ecode}
+	</select>
+	
+	
+	
+	
+	
+	<!--view 제품리스트 들이 출력 되는 화면에서 해당 제품 이미지를 클릭하면 나오는 제품 상세 정보를 화면에 뿌려줄 제품 정보  -->
+	<select id = "proView" resultType="hwan.HwanVo" parameterType="hwan.HwanVo" >
+		<!-- select * from product where pcode = #{pcode} -->
+		select p.*,doc.dsign from dlist dl join product p on dl.dlacode = p.pcode
+	join document doc on dl.dldcode = doc.dcode where p.pcode = #{pcode}
+	</select>
+	
 	
 	<insert id="docInput" parameterType="hwan.HwanVo">
-	insert into document(dcode,dname,ddate, dwrite, dSign, dStatus) values(5555,#{dname},sysdate, #{dWrite}, #{dSign},#{dStatus})
+	insert into document(dcode,dname,ddate, dwrite, dSign, dStatus, dcont,dcate)
+	 values((select max(dCode)+1 as dCode from Document),#{dname},
+	 to_char(sysdate,'yyyy-mm-dd'), #{dWrite}, #{dSign},#{dStatus},#{dcont},'dl')
 	</insert>
 	
+	
+	<!--제품테이블 등록  -->
 	<insert id="proInput" parameterType="hwan.HwanVo">
-	insert into product(pcode,pname,pea,pdev,pcate,pstatus,pdate) values(10012,#{pname},0,#{pdev},#{pcate},0,sysdate)
+	insert into product(pcode,pname,pea,pdev,pcate,pstatus,pdate,pimage,pprice,pcost) values(seq_product_pcode.nextval,#{pname},0,#{pdev},#{pcate},0,sysdate,#{pimage},#{pprice},#{pcost})
 	</insert>
 	
-		
-
-
+	<select id = "proInputMatList" resultMap="proInMatMap">
+		select * from material
+	</select>
+	
+	
+	<!--제품 리스트 쿼리  -->
+	<select id = "proList" resultMap="proListMap" parameterType="hwan.HwanVo">
+		select * from product where pname like '%${findStr}%'
+										  order by pcode desc 
+	</select>
+	
+	<!--제품 리스트 전체 검색 쿼리  -->
+	<select id = "proListAllSearch" resultMap="proListMap" parameterType="hwan.HwanVo">
+		select * from product where pname like '%${findStr}%' 
+								 or pcode like '%${findStr}%'
+								 or pdev like '%${findStr}%'
+								 order by pcode desc
+								 
+	</select>
+	
+	<!--연구소 리스트 테이블 값 입력  -->
+	<insert id="labListInput" >
+	insert into dlist(dldcode,dlacode) values((select max(dCode) as dCode from Document), seq_product_pcode.currval)
+	</insert>
+	
+	<!--제품등록할때 자재리스트 등록  -->
+	<insert id="mListInput" parameterType="hwan.HwanVo">
+	insert into mlist(mlpcode, mlmcode, mlmea) values(seq_product_pcode.currval,#{mlmcode},#{mlmea})
+	</insert>
+	
+	<!--등록된 제품 개수 확인  -->
+	<select id="productCnt" resultType="int">
+		select count(*) cnt from product
+	</select>
+	
+	
+	<select id="proViewMatList" resultMap="proViewMatListMap" parameterType="int">
+			select mat.*, ml.*
+			  from mlist ml join material mat
+			   on ml.mlmcode = mat.mcode where ml.mlpcode=#{mlpcode} 
+	</select>
+	
+	<!--///////////////////////////////마이 페이지////////////////////////////  -->
+	<!--로그인 사원 비밀번호 셀렉트  -->
+	<select id="myPagePwdCheck" resultType="String" parameterType="String">
+	select epwd from employees where ecode = #{ecode}
+    </select>
+    
+    
+    <!--문서 리스트  -->
+    <select id = "myPagedocList" resultMap="myPageDocListMap">
+    	select d.*,e.ename from document d join employees e on d.dwrite = e.ecode order by dcode desc
+    </select>
+    
+    <!--문서뷰  -->
+    <select id = "myPagedoView" resultType="hwan.HwanVo" parameterType="hwan.HwanVo">
+    	select d.*,e.ename from document d join employees e on d.dwrite = e.ecode where dcode = #{dcode}
+    </select>
+    
+    <!--결재승인  -->
+    <update id="myPageDocApp" parameterType="hwan.HwanVo">
+    	update document set dstatus=dstatus-1 where dcode = #{dcode}
+    </update>
+    <!--결재거절  -->
+    <update id="myPageDocDeny" parameterType="hwan.HwanVo">
+    	update document set dstatus=-1 where dcode = #{dcode}
+    </update>
+	<!--//////////////////////////////마이 페이지 끝///////////////////////////////////  -->
 </mapper>

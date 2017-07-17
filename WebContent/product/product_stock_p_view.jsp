@@ -7,14 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div id=category>
-		<jsp:include page="../category/submenuProduct.jsp"></jsp:include>
-	</div>
-	
-	<div id='productResult'>
-		제품 재고>제품 상세 페이지
-	</div>
 
+<img src="../images/${vo.pImage }" style="width: 600px; height:auto;">
 
 </body>
 </html>

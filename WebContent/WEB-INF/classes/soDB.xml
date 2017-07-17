@@ -10,22 +10,73 @@
 
  <select id='material_flist' resultMap="voMap" parameterType="so.SoVo">
      	select * from material order by mCode 
-    	
  </select>
 
 
 
  <select id='material_list' resultMap="voMap" parameterType="so.SoVo">
-     	select * from material
-     
+     	select * from material 
      	<if test="mCate != null">
      		where mCate = #{mCate} order by mCode 
-     	</if>
+     	</if>    	
+ </select>
+
+<select id='material_nlist' resultMap="voMap" parameterType="so.SoVo">
+      	 <![CDATA[ 
+      	 select * from material where mEa <= 50 order by mCode
+      	 ]]>
+  	</select>
+  	
+  	<select id='material_slist' resultMap="voMap" parameterType="so.SoVo">
+      	 
+      	 select * from material where mCode = #{findStr}
+      	 
+  	</select>
+	
+
+ 
+ 	<select id='material_dlist' resultType="so.SoVo" parameterType="so.SoVo">
+     	 
+     	 select * from material where mCode = #{mCode}
+     	 
+ 	</select>
+ 
+
+ <select id='check_mlist' resultMap="voMap" parameterType="so.SoVo">
+     	select * from material where mCode = #{mCode}
+    	
+ </select>
+ 
+<!-- 문서요청서  -->
+ <select id='pdoc' resultMap="voMap" parameterType="so.SoVo">
+     	select * from document order by dCode
     	
  </select>
 
+	<!-- 팝업창으로 사원 찾기 -->
+	<select id="searchEmp"  resultMap="voMap" parameterType="so.SoVo">
+		select * from employees where ePosition=#{ePosition}
+	</select>
+	
+		<!-- 팝업창으로 사원 찾기 ->사원개인의 개인정보 출력 -->
+	<select id="searchEmp2"  resultMap="voMap" parameterType="so.SoVo">
+		select * from employees where eCode=#{eCode}
+	</select>
 
-
-
+	<!-- Map은 ArrayList로 배열/ resultType은 하나만 추가할때
+	(추가버튼을 눌렀을 때 하나의 항목만 추가되면 되니까 resultMap을 안써도 됨..!!)
+	parameterType은 매개변수 타입이니까 Dao의 매개변수를 String형으로 쓰고 #{}안의 값과
+	매개변수명과 같아야 한다. 
+	
+	-->
+	<select id="materialSelectOne"  resultType="so.SoVo" parameterType="String">
+		select * from material where mCode=#{mCode}
+	</select>
+	
+	<!-- 
+	<insert id="PurInput" parameterType="so.SoVo">
+		insert into plist(plmcode,plmodel,plpur,plmea,plprice)
+		values((select max()))
+	</insert> -->
 
 </mapper>

@@ -8,6 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+	<div id=category>
+		<jsp:include page="../category/submenuSales.jsp"></jsp:include>
+	</div>
  
     <div id='head'>
     	<div id='title'>판매내역 조회</div>
@@ -21,7 +25,7 @@
 			</select>
     	</div>
     	<div id='finStr'>
-    		<input type='text' id='txtFind'>
+    		<input type='text' id='txtFind' value =>
     	</div>
     	<div id='findBtn'>
     		<input type='button' id = 'btnFind' value='문서 검색'>

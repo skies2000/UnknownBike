@@ -1,3 +1,4 @@
+
 <!doctype html>
 
 <html>
@@ -18,11 +19,11 @@
     	});
     	
         function docConInputBtn() {
-            window.open("pDoc.hwan", "", "height=400px, width=600px");
+            window.open("../laboratory/documentContentInput.html", "", "height=400px, width=600px");
         }
 
         function mlist_input() {
-            window.open("../laboratory/p_materialList_Input.html", "", "height=300px, width=500px");
+            window.open("../laboratory/p_materialList_Input.html", "", "height=600px, width=900px");
         }
 
 
@@ -41,7 +42,7 @@
         		if(xhr.readyState == 4 && xhr.status == 200){
         			var txt = xhr.responseText;
         			if(txt=="1"){
-        				alert("정상적으로 등록되었습니다.");
+        				alert("정상적*.");
         				var xhr2 = new XMLHttpRequest();
         	        	xhr2.open("get","../laboratory/laboratoryHome.html");
         	        	xhr2.send();
@@ -63,10 +64,31 @@
         	
         
         } // end pInputBtn 
+        
+        function imgClickBtn(ev){
+        	var event = ev || window.event;
+    		if(event == null)return;
+    		
+    		var file = event.srcElement; //이벤트가 발생한 요소
+    		
+    			/*이미지인지 체크 */
+				if(!(file.value.lastIndexOf(".jpg") >0 ||
+				   file.value.lastIndexOf(".JPG") >0   ||	
+				   file.value.lastIndexOf(".png") >0   ||	
+				   file.value.lastIndexOf(".PNG") >0   ||
+				   file.value.lastIndexOf(".gif") >0   ||
+				   file.value.lastIndexOf(".GIF") >0   ||
+				   file.value.lastIndexOf(".JPEG") >0  ||
+				   file.value.lastIndexOf(".jpeg") >0  ||
+				   file.value.lastIndexOf(".BMP") >0   ||
+				   file.value.lastIndexOf(".bmp") >0)
+				){
+				alert("사진을 올려 주세요");
+    			file.value = "";
+				}    		
+    		}
 
     </script>
-
-    
     
     <style>
         #piBody #title {
@@ -171,8 +193,14 @@
 
     <div id=piBody>
         <form id="proInFrm" method="post" enctype="multipart/form-data">
-        <div id = "appResult">
+        <div id = "appResult"> <!--결재자 팝업창에서 선택된 사원 리스트의 결과가 input[hidden]형태로 생성될 곳   -->
         </div>
+        
+        <div id = "docResult"> <!--문서내용 팝업창에서 작성한 값이 input[hidden]형태로 생성될 저장될 곳  -->
+        </div>
+        <div id = "mListResult"><!--자재리스트 입력 팝업창에서 선택된 자재 리스트의 결과가 input[hidden]형태로 생성될 저장될 곳  -->
+        </div>
+        
 
             <div id='title'>제품등록</div>
             <hr/>
@@ -201,12 +229,12 @@
                 </tr>
                 <tr>
                     <td>
-                        <a href="#" class="myButton" onClick="mlist_input()">자재리스트 등록</a>
+                        <a href="#" class="myButton" id = "mListInputId" onClick="mlist_input()">자재리스트 등록</a>
 
                     </td>
                     <td>
 
-                        <a href="#" class="myButton" onClick="docConInputBtn()">문서 내용 입력</a>
+                        <a href="#" class="myButton" id = "docConId" onClick="docConInputBtn()">문서 내용 입력</a>
                     </td>
                 </tr>
                 <tr>
@@ -215,7 +243,7 @@
 
                     </td>
                     <td >
-                        <label>사진첨부 : </label><input type='file' value='사진첨부' />
+                        <label>사진첨부 : </label><input type='file' value='사진첨부' onchange="imgClickBtn()" name="pimage" />
                     </td>
                 </tr>
             </table>

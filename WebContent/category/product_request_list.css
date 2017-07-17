@@ -2,7 +2,7 @@
 
 #top_line {
 	border-bottom: 1px solid #ffffff;
-	margin-bottom: 40px;
+	margin-bottom: 10px;
 }
 
 .top_main {
@@ -27,14 +27,21 @@
 	text-align: center;
 }
 
-.list1, .list2, .list3 {
+.list1, .list2, .list3, .list9 {
 	display: inline-block;
 	text-align: center;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+.list0 {
+	display: inline-block;
+	text-align: center;
+	width: 100px;
 }
 
 .list1 {
-	width: 90px;
+	width: 100px;
 }
 
 .list2 {
@@ -42,12 +49,66 @@
 }
 
 .list3 {
-	width: 260px;
+	width: 250px;
+}
+
+.list8 {
+	float: right;
+}
+
+.list9 {
+	width: 90px;
 }
 
 #result {
 	display: inline-block;
 	width: 100%;
-	height: 500px;
 	background-color: #999999;
+	height: auto;
+}
+
+a {
+	text-decoration: none;
+}
+
+/* 생산 메인 화면에 추가된 css */
+#home_title {
+	margin-bottom: -30px;
+}
+
+#homeStock {
+	width: 440px;
+}
+
+#all {
+	margin-right: 15px;
+	color: yellow;
+}
+
+.wrap {
+    top: 50%;
+    left: 50%;
+}
+
+#btnImg {
+	display: inline-block;
+	height: 40px;
+	width: 100px;
+    -webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+    -moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+    -ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+    -o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+    transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+    max-width: 180px;
+    text-decoration: none;
+    border-radius: 10px;
+    color: rgba(30, 22, 54, 0.6);
+    box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+    margin: 0px;
+   
+}
+
+#btnImg:hover {
+    color: rgba(255, 255, 255, 0.85);
+    box-shadow: rgba(30, 22, 54, 0.7) 0 80px 0px 2px inset;
 }

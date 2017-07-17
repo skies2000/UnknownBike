@@ -25,13 +25,13 @@
 		<constructor-arg ref='dao'/> 
 	</bean>
 	
-	<mvc:view-resolvers>
-	<!--JSP를 이용해서 컨트롤러의 실행 결과를 보여주기 위한 설정  -->
-		<mvc:jsp prefix="index.jsp?inc=../product/"/>
+ 	<mvc:view-resolvers>
+	<!-- JSP를 이용해서 컨트롤러의 실행 결과를 보여주기 위한 설정  -->
+		<mvc:jsp prefix="../main/index.jsp?inc=../product/"/>
 		<mvc:jsp suffix=".jsp"/>
-		<!--결과물이 표시되어야 할 경로가 /hello/라는 곳이다  -->
+		<!-- 결과물이 표시되어야 할 경로가 /hello/라는 곳이다  -->
 	</mvc:view-resolvers>
-
+	
 </beans>
 
 

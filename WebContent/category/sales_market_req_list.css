@@ -38,6 +38,7 @@
 	cursor: pointer; 
 	padding: 3px;
 	margin-top : 20px;
+	color : white;
 }
 /* ----------------------list_title----------------------------- */
 
@@ -48,24 +49,29 @@
 	margin-bottom: 10px;
 }
 #docNum{
-	margin-left : 20px;
 	display : inline-block;
 	width : 140px;
 	text-align: center;
 }
-#doctype{
+#docpro{
 	display : inline-block;
 	width : 140px;
+	text-align: center;
+}
+#docea{
+	display : inline-block;
+	width : 100px;
 	text-align: center;
 }
 #docsub{
 	display : inline-block;
 	width : 200px;
 	text-align: center;
+	cursor: pointer; 
 }
 #docdate{
 	display : inline-block;
-	width : 180px;
+	width : 100px;
 	text-align: center;
 }
 #docwriter{
@@ -82,4 +88,8 @@
 /* ----------------------list----------------------------- */
 #list{
 	font-size: 14px;
+}
+#list:hover{
+    background-color: #928374;
+    color: black;
 }

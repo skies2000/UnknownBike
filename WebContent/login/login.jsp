@@ -14,16 +14,17 @@
     <script>
     $(document).ready(function(){
     	$("#loginSubmit").click(loginResult);
-    	$('#pass').keypress(function(ev){
+    	$('#pass').keypress(function(ev){	
     		if(ev.which==13){
     			loginResult();
     		}
     	});
     });
     function loginResult(){
+    	$("*").css("cursor","wait");
     	var xhr = new XMLHttpRequest();
 		var url = "../login.hwan";
-		var frm = document.getElementById("fromId"); //아이디값을 이용해 폼을 가죠온다.
+		var frm = document.getElementById("fromId"); //아이디값을 이용해 폼을 가죠온다. 
 		var formData = new FormData(frm); //가져온 폼정보를 이용해 FormData를 만든다. ajax로 submit하기 위해서 필요한 객체
 		var userid = frm.userid.value;
 		var userpwd = frm.userpwd.value;
@@ -41,6 +42,7 @@
 					testStr += "사원번호 : "+jData[i].ecode+", 비밀번호 : "+jData[i].epwd+"\n";
 				}
 				alert(testStr);
+				$("*").css("cursor","default");
 				for(var i = 0; i<jData.length;i++){
 					 if(jData[i].ecode == userid){
 						if(jData[i].epwd == userpwd){

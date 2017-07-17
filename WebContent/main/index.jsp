@@ -5,7 +5,7 @@
 <html>
 <link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC|Roboto+Condensed|Shadows+Into+Light" rel="stylesheet">
 <head>
-    <title>메인</title>
+    <title>메인</title> 
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0">
     <link rel='stylesheet' href='../category/category.css' />
@@ -93,8 +93,7 @@
             width: 90%;           
             background-color: #222;    
         }
-        */
-        #indeximage{
+        */        #indeximage{
         transition: .5s ease;
         backface-visibility: hidden;
         }
@@ -154,14 +153,14 @@
             <a href="purhome.so"><img id='indeximg' src="../images/purchase.png"></a>
             <!-- <input type=hidden value="../purchase/purchase_Index.html"> -->
             
-            <a href="../main/index.jsp?inc=../product/product_index.jsp" ><img id='indeximg' src="../images/product.png"></a>
+            <a href="productHome.hoon" ><img id='indeximg' src="../images/product.png"></a>
 
             <!-- <input type=hidden value="../product/product_index.jsp"> -->
             
-            <a href="../main/index.jsp?inc=../sales/sales_home.jsp"><img id='indeximg' src="../images/sales.png"></a>
-            <!-- <input type=hidden value="../sales/sales_index.html"> -->
+            <a href="salesHome.sung"><img id='indeximg' src="../images/sales.png"></a>
             
-            <a href=#><img id='indeximg' src="../images/mypage.png"></a>
+            <!--마이 페이지  -->
+            <a href="../main/index.jsp?inc=../myPage/passwordCheck.html"><img id='indeximg' src="../images/mypage.png"></a>
         </nav>
     <div id='mainBody'>
 
@@ -178,7 +177,6 @@
             <section id='indexSection'>
                 <div id='indexContent'>
 
-<%-- <%out.print(inc); %> --%>
 			<jsp:include page="<%=inc%>"/>
 
                    <!-- <input type="hidden" id='pathCheck' value="testFile.html"> --> 

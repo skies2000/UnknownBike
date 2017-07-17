@@ -1,7 +1,13 @@
 package so;
+import java.util.ArrayList;
 import java.util.List;
-import myba.UnknownFactory;
+import sung.EmployeeVo;
+
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.type.IntegerTypeHandler;
+
+import myba.UnknownFactory;
+
 
 public class SoDao {
 	SqlSession session;
@@ -10,7 +16,7 @@ public class SoDao {
 	}
 	
 	public List<SoVo> fMetarial(SoVo vo){
-		List<SoVo> list1 = session.selectList("sodb.material_flist", vo);
+		List<SoVo> list1 = session.selectList("sodb.material_flist", vo);//session.어떤종류의 쿼리를 부를건지
 		return list1;
 	}
 	
@@ -18,5 +24,92 @@ public class SoDao {
 		List<SoVo> list = session.selectList("sodb.material_list", vo);
 		return list;
 	}
+	
+	public List<SoVo> nMetarial(SoVo vo){
+		List<SoVo> list2 = session.selectList("sodb.material_nlist", vo);
+		return list2;
+	}
+	
+	public List<SoVo> sMetarial(SoVo vo){
+		List<SoVo> list2 = session.selectList("sodb.material_slist", vo);
+		return list2;
+	}
+	
+	public SoVo dMetarial(SoVo vo){
+		SoVo list = session.selectOne("sodb.material_dlist", vo);
+		return list;
+	}
 
+	public List<SoVo>checkmaterial(String[] checkmaterial){
+		
+		List<SoVo>list = new ArrayList<SoVo>();
+		
+		for(String x : checkmaterial){
+			int xx = Integer.parseInt(x);
+			
+			SoVo vo = new SoVo();
+			vo.setmCode(xx);
+			
+			SoVo v = session.selectOne("sodb.check_mlist", vo);
+			list.add(v);
+		}
+		
+		
+		return list;
+		
+	}
+	
+	//input..작성완료
+	public List<SoVo> insertDB(SoVo vo){
+		List<SoVo> list2 = session.selectList("sodb.material_slist", vo);
+	return list2;
+	
+	}
+	//popup창에서 카테고리선택->이름 출력
+	public List<SoVo> empSearch(SoVo vo) {
+		List<SoVo> list = null;
+		try{
+			list = session.selectList("sodb.searchEmp", vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	//popup창에서 이름선택->사원정보 띄우기
+	public List<SoVo> empSearch2(SoVo vo) {
+		List<SoVo> list = null;
+		try{
+			list = session.selectList("sodb.searchEmp2", vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	public SoVo materialSelectOne(String mCode) {
+		SoVo list = null;
+		try{
+			list = session.selectOne("sodb.materialSelectOne", mCode);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	public SoVo purInput(SoVo v) {
+		
+		try{
+			int r = session.insert("sodb.PurInput",v);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			session.commit();
+		}
+		return v;
+	}
+	
 }
+	

@@ -29,6 +29,7 @@
     height : 150px;
 	width : 25%;
     float: left;
+    color : white;
 }
 #head3 div {
 	height:50px;
@@ -85,7 +86,10 @@
 	float: left;
 	height : 25px;
 	text-align: center;
+	cursor: pointer;
 }
+
+
 #date1, #date2, #date3{
 	width : 29%;
 	border : 1px solid white;
@@ -114,7 +118,7 @@ select  {
 	height: 30px;
 	padding-left: 10px;
 	font-size: 18px;
-	color: black;
+	color: white;
 	border: 1px solid white;
 	border-radius: 3px;
 	outline:none;
@@ -122,14 +126,34 @@ select  {
 	
 	}
 #sel1, #sel2{
-	margin-left : 100px;
+	margin-left : 20px;
 	padding : 18px;
 	float : left;
 }
-#add{
-	margin-left : 100px;
-	padding : 25px;
+
+#sey_ea{
+	margin-left : 40px;
+	padding-top : 20px;
 	float : left;
+}
+#sey_input_ea{
+	height: 25px;
+	width : 80px;
+	color : white;
+	font-size: 14px;
+	border: 1px solid white;
+	background-color: black;
+	text-align: center;
+}
+
+#add{
+	margin-left : 40px;
+	padding-top : 25px;
+	float : left;
+}
+
+.aa {
+	clear:both;
 }
 
  #sl_btnInput{
@@ -138,6 +162,7 @@ select  {
 	font-size: 13px;
 	width: 50px;
 	cursor: pointer;
+	color : white;
 }   
 	/* -----------------카테고리------------------- */
 #subject{
@@ -146,28 +171,28 @@ select  {
 	width : 100%;
 }
 #code{
-	display: inline-block;
 	height : 50px;
 	width : 200px;
 	text-align:center;
 	padding : 14px;
+	float : left;
 }
 #codeName{
-	display: inline-block;
+	float : left;
 	height : 50px;
 	width : 150px;
 	text-align:center;
 	padding : 14px;
 }
 #ea{
-	display: inline-block;
+	float : left;
 	height : 50px;
 	width : 100px;
 	text-align:center;
 	padding : 14px;
 }
 #deadline{
-	display: inline-block;
+	float : left;
 	height : 50px;
 	width : 300px;
 	text-align:center;
@@ -181,7 +206,7 @@ select  {
 }
 
 #del{
-	display: inline-block;
+	display : inline-block;
 	cursor: pointer;
 	height : 50px;
 	width : 50px;
@@ -189,6 +214,39 @@ select  {
 	padding-top : 15px;
 	font-size: 12px;
 }
+#calender{
+	background-color: black;
+	color : white;
+	border : 1px solid white;
+}
+ #code2{
+	display : inline-block;
+	height : 50px;
+	width : 200px;
+	text-align:center;
+	padding : 14px;
+}
+#codeName2{
+	display : inline-block;
+	height : 50px;
+	width : 150px;
+	text-align:center;
+	padding : 14px;
+}
+#ea2{
+	display : inline-block;
+	height : 50px;
+	width : 100px;
+	text-align:center;
+	padding : 14px;
+}
+#deadline2{
+	display : inline-block;
+	height : 50px;
+	width : 300px;
+	text-align:center;
+	padding : 14px;
+} 
 /* -----------------작성완료 버튼------------------- */
 #sendBtn{
 	padding : 10px;
@@ -202,5 +260,6 @@ select  {
 	font-size: 13px;
 	width: 70px;
 	cursor: pointer; /* 글씨위에만 커서 올라가게 수정하기~!@ */
+	color : white;
 }  
 
