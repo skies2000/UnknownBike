@@ -33,6 +33,27 @@ public class kimHaController {
 		this.dao = dao;
 	}
 
+	// 삭제
+
+	@RequestMapping(value = "/kimDel.kimHa", method = { RequestMethod.POST, RequestMethod.GET })
+	public void mDelete(HttpServletRequest req, HttpServletResponse resp) {
+		ModelAndView mv = new ModelAndView();
+		MultipartRequest mul = getMul(req);
+		PrintWriter out = getOut(resp);
+		kimHaVo vo = new kimHaVo();
+		System.out.println("코드" + mul.getParameter("mcode"));
+		vo.setMcode(Integer.parseInt(mul.getParameter("mcode")));
+		int r = dao.matDelete(vo);
+		
+		if(r > 0) {
+
+			out.println(1);
+		}else{
+			out.println(r);
+		}
+		
+	}
+
 	@RequestMapping(value = "main/pDoc.kimHa", method = { RequestMethod.GET, RequestMethod.POST })
 	public Object pDoc() {
 		ModelAndView mv = new ModelAndView();
@@ -184,55 +205,65 @@ public class kimHaController {
 
 	// view
 	// 자재 리스트들이 출력되는 화면에서 해당 자재 이미지를 클릭하면 나오는 자재 상세 정보를 화면에 뿌려줄 자재 정보
-	@RequestMapping(value = "/matView.kimHa", method = { RequestMethod.POST,RequestMethod.GET })
+	@RequestMapping(value = "/matView.kimHa", method = { RequestMethod.POST, RequestMethod.GET })
 	public Object matView(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
 		MultipartRequest mul = getMul(req);
 		kimHaVo vo = new kimHaVo();
 		kimHaVo appVo = new kimHaVo(); // 결재자
 		String dsign = "";
-		String str="";
+		String str = "";
 		String str2 = "";
 		vo.setMcode(Integer.parseInt(mul.getParameter("mcode")));
-		
-		//System.out.println(mul.getParameter("mcode"));
+
+		// System.out.println(mul.getParameter("mcode"));
 		vo = dao.matView(vo);
-		dsign = vo.getDsign();//결재자
-		int mSate = vo.getMstate(); //결재상태
+		dsign = vo.getDsign();// 결재자
+		int mSate = vo.getMstate(); // 결재상태
 		int mcate = vo.getMcate();
-	
-		switch(mcate) {
-		case 1 : str = "바퀴";
-		break;
-		case 2: str="핸들";
-		break;
-		case 3: str="프레임";
-		break;
-		case 4: str="바구니";
-		break;
-		case 5: str="안장";
-		break;
-		case 6: str="보조바퀴";
-		break;
-		case 7: str="브레이크";
-		break;
-		case 8: str="벨";
-		break;
-		case 9: str="라이트";
-		break;
-		case 10: str="페달";
-		break;
-		
+
+		switch (mcate) {
+		case 1:
+			str = "바퀴";
+			break;
+		case 2:
+			str = "핸들";
+			break;
+		case 3:
+			str = "프레임";
+			break;
+		case 4:
+			str = "바구니";
+			break;
+		case 5:
+			str = "안장";
+			break;
+		case 6:
+			str = "보조바퀴";
+			break;
+		case 7:
+			str = "브레이크";
+			break;
+		case 8:
+			str = "벨";
+			break;
+		case 9:
+			str = "라이트";
+			break;
+		case 10:
+			str = "페달";
+			break;
+
 		}
-		if(mSate == 0) {
+		if (mSate == 0) {
 			str2 = "대기상태";
-		}else{
-			str2 ="결재완료";
+		} else {
+			str2 = "결재완료";
 		}
-		
+
 		vo.setMcateStr(str);
 		vo.setMstateStr(str2);
-		
+
 		// System.out.println(dsign);
 		String[] dsArr = dsign.split(",");
 		// System.out.println(Arrays.toString(dsArr));
@@ -245,13 +276,11 @@ public class kimHaController {
 		// vo는 view 페이지에서 사용될 클래스
 		vo.setAppOne(appVo.getEname());
 
-		
-		//--------------------------------------------------
-		
+		// --------------------------------------------------
+
 		// 두 번째 사원코드를 이용해서 사원 정보를 얻어온다.
 		appVo.setEcode(Integer.parseInt(dsArr[1]));
 		appVo = dao.appOne(appVo);// 사원컬럼들이 전부 다 들어감.
-		
 
 		// 얻어온 사원 정보(이름)을 vo에 담는다.
 		// vo는 view 페이지에서 사용될 클래스
