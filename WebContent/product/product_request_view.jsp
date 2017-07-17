@@ -74,7 +74,11 @@ function onSetting(srlCode, srlMCode) {
 				<span id='set'>작업 설정</span>
 			</div>
 			<div id='list_content'>
+			
+			<%int cnt =0; %>
+			
 			<c:forEach items="${list }" var="workList">
+			<%cnt++; %>
 				<span id='code'>${workList.srlMCode }</span>
 				<span id='codename'>${workList.pName }</span>
 				<span id='ea'>${workList.srlEa }</span>
@@ -82,10 +86,10 @@ function onSetting(srlCode, srlMCode) {
 				<span id='set'>
 					<c:choose>
 						<c:when test="${workList.srlStatus == 0}">
-							<div id='setOK' onclick="onSetting(${workList.srlCode }, ${workList.srlMCode })"><font color='yellow'>설정 필요</font></div>
+							<div id='setOK<%=cnt %>' onclick="onSetting(${workList.srlCode }, ${workList.srlMCode })"><font color='yellow'>설정 필요</font></div>
 						</c:when>
 						<c:when test="${workList.srlStatus == 9}">
-							<div id='setOK'><font color='green'>설정 완료</font></div>
+							<div id='setOK<%=cnt %>'><font color='green'>설정 완료</font></div>
 						</c:when>
 					</c:choose>
 				</span>
