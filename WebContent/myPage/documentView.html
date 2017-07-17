@@ -1,272 +1,91 @@
+<!doctype html>
 
-<!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<style>
-    @CHARSET "EUC-KR";
-
-/* ------------------전체 바디-------------------- */
-
-#body{
-    background-color: black;
-    color: white;
-}
-
-/* ------------------상단타이틀-------------------- */
-
-#title{
-	font-size: 40px;
-	text-align: center;
-}
-
-/* ------------------헤더-------------------- */
-
-.head{
-	height : 100px;
-	width : 100%;
-}
-#sign1{
-	height : 100px; 
-	width : 70%;
-	float: left;
-	text-align: right;
-	padding-top: 30px;
-	padding-right: 60px;
-	font-size: 14px;
-}
-#sign2{
-	height : 100px;
-	width : 30%;
-	float: left;
-}
-#appro{
-	border : 1px solid white;
-	writing-mode: tb-rl;
-	padding-right : 7px;
-	display:table-cell; 
-	text-align:center;
-	 vertical-align:middle;
-	 width: 13%;
-	 float: left;
-	 height : 100px;
-}
-#writer, #appro1, #appro2{
-	border-right : 1px solid white;
-	border-top : 1px solid white;
-	border : 1px solid white;
-	width : 29%;
-	float: left;
-	height : 25px;
-	text-align: center;
-}
-
-#stamp1, #stamp2, #stamp3{
-	border-right : 1px solid white;
-	border-bottom : 1px solid white;
-	height : 75px;
-	width : 29%;
-	float: left;
-}
-#status{
-	text-align:center;
-	margin-top : 15px;
-	height: 40%;
-	font-size: 12px;
-}
-#app_date{
-	text-align:center;
-	height: 60%;
-	font-size: 12px;
-}
-/* ------------------제목-------------------- */
-
-#subject{
-	margin: 10px;
-	height: 30px;
-}
-
-#labeltitle{
-	height: 30px;
-	width : 20%;
-	text-align: center;
-	float: left;
-	padding-top: 5px;
-	font-size: 13px;
-}
-#subcontent{
-	height: 30px;
-	width : 80%;
-	text-align: center;
-	float: left;
-	border : 1px solid white;
-	padding: 5px;
-	font-size: 13px;
-}
-/* ------------------내용-------------------- */
-
-#content{
-	width : 100%;
-	position : relative;
-	height: auto;
-	height: 200px;
-}
-
-
-#labeltitle{
-	display : inline-block;
-	width : 20%;
-	text-align: center;
-	float: left;
-	font-size: 13px;
-}
-#concontent{
-	display : inline-block;
-	width : 80%;
-	float: left;
-	border : 1px solid white;
-	padding: 5px;
-	font-size: 13px;
-	height: 200px;
-}
-	
-
-/* ------------------판매품의 타이틀-------------------- */
-#list_header{
-	margin : 20px;
-}
-
-/* ------------------판매목록-------------------- */
-#sale_list{
-	font-size: 13px;
-}
-
-#list_title{
-	height: 13%;
-	margin : 10px;
-}
-#list_content{
-	border : 1px solid white;
-	height: 87%;
-	padding : 5px;
-}
-
-
-#code{
-	display: inline-block;
-	width: 100px;
-	text-align: center;
-}
-#codeName{
-	display: inline-block;
-	width: 120px;
-	text-align: center;
-}
-#custom{
-	display: inline-block;
-	width: 110px;
-	text-align: center;
-}
-#ea{
-	display: inline-block;
-	width: 85px;
-	text-align: center;
-}
-#unit{
-	display: inline-block;
-	width: 100px;
-	text-align: center;
-}
-#total{
-	display: inline-block;
-	width: 150px;
-	text-align: center;
-}
-#saledate{
-	display: inline-block;
-	width: 180px;
-	text-align: center;
-}
-    </style>
-</head>
-<body>
-
-	
-
-	<div id='SalesResult'>
-		<div id='body'>
-			<!--  ------------------상단타이틀--------------------  -->
-			<div id='title'>생산 요청서</div>
-			<!--  ------------------헤더--------------------  -->
-			<div class='head'>
-				<div id='sign1'>
-					<label>문서번호</label><br /> <label> sal-50001 </label>
-				</div>
-				<div id='sign2'>
-					<div id='appro'>결&nbsp재&nbsp내&nbsp역</div>
-					<div id='writer'>유재석</div>
-					<div id='appro1'>박명수</div>
-					<div id='appro2'>강호동</div>
-					<div id='stamp1'>
-						<div id='status'>작성</div>
-						<div id='app_date'>결재중</div>
-					</div>
-					<div id='stamp2'>
-						<div id='status'>승인</div>
-						<div id='app_date'>2017-06-28</div>
-					</div>
-					<div id='stamp3'>
-						<div id='status'>대기</div>
-						<div id='app_date'>2017-06-28</div>
-					</div>
-				</div>
-			</div>
-			<!--  ------------------제목--------------------  -->
-			<div id='subject'>
-				<span id='labeltitle'> <label>제목</label>
-				</span> <span id='subcontent'> 요청합니다.
-					</span>
-			</div>
-			<!--  ------------------내용--------------------  -->
-			<div id='content'>
-				<span id='labeltitle'> <label>내용</label>
-				</span> <span id='concontent'> 
-					${vo.dCont }
-				</span>
-			</div>
-			<!--  ------------------생산요청목록 타이틀--------------------  -->
-			<div id='list_header'>요청 제품 리스트</div>
-			<!--  ------------------생산요청목록--------------------  -->
-			<div id='sale_list'>
-				<div id='list_title'>
-					<div id='code'>제품코드</div>
-					<div id='codename'>제품명</div>
-					<div id='ea'>수량</div>
-					<div id='deadline'>생산기한</div>
-				</div>
-				<div id='list_content'>
-					<span id='code'>1</span> 
-					<span id='codename'>2</span> 
-					<span id='ea'>3</span> 
-					<span id='deadline'>4</span> 
-				</div>
-				<div id='list_content'>
-					<span id='code'>1</span> 
-					<span id='codename'>2</span> 
-					<span id='ea'>3</span> 
-					<span id='deadline'>4</span> 
-				</div>
-                <div id='list_content'>
-					<span id='code'>1</span> 
-					<span id='codename'>2</span> 
-					<span id='ea'>3</span> 
-					<span id='deadline'>4</span> 
-				</div>
-                
-			</div>
+	<head>
+		<title>Page Title</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0">
+	</head>
+	<style>
+        body{
+            background-color: black;
+            color:white;
+            box-sizing: border-box;
+            
+        }
+        body *{
+            margin:0;
+            padding: 0;
+        }
+        #aprooveCheck{
+            border: 1px solid white;
+            width: 387px;
+            height: 100px;
+        }
+        
+        #aprooveCheck div{
+            border: 1px solid white;
+            display: inline-block;
+        }
+        
+        #aprooveCheck .div1{
+            height: 100%;
+        }
+        
+        #aprooveCheck .foatLeft{
+            float: left;
+        }
+        
+        #aprooveCheck .both{
+            
+        }
+        
+        #aprooveCheck #approoveDiv{
+            
+        }
+        #aprooveCheck #approoveDiv div{
+            height: 70%;
+        }
+        
+        #aprooveCheck #approoveManDiv{
+            
+        }
+        #aprooveCheck #approoveManDiv div{
+            height: 30%;
+        }
+        
     
-		</div>
+    </style>
+	
+	
+
+	<body>
+	
+	
+	<div id=aprooveCheck>
+        <div class="div1 foatLeft">
+            결<br>재<br>내<br>역</div >
+    <div id=approoveManDiv><div class="div2 foatLeft">강호동</div>
+	    <div class="div2 foatLeft">유재석</div>
+	    <div class="div2 foatLeft">박명수</div>
+</div>
+    <div id=approoveDiv>
+        
+	    <div class="div2">
+	        작성<br/>
+	        2017-06-28
+	    </div >
+	    <div class="div2 foatLeft">
+	        승인<br/>
+	        2017-06-28
+	    </div>
+	    <div class="div2 foatLeft">
+	        승인<br/>
+	        2017-06-28
+	    </div>
+    </div>
+	    
 	</div>
-</body>
+
+	</body>
 </html>
