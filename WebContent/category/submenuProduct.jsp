@@ -10,26 +10,25 @@
 <script>
 // 생산 오더 관리
 function purOdd() {
-	var frm = document.frm2;
+	var frm = document.getElementById('f');
 	frm.action = 'reqOdd.hoon';
 	frm.submit();
 }
 // 생산 요청서 조회
 function purList() {
-	var frm = document.frm;
-	frm.dCate.value = 'srl';
+	var frm = document.getElementById('f');
 	frm.action = 'reqList.hoon';
 	frm.submit();
 }
 // 제품 재고 조회
 function stockP() {
-	var frm = document.frm2;
+	var frm = document.getElementById('f');
 	frm.action = 'listP.hoon';
 	frm.submit();
 }
 // 자재 재고 조회
 function stockM() {
-	var frm = document.frm2;
+	var frm = document.getElementById('f');
 	frm.action = 'listM.hoon';
 	frm.submit();
 }
@@ -56,10 +55,6 @@ function stockM() {
 			</ul>
 		</div>
 	</div>
-	<form name='frm' method='post'>
-		<input type='hidden' name='dCate'>
-	</form>
-	<!-- hidden에 값을 넘겨야되는 메뉴는 frm으로, 넘길 필요 없는 메뉴는 frm2로 -->
-	<form name='frm2' method='post'></form>
+	<form name='frm' method='post' id='f'></form>
 </body>
 </html>

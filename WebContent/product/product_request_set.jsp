@@ -47,12 +47,11 @@ function saveData() {
 		<span class='test444'>${vo.srlEa }</span><br>
 		<label>작업 라인</label>
 		<select name="workLine">
-			<option selected>1라인</option>
-			<option>2라인</option>
-			<option>3라인</option>
-			<option>4라인</option>
-			<option>5라인</option>
-			<option>6라인</option>
+			<option selected>1Line</option>
+			<option>2Line</option>
+			<option>3Line</option>
+			<option>4Line</option>
+			<option>5Line</option>
 		</select><br>
 		<label>작업 인원</label>
 		<input type='text' id='workP' placeholder=' 인원을 입력하세요' name='workPeople'><br>

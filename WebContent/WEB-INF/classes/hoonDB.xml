@@ -19,7 +19,7 @@
 	<select id='pur_list' resultMap="voMap" parameterType="beanhoon.PurListVo">
 		select d.dCode, d.dCate, d.dName, d.dDate, e.eName 
 		from document d join employees e on d.dWrite = e.eCode 
-		where d.dStatus = 0 and d.dcate = #{dCate } order by d.dCode desc
+		where d.dStatus = 0 and d.dcate = 'srl' order by d.dCode desc
 	</select>
 	
 	<!-- 요청서 검색 -->
