@@ -7,6 +7,33 @@
 <!-- sql문 작성 -->
 <resultMap type="beanhoon.PurListVo" id="voMap"/>
 
+	<!-- 메인화면1 (생산 오더 3개) -->
+	<select id='m1' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select f.workCode, srlCode, srlMCode, pName, srlEa, workLine, workPeople, workTime, 
+		to_char(workStartDate, 'yyyy.mm.dd') workStartDate, to_char(workEndDate, 'yyyy.mm.dd') workEndDate 
+		from fList f join product p on flpCode = pCode join srList s on fldCode = srlCode and flpCode = srlMCode
+		where rownum<![CDATA[<=]]>3 order by fldCode desc
+	</select>
+	
+	<!-- 메인화면2 (생산 요청서 3개) -->
+	<select id='m2' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select d.dCode, d.dCate, d.dName, d.dDate, e.eName 
+		from document d join employees e on d.dWrite = e.eCode 
+		where d.dStatus = 0 and d.dcate = 'srl' and rownum<![CDATA[<=]]>3 order by d.dCode desc
+	</select>
+	
+	<!-- 메인화면3 (제품 재고 5개) -->
+	<select id='m3' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select pCode, pName, pCate, pPrice, to_char(pDate, 'yyyy.mm.dd') pDate, pEa, pImage 
+		from product where rownum<![CDATA[<=]]>5 order by pCode
+	</select>
+	
+	<!-- 메인화면4 (자재 재고 5개) -->
+	<select id='m4' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select mCode, mName, mCate, mPrice, to_char(mDate, 'yyyy.mm.dd') mDate, mEa, mImage 
+		from material where rownum<![CDATA[<=]]>5 order by mCode
+	</select>
+	
 	<!-- 생산오더관리 리스트 조회 -->
 	<select id='odd_list' resultMap="voMap" parameterType="beanhoon.PurListVo">
 		select f.workCode, srlCode, srlMCode, pName, srlEa, workLine, workPeople, workTime, 

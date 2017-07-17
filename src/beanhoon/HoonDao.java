@@ -16,6 +16,57 @@ public class HoonDao {
 		this.session=factory.getFactory().openSession();
 	}
 	
+	// Main List 1
+	public List<PurListVo> main1(PurListVo vo) {
+		List<PurListVo> list = null;
+		try {
+			list = session.selectList("hoondb.m1", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
+	// Main List 2
+	public List<PurListVo> main2(PurListVo vo) {
+		List<PurListVo> list = null;
+		
+		try {
+			list = session.selectList("hoondb.m2", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
+	// Main List 3
+	public List<PurListVo> main3(PurListVo vo) {
+		List<PurListVo> list = null;
+			
+		try {
+			list = session.selectList("hoondb.m3", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
+	// Main List 4
+	public List<PurListVo> main4(PurListVo vo) {
+		List<PurListVo> list = null;
+			
+		try {
+			list = session.selectList("hoondb.m4", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
 	// odder List
 	public List<PurListVo> odd(PurListVo vo) {
 		List<PurListVo> list = null;
