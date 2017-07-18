@@ -5,6 +5,8 @@ import java.util.concurrent.ExecutionException;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.sun.org.apache.bcel.internal.generic.Select;
+
 import myba.UnknownFactory;
 
 public class kimHaDao {
@@ -20,27 +22,38 @@ public class kimHaDao {
 		return list;
 	}
 
+	
+	//이미지 삭제
+	public kimHaVo imgDelete(kimHaVo vo){
+		kimHaVo v = new kimHaVo();
+		v =session.selectOne("kimHadb.kimImg",vo);
+		System.out.println(v.getMimage());
+		
+		return v;
+	}
 	// 삭제
 
 	public int matDelete(kimHaVo vo) {
 		int r = -1;
 		int r1 = -1;
 		int r2 = -1;
+		
 
 		try {
+			
 			r = session.delete("kimHadb.kimDel", vo);
 			r1 = session.delete("kimHadb.kimDeldoc", vo);
-			r2= session.delete("kimHadb.kimDeldl", vo);
+			r2 = session.delete("kimHadb.kimDeldl", vo);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.rollback();
 		}
-		
-		if(r == -1 || r1 == -1 || r2 == -1){
+
+		if (r == -1 || r1 == -1 || r2 == -1) {
 			r = -1;
 		}
-		
+
 		session.commit();
 		session.commit();
 		session.commit();

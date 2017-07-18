@@ -40,7 +40,7 @@
 }
 
 #maBody table {
-	width: 60%;
+	width: 80%;
 	height: 100px;
 	margin: auto;
 }
@@ -203,13 +203,13 @@
 				if (txt == "1") {
 					alert("정상적으로 등록되었습니다.");
 					var xhr2 = new XMLHttpRequest();
-					xhr2.open("POST", "../laboratory/laboratoryHome.html");
+					xhr2.open("POST", "../laboratory/materialsDetails.html");
 					xhr2.send();
 
 					xhr2.onreadystatechange = function() {
 						if (xhr2.readyState == 4 && xhr2.status == 200) {
 							var txt = xhr2.responseText;
-
+alert(txt);
 							$('#laboratorResult').html(txt);
 						}
 

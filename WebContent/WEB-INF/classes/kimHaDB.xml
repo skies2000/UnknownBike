@@ -43,11 +43,15 @@
 		DELETE from dlist where
 		dlacode = #{mcode}
 	</delete>
-
-	<!-- 자재상세(검색어로 검색) list -->
+	
+<!-- 자재상세(검색어로 검색) list -->
 	<select id="matList" resultMap="matListMap" parameterType="kimHa.kimHaVo">
 		select * from material where mname like '%${findStr}%'
 		order by mcode desc
+	</select>
+	<!-- 자재상세(이미지 검색) list -->
+	<select id="kimImg" resultType="kimHa.kimHaVo" parameterType="kimHa.kimHaVo">
+		SELECT * from MATERIAL where mcode= #{mcode}
 	</select>
 
 	<!-- 자재상세(전체) list -->
