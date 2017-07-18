@@ -11,13 +11,11 @@
 #list_title {
    text-align: center;
 }
-
 #plist_header{
    font-size: 14px;
    width : 20%;
    margin-left: 85px;
 }
-
 #plist_content{
    border : 1px solid white;
    margin: auto;
@@ -95,11 +93,11 @@ function denyFunc(code){
             </span>
          </div>
          <!--  ------------------판매품의 타이틀--------------------  -->
-         <!-- <br/> -->
-         <%-- <div id='plist_header'>${obj.dcateName} 리스트</div> --%>
+         <br/>
+         <div id='plist_header'>${obj.dcateName} 리스트</div>
          <!--  ------------------판매목록--------------------  -->
-         <!-- <br/><br/> -->
-         <!-- <div id='sale_list'>
+         <br/><br/>
+         <div id='sale_list'>
             <div id='list_title'>
                <span id='code'>제품코드</span> 
                <span id='codeName'>제품명</span> 
@@ -110,8 +108,8 @@ function denyFunc(code){
             <div id='plist_content'>
                문서 종류마다 컬럼이 제각각이라 일단 보류..
             </div>
-         </div> -->
-      <!-- <br/><br/> -->
+         </div>
+      <br/><br/>
    <form name='frm1' method='post'>
    <div id=pdview_btn>
    <span id='purchase_dview_btn'>

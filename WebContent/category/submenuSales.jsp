@@ -22,39 +22,32 @@
     
     
     <li><a href="index.jsp?inc=../sales/sales_home.jsp">HOME</a>
-      <!-- <input type=hidden value="../sales/sales_home.jsp"/> -->
     </li>
     
     
     <li><a href="##">생산관리</a>
       <ul>
-        <!-- <li><a href="#" onclick='sales_req_list()'>생산요청서 조회</a> -->
         	<li><a href="sales_req_list.sung">생산요청서 조회</a>
         </li>
         
         <li><a href="sales_req_input.sung">생산요청서 작성</a>
         </li> 
-       <!--  <li><a href="sales_req_view.sung">생산요청서 상세</a>
-        </li> -->
       </ul>
     </li>
     
     <li><a href="##">판매관리</a>
       <ul>
         <li><a href="sales_sale_list.sung">판매품의서 조회</a>
-        <!-- <input type=hidden value="../sales/sales_market_sale_list.jsp"/> -->
         </li>
         <li><a href="sales_sale_input.sung">판매품의서 작성</a>
-        <!-- <input type=hidden value="../sales/sales_market_sale_input.jsp"/> -->
         </li>
        
       </ul>
     </li>
     
-    <li><a href="##">손익,내역</a>
+    <li><a href="##">손익관리</a>
       <ul>
-        <li><a href="sales_profit_view.sung">손익관리</a>
-        <!-- <input type=hidden value="../sales/sales_profit_view.jsp"/> -->
+        <li><a href="sales_profit_view.sung">거래처별</a>
         </li>
       
       </ul>

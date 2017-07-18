@@ -184,7 +184,6 @@ public class HwanController {
 		vo.setPcost(totalpCost);
 		vo.setPprice(totalpCost*10);
 		vo.setDcont(mul.getParameter("dcont"));
-		System.out.println(vo.getDcont());
 		vo.setDname(mul.getParameter("dname"));
 		vo.setPname(mul.getParameter("pname"));
 		vo.setPdev((String)session.getAttribute("user"));
@@ -208,6 +207,7 @@ public class HwanController {
 		System.out.println("str-split : "+pManStr);
 		
 		System.out.println("pcate : "+vo.getPcate());
+		
 	
 		
 		int r = 0;
@@ -429,7 +429,7 @@ public class HwanController {
 			String tdcName = "";
 			String tdsName = "";
 			String singerArr[];
-			if(tempDC.equals("sql")){
+			if(tempDC.equals("spl")){
 				tdcName="판매품의서";
 			}else if(tempDC.equals("srl")){
 				tdcName="생산요청서";
@@ -489,7 +489,7 @@ public class HwanController {
 
 		System.out.println("sessionId : "+userId);
 		
-		if(tempDC.equals("sql")){
+		if(tempDC.equals("spl")){
 			tdcName="판매품의서";
 		}else if(tempDC.equals("srl")){
 			tdcName="생산요청서";

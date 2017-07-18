@@ -121,19 +121,17 @@ public class SoController {
 		return mv;
 		
 	}
-	
+/*	
 //보고서 상세
 @RequestMapping(value="main/purviewdetail.so", method={RequestMethod.GET, RequestMethod.POST })
 public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 	ModelAndView mv = new ModelAndView();
 	//mv.addObject();
-
 	mv.setViewName("../main/index.jsp?inc=../purchase/purchase_ReportView.jsp");
-
     //index.jsp?inc=./board/purchase_home.jsp
 	return mv;
 }
-
+*/
 
 
 
@@ -147,6 +145,7 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 		List<SoVo>list = dao.checkmaterial(checkmaterial);
 		List<SoVo>list1 = dao.fMetarial(vo);
 				
+		
 		mv.addObject("list",list);
 		mv.addObject("list1",list1);
 		
@@ -223,10 +222,10 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 		String msg2 = dao.purDocumentInput(svo);
 		
 		
-			JSONObject obj = new JSONObject();
-			obj.put("msg", "1");
-
-			out.print(obj);
+		/*	JSONObject obj = new JSONObject();
+			obj.put("msg", "1");*/
+			out.print("1");
+			/*out.print(obj);*/
 		
 	}
 	
@@ -293,6 +292,7 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 		//list뿌려주기(report_list)
 		@RequestMapping(value="main/purlist.so", method={RequestMethod.GET, RequestMethod.POST })
 		public Object gopurlist(HttpServletRequest req, HttpServletResponse resp){
+			
 			ModelAndView mv = new ModelAndView();
 			//mv.addObject();
 			SoVo vo = new SoVo();
@@ -300,8 +300,9 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 			
 			mv.addObject("list",list);
 			mv.setViewName("../main/index.jsp?inc=../purchase/purchase_ReportList.jsp");
-
+			
 		    //index.jsp?inc=./board/purchase_home.jsp
+			
 			return mv;
 		}
 		
@@ -452,6 +453,56 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 		req.setAttribute("ePosition", list.get(0).getePosition());*/
 		
 	}	
+	
+	@RequestMapping(value = "main/gopur_detail.so", method = { RequestMethod.GET, RequestMethod.POST })
+	   public Object goSale_view(SoVo dvo) {
+				System.out.println("abc"+dvo.getdCode());
+	      ModelAndView mv = new ModelAndView();
+	      try{
+	         //상세보기 상단 문서 정보
+	         dvo.setdCate("pur");
+	         
+	         SoVo vo = dao.sale_view(dvo);
+	         mv.addObject("vo", vo); //문서한개 전체
+	         
+	         //상세보기 하단 판매 리스트
+	         dvo.setPlDcode(dvo.getdCode());
+	         List<SoVo> list = dao.sale_view2(dvo);
+	         mv.addObject("list123", list);
+	         //구매요청제품리스트
+	         //사원 이름 찾기
+	         SoVo evo = new SoVo();
+	         int write = vo.getdWrite();
+	         evo.seteCode(write);
+	         SoVo writerVo = new SoVo();
+	         writerVo = dao.findEname(evo);
+	         
+	         mv.addObject("writerVo", writerVo); //작성자
+	         
+	         String sign = vo.getdSign();
+	         String[] appro = sign.split(",");
+	         int appro1 = Integer.parseInt(appro[0]);
+	         int appro2 = Integer.parseInt(appro[1]);
+	         
+	         SoVo app1 = new SoVo();
+	         app1.seteCode(appro1);
+	         app1 = dao.findEname(app1);
+	         mv.addObject("app1", app1); //결재자1
+	         
+	         SoVo app2 = new SoVo();
+	         app2.seteCode(appro2);
+	         app2 = dao.findEname(app2);
+	         mv.addObject("app2", app2); //결재자2
+	         
+	         mv.setViewName("../main/index.jsp?inc=../purchase/purchase_ReportView.jsp");
+	         System.out.println(app1);
+	         System.out.println(app2);
+	         System.out.println(writerVo);
+	      }catch (Exception e) {
+	         e.printStackTrace();
+	      }
+	      return mv;
+	   }
 	
 	
 	

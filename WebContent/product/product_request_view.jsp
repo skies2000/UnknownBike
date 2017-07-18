@@ -27,7 +27,7 @@ function onSetting(srlCode, srlMCode) {
 		<div id='title'>생산 요청서</div><!--  헤더  -->
 		<div class='head'>
 			<div id='sign1'>
-				<label>문서번호</label><br/>
+				<label>문서번호 : </label>
 				<label>${vo.dCode }</label>
 			</div>
 			<div id='sign2'>

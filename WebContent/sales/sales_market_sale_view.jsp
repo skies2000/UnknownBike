@@ -69,7 +69,11 @@
 					<span id='custom'>${list.vName }</span> 
 					<span id='ea'>${list.splpEa }</span> 
 					<span id='unit'>${list.splCost }</span> 
+<<<<<<< HEAD
 					<span id='total'>${list.splCost }*${list.splpEa }</span> 
+=======
+					<span id='total'>${list.pPrice}</span> 
+>>>>>>> 1069a7cc19b4cead8f968ddde9bb9ec342e37dc3
 					<span id='saledate'>${list.splDate }</span> 
 				</c:forEach>
 				</div>
