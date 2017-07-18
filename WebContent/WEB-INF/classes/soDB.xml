@@ -100,9 +100,9 @@
   	<!-- phome 검색  -->
 <select id='phomefindStr' resultMap="voMap" parameterType="so.SoVo">
       	 
-      select * from document where dCate='pur' 
-      and (dName like '%${findStr}%' or dWrite like '%${findStr}%' or dCode like '%${findStr}%') 
-      order by dStatus
+      select * from material  
+      and (mCode like '%${findStr}%' or mName like '%${findStr}%') 
+      order by mCode
       	 
   	</select>
 
