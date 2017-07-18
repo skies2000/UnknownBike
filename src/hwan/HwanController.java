@@ -510,7 +510,6 @@ public class HwanController {
 		return mv;
 		
 	}
-	////////////////////////////////////////////////////////////////////////////////////
 	
 	@RequestMapping(value="main/myPageDocApp.hwan",method={RequestMethod.GET})
 	public Object myPageDocApp(HwanVo vo){
@@ -522,7 +521,17 @@ public class HwanController {
 	public Object myPageDocDeny(HwanVo vo){
 		
 		System.out.println("docDenyResult : "+dao.myPageDocDeny(vo));
+		
 		return "myPageDocList.hwan";
 	}
+	///////////////////////////////////////마이페이지 끝/////////////////////////////////////////////
+	@RequestMapping(value="/productDel.hwan",method={RequestMethod.GET})
+	public Object productDel(HwanVo vo){
+		
+		System.out.println("proDel pcode 1: "+vo.getPcode());
+		
+		return "laboratory/productDetails.html";
+	}
+	
 	
 }
