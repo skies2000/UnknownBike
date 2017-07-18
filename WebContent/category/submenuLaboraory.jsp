@@ -15,7 +15,7 @@
         $(document).ready(
 			function(){
                 xhr = new XMLHttpRequest();
-	           xhr.open('get','../laboratory/laboratoryHome.html'); // url요청 정보
+	           xhr.open('get','../laboratory/productDetails.html'); // url요청 정보
 	           xhr.send(); // 서버에 전송
                var str='';
                xhr.onreadystatechange=function(){
@@ -47,9 +47,7 @@
 	<div id='uipgMenuWrap'>
 		<div class='uipgMenu'>
 		  <ul>
-    <li><a href="#">Home</a>
-    <input type =hidden value="../laboratory/laboratoryHome.html"/>
-    </li>
+    
     
     <li><a href="##">제품</a>
       <ul>
