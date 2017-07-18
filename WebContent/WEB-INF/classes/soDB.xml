@@ -22,9 +22,9 @@
  </select>
 
 <select id='material_nlist' resultMap="voMap" parameterType="so.SoVo">
-      	 <![CDATA[ 
+     <![CDATA[
       	 select * from material where mEa <= 50 order by mCode
-      	 ]]>
+      	]]>
   	</select>
   	
   	<select id='material_slist' resultMap="voMap" parameterType="so.SoVo">
@@ -42,9 +42,15 @@
  	</select>
  
 
- <select id='check_mlist' resultMap="voMap" parameterType="so.SoVo">
-     	select * from material where mCode = #{mCode}
-    	
+<select id='check_mlist' resultMap="voMap" parameterType="so.SoVo">
+   
+     	select m.mcode,m.mname,v.vname,e.ename,m.mea,m.mprice
+     	from material m 
+     	join vender v on m.mpo=v.vcode 
+     	join employees e on m.mdev=e.ecode
+     	where m.mCode = #{mCode} 
+		order by m.mCode
+		
  </select>
  
 <!-- 문서요청서  -->
@@ -70,13 +76,44 @@
 	
 	-->
 	<select id="materialSelectOne"  resultType="so.SoVo" parameterType="String">
-		select * from material where mCode=#{mCode}
+		select m.mcode,m.mname,v.vname,e.ename,m.mea,m.mprice
+     	from material m 
+     	join vender v on m.mpo=v.vcode 
+     	join employees e on m.mdev=e.ecode
+     	where m.mCode = #{mCode} 
+		order by m.mCode
 	</select>
 	
-	<!-- 
+	<!-- 문서보고서 입력 -->
+	<insert id='insert_document' parameterType='so.SoVo'>
+		insert into document(dCode, dName, dDate, dWrite, dSign, dStatus, dCate)
+		values((select max(dCode)+1 as dCode from Document),#{dName},#{dDate},#{dWrite},#{dSign},#{dStatus},#{dCate})
+	</insert> 
+	
+	<!-- 구매보고서입력  -->
 	<insert id="PurInput" parameterType="so.SoVo">
-		insert into plist(plmcode,plmodel,plpur,plmea,plprice)
-		values((select max()))
-	</insert> -->
+		insert into plist(pldcode,plmcode,plmodel,plpur,plmea,plprice)
+		values((select max(dCode)+1 as dCode from Document),#{plMCode}, #{plModel},#{plPur}, #{plMEa},#{plPrice})
+	</insert>
 
+
+
+	
+<!-- 검색  -->
+<select id='findStr' resultMap="voMap" parameterType="so.SoVo">
+      	 
+      select * from document where dCate='pur' 
+      and (dName like '%${findStr}%' or dWrite like '%${findStr}%' or dCode like '%${findStr}%') 
+      order by dStatus
+      	 
+  	</select>
+  	
+  	<!-- list 뿌려주기 -->
+  	<select id="purlist"  resultMap="voMap" parameterType="so.SoVo">
+		select d.dcode, d.dname, d.ddate, e.ename, d.dstatus 
+		from document d
+	    join employees e on d.dWrite = e.eCode 
+		where d.dCate = 'pur' 
+		order by d.dStatus DESC, d.dcode ASC
+	</select>
 </mapper>
