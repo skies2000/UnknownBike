@@ -49,7 +49,7 @@ public class SoDao {
 			
 			SoVo vo = new SoVo();
 			vo.setmCode(xx);
-			
+			System.out.println(xx);
 			SoVo v = session.selectOne("sodb.check_mlist", vo);
 			list.add(v);
 		}
@@ -99,16 +99,48 @@ public class SoDao {
 		return list;
 	}
 
-	public SoVo purInput(SoVo v) {
-		
+	public String purInput(SoVo v) {
+		String msg = "";
 		try{
 			int r = session.insert("sodb.PurInput",v);
+			msg = "성공1";
+			
 		}catch(Exception ex){
+			ex.printStackTrace();
+			msg = "실패1";
+		}finally{
+			session.commit();
+		}
+		return msg;
+	}
+	
+	public String purDocumentInput(SoVo v) {
+		
+		
+		String msg = "";
+
+		try{
+			int r = session.insert("sodb.insert_document",v);
+			 msg = "성공2";
+		}catch(Exception ex){
+			msg = "실패2";
 			ex.printStackTrace();
 		}finally{
 			session.commit();
 		}
-		return v;
+		return msg;
+	}
+	
+
+	public List<SoVo> purlist(SoVo vo){
+		List<SoVo> list = session.selectList("sodb.purlist", vo);//session.어떤종류의 쿼리를 부를건지
+		return list;
+	}
+	
+	
+	public List<SoVo> findStr(SoVo vo){
+		List<SoVo> list = session.selectList("sodb.findStr", vo);//session.어떤종류의 쿼리를 부를건지
+		return list;
 	}
 	
 	//판매요청서 상세 하단

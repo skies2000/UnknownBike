@@ -14,9 +14,6 @@
 	<div id=top_line>
 		<!-- 맨 위 -->
 		<span class='top_main'>생산 오더 관리</span> 
-		<input type='text' id='findStr'> 
-		<input type='button' id='btnFind' value='문서 검색'	onclick="search()">
-		<hr>
 	</div>
 	
 	<div id='list'>

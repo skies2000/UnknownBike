@@ -18,7 +18,6 @@ function goView(dCode){
 function search() {
 	var frm = document.getElementById("frm2");
 	var find_Str = document.getElementById("txtFind").value;
-	alert(find_Str);
 	frm.findStr.value=find_Str;
 	frm.action = 'search_sale_list.sung';
 	frm.submit();	

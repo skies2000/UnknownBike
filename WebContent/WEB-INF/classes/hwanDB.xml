@@ -24,9 +24,9 @@
 	</resultMap>
 	
 	<resultMap type="hwan.HwanVo" id="proViewMatListMap">
-	<result property="mlmcode" column="mlmcode"/>
-	<result property="mlmea" column="mlmea"/>
+	</resultMap>
 	
+	<resultMap type="hwan.HwanVo" id="myPageDocListMap">
 	</resultMap>
 	
 	
@@ -52,6 +52,11 @@
 	<select id = "appOne" parameterType="hwan.HwanVo" resultType="hwan.HwanVo" >
 		select * from employees where ecode = #{ecode}
 	</select>
+	<select id = "appOneStr" parameterType="String" resultType="hwan.HwanVo" >
+		select * from employees where ecode = #{ecode}
+	</select>
+	
+	
 	
 	
 	
@@ -64,7 +69,9 @@
 	
 	
 	<insert id="docInput" parameterType="hwan.HwanVo">
-	insert into document(dcode,dname,ddate, dwrite, dSign, dStatus, dcont,dcate) values((select max(dCode)+1 as dCode from Document),#{dname},sysdate, #{dWrite}, #{dSign},0,#{dcont},'dl')
+	insert into document(dcode,dname,ddate, dwrite, dSign, dStatus, dcont,dcate)
+	 values((select max(dCode)+1 as dCode from Document),#{dname},
+	 to_char(sysdate,'yyyy-mm-dd'), #{dWrite}, #{dSign},#{dStatus},#{dcont},'dl')
 	</insert>
 	
 	
@@ -80,13 +87,17 @@
 	
 	<!--제품 리스트 쿼리  -->
 	<select id = "proList" resultMap="proListMap" parameterType="hwan.HwanVo">
-		select * from product where pname like '%${findStr}%' 
+		select * from product where pname like '%${findStr}%'
+										  order by pcode desc 
 	</select>
 	
+	<!--제품 리스트 전체 검색 쿼리  -->
 	<select id = "proListAllSearch" resultMap="proListMap" parameterType="hwan.HwanVo">
 		select * from product where pname like '%${findStr}%' 
 								 or pcode like '%${findStr}%'
 								 or pdev like '%${findStr}%'
+								 order by pcode desc
+								 
 	</select>
 	
 	<!--연구소 리스트 테이블 값 입력  -->
@@ -106,8 +117,35 @@
 	
 	
 	<select id="proViewMatList" resultMap="proViewMatListMap" parameterType="int">
-			select * from mlist where mlpcode = #{mlpcode}  
+			select mat.*, ml.*
+			  from mlist ml join material mat
+			   on ml.mlmcode = mat.mcode where ml.mlpcode=#{mlpcode} 
 	</select>
-					    
-
+	
+	<!--///////////////////////////////마이 페이지////////////////////////////  -->
+	<!--로그인 사원 비밀번호 셀렉트  -->
+	<select id="myPagePwdCheck" resultType="String" parameterType="String">
+	select epwd from employees where ecode = #{ecode}
+    </select>
+    
+    
+    <!--문서 리스트  -->
+    <select id = "myPagedocList" resultMap="myPageDocListMap">
+    	select d.*,e.ename from document d join employees e on d.dwrite = e.ecode order by dcode desc
+    </select>
+    
+    <!--문서뷰  -->
+    <select id = "myPagedoView" resultType="hwan.HwanVo" parameterType="hwan.HwanVo">
+    	select d.*,e.ename from document d join employees e on d.dwrite = e.ecode where dcode = #{dcode}
+    </select>
+    
+    <!--결재승인  -->
+    <update id="myPageDocApp" parameterType="hwan.HwanVo">
+    	update document set dstatus=dstatus-1 where dcode = #{dcode}
+    </update>
+    <!--결재거절  -->
+    <update id="myPageDocDeny" parameterType="hwan.HwanVo">
+    	update document set dstatus=-1 where dcode = #{dcode}
+    </update>
+	<!--//////////////////////////////마이 페이지 끝///////////////////////////////////  -->
 </mapper>

@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	
+	
+	
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,6 +36,15 @@
 </style>
 </head>
 <body>
+
+
+<%
+	request.setCharacterEncoding("utf-8");
+
+
+
+%>
+
 	<div id=category>
 		<jsp:include page="../category/submenuPurchase.jsp"></jsp:include>
 	</div>
@@ -38,7 +52,7 @@
 	<div id='SalesResult'>
 		<div id='body'>
 			<!--  ------------------상단타이틀--------------------  -->
-			<div id='title'>구매요청서</div>
+			<div id='title'>구매요청서</div>	
 			<!--  ------------------헤더--------------------  -->
 			<div class='head'>
 				<div id='sign1'>
@@ -46,12 +60,12 @@
 				</div>
 				<div id='sign2'>
 					<div id='appro'>결&nbsp재&nbsp내&nbsp역</div>				
-					<div id='writer'>${vo.dWrite }</div>
-					<div id='appro1'>${vo.app1 }</div>
-					<div id='appro2'>${vo.app2 }</div>
+					<div id='writer'>${writerVo.eName }</div>
+					<div id='appro1'>${app1.eName }</div>
+					<div id='appro2'>${app2.eName }</div>
 					<div id='stamp1'>
 						<div id='status'>작성</div>
-						<div id='app_date'>2017-06-28</div>
+						<div id='app_date'>${vo.dDate }</div>
 					</div>
 					<div id='stamp2'>
 						<div id='status'>승인</div>
@@ -66,7 +80,7 @@
 			<!--  ------------------제목--------------------  -->
 			<div id='subject'>
 				<span id='labeltitle'> <label>제목</label>
-				</span> <span id='subcontent'> 빨리 결재해주세여 빨리여빨리 다 팔게 </span>
+				</span> <span id='subcontent'>${vo.dName }  </span>
 			</div>
 
 			<br/>
@@ -82,12 +96,13 @@
 					<span id='total'>총액</span>
 				</div>
 				<div id='plist_content'>
-					<c:forEach items="${list}" var="vo">
-					<span id='code'>${vo.plMCode }</span> 
-					<span id='codeName'>${vo.plMCode }</span> 
-					<span id='custom'>거래처</span> <span id='ea'>수량</span> 
-					<span id='unit'>단가</span>
-					<span id='total'>총액</span>
+					<c:forEach items="${list123}" var="tt">
+					<span id='code'>${tt.mCode }</span> 
+					<span id='codeName'>${tt.mName }</span> 
+					<span id='custom'>${tt.vName }</span>
+					<span id='ea'>${tt.plMEa }</span> 
+					<span id='unit'>${tt.mPrice }</span>
+					<span id='total'></span>
 					
 					</c:forEach> 				
 					

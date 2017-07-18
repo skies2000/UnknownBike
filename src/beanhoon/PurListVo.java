@@ -1,5 +1,6 @@
 package beanhoon;
 
+import java.util.Date;
 
 public class PurListVo {
 	// document table
@@ -26,12 +27,14 @@ public class PurListVo {
 	// product
 	private int pCode = 0;
 	private String pName = "";
-	private int pCate = 0;
-	private int pPrice = 0;
-	private String pDate;
 	private int pEa = 0;
-	private int pManhour = 0;
+	private int pCost = 0;
+	private int pPrice = 0;
+	private int pDev;
+	private int pCate = 0;
+	private String pDate;
 	private String pImage;
+	private int pManhour = 0;
 	
 	// material
 	private int mCode = 0;
@@ -54,10 +57,20 @@ public class PurListVo {
 	private String workEndDate;
 	private int dys = 0;
 	
-	// 결재자 & 검색어
+	// 결재자 & 검색어 & 총생산량
 	private String eName1;
 	private String eName2;
 	private String findStr;
+	private int totalEa = 0; 	//총생산량
+	private int totaleff = 0;	//평균효율
+	
+	private int totalquarter1 = 0;	//분기별생산량
+	private int totalquarter2 = 0;	//분기별생산량
+	private int totalquarter3 = 0;	//분기별생산량
+	private int totalquarter4 = 0;	//분기별생산량
+	
+	
+	
 	
 	// 결재자 & 검색어 getter setter
 	public String geteName1() {
@@ -312,6 +325,8 @@ public class PurListVo {
 	public void setWorkTime(int workTime) {
 		this.workTime = workTime;
 	}
+
+	
 	public String getWorkStartDate() {
 		return workStartDate;
 	}
@@ -330,4 +345,53 @@ public class PurListVo {
 	public void setDys(int dys) {
 		this.dys = dys;
 	}
+	public int getTotalEa() {
+		return totalEa;
+	}
+	public void setTotalEa(int totalEa) {
+		this.totalEa = totalEa;
+	}
+	public int getpCost() {
+		return pCost;
+	}
+	public void setpCost(int pCost) {
+		this.pCost = pCost;
+	}
+	public int getpDev() {
+		return pDev;
+	}
+	public void setpDev(int pDev) {
+		this.pDev = pDev;
+	}
+	public int getTotaleff() {
+		return totaleff;
+	}
+	public void setTotaleff(int totaleff) {
+		this.totaleff = totaleff;
+	}
+	public int getTotalquarter1() {
+		return totalquarter1;
+	}
+	public void setTotalquarter1(int totalquarter1) {
+		this.totalquarter1 = totalquarter1;
+	}
+	public int getTotalquarter2() {
+		return totalquarter2;
+	}
+	public void setTotalquarter2(int totalquarter2) {
+		this.totalquarter2 = totalquarter2;
+	}
+	public int getTotalquarter3() {
+		return totalquarter3;
+	}
+	public void setTotalquarter3(int totalquarter3) {
+		this.totalquarter3 = totalquarter3;
+	}
+	public int getTotalquarter4() {
+		return totalquarter4;
+	}
+	public void setTotalquarter4(int totalquarter4) {
+		this.totalquarter4 = totalquarter4;
+	}
+	
 }

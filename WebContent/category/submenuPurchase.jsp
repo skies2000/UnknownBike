@@ -44,26 +44,24 @@
 	<div id='uipgMenuWrap'>
 		<div class='uipgMenu'>
 			<ul>
-				<li><a href="purhome.so">HOME</a> 
+				<li><a href="purhome.so">자재구매</a> 
 					<!-- <input type=hidden value="../purchase/purchase_home.html" /> -->
 				</li>
-
-				<li><a href="##">보고서</a>
+				<li><a href="purlist.so">보고서 관리</a> 
+				</li>
+				<!-- <li><a href="##">보고서</a>
 					<ul>
 						<li>
 							<a href="purinput.so">보고서 작성</a> 
-							<!-- <input type=hidden value="../purchase/purchase_Input.html" /> -->
+							<input type=hidden value="../purchase/purchase_Input.html" />
 						</li>
 
-						
 						<li>
-							<a href="purRList.so">보고서 관리</a> 
-							<!-- <input type=hidden value="../purchase/purchase_ReportList.html" /> -->
+							<a href="purlist.so">보고서 관리</a> 
+						
 						
 					</ul>
-				</li>	
-				<li><a href="purviewdetail.so">보고서어어</a>
-				</li>
+				</li> -->	
 			</ul>
 		</div>
 	</div>

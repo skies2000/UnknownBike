@@ -16,7 +16,7 @@ public class SoVo {
 	int mPo;
 
 	
-	String findStr;
+	
 	
 	//문서요청서
 	int dCode;
@@ -24,7 +24,6 @@ public class SoVo {
 	String dCont;//내용
 	String dDate;
 	int dWrite;
-	int dSignA;
 	int dStatus;
 	String dCate;
 	
@@ -51,6 +50,12 @@ public class SoVo {
 	int app1;//결재자1
 	int app2;//결재자2
 	
+	//검색검색
+	String findStr;
+	
+	//거래처
+	int vCode;
+	String vName;
 	
 	
 	
@@ -278,8 +283,6 @@ public class SoVo {
 
 
 
-	
-
 	public String getdDate() {
 		return dDate;
 	}
@@ -308,20 +311,6 @@ public class SoVo {
 
 
 
-	public int getdSignA() {
-		return dSignA;
-	}
-
-
-
-
-	public void setdSignA(int dSignA) {
-		this.dSignA = dSignA;
-	}
-
-
-
-
 	public int getdStatus() {
 		return dStatus;
 	}
@@ -345,31 +334,6 @@ public class SoVo {
 
 	public void setdCate(String dCate) {
 		this.dCate = dCate;
-	}
-
-
-
-
-	public SoVo() {
-	 
-	 
-	 
-	 
-	 
-	}
-
-
-
-
-	public String getFindStr() {
-		return findStr;
-	}
-
-
-
-
-	public void setFindStr(String findStr) {
-		this.findStr = findStr;
 	}
 
 
@@ -567,8 +531,51 @@ public class SoVo {
 	public void setPlnow(int plnow) {
 		this.plnow = plnow;
 	}
-	
-	
-	
+
+
+
+
+	public String getFindStr() {
+		return findStr;
+	}
+
+
+
+
+	public void setFindStr(String findStr) {
+		this.findStr = findStr;
+	}
+
+
+
+
+	public int getvCode() {
+		return vCode;
+	}
+
+
+
+
+	public void setvCode(int vCode) {
+		this.vCode = vCode;
+	}
+
+
+
+
+	public String getvName() {
+		return vName;
+	}
+
+
+
+
+	public void setvName(String vName) {
+		this.vName = vName;
+	}
+
+
+
+
 
 }

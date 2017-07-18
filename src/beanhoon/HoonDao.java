@@ -1,5 +1,6 @@
 package beanhoon;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,57 @@ public class HoonDao {
 	
 	public HoonDao(UnknownFactory factory){
 		this.session=factory.getFactory().openSession();
+	}
+	
+	// Main List 1
+	public List<PurListVo> main1(PurListVo vo) {
+		List<PurListVo> list = null;
+		try {
+			list = session.selectList("hoondb.m1", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
+	// Main List 2
+	public List<PurListVo> main2(PurListVo vo) {
+		List<PurListVo> list = null;
+		
+		try {
+			list = session.selectList("hoondb.m2", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
+	// Main List 3
+	public List<PurListVo> main3(PurListVo vo) {
+		List<PurListVo> list = null;
+			
+		try {
+			list = session.selectList("hoondb.m3", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
+	// Main List 4
+	public List<PurListVo> main4(PurListVo vo) {
+		List<PurListVo> list = null;
+			
+		try {
+			list = session.selectList("hoondb.m4", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
 	}
 	
 	// odder List
@@ -220,5 +272,79 @@ public class HoonDao {
 		}
 	}
 	
+	// eff
+		@SuppressWarnings("finally")
+		public List<PurListVo> effsearchP(PurListVo vo) {
+			List<PurListVo> list = null;
+			
+			try {
+				list = session.selectList("hoondb.effsearchP", vo);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				return list;
+			}
+		}
+		
+		// 코드로 제품정보 가져오기
+		public PurListVo proinfo(PurListVo vo) {
+			PurListVo v = null;
+			
+			try {
+				v = session.selectOne("hoondb.proinfo", vo);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			return v;
+		}
+		
+		@SuppressWarnings("finally")
+		public PurListVo chartlist1(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {
+				v = session.selectOne("hoondb.chartlist1", vo);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		
+		@SuppressWarnings("finally")
+		public PurListVo chartlist2(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {
+				v = session.selectOne("hoondb.chartlist2", vo);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		
+		@SuppressWarnings("finally")
+		public PurListVo chartlist3(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {
+				v = session.selectOne("hoondb.chartlist3", vo);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		
+		@SuppressWarnings("finally")
+		public PurListVo chartlist4(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {
+				v = session.selectOne("hoondb.chartlist4", vo);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+
 	
 }
