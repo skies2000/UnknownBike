@@ -207,7 +207,7 @@ function plus(){
 		
 		var frm = document.pfrm;
 		var url = 'purRList.so';
-<<<<<<< HEAD
+
 		var mcode = document.getElementsByClassName("pcode");//그냥 넘기는게 아니라 값이 hidden에 들어가있어야함.. .. 
 		var cc = mcode[0].innerHTML; //cc를 히든에 넣기
 		for(var i=1; i<mcode.length; i++){
@@ -247,8 +247,7 @@ function plus(){
 		frm.mPo.value=ee;
 		frm.mEa.value=ff;
 		frm.mPrice.value=gg;
-		
-=======
+
 		
 		var dname = frm.pisub.value;
 		var bb = dname;
@@ -305,8 +304,7 @@ function plus(){
 		frm.mPo.value=ee;
 		frm.mEa.value=ff;
 		frm.mPrice.value=gg;
-		
->>>>>>> e24a2383e7c6962a7ca24618ba6d7e23b2135562
+
 /* 		<input type='hidden' name='mCode' value='cc'>
 		<input type='hidden' name='mName'>
 		<input type='hidden' name='mPo'>
