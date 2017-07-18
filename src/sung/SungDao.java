@@ -179,8 +179,81 @@ public class SungDao {
 		}
 		return list;
 	}
+	//제품코드로 단가 가져오기
+	public DocumentVo getCost(DocumentVo dvo) {
+		try{
+			dvo = session.selectOne("sungdb.search_pCost", dvo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dvo;
+	}
+	//판매요청서 db저장
+	public DocumentVo sale_input_spl(DocumentVo dvo) {
+		try{
+			int r = session.insert("sungdb.insert_spl", dvo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.commit();
+		}
+		return dvo;
+	}
 
+	public DocumentVo sals_input_docu(DocumentVo vo) {
+		try{
+			int r = session.insert("sungdb.insert_docu", vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.commit();
+		}
+		return vo;
+	}
+	//판매요청서 리스트
+	public List<DocumentVo> docu_saleList(DocumentVo vo) {
+		List<DocumentVo> list = null;
+		try {
+			list = session.selectList("sungdb.sale_select", vo);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		
+		return list;
+	}
+	//판매요청서 리스트 검색
+	public List<DocumentVo> list_sale_find(DocumentVo vo) {
+		List<DocumentVo> list = null;
+		try {
+			list = session.selectList("sungdb.list_sale_find", vo);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		
+		return list;
+	}
+	//판매요청서 상세 하단
+	public List<DocumentVo> sale_view2(DocumentVo dvo) {
+		List<DocumentVo> list = null;
+		try{
+			list = session.selectList("sungdb.sale_view2", dvo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 
+	//판매요청서 상세 상단
+	public DocumentVo sale_view(DocumentVo dvo) {
+		DocumentVo vo = new DocumentVo();
+		try{
+			vo = session.selectOne("sungdb.sale_view", dvo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return vo;
+	}
 
 	
 	

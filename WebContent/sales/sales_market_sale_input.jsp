@@ -53,15 +53,113 @@ function cate_func(sel){
 	}
 }
 
+//삭제 버튼
+	function list_del(count){
+		var content = document.getElementById("sey_sl_content");
+		var pro_list = document.getElementById("pro_list_"+count);
+		content.removeChild(pro_list);
+	}
+
 function pro_add(){
+	var xhr = new XMLHttpRequest();
+	var url = 'sales_sale_input_add.sung';
+	
 	var frm  = document.getElementById('frmId');
 	var pCate = frm.pro_Cate.value;
 	var pCode = frm.abc.value;
 	var pCodeName = $("#abc option:selected").text();
 	var vender = frm.sel_vender.value;
+	var vName =  $("#sel_vender option:selected").text();
 	var pEa = frm.sey_input_ea.value;
-	/* -----------여기까지 다넘어옴~!@~!@ */
 	
+	//히든에 저장
+	frm.add_pCode.value=pCode;
+	frm.add_pName.value=pCodeName;
+	frm.add_vCode.value=vender;
+	frm.add_vName.value=vName;
+	frm.add_pEa.value=pEa;
+	
+	var formData = new FormData(frm);
+	xhr.open("post",url);
+	xhr.send(formData);  
+	
+	xhr.onreadystatechange=function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			 var txt = xhr.responseText;
+			var text = JSON.parse(txt);
+			
+			for(var i=0; i<text.length; i++) {
+				count ++;
+				var content = document.getElementById("sey_sl_content");
+				var str = "";
+				
+				str += "<span class='list_pCode' id='list_pCode'>"+text[i].pCode+"</span>";
+					frm.pCode.value += text[i].pCode +",";
+				str += "<span class='list_pName' id='list_pName'>"+text[i].pName+"</span>";
+				str += "<span class='list_vName' id='list_vName'>"+text[i].vName+"</span>";
+					frm.vCode.value += text[i].vCode +",";
+				str += "<span class='list_pEa' id='list_pEa'>"+text[i].pEa+"</span>";
+					frm.pEa.value += text[i].pEa +",";
+				str += "<span class='list_pCost' id='list_pCost'>"+text[i].pPrice+"</span>";
+					frm.pPrice.value += text[i].pPrice +",";
+				str += "<span class='list_pPrice' id='list_pPrice'>"+text[i].pTotal+"</span>";
+					frm.pTotal.value += text[i].pTotal +",";
+				str += "<span class='deadline2' id='deadline2'><input name ='calender' id='calender' type='date'> </span>";
+				str += "<span id='sey_del' onclick='list_del("+count+")'>삭제</span>";
+				
+				var pro_list = document.createElement("div");
+				pro_list.id = "pro_list_"+count;
+				pro_list.innerHTML = str;
+				content.appendChild(pro_list);
+				
+			}
+			frm.count.value=count;  
+		}
+	}
+}
+
+
+//결재자1
+	function sign_popup1(){
+		var url = 'sign_popup.sung';
+		var popOption = "width=440, height=500,top=0, resizable=no, scrollbars=no, status=no";
+		window.open(url,"",popOption);
+	}
+	
+//결재자 2
+	function sign_popup2(){
+		var url = 'sign_popup_2.sung';
+		var popOption = "width=440, height=500,top=0, resizable=no, scrollbars=no, status=no";
+		window.open(url,"",popOption);
+	}	
+
+
+//작성완료 버튼
+function pro_subject(){
+	var xhr = new XMLHttpRequest();
+	var url = 'sales_req_input_save.sung';
+	var frm = document.getElementById("frmId");
+	
+	var dateValue ="";
+	 $('input[name=calender]').each(function(idx){
+		 dateValue += $(this).val();
+		 dateValue += ",";
+	   })
+	 frm.sDate.value = dateValue;
+	 
+	 var formData = new FormData(frm);
+		xhr.open("post",url);
+		xhr.send(formData);  
+		
+
+	 
+	  xhr.onreadystatechange=function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				alert("정상적으로 작성되었습니다.");
+				window.location.reload();
+				}
+			} 
+	 
 }
 
 
@@ -122,15 +220,15 @@ function pro_add(){
 				<div id='sey_sign1'>아래와 같이 판매품의 합니다.</div>
 				<div id='sey_sign2'>
 					<div id='sey_appro'>결&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp재</div>
-					<div id='sey_writer'>작성자</div>
-					<div id='sey_appro1' onclick = sign_popup1()>결재자1</div>
-					<div id='sey_appro2' onclick = sign_popup2()>결재자2</div>
+					<div id='sey_writer'>${eList.eName }</div>
+					<div id='appro1' onclick = sign_popup1()>결재자1</div>
+					<div id='appro2' onclick = sign_popup2()>결재자2</div>
 					<div id='sey_stamp1'></div>
 					<div id='sey_stamp2'></div>
 					<div id='sey_stamp3'></div>
 					<div id='sey_date1'>${today }</div>
-					<div id='sey_date2'>2017.06.27</div>
-					<div id='sey_date3'>2017.06.27</div>
+					<div id='sey_date2'></div>
+					<div id='sey_date3'></div>
 				</div>
 			</div>
 			<div id='sey_classify'>
@@ -167,10 +265,28 @@ function pro_add(){
 					<input type='button' value='추가' id='sey_sl_btnInput' name='sey_sl_btnInput' onclick='pro_add()'>
 				</div>
 				</div>
+				<input type='hidden' name='add_pName'>
+				<input type='hidden' name='add_vCode'>
+				<input type='hidden' name='add_vName'>
+				<input type='hidden' name='add_pEa'>
+				<input type='hidden' name='add_pCode'>
 				
 				<input type='hidden' name='pCate'>
-				
-			</form>
+				<input type='hidden' name='pCode'>  <!-- 제품코드 -->
+				<input type='hidden' name='pName'>  <!-- 제품네임 -->
+				<input type='hidden' name='vName'>  <!-- 거래처이름 -->
+				<input type='hidden' name='vCode'>  <!-- 거래처코드 -->
+				<input type='hidden' name='pEa'>    <!-- 제품수량 -->
+				<input type='hidden' name='sDate'>  <!-- 판매일자 -->
+				<input type='hidden' name='pTotal'> <!-- 총액 -->
+				<input type='hidden' name='pPrice'> <!-- 판매단가 -->
+				<input type='hidden' name='writer' value='${eList.eCode }'> <!-- 작성자 -->
+				<input type='hidden' name='dDate' value='${today }'>  <!-- 작성일 -->
+				<input type='hidden' name='count' id='count'>
+				<!-- 결재자1 사원번호 -->
+				<input type='hidden' name='appr_eCode1' id='appr_eCode1'> 
+				<!-- 결재자2 사원번호 -->
+				<input type='hidden' name='appr_eCode2' id='appr_eCode2'> 
 			<div class='aa'></div>
 			
 			<div id='sey_subject'>
@@ -183,7 +299,6 @@ function pro_add(){
 				<span id='sey_saledate'>판매일자</span>
 			</div>
 			<div id='sey_sl_content'>
-				<div class='sey_content_list'>
 				</div>
 
 
@@ -191,9 +306,9 @@ function pro_add(){
 
 		</div>
 		<div id='sey_sendBtn'>
-			<input type='button' value='작성완료' id='sey_sl_btnSend'>
+			<input type='button' value='작성완료' id='sey_sl_btnSend' onclick='pro_subject()'>
 		</div>
-
-	</div>
+		</div>
+	</form>
 </body>
 </html>

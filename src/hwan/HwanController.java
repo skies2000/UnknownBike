@@ -2,6 +2,7 @@ package hwan;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
@@ -85,8 +86,7 @@ public class HwanController {
 		MultipartRequest mul= null;
 		
 		
-		String uploadPath = req.getRealPath("images/");
-		
+		String uploadPath = req.getRealPath("images/").replace('\\', '/');
 		
 		try{
 			mul = new MultipartRequest(req,uploadPath, 1024*10000,"utf-8",new DefaultFileRenamePolicy());
@@ -95,7 +95,7 @@ public class HwanController {
 			
 		}finally {
 			return mul;
-		}
+		} 
 		
 	}
 	@RequestMapping(value = "main/pDoc.hwan", method = {RequestMethod.GET, RequestMethod.POST})
@@ -386,7 +386,143 @@ public class HwanController {
 		
 		
 	}
+	//////////////////////////////////////////마이 페이지//////////////////////////////////
 	
 	
+	//비밀번호 체크
+	@RequestMapping(value="/myPagePwdCheck.hwan", method={RequestMethod.POST})
+	public void myPagePwdCheck(HttpSession session, HttpServletResponse resp, HttpServletRequest req){
+		PrintWriter out = getOut(resp);
+		MultipartRequest mul = getMul(req);
+		String userid = (String)session.getAttribute("user");
+		String inputpwd = mul.getParameter("pwd");
+		String userpwd = dao.myPagePwdCheck(userid);
+	
+		
+		System.out.println("id : "+userid);
+		System.out.println("input pwd : "+inputpwd);
+		System.out.println("user pwd : "+userpwd);
+		
+		if(inputpwd.equals(userpwd)){
+			out.print(1);
+		}else{
+			out.print(-1);
+		}
+		
+	}
+	
+	
+	//문서 리스트
+	@RequestMapping(value="main/myPageDocList.hwan", method={RequestMethod.POST,RequestMethod.GET})
+	public Object myPageDocList(HttpSession session, HttpServletResponse resp, HttpServletRequest req){
+		ModelAndView mv = new ModelAndView();
+		List<HwanVo>list = null;
+		List<HwanVo> realList = new ArrayList<HwanVo>();
+		String userid = (String)session.getAttribute("user");
+		
+		list = dao.myPagedocList();
+		System.out.println("list size : "+list.size());
+		//문서 카테고리 이름 지정
+		for(HwanVo vo : list){
+			String tempDC = vo.getDcate();
+			int tempDS = vo.getdStatus();
+			String tdcName = "";
+			String tdsName = "";
+			String singerArr[];
+			if(tempDC.equals("sql")){
+				tdcName="판매품의서";
+			}else if(tempDC.equals("srl")){
+				tdcName="생산요청서";
+			}else if(tempDC.equals("dl")){
+				tdcName="자재/제품 등록";
+			}else if(tempDC.equals("fl")){
+				tdcName="생산리스트";
+			}else if(tempDC.equals("pl") || tempDC.equals("pur")){
+				tdcName="구매리스트";
+			}
+			
+			if(tempDS==0){
+				tdsName = "완료";
+			}else if(tempDS==-1){
+				tdsName = "거절";
+			}else{
+				tdsName = "결재중";
+			}
+			
+			
+			vo.setDcateName(tdcName);
+			vo.setDstatudName(tdsName);
+			//결재자 스플릿 해서 로그인한 아이디와 매칭되는 경우에만 리스트에 저장 
+			singerArr = vo.getdSign().split(",");
+			for(String singnerStr : singerArr){//스플릿한 길이만큼 반복(결재자 2명이면 2번반복)
+				if(singnerStr.equals(userid )){
+					realList.add(vo);
+					break;
+				}
+			}
+		}
+		mv.addObject("list",realList);
+		mv.setViewName("index.jsp?inc=../myPage/documentList.jsp");
+		return mv;
+	
+	}
+
+	//문서뷰
+	@RequestMapping(value="main/myPageDocView.hwan",method={RequestMethod.GET})
+	public Object myPageDocView(HwanVo vo, HttpSession session){
+		ModelAndView mv = new ModelAndView();
+		HwanVo rVo = null;
+		rVo = dao.myPagedoView(vo);
+		String appArr[] = rVo.getdSign().split(",");
+		String appOne = dao.appOne(appArr[0]).getEname();
+		String appTwo = dao.appOne(appArr[1]).getEname();
+		String userCode = (String)session.getAttribute("user");
+		String userId = dao.appOne(userCode).getEname();
+
+		String tempDC = rVo.getDcate();
+		String tdcName = "";
+		
+		rVo.setUserid(userId);
+		rVo.setAppOne(appOne);
+		rVo.setAppTwo(appTwo);
+		
+
+		System.out.println("sessionId : "+userId);
+		
+		if(tempDC.equals("sql")){
+			tdcName="판매품의서";
+		}else if(tempDC.equals("srl")){
+			tdcName="생산요청서";
+		}else if(tempDC.equals("dl")){
+			tdcName="자재/제품 등록";
+		}else if(tempDC.equals("fl")){
+			tdcName="생산리스트";
+		}else if(tempDC.equals("pl") || tempDC.equals("pur")){
+			tdcName="구매리스트";
+		}
+		rVo.setDcateName(tdcName);
+		
+		
+		System.out.println("ename : "+rVo.getEname());
+		
+		mv.setViewName("index.jsp?inc=../myPage/documentView.jsp");
+		mv.addObject("obj",rVo);
+		return mv;
+		
+	}
+	////////////////////////////////////////////////////////////////////////////////////
+	
+	@RequestMapping(value="main/myPageDocApp.hwan",method={RequestMethod.GET})
+	public Object myPageDocApp(HwanVo vo){
+		
+		System.out.println("docAppResult : "+dao.myPageDocApp(vo));
+		return "myPageDocList.hwan";
+	}
+	@RequestMapping(value="main/myPageDocDeny.hwan",method={RequestMethod.GET})
+	public Object myPageDocDeny(HwanVo vo){
+		
+		System.out.println("docDenyResult : "+dao.myPageDocDeny(vo));
+		return "myPageDocList.hwan";
+	}
 	
 }

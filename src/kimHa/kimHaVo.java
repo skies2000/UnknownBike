@@ -11,6 +11,7 @@ public class kimHaVo {
 	String dcont="";
 	String dwrite="";
 	String dsign="";
+	int    dtatus;
 	
 	//자재
 	String mname=""; //자재명
@@ -38,6 +39,12 @@ public class kimHaVo {
 	String mcateStr = "";
 	
 
+	public int getDtatus() {
+		return dtatus;
+	}
+	public void setDtatus(int dtatus) {
+		this.dtatus = dtatus;
+	}
 	public String getMstateStr() {
 		return mstateStr;
 	}

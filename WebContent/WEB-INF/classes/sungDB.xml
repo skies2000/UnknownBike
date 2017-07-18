@@ -16,6 +16,17 @@
 		where dCate = #{dCate}
 	</select>
 	
+	<!-- 판매요청서 리스트 조회 -->
+	<select id="sale_select"  resultMap="documentMap" parameterType="sung.DocumentVo">
+		select dcode, pName,dname, ddate, splpea, ename, dstatus, vName 
+		from document  
+		join SPLIST on splcode = dCode 
+		join employees e on dWrite = eCode 
+		join product on splpcode=pCode 
+		join VENDER on splvcode=vcode
+				where dCate = 'spl'
+	</select>
+	
  	<!-- req_list에서 검색 -->
 	<select id="list_find"  resultMap="documentMap" parameterType="sung.DocumentVo">
 		select * from document
@@ -81,6 +92,45 @@
 	<!-- 거래처 뿌려주기 -->
  	<select id='vender' resultMap="VenderMap" parameterType="sung.VenderVo">
 		select * from vender
+	</select> 
+	
+	<!-- 제품코드로 제품단가 찾기 -->
+ 	<select id='search_pCost' resultMap="documentMap" parameterType="sung.DocumentVo">
+		select pprice from PRODUCT where pcode=#{pCode}
+	</select> 
+	
+	<!-- splist테이블 입력 -->
+ 	<insert id='insert_spl' parameterType='sung.DocumentVo'>
+		insert into splist(splCode, splpCode, splvCode, splpEa, splDate, splCost, splPrice, splCate)
+		values((select max(dCode)+1 as dCode from Document), #{pCode}, #{vCode}, #{pEa}, #{srlTerm},#{pCost},#{pPrice},'spl')
+	</insert> 
+
+	<!-- docu테이블 입력 -->
+ 	<insert id='insert_docu' parameterType='sung.DocumentVo'>
+		insert into document(dCode, dName, dCont, dDate, dWrite, dSign, dStatus, dCate)
+		values((select max(dCode)+1 as dCode from Document),#{dName},#{dCont},#{dDate},#{dWrite},#{dSign},#{dStatus},'spl')
+	</insert> 	
+	
+	<!-- 판매요청서 조회에서 검색 -->
+	<select id="list_sale_find"  resultMap="documentMap" parameterType="sung.DocumentVo">
+		select dcode, pName,dname, ddate, splpea, ename, dstatus, vName from document  join SPLIST 
+		on splcode = dCode join employees e 
+		on dWrite = eCode join product on splpcode=pCode
+		join VENDER on splvcode=vcode
+		where dCate = 'spl'
+		and (pName like '%${findStr}%' or eName like '%${findStr}%' or vname like '%${findStr}%')
+	</select>  
+	
+	<!-- sale_view페이지 하단 로드 -->
+ 	<select id='sale_view2' resultMap="documentMap" parameterType="sung.DocumentVo">
+		select splCode, pCode, pName, vName, splPea, splCost, splPrice, splDate
+		from PRODUCT join spList on splpCode=pCode
+		join vender on splVcode=vCode where splCode=#{splCode}
+	</select> 
+	
+	<!-- sale_view페이지 상단 로드 -->
+ 	<select id='sale_view' resultMap="documentMap" parameterType="sung.DocumentVo">
+		select * from document where dCode=#{dCode} and dCate=#{dCate}
 	</select> 
 	
 	

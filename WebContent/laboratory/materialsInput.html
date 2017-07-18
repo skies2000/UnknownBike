@@ -153,6 +153,26 @@
 	function mInputBtn() {
 		if (!confirm("등록하시겠습니까?"))return; //취소 했을 때!
 		
+		
+		var dname = document.getElementById("dname");
+		if(dname.value == "") {
+			alert("문서 제목을 입력해주세요.");
+			return;
+		}
+		
+
+		var mname = document.getElementById("mname");
+		if(mname.value==""){
+			alert("자재명을 입력해주세요.");
+			return;
+		}
+		
+		var mprice = document.getElementById("mprice");
+		if(mprice.value==""){
+			alert("가격을 입력해주세요.");
+			return;
+		}
+		
 		//문서내용 입력 확인
 		var tt = document.getElementById("docResult");
 		if(tt.innerHTML == ""){
@@ -166,22 +186,9 @@
 			return;
 		}
 		
-		var dname = document.getElementById("dname");
-		if(dname.value == "") {
-			alert("문서 제목을 입력해주세요.");
-			return;
-		}
-		var mname = document.getElementById("mname");
-		if(mname.value==""){
-			alert("자재명을 입력해주세요.");
-			return;
-		}
+	
 		
-		var mprice = document.getElementById("mprice");
-		if(mprice.value==""){
-			alert("가격을 입력해주세요.");
-			return;
-		}
+	
 		
 		
 		var ff = document.getElementById("mat_frm");

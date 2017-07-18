@@ -20,26 +20,6 @@ int l3q1 = 0; int l3q2 = 0; int l3q3 = 0; int l3q4 = 0;
 int l4q1 = 0; int l4q2 = 0; int l4q3 = 0; int l4q4 = 0;
 int l5q1 = 0; int l5q2 = 0; int l5q3 = 0; int l5q4 = 0;
 
-for(PurListVo tt : list){
-	if(tt.getWorkLine().equals("1Line")) {
-		
-	}
-}
-
-for(PurListVo tt : list){
-	if(tt.getWorkLine().equals("1Line")) {
-		
-	} else if(tt.getWorkLine().equals("2Line")) {
-		
-	} else if(tt.getWorkLine().equals("3Line")) {
-		
-	} else if(tt.getWorkLine().equals("4Line")) {
-		
-	} else if(tt.getWorkLine().equals("5Line")) {
-		
-	}
-	
-}
 %>
 google.load("visualization","1",{packages:["corechart"]});
 google.setOnLoadCallback(drawChart);

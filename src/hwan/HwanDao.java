@@ -85,9 +85,15 @@ public class HwanDao {
 		return rvo;
 	}
 	
+	//사원코드에 해당하는 정보 셀렉트
 	public HwanVo appOne(HwanVo vo){
 		HwanVo rvo = null;
 		rvo = session.selectOne("hwandb.appOne",vo);
+		return rvo;
+	}
+	public HwanVo appOne(String ecode){
+		HwanVo rvo = null;
+		rvo = session.selectOne("hwandb.appOneStr",ecode);
 		return rvo;
 	}
 	
@@ -165,5 +171,52 @@ public class HwanDao {
 		
 	}
 	
+	
+	
+		/////////////////////////////////////////마이페이지////////////////////////////
+		public String myPagePwdCheck(String ecode){
+			String epwd = "";
+			epwd = session.selectOne("hwandb.myPagePwdCheck",ecode);
+			return epwd;
+		}
+		
+		public List<HwanVo> myPagedocList(){
+			List<HwanVo> list = null;
+			session.commit();
+			list = session.selectList("hwandb.myPagedocList");
+			return list;
+			
+		}
+		
+		public HwanVo myPagedoView(HwanVo vo){
+			HwanVo rVo = null;
+			rVo = session.selectOne("hwandb.myPagedoView",vo);
+			return rVo;
+		}
+		public int myPageDocApp(HwanVo vo){
+			int r = 0;
+			try{
+				r = session.update("hwandb.myPageDocApp",vo);
+			}catch(Exception e){
+				e.printStackTrace();
+				session.rollback();
+			}
+			session.commit();
+			return r;
+		}
+		
+		public int myPageDocDeny(HwanVo vo){
+			int r = 0;
+			try{
+				r = session.update("hwandb.myPageDocDeny",vo);
+			}catch(Exception e){
+				e.printStackTrace();
+				session.rollback();
+			}
+			session.commit();
+			return r;
+		}
+		
+		//////////////////////////////////마이페이지 끝////////////////////////////////////
 	
 }

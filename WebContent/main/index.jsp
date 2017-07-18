@@ -93,8 +93,7 @@
             width: 90%;           
             background-color: #222;    
         }
-        */
-        #indeximage{
+        */        #indeximage{
         transition: .5s ease;
         backface-visibility: hidden;
         }
@@ -160,7 +159,8 @@
             
             <a href="salesHome.sung"><img id='indeximg' src="../images/sales.png"></a>
             
-            <a href=#><img id='indeximg' src="../images/mypage.png"></a>
+            <!--마이 페이지  -->
+            <a href="../main/index.jsp?inc=../myPage/passwordCheck.html"><img id='indeximg' src="../images/mypage.png"></a>
         </nav>
     <div id='mainBody'>
 

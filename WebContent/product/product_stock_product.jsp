@@ -60,7 +60,6 @@ function search() {
 			<option value="5">하이브리드</option>
 		</select>
 		<input type='button' id='btnFind' value='검색' onclick="search()">
-		<hr>
 	</div>
 <div id='list'> <!-- 검색결과 타이틀 범위 -->
 	<span class='css'>제품 코드</span>

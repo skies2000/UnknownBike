@@ -25,8 +25,25 @@ public class SpringHoonController {
 	
 	// 생산 메인 화면으로 이동
 	@RequestMapping(value="main/productHome.hoon", method={RequestMethod.GET, RequestMethod.POST})
-	public Object product_home(){
+	public Object product_home(PurListVo vo){
 		ModelAndView mv = new ModelAndView();
+		
+		// 메인에 뿌려줄 데이터 1 (생산 오더 관리)
+		List<PurListVo> list1 = dao.main1(vo);
+		mv.addObject("list1", list1);
+		
+		// 메인에 뿌려줄 데이터 2 (생산 요청서 조회)
+		List<PurListVo> list2 = dao.main2(vo);
+		mv.addObject("list2", list2);
+		
+		// 메인에 뿌려줄 데이터 3 (제품 재고)
+		List<PurListVo> list3 = dao.main3(vo);
+		mv.addObject("list3", list3);
+		
+		// 메인에 뿌려줄 데이터 4 (자재 재고)
+		List<PurListVo> list4 = dao.main4(vo);
+		mv.addObject("list4", list4);
+				
 		mv.setViewName("product_home");
 		return mv;
 	}

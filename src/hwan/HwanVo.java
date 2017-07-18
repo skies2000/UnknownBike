@@ -31,6 +31,15 @@ public class HwanVo {
 	String dSign;
 	int dStatus; 
 	String dcont;
+	String dcate;
+	int dcode;
+	String ddate;
+	//문서 카테고리 이름
+	String dcateName;
+	//문서 상태 이름
+	String dstatudName;
+	
+	
 	
 	
 	//metarial table
@@ -58,6 +67,39 @@ public class HwanVo {
 	
 	
 	
+	
+	
+	
+	public String getDstatudName() {
+		return dstatudName;
+	}
+	public void setDstatudName(String dstatudName) {
+		this.dstatudName = dstatudName;
+	}
+	public String getDdate() {
+		return ddate;
+	}
+	public void setDdate(String ddate) {
+		this.ddate = ddate;
+	}
+	public int getDcode() {
+		return dcode;
+	}
+	public void setDcode(int dcode) {
+		this.dcode = dcode;
+	}
+	public String getDcateName() {
+		return dcateName;
+	}
+	public void setDcateName(String dcateName) {
+		this.dcateName = dcateName;
+	}
+	public String getDcate() {
+		return dcate;
+	}
+	public void setDcate(String dcate) {
+		this.dcate = dcate;
+	}
 	public int getNowPage() {
 		return nowPage;
 	}

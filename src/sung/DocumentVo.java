@@ -22,8 +22,77 @@ public class DocumentVo {
 	private int appro1;
 	private int appro2;
 	private String findStr;
+	private int vCode;
+	private String vName;
+	private int pEa;
+	private int pPrice;
+	private int pCost;
+	private int splpEa;
+	private int splCode;
+	private String splDate;
+	private int splPrice;
+	private int splCost;
 	
-	
+	public String getSplDate() {
+		return splDate;
+	}
+	public void setSplDate(String splDate) {
+		this.splDate = splDate;
+	}
+	public int getSplPrice() {
+		return splPrice;
+	}
+	public void setSplPrice(int splPrice) {
+		this.splPrice = splPrice;
+	}
+	public int getSplCost() {
+		return splCost;
+	}
+	public void setSplCost(int splCost) {
+		this.splCost = splCost;
+	}
+	public int getSplCode() {
+		return splCode;
+	}
+	public void setSplCode(int splCode) {
+		this.splCode = splCode;
+	}
+	public int getSplpEa() {
+		return splpEa;
+	}
+	public void setSplpEa(int splpEa) {
+		this.splpEa = splpEa;
+	}
+	public int getpCost() {
+		return pCost;
+	}
+	public void setpCost(int pCost) {
+		this.pCost = pCost;
+	}
+	public int getpPrice() {
+		return pPrice;
+	}
+	public void setpPrice(int pPrice) {
+		this.pPrice = pPrice;
+	}
+	public int getpEa() {
+		return pEa;
+	}
+	public void setpEa(int pEa) {
+		this.pEa = pEa;
+	}
+	public int getvCode() {
+		return vCode;
+	}
+	public void setvCode(int vCode) {
+		this.vCode = vCode;
+	}
+	public String getvName() {
+		return vName;
+	}
+	public void setvName(String vName) {
+		this.vName = vName;
+	}
 	public String getFindStr() {
 		return findStr;
 	}

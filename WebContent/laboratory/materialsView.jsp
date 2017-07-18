@@ -7,22 +7,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="initial-scale=1.0">
 <style>
-
-
-#maView{
+#maView {
 	margin-bottom: 10%;
 }
+
 #maViewDiv {
 	width: 60%;
-	margin-left:auto;
+	margin-left: auto;
 	margin-right: auto;
-	
 }
 
 #maViewDiv table {
 	border: 1px solid #aaa;
 	border-spacing: 0px;
-	margin-top:5%; 
+	margin-top: 5%;
 	text-align: center;
 }
 
@@ -82,13 +80,17 @@
 	width: 700px;
 }
 
-#maViewDiv #backBtn {
+#maViewDiv #myButton {
+	margin-left: 450px;
+}
+
+/* #maViewDiv #backBtn {
 	margin-left: 600px;
 }
 
-#myButton {
-	margin-left: 500px;
-}
+#maViewDiv #modifyBtn {
+	margin-left: 400px;
+} */
 
 /*    #mViewDiv td span{
         	text-align: center;
@@ -99,21 +101,67 @@
 </style>
 
 <script>
-$('#maViewDiv #backBtn').click(function(){
-	var xhr = new XMLHttpRequest();
-	xhr.open("get","../laboratory/materialsDetails.html");
-	xhr.send();
-	xhr.onreadystatechange = function() {
+	$('#maViewDiv #backBtn').click(function() {
+		var xhr = new XMLHttpRequest();
+		xhr.open("get", "../laboratory/materialsDetails.html");
+		xhr.send();
+		xhr.onreadystatechange = function() {
 
 			if (xhr.readyState == 4 && xhr.status == 200) {
 				var str = xhr.responseText;
 				$("#laboratorResult").html(str);
 			}
 		}
-	
-	
-});
 
+	});
+
+	//수정
+	function modify() {
+	}
+
+
+	//삭제
+	function mDelete(mcode) {
+		//alert(mcode);
+		var xhr = new XMLHttpRequest();
+		var str = "";
+		var frm1 = document.getElementById('frm1');
+		frm1.mcode.value = mcode;
+		/* 	
+			frm1.action = "../kimDel.kimHa";
+			frm1.submit();
+ */
+		var fd = new FormData(frm1);
+
+		xhr.open("post", "../kimDel.kimHa");
+		xhr.send(fd);
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				str = xhr.responseText;
+
+				if (str == 1) {
+					alert("정상적으로 삭제되었습니다.");
+
+				} else {
+					alert("삭제중 오류발생.");
+					return;
+				}
+
+				xhr = new XMLHttpRequest();
+				xhr.open('get', '../laboratory/materialsDetails.html'); // url요청 정보
+				xhr.send(); // 서버에 전송
+				var str = '';
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						str = xhr.responseText;
+						$('#laboratorResult').html(str);
+					}
+
+				//$("#matListResult").html(str);
+				}
+			}
+		}
+	}
 </script>
 </head>
 
@@ -148,13 +196,20 @@ $('#maViewDiv #backBtn').click(function(){
 						<td>${vo.mcateStr}</td>
 						<td colspan="2">${vo.mdate}</td>
 						<td>${vo.mstateStr}</td>
-				
+
 					</tr>
 				</table>
-				<a href="#" id='backBtn' class="myButton">뒤로</a>
+				<div id="myButton">
+					<a href="#" id='modifyBtn' class="myButton">수정</a> <a href="#"
+						id='delBtn' class="myButton" onclick="mDelete('${vo.mcode}')">삭제</a>
+					<a href="#" id='backBtn' class="myButton">뒤로</a>
+				</div>
 			</div>
 		</form>
 	</div>
+	<form name='frm1' id='frm1' method='post' enctype="multipart/form-data">
+		<input type="hidden" name="mcode" id="mc1" />
+	</form>
 </body>
 
 </html>

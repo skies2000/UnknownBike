@@ -65,7 +65,6 @@ function search() {
 			<option value="10">페달</option>
 		</select>
 		<input type='button' id='btnFind' value='검색' onclick="search()">
-		<hr>
 	</div>
 <div id='list'> <!-- 검색결과 타이틀 범위 -->
 	<span class='css'>자재 코드</span>
