@@ -9,7 +9,7 @@
 <resultMap type="so.SoVo" id="voMap"/>
 
  <select id='material_flist' resultMap="voMap" parameterType="so.SoVo">
-     	select * from material order by mCode 
+     	select * from material where mState=1 order by mCode 
  </select>
 
 
@@ -17,13 +17,13 @@
  <select id='material_list' resultMap="voMap" parameterType="so.SoVo">
      	select * from material 
      	<if test="mCate != null">
-     		where mCate = #{mCate} order by mCode 
+     		where mCate = #{mCate} and mState=1 order by mCode 
      	</if>    	
  </select>
 
 <select id='material_nlist' resultMap="voMap" parameterType="so.SoVo">
      <![CDATA[
-      	 select * from material where mEa <= 50 order by mCode
+      	 select * from material where mEa <= 50 and mState=1 order by mCode
       	]]>
   	</select>
   	
@@ -123,6 +123,6 @@
 		from document d
 	    join employees e on d.dWrite = e.eCode 
 		where d.dCate = 'pur' 
-		order by d.dStatus DESC, d.dcode ASC
+		order by d.dStatus DESC, d.dcode DESC
 	</select>
 </mapper>
