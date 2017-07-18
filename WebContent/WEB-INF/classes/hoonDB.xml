@@ -145,4 +145,25 @@
 		</choose>
 	</select>
 	
+	<select id='effsearchP' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select * from FLIST 
+		<![CDATA[
+		where WORKSTARTDATE > TO_DATE(#{workStartDate},'yyyy-mm-dd') and WORKENDDATE < TO_DATE(#{workEndDate},'yyyy-mm-dd') and flpcode = #{pCode}
+		]]>
+	</select> 
+	
+	<select id='proinfo' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select * from product where pCode = #{pCode }
+	</select>
+	
+	<select id='l1q1' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select sum(FLPEA) as setTotalquarter1 from FLIST<![CDATA[
+		where WORKSTARTDATE > TO_DATE('2017-01-01','yyyy-mm-dd')
+		and WORKENDDATE < TO_DATE('2017-03-31','yyyy-mm-dd') and flpcode = 10002 and WORKLINE='1Line';
+		]]>
+	</select>
+	
+	
+	
+	
 </mapper>
