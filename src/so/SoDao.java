@@ -110,8 +110,11 @@ public class SoDao {
 			msg = "실패1";
 		}finally{
 			session.commit();
+			
 		}
+		System.out.println(msg);
 		return msg;
+		
 	}
 	
 	public String purDocumentInput(SoVo v) {
@@ -137,11 +140,18 @@ public class SoDao {
 		return list;
 	}
 	
+	//phome 검색
+	public List<SoVo> phomefindStr(SoVo vo){
+		List<SoVo> list = session.selectList("sodb.phomefindStr", vo);//session.어떤종류의 쿼리를 부를건지
+		return list;
+	}
 	
+	//plist 검색
 	public List<SoVo> findStr(SoVo vo){
 		List<SoVo> list = session.selectList("sodb.findStr", vo);//session.어떤종류의 쿼리를 부를건지
 		return list;
 	}
+	
 	
 }
 	

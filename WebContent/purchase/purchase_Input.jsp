@@ -283,7 +283,7 @@ function plus(){
 					alert("정상적으로 등록됐습니다.");
 				
 				}else{
-				alert("실패");	
+					alert("실패");	
 				}
 				}
 			}	

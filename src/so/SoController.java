@@ -317,7 +317,28 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 			return mv;
 		}
 		
+		//phome 검색
 		
+		@RequestMapping(value="main/pursearch.so", method={RequestMethod.GET, RequestMethod.POST })
+		public Object phomefindStr(SoVo vo){
+			ModelAndView mv = new ModelAndView();
+			//mv.addObject();
+			vo.getFindStr();
+			
+			try{
+				List<SoVo> list = dao.phomefindStr(vo);
+				mv.addObject("list",list);
+				mv.setViewName("../main/index.jsp?inc=../purchase/purchase_home.jsp");
+			}catch(Exception ex){
+				ex.printStackTrace();
+				
+			}
+			
+			return mv;
+			
+	}
+		
+		//plist 검색
 		@RequestMapping(value="main/pfindStr.so", method={RequestMethod.GET, RequestMethod.POST })
 		public Object pfindStr(SoVo vo){
 			ModelAndView mv = new ModelAndView();
