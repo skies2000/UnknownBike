@@ -190,10 +190,13 @@ if(request.getParameter("find")==null){
    </div>
    
 <div id=top_line> <!-- 맨 위 -->
-   <span class='top_main'>구매보고서 조회</span>
-   <input type='text' id='txtFind'>
-   <input type='button' id='btnFind' value='문서 검색' onclick='search()'>
-   <hr>
+	<span class='top_main'>구매보고서 조회</span>
+	
+	<input type='text' id='txtFind'>
+	<input type='button' id='btnFind' value='문서 검색' onclick='search()'>
+	<!-- <a href='#' class='pibutton' id='pibutton' name='pibutton' onclick='search()'>검색</a> -->
+	
+	<hr>
 </div>
 <div id='prList'> <!-- 요청서 리스트를 뿌려주는 곳 -->
    <span class='list1'>문서 번호</span>

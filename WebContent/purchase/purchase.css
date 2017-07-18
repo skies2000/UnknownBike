@@ -318,6 +318,10 @@ select{
 #findStr {
    height: 25px;
 }
+#txtFind{
+	height:20px;
+	
+}
 
 #btnFind {
    width: 100px;
@@ -421,7 +425,10 @@ select{
     padding-bottom:15px;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> db2caa5901687d62621e1806a7d0529efe14a38a
 #result {
    display: inline-block;
    width: 100%;
@@ -437,4 +444,12 @@ select{
    text-align: center;
    margin-bottom:10px;
    
+}
+
+/* ☆★☆★☆체크박스...전체선택..css..☆★☆★☆★ */
+
+
+#allcheck{
+	padding-top:10px;
+	margin-left:3%;
 }

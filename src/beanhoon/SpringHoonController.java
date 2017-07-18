@@ -389,11 +389,29 @@ public class SpringHoonController {
 			e.printStackTrace();
 		}
 		
-		PurListVo t1 = dao.chartlist1(vo);
-		PurListVo t2 = dao.chartlist2(vo);
-		PurListVo t3 = dao.chartlist3(vo);
-		PurListVo t4 = dao.chartlist4(vo);
-		
+		// 라인n 분기n
+		PurListVo l1q1 = dao.l1q1(vo);
+		PurListVo l2q1 = dao.l2q1(vo);
+		PurListVo l3q1 = dao.l3q1(vo);
+		PurListVo l4q1 = dao.l4q1(vo);
+		PurListVo l5q1 = dao.l5q1(vo);
+		PurListVo l1q2 = dao.l1q2(vo);
+		PurListVo l2q2 = dao.l2q2(vo);
+		PurListVo l3q2 = dao.l3q2(vo);
+		PurListVo l4q2 = dao.l4q2(vo);
+		PurListVo l5q2 = dao.l5q2(vo);
+		PurListVo l1q3 = dao.l1q3(vo);
+		PurListVo l2q3 = dao.l2q3(vo);
+		PurListVo l3q3 = dao.l3q3(vo);
+		PurListVo l4q3 = dao.l4q3(vo);
+		PurListVo l5q3 = dao.l5q3(vo);
+		PurListVo l1q4 = dao.l1q4(vo);
+		PurListVo l2q4 = dao.l2q4(vo);
+		PurListVo l3q4 = dao.l3q4(vo);
+		PurListVo l4q4 = dao.l4q4(vo);
+		PurListVo l5q4 = dao.l5q4(vo);
+
+		// 꾸겨넣는다
 		mv.addObject("voa", voa);
 		mv.addObject("vo1", vo1);
 		mv.addObject("vo2", vo2);
@@ -401,11 +419,29 @@ public class SpringHoonController {
 		mv.addObject("vo4", vo4);
 		mv.addObject("vo5", vo5);
 		
-		mv.addObject("t1", t1);
-		mv.addObject("t2", t2);
-		mv.addObject("t3", t3);
-		mv.addObject("t4", t4);
+		// 얘도 다 집어처넣어
+		mv.addObject("l1q1", l1q1);
+		mv.addObject("l2q1", l2q1);
+		mv.addObject("l3q1", l3q1);
+		mv.addObject("l4q1", l4q1);
+		mv.addObject("l5q1", l5q1);
+		mv.addObject("l1q2", l1q2);
+		mv.addObject("l2q2", l2q2);
+		mv.addObject("l3q2", l3q2);
+		mv.addObject("l4q2", l4q2);
+		mv.addObject("l5q2", l5q2);
+		mv.addObject("l1q3", l1q3);
+		mv.addObject("l2q3", l2q3);
+		mv.addObject("l3q3", l3q3);
+		mv.addObject("l4q3", l4q3);
+		mv.addObject("l5q3", l5q3);
+		mv.addObject("l1q4", l1q4);
+		mv.addObject("l2q4", l2q4);
+		mv.addObject("l3q4", l3q4);
+		mv.addObject("l4q4", l4q4);
+		mv.addObject("l5q4", l5q4);
 		
+		// 가지고 가자
 		mv.setViewName("product_eff");
 		
 		return mv;

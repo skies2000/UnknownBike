@@ -32,7 +32,14 @@ public class DocumentVo {
 	private String splDate;
 	private int splPrice;
 	private int splCost;
+	private int vEa;
 	
+	public int getvEa() {
+		return vEa;
+	}
+	public void setvEa(int vEa) {
+		this.vEa = vEa;
+	}
 	public String getSplDate() {
 		return splDate;
 	}

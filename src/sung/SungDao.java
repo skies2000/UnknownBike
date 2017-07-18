@@ -256,6 +256,28 @@ public class SungDao {
 	}
 
 	
+
+	public VenderVo search_vname(VenderVo vo) {
+		try{
+			vo = session.selectOne("sungdb.search_vname", vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vo;
+	}
+	//ㄱㅓ래처별 거래 수량 가져오기
+	public VenderVo search_vea(VenderVo vo) {
+		try{
+			vo = session.selectOne("sungdb.search_vea", vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vo;
+	}
+
+
+
+	
 	
 
 	

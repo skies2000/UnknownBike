@@ -207,6 +207,47 @@ function plus(){
       
       var frm = document.pfrm;
       var url = 'purRList.so';
+
+      var mcode = document.getElementsByClassName("pcode");//그냥 넘기는게 아니라 값이 hidden에 들어가있어야함.. .. 
+      var cc = mcode[0].innerHTML; //cc를 히든에 넣기
+      for(var i=1; i<mcode.length; i++){
+            cc += ","+mcode[i].innerHTML;
+      }
+      alert(cc);
+      
+      
+      var mname = document.getElementsByClassName("pmname");
+      var dd = mname[0].innerHTML;
+      for(var i=0; i<mname.length;i++){
+            dd += ","+mname[i].innerHTML; //input태그는 .value로 값을 가져오는데 span이나 a태그들은 value로 안되서.. innerHTMl을 써준다.
+         }
+      
+      alert(dd);
+      var mpur =  document.getElementsByClassName("ppur");
+      var ee = mpur[0].innerHTML;
+      for(var i=0; i<mpur.length; i++){
+         ee += ","+mpur[i].innerHTML;
+         }
+      
+      var mea = document.getElementsByClassName("pea");
+      var ff = mea[0].innerHTML;
+      for(var i=0; i<mea.length; i++){
+         ff += ","+mea[i].innerHTML;
+         }
+      
+      var mprice = document.getElementsByClassName("pprice");
+      var gg = mprice[0].innerHTML;
+      for(var i=0; i<mprice.length; i++){
+         gg += ","+mprice[i].innerHTML;
+         }
+      
+      
+      frm.mCode.value=cc;
+      frm.mName.value=dd;
+      frm.mPo.value=ee;
+      frm.mEa.value=ff;
+      frm.mPrice.value=gg;
+
       
       var dname = frm.pisub.value;
       var bb = dname;
@@ -263,7 +304,7 @@ function plus(){
       frm.mPo.value=ee;
       frm.mEa.value=ff;
       frm.mPrice.value=gg;
-      
+
 /*       <input type='hidden' name='mCode' value='cc'>
       <input type='hidden' name='mName'>
       <input type='hidden' name='mPo'>
@@ -391,7 +432,7 @@ request.setAttribute("today", today);
       </div>
       <div class='pisign'>
          <div class='pisign1'>제목
-         <input type='text' id='pisub' name='pisub'>
+         <input type='text' id='pisub' name='pisub' value='[자체구매] 아래와 같이 품의합니다.'>
          </div>
          <div class='pisign2'>
             <div class='piappro'>결&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;재</div> 

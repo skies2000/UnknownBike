@@ -147,6 +147,7 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 		List<SoVo>list = dao.checkmaterial(checkmaterial);
 		List<SoVo>list1 = dao.fMetarial(vo);
 				
+		
 		mv.addObject("list",list);
 		mv.addObject("list1",list1);
 		
@@ -181,8 +182,6 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 		String mPo = mul.getParameter("mPo");
 		String mEa = mul.getParameter("mEa");
 		String mPrice = mul.getParameter("mPrice");
-
-	
 		
 		/*if(code)*/
 		String[] spl_code = mCode.split(",");
@@ -225,10 +224,10 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 		String msg2 = dao.purDocumentInput(svo);
 		
 		
-			JSONObject obj = new JSONObject();
-			obj.put("msg", "1");
-
-			out.print(obj);
+		/*	JSONObject obj = new JSONObject();
+			obj.put("msg", "1");*/
+			out.print("1");
+			/*out.print(obj);*/
 		
 	}
 	
@@ -295,6 +294,7 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 		//list뿌려주기(report_list)
 		@RequestMapping(value="main/purlist.so", method={RequestMethod.GET, RequestMethod.POST })
 		public Object gopurlist(HttpServletRequest req, HttpServletResponse resp){
+			
 			ModelAndView mv = new ModelAndView();
 			//mv.addObject();
 			SoVo vo = new SoVo();
@@ -304,10 +304,32 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 			mv.setViewName("../main/index.jsp?inc=../purchase/purchase_ReportList.jsp");
 			
 		    //index.jsp?inc=./board/purchase_home.jsp
+			
 			return mv;
 		}
 		
+		//phome 검색
 		
+		@RequestMapping(value="main/pursearch.so", method={RequestMethod.GET, RequestMethod.POST })
+		public Object phomefindStr(SoVo vo){
+			ModelAndView mv = new ModelAndView();
+			//mv.addObject();
+			vo.getFindStr();
+			
+			try{
+				List<SoVo> list = dao.phomefindStr(vo);
+				mv.addObject("list",list);
+				mv.setViewName("../main/index.jsp?inc=../purchase/purchase_home.jsp");
+			}catch(Exception ex){
+				ex.printStackTrace();
+				
+			}
+			
+			return mv;
+			
+	}
+		
+		//plist 검색
 		@RequestMapping(value="main/pfindStr.so", method={RequestMethod.GET, RequestMethod.POST })
 		public Object pfindStr(SoVo vo){
 			ModelAndView mv = new ModelAndView();
