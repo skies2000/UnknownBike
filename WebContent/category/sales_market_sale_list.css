@@ -58,6 +58,7 @@
 	display : inline-block;
 	width : 150px;
 	text-align: center;
+	cursor: pointer; 
 }
 #pName{
 	display : inline-block;
@@ -93,4 +94,8 @@
 /* ----------------------list----------------------------- */
 #list{
 	font-size: 14px;
+}
+#list:hover{
+    background-color: #928374;
+    color: black;
 }

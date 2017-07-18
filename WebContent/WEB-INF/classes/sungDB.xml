@@ -121,9 +121,17 @@
 		and (pName like '%${findStr}%' or eName like '%${findStr}%' or vname like '%${findStr}%')
 	</select>  
 	
+	<!-- sale_view페이지 하단 로드 -->
+ 	<select id='sale_view2' resultMap="documentMap" parameterType="sung.DocumentVo">
+		select splCode, pCode, pName, vName, splPea, splCost, splPrice, splDate
+		from PRODUCT join spList on splpCode=pCode
+		join vender on splVcode=vCode where splCode=#{splCode}
+	</select> 
 	
-	
-	
+	<!-- sale_view페이지 상단 로드 -->
+ 	<select id='sale_view' resultMap="documentMap" parameterType="sung.DocumentVo">
+		select * from document where dCode=#{dCode} and dCate=#{dCate}
+	</select> 
 	
 	
 </mapper>

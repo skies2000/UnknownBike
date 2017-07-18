@@ -28,8 +28,35 @@ public class DocumentVo {
 	private int pPrice;
 	private int pCost;
 	private int splpEa;
+	private int splCode;
+	private String splDate;
+	private int splPrice;
+	private int splCost;
 	
-	
+	public String getSplDate() {
+		return splDate;
+	}
+	public void setSplDate(String splDate) {
+		this.splDate = splDate;
+	}
+	public int getSplPrice() {
+		return splPrice;
+	}
+	public void setSplPrice(int splPrice) {
+		this.splPrice = splPrice;
+	}
+	public int getSplCost() {
+		return splCost;
+	}
+	public void setSplCost(int splCost) {
+		this.splCost = splCost;
+	}
+	public int getSplCode() {
+		return splCode;
+	}
+	public void setSplCode(int splCode) {
+		this.splCode = splCode;
+	}
 	public int getSplpEa() {
 		return splpEa;
 	}
