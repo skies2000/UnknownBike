@@ -47,9 +47,7 @@
         <li><a href="sales_sale_input.sung">판매품의서 작성</a>
         <!-- <input type=hidden value="../sales/sales_market_sale_input.jsp"/> -->
         </li>
-        <li><a href="sales_sale_view.sung">판매품의서 상세</a>
-        <!-- <input type=hidden value="../sales/sales_market_sale_view.jsp"/> -->
-        </li>
+       
       </ul>
     </li>
     
@@ -58,12 +56,7 @@
         <li><a href="sales_profit_view.sung">손익관리</a>
         <!-- <input type=hidden value="../sales/sales_profit_view.jsp"/> -->
         </li>
-        
-        <li><a href="sales_profit_list.sung">판매 내역 관리</a>
-        <!-- <input type=hidden value="../sales/sales_profit_list.jsp"/> -->
-        
-        </li>
-        
+      
       </ul>
     </li>
    

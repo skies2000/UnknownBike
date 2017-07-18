@@ -1,11 +1,18 @@
 package beanhoon;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.sun.scenario.animation.shared.PulseReceiver;
 
 @Controller
 public class SpringHoonController {
@@ -18,8 +25,25 @@ public class SpringHoonController {
 	
 	// 생산 메인 화면으로 이동
 	@RequestMapping(value="main/productHome.hoon", method={RequestMethod.GET, RequestMethod.POST})
-	public Object product_home(){
+	public Object product_home(PurListVo vo){
 		ModelAndView mv = new ModelAndView();
+		
+		// 메인에 뿌려줄 데이터 1 (생산 오더 관리)
+		List<PurListVo> list1 = dao.main1(vo);
+		mv.addObject("list1", list1);
+		
+		// 메인에 뿌려줄 데이터 2 (생산 요청서 조회)
+		List<PurListVo> list2 = dao.main2(vo);
+		mv.addObject("list2", list2);
+		
+		// 메인에 뿌려줄 데이터 3 (제품 재고)
+		List<PurListVo> list3 = dao.main3(vo);
+		mv.addObject("list3", list3);
+		
+		// 메인에 뿌려줄 데이터 4 (자재 재고)
+		List<PurListVo> list4 = dao.main4(vo);
+		mv.addObject("list4", list4);
+				
 		mv.setViewName("product_home");
 		return mv;
 	}
@@ -199,5 +223,227 @@ public class SpringHoonController {
 		return mv;
 	}
 	
-	
+	// 자재 검색 (material search)
+	@RequestMapping(value="main/eff.hoon", method={RequestMethod.GET, RequestMethod.POST})
+	public Object eff_print(HttpServletRequest req){
+		ModelAndView mv = new ModelAndView();
+		
+		String workStartDate = req.getParameter("workStartDate");
+		String workEndDate = req.getParameter("workEndDate");
+		int pCode = Integer.parseInt(req.getParameter("pCode"));
+		
+		PurListVo vo = new PurListVo();
+		
+		vo.setWorkStartDate(workStartDate);
+		vo.setWorkEndDate(workEndDate);
+		vo.setpCode(pCode);
+		
+		List<PurListVo> list1 = dao.effsearchP(vo);
+		
+		PurListVo voa = dao.proinfo(vo);
+		
+		int tot = 0;	//제품 총샌산 수량
+		int tot1 = 0;	//라인별 생산 수량
+		int tot2 = 0;
+		int tot3 = 0;
+		int tot4 = 0;
+		int tot5 = 0;
+		
+		int cnt1 = 0;	//라인별 카운트
+		int cnt2 = 0;
+		int cnt3 = 0;
+		int cnt4 = 0;
+		int cnt5 = 0;
+		
+		int dys1 = 0;
+		int dys2 = 0;
+		int dys3 = 0;
+		int dys4 = 0;
+		int dys5 = 0;
+		
+		double totaltime1 = 0;
+		double totaltime2 = 0;
+		double totaltime3 = 0;
+		double totaltime4 = 0;
+		double totaltime5 = 0;
+		
+		PurListVo vo1 = new PurListVo();
+		PurListVo vo2 = new PurListVo();
+		PurListVo vo3 = new PurListVo();
+		PurListVo vo4 = new PurListVo();
+		PurListVo vo5 = new PurListVo();
+		
+		for(PurListVo tt : list1) {
+			tot += tt.getFlpEa();
+			
+			if(tt.getWorkLine().equals("1Line")) {
+				cnt1 ++;
+				tot1 += tt.getFlpEa();
+				dys1 += tt.getDys();
+				
+				double xx = (double)tt.getWorkTime() * (double)tt.getWorkPeople();
+				double yy = (double)tt.getFlpEa() * (double)voa.getpManhour();
+				
+				totaltime1 += (yy/xx) * 100.0;
+				
+			}
+			if(tt.getWorkLine().equals("2Line")) {
+				cnt2 ++;
+				tot2 += tt.getFlpEa();
+				dys2 += tt.getDys();
+				
+				double xx = (double)tt.getWorkTime() * (double)tt.getWorkPeople();
+				double yy = (double)tt.getFlpEa() * (double)voa.getpManhour();
+				
+				totaltime2 += (yy/xx) * 100.0;
+				
+			}
+			if(tt.getWorkLine().equals("3Line")) {
+				cnt3 ++;
+				tot3 += tt.getFlpEa();
+				dys3 += tt.getDys();
+				
+				double xx = (double)tt.getWorkTime() * (double)tt.getWorkPeople();
+				double yy = (double)tt.getFlpEa() * (double)voa.getpManhour();
+				
+				totaltime3 += (yy/xx) * 100.0;
+			}
+			if(tt.getWorkLine().equals("4Line")) {
+				cnt4 ++;
+				tot4 += tt.getFlpEa();
+				dys4 += tt.getDys();
+
+				double xx = (double)tt.getWorkTime() * (double)tt.getWorkPeople();
+				double yy = (double)tt.getFlpEa() * (double)voa.getpManhour();
+				
+				totaltime4 += (yy/xx) * 100.0;
+				
+			}
+			if(tt.getWorkLine().equals("5Line")) {
+				cnt5 ++;
+				tot5 += tt.getFlpEa();
+				dys5 += tt.getDys();
+
+				double xx = (double)tt.getWorkTime() * (double)tt.getWorkPeople();
+				double yy = (double)tt.getFlpEa() * (double)voa.getpManhour();
+				
+				totaltime5 += (yy/xx) * 100.0;
+				
+			}
+		}
+		
+		try{
+			
+			voa.setTotalEa(tot);
+			if(cnt1>0){
+				vo1.setTotalEa(tot1);
+				vo1.setDys((int) (tot1/100)*dys1);
+				vo1.setTotaleff((int) totaltime1 / cnt1);
+			} else {
+				vo1.setTotalEa(0);
+				vo1.setDys(0);
+				vo1.setTotaleff(0);
+			}
+			
+			if(cnt2>0){
+				vo2.setTotalEa(tot2);
+				vo2.setDys((int) (tot2/100)*dys2);
+				vo2.setTotaleff((int) totaltime2 / cnt2);
+			} else {
+				vo2.setTotalEa(0);
+				vo2.setDys(0);
+				vo2.setTotaleff(0);
+			}
+			
+			if(cnt3>0) {
+				vo3.setTotalEa(tot3);
+				vo3.setDys((int) (tot3/100)*dys3);
+				vo3.setTotaleff((int) totaltime3 / cnt3);
+			} else {
+				vo3.setTotalEa(0);
+				vo3.setDys(0);
+				vo3.setTotaleff(0);
+			}
+			
+			if(cnt4>0) {
+				vo4.setTotalEa(tot4);
+				vo4.setDys((int) (tot4/100)*dys4);
+				vo4.setTotaleff((int) totaltime4 / cnt4);
+			} else {
+				vo4.setTotalEa(0);
+				vo4.setDys(0);
+				vo4.setTotaleff(0);
+			}
+			
+			if (cnt5 >0) {
+				vo5.setTotalEa(tot5);
+				vo5.setDys((int) (tot5/100)*dys5);
+				vo5.setTotaleff((int) totaltime5 / cnt5);
+			} else {
+				vo5.setTotalEa(0);
+				vo5.setDys(0);
+				vo5.setTotaleff(0);
+			}
+			
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		// 라인n 분기n
+		PurListVo l1q1 = dao.l1q1(vo);
+		PurListVo l2q1 = dao.l2q1(vo);
+		PurListVo l3q1 = dao.l3q1(vo);
+		PurListVo l4q1 = dao.l4q1(vo);
+		PurListVo l5q1 = dao.l5q1(vo);
+		PurListVo l1q2 = dao.l1q2(vo);
+		PurListVo l2q2 = dao.l2q2(vo);
+		PurListVo l3q2 = dao.l3q2(vo);
+		PurListVo l4q2 = dao.l4q2(vo);
+		PurListVo l5q2 = dao.l5q2(vo);
+		PurListVo l1q3 = dao.l1q3(vo);
+		PurListVo l2q3 = dao.l2q3(vo);
+		PurListVo l3q3 = dao.l3q3(vo);
+		PurListVo l4q3 = dao.l4q3(vo);
+		PurListVo l5q3 = dao.l5q3(vo);
+		PurListVo l1q4 = dao.l1q4(vo);
+		PurListVo l2q4 = dao.l2q4(vo);
+		PurListVo l3q4 = dao.l3q4(vo);
+		PurListVo l4q4 = dao.l4q4(vo);
+		PurListVo l5q4 = dao.l5q4(vo);
+
+		// 꾸겨넣는다
+		mv.addObject("voa", voa);
+		mv.addObject("vo1", vo1);
+		mv.addObject("vo2", vo2);
+		mv.addObject("vo3", vo3);
+		mv.addObject("vo4", vo4);
+		mv.addObject("vo5", vo5);
+		
+		// 얘도 다 집어처넣어
+		mv.addObject("l1q1", l1q1);
+		mv.addObject("l2q1", l2q1);
+		mv.addObject("l3q1", l3q1);
+		mv.addObject("l4q1", l4q1);
+		mv.addObject("l5q1", l5q1);
+		mv.addObject("l1q2", l1q2);
+		mv.addObject("l2q2", l2q2);
+		mv.addObject("l3q2", l3q2);
+		mv.addObject("l4q2", l4q2);
+		mv.addObject("l5q2", l5q2);
+		mv.addObject("l1q3", l1q3);
+		mv.addObject("l2q3", l2q3);
+		mv.addObject("l3q3", l3q3);
+		mv.addObject("l4q3", l4q3);
+		mv.addObject("l5q3", l5q3);
+		mv.addObject("l1q4", l1q4);
+		mv.addObject("l2q4", l2q4);
+		mv.addObject("l3q4", l3q4);
+		mv.addObject("l4q4", l4q4);
+		mv.addObject("l5q4", l5q4);
+		
+		// 가지고 가자
+		mv.setViewName("product_eff");
+		
+		return mv;
+	}
 }

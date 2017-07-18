@@ -10,7 +10,7 @@
 	<head>
 	<link rel='stylesheet' href='../purchase/purchase_modal.css' />
 	<script src='../jq_lib/jquery-3.2.1.min.js'></script>
-		<script>	
+		<script>
 		
 			function gowheel(mCate){
 				var frm = document.frm;

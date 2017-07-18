@@ -7,6 +7,33 @@
 <!-- sql문 작성 -->
 <resultMap type="beanhoon.PurListVo" id="voMap"/>
 
+	<!-- 메인화면1 (생산 오더 3개) -->
+	<select id='m1' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select f.workCode, srlCode, srlMCode, pName, srlEa, workLine, workPeople, workTime, 
+		to_char(workStartDate, 'yyyy.mm.dd') workStartDate, to_char(workEndDate, 'yyyy.mm.dd') workEndDate 
+		from fList f join product p on flpCode = pCode join srList s on fldCode = srlCode and flpCode = srlMCode
+		where rownum<![CDATA[<=]]>3 order by fldCode desc
+	</select>
+	
+	<!-- 메인화면2 (생산 요청서 3개) -->
+	<select id='m2' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select d.dCode, d.dCate, d.dName, d.dDate, e.eName 
+		from document d join employees e on d.dWrite = e.eCode 
+		where d.dStatus = 0 and d.dcate = 'srl' and rownum<![CDATA[<=]]>3 order by d.dCode desc
+	</select>
+	
+	<!-- 메인화면3 (제품 재고 5개) -->
+	<select id='m3' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select pCode, pName, pCate, pPrice, to_char(pDate, 'yyyy.mm.dd') pDate, pEa, pImage 
+		from product where rownum<![CDATA[<=]]>5 order by pCode
+	</select>
+	
+	<!-- 메인화면4 (자재 재고 5개) -->
+	<select id='m4' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select mCode, mName, mCate, mPrice, to_char(mDate, 'yyyy.mm.dd') mDate, mEa, mImage 
+		from material where rownum<![CDATA[<=]]>5 order by mCode
+	</select>
+	
 	<!-- 생산오더관리 리스트 조회 -->
 	<select id='odd_list' resultMap="voMap" parameterType="beanhoon.PurListVo">
 		select f.workCode, srlCode, srlMCode, pName, srlEa, workLine, workPeople, workTime, 
@@ -19,7 +46,7 @@
 	<select id='pur_list' resultMap="voMap" parameterType="beanhoon.PurListVo">
 		select d.dCode, d.dCate, d.dName, d.dDate, e.eName 
 		from document d join employees e on d.dWrite = e.eCode 
-		where d.dStatus = 0 and d.dcate = #{dCate } order by d.dCode desc
+		where d.dStatus = 0 and d.dcate = 'srl' order by d.dCode desc
 	</select>
 	
 	<!-- 요청서 검색 -->
@@ -143,6 +170,162 @@
 				mCate = #{mCate }
 			</when>
 		</choose>
+	</select>
+	
+	<select id='effsearchP' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select * from FLIST 
+		<![CDATA[
+		where WORKSTARTDATE > TO_DATE(#{workStartDate},'yyyy-mm-dd') and WORKENDDATE < TO_DATE(#{workEndDate},'yyyy-mm-dd') and flpcode = #{pCode}
+		]]>
+	</select> 
+	
+	<select id='proinfo' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select * from product where pCode = #{pCode }
+	</select>
+	
+	<!-- 분기별 생산효율 측정노가다 -->
+	<!-- 1분기 1라인 -->
+	<select id='l1q1' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select sum(FLPEA) as l1q1 from FLIST<![CDATA[
+		where WORKSTARTDATE > TO_DATE('2017-01-01','yyyy-mm-dd')
+		and WORKENDDATE < TO_DATE('2017-03-31','yyyy-mm-dd') 
+		and flpcode = #{pCode } and WORKLINE='1Line']]>
+	</select>
+	<!-- 1분기 2라인 -->
+	<select id='l2q1' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select sum(FLPEA) as l2q1 from FLIST<![CDATA[
+		where WORKSTARTDATE > TO_DATE('2017-01-01','yyyy-mm-dd')
+		and WORKENDDATE < TO_DATE('2017-03-31','yyyy-mm-dd') 
+		and flpcode = #{pCode } and WORKLINE='2Line']]>
+	</select>
+	<!-- 1분기 3라인 -->
+	<select id='l3q1' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select sum(FLPEA) as l3q1 from FLIST<![CDATA[
+		where WORKSTARTDATE > TO_DATE('2017-01-01','yyyy-mm-dd')
+		and WORKENDDATE < TO_DATE('2017-03-31','yyyy-mm-dd') 
+		and flpcode = #{pCode } and WORKLINE='3Line']]>
+	</select>
+	<!-- 1분기 4라인 -->
+	<select id='l4q1' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select sum(FLPEA) as l4q1 from FLIST<![CDATA[
+		where WORKSTARTDATE > TO_DATE('2017-01-01','yyyy-mm-dd')
+		and WORKENDDATE < TO_DATE('2017-03-31','yyyy-mm-dd') 
+		and flpcode = #{pCode } and WORKLINE='4Line']]>
+	</select>
+	<!-- 1분기 5라인 -->
+	<select id='l5q1' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select sum(FLPEA) as l5q1 from FLIST<![CDATA[
+		where WORKSTARTDATE > TO_DATE('2017-01-01','yyyy-mm-dd')
+		and WORKENDDATE < TO_DATE('2017-03-31','yyyy-mm-dd') 
+		and flpcode = #{pCode } and WORKLINE='5Line']]>
+	</select>
+	
+	<!-- 2분기 1라인 -->
+	<select id='l1q2' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select sum(FLPEA) as l1q2 from FLIST<![CDATA[
+		where WORKSTARTDATE > TO_DATE('2017-04-01','yyyy-mm-dd')
+		and WORKENDDATE < TO_DATE('2017-06-30','yyyy-mm-dd') 
+		and flpcode = #{pCode } and WORKLINE='1Line']]>
+	</select>
+	<!-- 2분기 2라인 -->
+	<select id='l2q2' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select sum(FLPEA) as l2q2 from FLIST<![CDATA[
+		where WORKSTARTDATE > TO_DATE('2017-04-01','yyyy-mm-dd')
+		and WORKENDDATE < TO_DATE('2017-06-30','yyyy-mm-dd') 
+		and flpcode = #{pCode } and WORKLINE='2Line']]>
+	</select>
+	<!-- 2분기 3라인 -->
+	<select id='l3q2' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select sum(FLPEA) as l3q2 from FLIST<![CDATA[
+		where WORKSTARTDATE > TO_DATE('2017-04-01','yyyy-mm-dd')
+		and WORKENDDATE < TO_DATE('2017-06-30','yyyy-mm-dd') 
+		and flpcode = #{pCode } and WORKLINE='3Line']]>
+	</select>
+	<!-- 2분기 4라인 -->
+	<select id='l4q2' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select sum(FLPEA) as l4q2 from FLIST<![CDATA[
+		where WORKSTARTDATE > TO_DATE('2017-04-01','yyyy-mm-dd')
+		and WORKENDDATE < TO_DATE('2017-06-30','yyyy-mm-dd') 
+		and flpcode = #{pCode } and WORKLINE='4Line']]>
+	</select>
+	<!-- 2분기 5라인 -->
+	<select id='l5q2' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select sum(FLPEA) as l5q2 from FLIST<![CDATA[
+		where WORKSTARTDATE > TO_DATE('2017-04-01','yyyy-mm-dd')
+		and WORKENDDATE < TO_DATE('2017-06-30','yyyy-mm-dd') 
+		and flpcode = #{pCode } and WORKLINE='5Line']]>
+	</select>
+	
+	<!-- 3분기 1라인 -->
+	<select id='l1q3' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select sum(FLPEA) as l1q3 from FLIST<![CDATA[
+		where WORKSTARTDATE > TO_DATE('2017-07-01','yyyy-mm-dd')
+		and WORKENDDATE < TO_DATE('2017-09-30','yyyy-mm-dd') 
+		and flpcode = #{pCode } and WORKLINE='1Line']]>
+	</select>
+	<!-- 3분기 2라인 -->
+	<select id='l2q3' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select sum(FLPEA) as l2q3 from FLIST<![CDATA[
+		where WORKSTARTDATE > TO_DATE('2017-07-01','yyyy-mm-dd')
+		and WORKENDDATE < TO_DATE('2017-09-30','yyyy-mm-dd') 
+		and flpcode = #{pCode } and WORKLINE='2Line']]>
+	</select>
+	<!-- 3분기 3라인 -->
+	<select id='l3q3' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select sum(FLPEA) as l3q3 from FLIST<![CDATA[
+		where WORKSTARTDATE > TO_DATE('2017-07-01','yyyy-mm-dd')
+		and WORKENDDATE < TO_DATE('2017-09-30','yyyy-mm-dd') 
+		and flpcode = #{pCode } and WORKLINE='3Line']]>
+	</select>
+	<!-- 3분기 4라인 -->
+	<select id='l4q3' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select sum(FLPEA) as l4q3 from FLIST<![CDATA[
+		where WORKSTARTDATE > TO_DATE('2017-07-01','yyyy-mm-dd')
+		and WORKENDDATE < TO_DATE('2017-09-30','yyyy-mm-dd') 
+		and flpcode = #{pCode } and WORKLINE='4Line']]>
+	</select>
+	<!-- 3분기 5라인 -->
+	<select id='l5q3' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select sum(FLPEA) as l5q3 from FLIST<![CDATA[
+		where WORKSTARTDATE > TO_DATE('2017-07-01','yyyy-mm-dd')
+		and WORKENDDATE < TO_DATE('2017-09-30','yyyy-mm-dd') 
+		and flpcode = #{pCode } and WORKLINE='5Line']]>
+	</select>
+	
+	<!-- 4분기 1라인 -->
+	<select id='l1q4' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select sum(FLPEA) as l1q4 from FLIST<![CDATA[
+		where WORKSTARTDATE > TO_DATE('2017-10-01','yyyy-mm-dd')
+		and WORKENDDATE < TO_DATE('2017-12-31','yyyy-mm-dd') 
+		and flpcode = #{pCode } and WORKLINE='1Line']]>
+	</select>
+	<!-- 4분기 2라인 -->
+	<select id='l2q4' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select sum(FLPEA) as l2q4 from FLIST<![CDATA[
+		where WORKSTARTDATE > TO_DATE('2017-10-01','yyyy-mm-dd')
+		and WORKENDDATE < TO_DATE('2017-12-31','yyyy-mm-dd') 
+		and flpcode = #{pCode } and WORKLINE='2Line']]>
+	</select>
+	<!-- 4분기 3라인 -->
+	<select id='l3q4' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select sum(FLPEA) as l3q4 from FLIST<![CDATA[
+		where WORKSTARTDATE > TO_DATE('2017-10-01','yyyy-mm-dd')
+		and WORKENDDATE < TO_DATE('2017-12-31','yyyy-mm-dd') 
+		and flpcode = #{pCode } and WORKLINE='3Line']]>
+	</select>
+	<!-- 4분기 4라인 -->
+	<select id='l4q4' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select sum(FLPEA) as l4q4 from FLIST<![CDATA[
+		where WORKSTARTDATE > TO_DATE('2017-10-01','yyyy-mm-dd')
+		and WORKENDDATE < TO_DATE('2017-12-31','yyyy-mm-dd') 
+		and flpcode = #{pCode } and WORKLINE='4Line']]>
+	</select>
+	<!-- 4분기 5라인 -->
+	<select id='l5q4' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select sum(FLPEA) as l5q4 from FLIST<![CDATA[
+		where WORKSTARTDATE > TO_DATE('2017-10-01','yyyy-mm-dd')
+		and WORKENDDATE < TO_DATE('2017-12-31','yyyy-mm-dd') 
+		and flpcode = #{pCode } and WORKLINE='5Line']]>
 	</select>
 	
 </mapper>

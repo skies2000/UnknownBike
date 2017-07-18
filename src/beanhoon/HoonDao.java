@@ -1,5 +1,6 @@
 package beanhoon;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,57 @@ public class HoonDao {
 	
 	public HoonDao(UnknownFactory factory){
 		this.session=factory.getFactory().openSession();
+	}
+	
+	// Main List 1
+	public List<PurListVo> main1(PurListVo vo) {
+		List<PurListVo> list = null;
+		try {
+			list = session.selectList("hoondb.m1", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
+	// Main List 2
+	public List<PurListVo> main2(PurListVo vo) {
+		List<PurListVo> list = null;
+		
+		try {
+			list = session.selectList("hoondb.m2", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
+	// Main List 3
+	public List<PurListVo> main3(PurListVo vo) {
+		List<PurListVo> list = null;
+			
+		try {
+			list = session.selectList("hoondb.m3", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	
+	// Main List 4
+	public List<PurListVo> main4(PurListVo vo) {
+		List<PurListVo> list = null;
+			
+		try {
+			list = session.selectList("hoondb.m4", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
 	}
 	
 	// odder List
@@ -220,5 +272,255 @@ public class HoonDao {
 		}
 	}
 	
-	
+	// eff
+		@SuppressWarnings("finally")
+		public List<PurListVo> effsearchP(PurListVo vo) {
+			List<PurListVo> list = null;
+			
+			try {
+				list = session.selectList("hoondb.effsearchP", vo);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				return list;
+			}
+		}
+		
+		// 코드로 제품정보 가져오기
+		public PurListVo proinfo(PurListVo vo) {
+			PurListVo v = null;
+			
+			try {
+				v = session.selectOne("hoondb.proinfo", vo);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			return v;
+		}
+		
+		// 효율적이지 못한 분기별 효율 따지는 메소드
+		@SuppressWarnings("finally")
+		public PurListVo l1q1(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			
+		System.out.println("111  "+vo.getpCode());
+			
+			try {
+				v = session.selectOne("hoondb.l1q1", vo);
+			} catch (Exception ex) {
+				v.setL1q1(0);
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		@SuppressWarnings("finally")
+		public PurListVo l2q1(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {v = session.selectOne("hoondb.l2q1", vo);
+			} catch (Exception ex) {
+				v.setL2q1(0);
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		@SuppressWarnings("finally")
+		public PurListVo l3q1(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {v = session.selectOne("hoondb.l3q1", vo);
+			} catch (Exception ex) {
+				v.setL3q1(0);
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		@SuppressWarnings("finally")
+		public PurListVo l4q1(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {v = session.selectOne("hoondb.l4q1", vo);
+			} catch (Exception ex) {
+				v.setL4q1(0);
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		@SuppressWarnings("finally")
+		public PurListVo l5q1(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {v = session.selectOne("hoondb.l5q1", vo);
+			} catch (Exception ex) {
+				v.setL5q1(0);
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		@SuppressWarnings("finally")
+		public PurListVo l1q2(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {v = session.selectOne("hoondb.l1q2", vo);
+			} catch (Exception ex) {
+				v.setL1q2(0);
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		@SuppressWarnings("finally")
+		public PurListVo l2q2(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {v = session.selectOne("hoondb.l2q2", vo);
+			} catch (Exception ex) {
+				v.setL2q2(0);
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		@SuppressWarnings("finally")
+		public PurListVo l3q2(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {v = session.selectOne("hoondb.l3q2", vo);
+			} catch (Exception ex) {
+				v.setL3q2(0);
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		@SuppressWarnings("finally")
+		public PurListVo l4q2(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {v = session.selectOne("hoondb.l4q2", vo);
+			} catch (Exception ex) {
+				v.setL4q2(0);
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		@SuppressWarnings("finally")
+		public PurListVo l5q2(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {v = session.selectOne("hoondb.l5q2", vo);
+			} catch (Exception ex) {
+				v.setL5q2(0);
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		@SuppressWarnings("finally")
+		public PurListVo l1q3(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {v = session.selectOne("hoondb.l1q3", vo);
+			} catch (Exception ex) {
+				v.setL1q3(0);
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		@SuppressWarnings("finally")
+		public PurListVo l2q3(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {v = session.selectOne("hoondb.l2q3", vo);
+			} catch (Exception ex) {
+				v.setL2q3(0);
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		@SuppressWarnings("finally")
+		public PurListVo l3q3(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {v = session.selectOne("hoondb.l3q3", vo);
+			} catch (Exception ex) {
+				v.setL3q3(0);
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		@SuppressWarnings("finally")
+		public PurListVo l4q3(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {v = session.selectOne("hoondb.l4q3", vo);
+			} catch (Exception ex) {
+				v.setL4q3(0);
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		@SuppressWarnings("finally")
+		public PurListVo l5q3(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {v = session.selectOne("hoondb.l5q3", vo);
+			} catch (Exception ex) {
+				v.setL5q3(0);
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		@SuppressWarnings("finally")
+		public PurListVo l1q4(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {v = session.selectOne("hoondb.l1q4", vo);
+			} catch (Exception ex) {
+				v.setL1q4(0);
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		@SuppressWarnings("finally")
+		public PurListVo l2q4(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {v = session.selectOne("hoondb.l2q4", vo);
+			} catch (Exception ex) {
+				v.setL2q4(0);
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		@SuppressWarnings("finally")
+		public PurListVo l3q4(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {v = session.selectOne("hoondb.l3q4", vo);
+			} catch (Exception ex) {
+				v.setL3q4(0);
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		@SuppressWarnings("finally")
+		public PurListVo l4q4(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {v = session.selectOne("hoondb.l4q4", vo);
+			} catch (Exception ex) {
+				v.setL4q4(0);
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		@SuppressWarnings("finally")
+		public PurListVo l5q4(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {v = session.selectOne("hoondb.l5q4", vo);
+			} catch (Exception ex) {
+				v.setL5q4(0);
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
 }

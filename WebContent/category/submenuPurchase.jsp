@@ -55,10 +55,9 @@
 							<!-- <input type=hidden value="../purchase/purchase_Input.html" /> -->
 						</li>
 
-						
 						<li>
-							<a href="purRList.so">보고서 관리</a> 
-							<!-- <input type=hidden value="../purchase/purchase_ReportList.html" /> -->
+							<a href="purlist.so">보고서 관리</a> 
+						
 						
 					</ul>
 				</li>	

@@ -94,12 +94,14 @@ function plus(){
 			/* spanpcode8.setAttribute("class","pdel"); */
 			
 			input1.setAttribute("type","number");
+			input1.setAttribute("class","peatext");
 			input1.setAttribute("id","peatext");
 			input1.setAttribute("name","peatext");
 			input1.setAttribute("value",jData[0].mEa);
 			input1.setAttribute("onkeyup","keyup(this)");
 			
 			input2.setAttribute("type","hidden");
+			input2.setAttribute("name","pprice");
 			input2.setAttribute("id","pprice");
 			input2.setAttribute("value",jData[0].mPrice);
 			/* a.setAttribute("href","#");
@@ -110,10 +112,10 @@ function plus(){
 			frm.mCode.value = jData[0].mCode+",";//,를 넣어야 split으로 짤라서 담을수 있따.
 			spanpcode2.innerHTML=jData[0].mName;
 			frm.mName.value = jData[0].mName+",";
-			spanpcode3.innerHTML=jData[0].mPo;
-			frm.mPo.value=jData[0].mPo+",";
-			spanpcode4.innerHTML=jData[0].user;
-			
+			spanpcode3.innerHTML=jData[0].vName;
+			frm.mPo.value=jData[0].vName+",";
+			spanpcode4.innerHTML=jData[0].eName;
+			frm.mDev.value=jData[0].eName+",";
 			spanpcode5.appendChild(input1);
 			spanpcode6.appendChild(input2);//span태그안에 input1이 붙는다.
 			spanpcode6.innerHTML+=jData[0].mPrice;
@@ -202,9 +204,10 @@ function plus(){
 	function plok(mCode){
 		var xhr = new XMLHttpRequest();
 		if(!confirm("등록하시겠습니까?")) return;
-	
+		
 		var frm = document.pfrm;
 		var url = 'purRList.so';
+
 		var mcode = document.getElementsByClassName("pcode");//그냥 넘기는게 아니라 값이 hidden에 들어가있어야함.. .. 
 		var cc = mcode[0].innerHTML; //cc를 히든에 넣기
 		for(var i=1; i<mcode.length; i++){
@@ -244,7 +247,64 @@ function plus(){
 		frm.mPo.value=ee;
 		frm.mEa.value=ff;
 		frm.mPrice.value=gg;
+
 		
+		var dname = frm.pisub.value;
+		var bb = dname;
+		alert(bb);
+		
+		var mcode = document.getElementsByClassName("pcode");//그냥 넘기는게 아니라 값이 hidden에 들어가있어야함.. .. 
+		var cc = mcode[0].innerHTML; //cc를 히든에 넣기
+		for(var i=1; i<mcode.length; i++){
+				cc += ","+mcode[i].innerHTML;
+		}
+		alert(cc);
+		
+		
+		var mname = document.getElementsByClassName("pmname");
+		var dd = mname[0].innerHTML;
+		for(var i=1; i<mname.length;i++){
+				dd += ","+mname[i].innerHTML; //input태그는 .value로 값을 가져오는데 span이나 a태그들은 value로 안되서.. innerHTMl을 써준다.
+			}
+		
+		alert(dd);
+		var mpur =  document.getElementsByClassName("ppur");
+		var ee = mpur[0].innerHTML;
+		for(var i=1; i<mpur.length; i++){
+			ee += ","+mpur[i].innerHTML;
+			}
+		
+	/* 	var mea = document.getElementsByClassName("pea");
+		var ff = mea[0].innerHTML;
+		for(var i=0; i<mea.length; i++){
+			ff += ","+mea[i].innerHTML;
+			}*/
+		
+/* 		var mprice = document.getElementsByClassName("pprice");
+		var gg = mprice[0].innerHTML;
+		for(var i=0; i<mprice.length; i++){
+			gg += ","+mprice[i].innerHTML;
+			}  */
+		
+		var mea = document.getElementsByName("peatext");
+		var ff = mea[0].value;
+		for(var i=1; i<mea.length; i++){
+			ff += ","+mea[i].value;
+		}
+		
+		var mprice = document.getElementsByName("pprice");
+		var gg = mprice[0].value;
+		for(var i=1; i<mprice.length; i++){
+			gg += ","+mprice[i].value;
+		}
+		
+		frm.pisub.value=bb;
+		frm.mCode.value=cc;
+		frm.mName.value=dd;
+		frm.mPo.value=ee;
+		frm.mEa.value=ff;
+		frm.mPrice.value=gg;
+
 /* 		<input type='hidden' name='mCode' value='cc'>
 		<input type='hidden' name='mName'>
 		<input type='hidden' name='mPo'>
@@ -263,10 +323,13 @@ function plus(){
 				if(txt=="1"){
 					alert("정상적으로 등록됐습니다.");
 				
+				}else{
+					alert("실패");	
+				}
 				}
 			}	
 		 }
-	}
+	
 		
 	//작성취소
 	function plcancle(){
@@ -320,11 +383,12 @@ request.setAttribute("today", today);
 
 %>
 
-<form name='pfrm' id='pfrm' method='post'>
+<form name='pfrm' id='pfrm' method='post' enctype="multipart/form-data">
 
 				<input type='hidden' name='mCode' value='cc'>
 				<input type='hidden' name='mName'>
 				<input type='hidden' name='mPo'>
+				<input type='hidden' name='mDev'>
 				<input type='hidden' name='mEa'>
 				<input type='hidden' name='mPrice'>
 				<input type='hidden' name='count' value='0'>
@@ -368,7 +432,7 @@ request.setAttribute("today", today);
       </div>
       <div class='pisign'>
          <div class='pisign1'>제목
-         <input type='text' id='pisign1-1' name='pising1-1'>
+         <input type='text' id='pisub' name='pisub'>
          </div>
          <div class='pisign2'>
             <div class='piappro'>결&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;재</div> 
@@ -414,7 +478,7 @@ request.setAttribute("today", today);
 
 <div id='content'>
 <c:forEach items="${list}" var="vo"> 
-<div class='purihead5' id='purihead5'><span class='pcode'>${vo.mCode}</span><span class='pmname'>${vo.mName}</span><span class='ppur'>${vo.mPo}</span><span class='pemp'>${user}</span><span class='pea'><input type='number' id='peatext' name='peatext' onkeyup='keyup(this)'></span><span class='pprice'><input type='hidden' id='pprice' value='${vo.mPrice}'>${vo.mPrice}</span><span class='pamount'></span><!--<span class='pdel'> <a href='#' onclick='pdel(count)'>[X]</a></span> -->
+<div class='purihead5' id='purihead5'><span class='pcode'>${vo.mCode}</span><span class='pmname'>${vo.mName}</span><span class='ppur'>${vo.vName}</span><span class='pemp'>${vo.eName}</span><span class='pea'><input type='number' id='peatext' name='peatext' onkeyup='keyup(this)'></span><span class='pprice'><input type='hidden' id='pprice' name='pprice' value='${vo.mPrice}'>${vo.mPrice}</span><span class='pamount'></span><!--<span class='pdel'> <a href='#' onclick='pdel(count)'>[X]</a></span> -->
 </div>
     
     </c:forEach>

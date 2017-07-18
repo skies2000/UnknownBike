@@ -19,7 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.sun.org.apache.xerces.internal.util.Status;
 
+import sung.DocumentVo;
 import sung.EmployeeVo;
 import sung.ProductVo;
 
@@ -117,6 +119,7 @@ public class SoController {
 	
 	    //index.jsp?inc=./board/purchase_home.jsp
 		return mv;
+		
 	}
 	
 //보고서 상세
@@ -156,17 +159,19 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 	
 	//Purchase_ReportList
 	@RequestMapping(value="main/purRList.so", method={RequestMethod.GET, RequestMethod.POST })
-	public Object goPRList(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
+	public void goPRList(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
 		ModelAndView mv = new ModelAndView();
 		PrintWriter out = getOut(resp);
 		MultipartRequest mul = getMul(req);
 		
 		SoVo vo = new SoVo();
 		
-		String dName = mul.getParameter("pising1-1");//문서제목
+		String dName = mul.getParameter("pisub");//문서제목
 		String dCate = mul.getParameter("input_pur");//문서종류
 		String dDate = mul.getParameter("input_date");
-		String dWriter = (String)session.getAttribute("user");
+		String pur = mul.getParameter("input_pur");
+		String user = (String)session.getAttribute("user");
+		int dWrite = Integer.parseInt(user);
 		String appro1 = mul.getParameter("h_piappro1");
 		String appro2 = mul.getParameter("h_piappro2");
 		String signer = appro1 + "," + appro2;
@@ -176,22 +181,6 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 		String mPo = mul.getParameter("mPo");
 		String mEa = mul.getParameter("mEa");
 		String mPrice = mul.getParameter("mPrice");
-
-		System.out.println(dName);
-		System.out.println(dCate);
-		System.out.println(dDate);
-		System.out.println(dWriter);
-		
-		System.out.println(appro1);
-		System.out.println(appro2);
-		System.out.println(signer);
-		
-		System.out.println(mCode);
-		System.out.println(mName);
-		System.out.println(mPo);
-		System.out.println(mEa);
-		System.out.println(mPrice);
-		
 		
 		/*if(code)*/
 		String[] spl_code = mCode.split(",");
@@ -207,14 +196,38 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 			v.setPlMCode(Integer.parseInt(spl_code[i]));
 			v.setPlModel(spl_name[i]);
 			v.setPlPur(spl_po[i]);
-			v.setmEa(Integer.parseInt(spl_ea[i]));
-			v.setmPrice(Integer.parseInt(spl_price[i]));
+			v.setPlMEa(Integer.parseInt(spl_ea[i]));
+			v.setPlPrice(Integer.parseInt(spl_price[i]));
 			
-			v = dao.purInput(v);
+			String msg1 = dao.purInput(v);
 		}
 		
-	    //index.jsp?inc=./board/purchase_home.jsp
-		return mv;
+		System.out.println("dName: " + dName);
+		System.out.println("dCate: " + dCate);
+		System.out.println("dDate: "+dDate);
+		System.out.println("dWrite: " +dWrite);
+		System.out.println("signer: " + signer);
+		System.out.println("statusL : " + status.length);
+		System.out.println("pur : " + pur);
+		
+		
+		//document에 넣을 것
+		SoVo svo = new SoVo();
+		svo.setdName(dName);
+		svo.setdDate(dDate);
+		svo.setdWrite(dWrite);
+		svo.setdSign(signer);
+		svo.setdStatus(status.length);
+		svo.setdCate(pur);
+		
+		String msg2 = dao.purDocumentInput(svo);
+		
+		
+			JSONObject obj = new JSONObject();
+			obj.put("msg", "1");
+
+			out.print(obj);
+		
 	}
 	
 	//Purchase_ReportView
@@ -263,23 +276,75 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 			JSONObject jo = new JSONObject();
 			jo.put("mCode", mCode);
 			jo.put("mName", vo.getmName());
-			jo.put("mPo", vo.getmPo());
+			jo.put("vName", vo.getvName());
 			jo.put("mPrice", vo.getmPrice());
 			jo.put("mEa", mEa);
-			jo.put("user", (String)session.getAttribute("user"));//사원이름으로
+			jo.put("eName",vo.geteName());//사원이름으로
 			
 			ja.add(jo);
 			
 			str+=Mul.getParameter("mEa");
-			str+=vo.getmName();
+			str+=vo.geteName();
 			out.print(ja);
 			
 		    //index.jsp?inc=./board/purchase_home.jsp
 			
 		}
-	
-	
-	
+		//list뿌려주기(report_list)
+		@RequestMapping(value="main/purlist.so", method={RequestMethod.GET, RequestMethod.POST })
+		public Object gopurlist(HttpServletRequest req, HttpServletResponse resp){
+			ModelAndView mv = new ModelAndView();
+			//mv.addObject();
+			SoVo vo = new SoVo();
+			List<SoVo>list = dao.purlist(vo);
+			
+			mv.addObject("list",list);
+			mv.setViewName("../main/index.jsp?inc=../purchase/purchase_ReportList.jsp");
+
+		    //index.jsp?inc=./board/purchase_home.jsp
+			return mv;
+		}
+		
+		//phome 검색
+		
+		@RequestMapping(value="main/pursearch.so", method={RequestMethod.GET, RequestMethod.POST })
+		public Object phomefindStr(SoVo vo){
+			ModelAndView mv = new ModelAndView();
+			//mv.addObject();
+			vo.getFindStr();
+			
+			try{
+				List<SoVo> list = dao.phomefindStr(vo);
+				mv.addObject("list",list);
+				mv.setViewName("../main/index.jsp?inc=../purchase/purchase_home.jsp");
+			}catch(Exception ex){
+				ex.printStackTrace();
+				
+			}
+			
+			return mv;
+			
+	}
+		
+		//plist 검색
+		@RequestMapping(value="main/pfindStr.so", method={RequestMethod.GET, RequestMethod.POST })
+		public Object pfindStr(SoVo vo){
+			ModelAndView mv = new ModelAndView();
+			//mv.addObject();
+			vo.getFindStr();
+			
+			try{
+				List<SoVo> list = dao.findStr(vo);
+				mv.addObject("list",list);
+				mv.setViewName("../main/index.jsp?inc=../purchase/purchase_ReportList.jsp");
+			}catch(Exception ex){
+				ex.printStackTrace();
+				
+			}
+			
+			return mv;
+			
+	}
 
 /*-------------------------------------팝업창--------------------------------------*/
 	

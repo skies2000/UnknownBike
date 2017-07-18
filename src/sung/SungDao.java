@@ -232,8 +232,28 @@ public class SungDao {
 		
 		return list;
 	}
+	//판매요청서 상세 하단
+	public List<DocumentVo> sale_view2(DocumentVo dvo) {
+		List<DocumentVo> list = null;
+		try{
+			list = session.selectList("sungdb.sale_view2", dvo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 
-
+	//판매요청서 상세 상단
+	public DocumentVo sale_view(DocumentVo dvo) {
+		DocumentVo vo = new DocumentVo();
+		try{
+			vo = session.selectOne("sungdb.sale_view", dvo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return vo;
+	}
 
 	
 	
