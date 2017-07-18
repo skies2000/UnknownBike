@@ -16,15 +16,15 @@ public class SoVo {
 	int mPo;
 
 	
-	String findStr;
+	
 	
 	//문서요청서
 	int dCode;
 	String dName;
 	String dCont;//내용
-	Date dDate;
+	String dDate;
 	int dWrite;
-	int dSignA;
+	String dSign;
 	int dStatus;
 	String dCate;
 	
@@ -48,6 +48,12 @@ public class SoVo {
 	int plStatus;//상태
 	int plnow;//구매상태
 	
+	//검색검색
+	String findStr;
+	
+	//거래처
+	int vCode;
+	String vName;
 	
 	public int getmCode() {
 		return mCode;
@@ -231,14 +237,14 @@ public class SoVo {
 
 
 
-	public Date getdDate() {
+	public String getdDate() {
 		return dDate;
 	}
 
 
 
 
-	public void setdDate(Date dDate) {
+	public void setdDate(String dDate) {
 		this.dDate = dDate;
 	}
 
@@ -259,15 +265,15 @@ public class SoVo {
 
 
 
-	public int getdSignA() {
-		return dSignA;
+	public String getdSign() {
+		return dSign;
 	}
 
 
 
 
-	public void setdSignA(int dSignA) {
-		this.dSignA = dSignA;
+	public void setdSign(String dSign) {
+		this.dSign = dSign;
 	}
 
 
@@ -517,6 +523,34 @@ public class SoVo {
 
 	public void setPlnow(int plnow) {
 		this.plnow = plnow;
+	}
+
+
+
+
+	public int getvCode() {
+		return vCode;
+	}
+
+
+
+
+	public void setvCode(int vCode) {
+		this.vCode = vCode;
+	}
+
+
+
+
+	public String getvName() {
+		return vName;
+	}
+
+
+
+
+	public void setvName(String vName) {
+		this.vName = vName;
 	}
 	
 	
