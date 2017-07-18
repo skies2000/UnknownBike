@@ -182,31 +182,7 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 		String mEa = mul.getParameter("mEa");
 		String mPrice = mul.getParameter("mPrice");
 
-<<<<<<< HEAD
-		System.out.println(dName);
-		System.out.println(dCate);
-		System.out.println(dDate);
-		System.out.println(dWriter);
-		
-		System.out.println(appro1);
-		System.out.println(appro2);
-		System.out.println(signer);
-=======
-		
-		
-	/*	System.out.println(appro1);
-		System.out.println(appro2);
->>>>>>> e24a2383e7c6962a7ca24618ba6d7e23b2135562
-		
-		System.out.println(mCode);
-		System.out.println(mName);
-		System.out.println(mPo);
-		System.out.println(mEa);
-<<<<<<< HEAD
-		System.out.println(mPrice);
-=======
-		System.out.println(mPrice);*/
->>>>>>> e24a2383e7c6962a7ca24618ba6d7e23b2135562
+
 		
 		
 		/*if(code)*/
@@ -332,7 +308,28 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 			return mv;
 		}
 		
+		//phome 검색
 		
+		@RequestMapping(value="main/pursearch.so", method={RequestMethod.GET, RequestMethod.POST })
+		public Object phomefindStr(SoVo vo){
+			ModelAndView mv = new ModelAndView();
+			//mv.addObject();
+			vo.getFindStr();
+			
+			try{
+				List<SoVo> list = dao.phomefindStr(vo);
+				mv.addObject("list",list);
+				mv.setViewName("../main/index.jsp?inc=../purchase/purchase_home.jsp");
+			}catch(Exception ex){
+				ex.printStackTrace();
+				
+			}
+			
+			return mv;
+			
+	}
+		
+		//plist 검색
 		@RequestMapping(value="main/pfindStr.so", method={RequestMethod.GET, RequestMethod.POST })
 		public Object pfindStr(SoVo vo){
 			ModelAndView mv = new ModelAndView();
