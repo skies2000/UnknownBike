@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!doctype html>
 
 <html>
@@ -79,6 +81,9 @@
 	</head>
 
 	<body>
+	<div id=category>
+      <jsp:include page="../category/submenuMyPage.jsp"></jsp:include>
+   </div>
     <form name='frm' method="post">
        <div id='myhead'>
         <span id='mytitle'>회원정보수정</span>

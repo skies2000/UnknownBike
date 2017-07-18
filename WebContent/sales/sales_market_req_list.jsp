@@ -55,7 +55,7 @@
 		
 			<c:forEach items="${docuList}" var="docuList">
 			<div id='list'>
-			<span id='docNum'>${docuList.dCode }</span>
+			<span id='docNum'>srl-${docuList.dCode }</span>
 			 <span id='docsub' onclick='goView(${docuList.dCode })'>${docuList.dName }</span>
 			 <span id='docpro'>${docuList.pName }</span> 
 			 <span id='docea'>${docuList.srlEa }</span> 

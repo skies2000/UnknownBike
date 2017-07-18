@@ -488,11 +488,48 @@ public class SungController {
 	}
 	
 	@RequestMapping(value = "main/sales_sale_view.sung", method = { RequestMethod.GET, RequestMethod.POST })
-	public Object goSale_view() {
+	public Object goSale_view(DocumentVo dvo) {
 		ModelAndView mv = new ModelAndView(); 
-
-		  mv.setViewName("sales_market_sale_view");
-
+		try{
+			//상세보기 상단 문서 정보
+			dvo.setdCate("spl");
+			int dCode = dvo.getdCode();
+			dvo.setdCode(dCode);
+			DocumentVo vo = dao.sale_view(dvo);
+			mv.addObject("vo", vo);
+			
+			//상세보기 하단 판매 리스트
+			dvo.setSplCode(dvo.getdCode());
+			List<DocumentVo> list = dao.sale_view2(dvo);
+			mv.addObject("list", list);
+			
+			//사원 이름 찾기
+			EmployeeVo evo = new EmployeeVo();
+			int wirte = vo.getdWrite();
+			evo.seteCode(wirte);
+			EmployeeVo writer = new EmployeeVo();
+			writer = dao.findEname(evo);
+			mv.addObject("writer", writer); //작성자
+			String sign = vo.getdSign();
+			String[] appro = sign.split(",");
+			int appro1 = Integer.parseInt(appro[0]);
+			int appro2 = Integer.parseInt(appro[1]);
+			
+			EmployeeVo app1 = new EmployeeVo();
+			evo.seteCode(appro1);
+			app1 = dao.findEname(evo);
+			mv.addObject("app1", app1); //결재자1
+			
+			EmployeeVo app2 = new EmployeeVo();
+			evo.seteCode(appro2);
+			app2 = dao.findEname(evo);
+			mv.addObject("app2", app2); //결재자2
+			
+			mv.setViewName("sales_market_req_view");
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		return mv;
 	}
 	

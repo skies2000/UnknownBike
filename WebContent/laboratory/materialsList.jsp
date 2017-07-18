@@ -43,8 +43,8 @@
     
     <c:forEach items="${list}" var="obj">
     <figure>
-            <img src="images/khk_RAMBLE1image.jpg">
-            <figcaption><span>자재명 : ${obj.mlmcode}</span><br/>
+            <img src="images/materialimg/${obj.mimage}">
+            <figcaption><span>자재명 : ${obj.mname}</span><br/>
             <span>수량 : ${obj.mlmea}</span><br/></figcaption>
         </figure>
     </c:forEach>
