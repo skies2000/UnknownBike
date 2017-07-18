@@ -123,7 +123,7 @@
 	
 	<!-- sale_view페이지 하단 로드 -->
  	<select id='sale_view2' resultMap="documentMap" parameterType="sung.DocumentVo">
-		select splCode, pCode, pName, vName, splPea, splCost, splPrice, splDate
+		select splCode, pCode, pName, vName, splPea, splCost, splPrice, splDate, splpea*splcost pPrice
 		from PRODUCT join spList on splpCode=pCode
 		join vender on splVcode=vCode where splCode=#{splCode}
 	</select> 
@@ -133,5 +133,14 @@
 		select * from document where dCode=#{dCode} and dCate=#{dCate}
 	</select> 
 	
+	<!-- 거래처이름찾기 -->
+	<select id='search_vname' resultMap="VenderMap" parameterType="sung.VenderVo">
+		select vName from vender where vCode=#{vCode}
+	</select>  
+	
+	<!-- 거래처별 거래량 -->
+	 <select id='search_vea' resultMap="VenderMap" parameterType="sung.VenderVo">
+		select sum(splpea) as vSum from splist WHERE splvcode=#{vCode}
+	</select>  
 	
 </mapper>

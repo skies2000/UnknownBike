@@ -499,6 +499,7 @@ public class SungController {
 			mv.addObject("vo", vo);
 			
 			//상세보기 하단 판매 리스트
+			
 			dvo.setSplCode(dvo.getdCode());
 			List<DocumentVo> list = dao.sale_view2(dvo);
 			mv.addObject("list", list);
@@ -525,7 +526,7 @@ public class SungController {
 			app2 = dao.findEname(evo);
 			mv.addObject("app2", app2); //결재자2
 			
-			mv.setViewName("sales_market_req_view");
+			mv.setViewName("sales_market_sale_view");
 			
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -553,9 +554,20 @@ public class SungController {
 	
 	@RequestMapping(value = "main/sales_profit_view.sung", method = { RequestMethod.GET, RequestMethod.POST })
 	public Object goPro_view() {
-		ModelAndView mv = new ModelAndView(); 
-
-		  mv.setViewName("sales_profit_view");
+		ModelAndView mv = new ModelAndView();
+		List<VenderVo> list = new ArrayList<VenderVo>();
+		for(int i=40001; i<40010; i++){
+			VenderVo vo = new VenderVo();
+			vo.setvCode(i);
+			vo = dao.search_vname(vo); //거래처이름가져오기
+			vo.setvCode(i);
+			vo = dao.search_vea(vo); //수량 가져오기
+			
+			list.add(vo);
+		}
+		mv.addObject("list", list);
+		
+		mv.setViewName("sales_profit_view");
 
 		return mv;
 	}
