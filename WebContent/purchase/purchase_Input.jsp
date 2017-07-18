@@ -13,345 +13,345 @@
 <script>
 
 /* $(document).ready(function(){ */
-	
+   
 
 
 function keyup(kk){
-	
-	
-		var ea = $(kk).val();
-		var price = $(kk).parent().next().children("input").val();
-		
-		var sum = ea*price;
-		
-		var amount=$(kk).parent().next().next();
-		amount.html(sum);
-		
-	
-	
+   
+   
+      var ea = $(kk).val();
+      var price = $(kk).parent().next().children("input").val();
+      
+      var sum = ea*price;
+      
+      var amount=$(kk).parent().next().next();
+      amount.html(sum);
+      
+   
+   
 }
 //추가버튼 눌렀을 때 들어가는 내용.. 
 function plus(){
-	var xhr = new XMLHttpRequest();
-	var url = '../purchase_req_input2.so';
-	var frm = document.getElementById("pfrm");//hidden이 들어있는 form을 가져온다.
-	//select값을 this로 가져옴
-	var sel = document.getElementById("purselect");
-	var cate = sel.options[sel.options.selectedIndex].value;
-	
-	var ea = document.getElementById("eatext").value;
-	
-	if(cate=='0'){
-		alert("제품을 선택해주세요.");
-		return;
-	}
-	if(ea=="" || ea<=0){
-		alert("수량을 입력해주세요");
-		return;
-	}
-	
-	frm.mEa.value=ea;
-	alert(frm.mEa.value);
-	var purlist = cate.split(",");
-	frm.mCode.value=purlist[1];
-	
-	
-	
-	//순서중요~!@~@~@먼저 넣어주기
-	var formData = new FormData(frm);
-	xhr.open('post',url);//(get방식/post방식,url);
-	xhr.send(formData);//submit할떄는 formData를 넘겨준다. input태그들이 다 넘어간다 .so로
-	
-	xhr.onreadystatechange=function(){
-		if(xhr.readyState == 4 && xhr.status == 200){//완료되면
-			var txt = xhr.responseText;//화면에 출력되는 값을 가져올 수 있음. controller에서 void -> out.print;
-			var jData = JSON.parse(txt);//txt가 문자열 그 자체니까..=> json타입으로 바꿔줌.
-		
-			
-			var content = document.getElementById("content");
-			var divpurihead5 = document.createElement("div");
-			var spanpcode1 = document.createElement("span");
-			var spanpcode2 = document.createElement("span");
-			var spanpcode3 = document.createElement("span");
-			var spanpcode4 = document.createElement("span");
-			var spanpcode5 = document.createElement("span");
-			var spanpcode6 = document.createElement("span");
-			var spanpcode7 = document.createElement("span");
-			var spanpcode8 = document.createElement("span");
-			var input1 = document.createElement("input");
-			var input2 = document.createElement("input");
-			var a = document.createElement("a");
-			
-			divpurihead5.setAttribute("class","purihead5");
-			divpurihead5.setAttribute("id","purihead5");
-			spanpcode1.setAttribute("class","pcode");
-			spanpcode2.setAttribute("class","pmname");
-			spanpcode3.setAttribute("class","ppur");
-			spanpcode4.setAttribute("class","pemp");
-			spanpcode5.setAttribute("class","pea");
-			spanpcode6.setAttribute("class","pprice");
-			spanpcode7.setAttribute("class","pamount");
-			/* spanpcode8.setAttribute("class","pdel"); */
-			
-			input1.setAttribute("type","number");
-			input1.setAttribute("class","peatext");
-			input1.setAttribute("id","peatext");
-			input1.setAttribute("name","peatext");
-			input1.setAttribute("value",jData[0].mEa);
-			input1.setAttribute("onkeyup","keyup(this)");
-			
-			input2.setAttribute("type","hidden");
-			input2.setAttribute("name","pprice");
-			input2.setAttribute("id","pprice");
-			input2.setAttribute("value",jData[0].mPrice);
-			/* a.setAttribute("href","#");
-			a.setAttribute("onclick","pdel()"); */
-			
-			
-			spanpcode1.innerHTML=jData[0].mCode;
-			frm.mCode.value = jData[0].mCode+",";//,를 넣어야 split으로 짤라서 담을수 있따.
-			spanpcode2.innerHTML=jData[0].mName;
-			frm.mName.value = jData[0].mName+",";
-			spanpcode3.innerHTML=jData[0].vName;
-			frm.mPo.value=jData[0].vName+",";
-			spanpcode4.innerHTML=jData[0].eName;
-			frm.mDev.value=jData[0].eName+",";
-			spanpcode5.appendChild(input1);
-			spanpcode6.appendChild(input2);//span태그안에 input1이 붙는다.
-			spanpcode6.innerHTML+=jData[0].mPrice;
-			frm.mPrice.value=jData[0].mPrice+",";
-			spanpcode7.innerHTML=jData[0].mEa*jData[0].mPrice;
-			
-			
-			
-			divpurihead5.appendChild(spanpcode1);
-			divpurihead5.appendChild(spanpcode2);
-			divpurihead5.appendChild(spanpcode3);
-			divpurihead5.appendChild(spanpcode4);
-			divpurihead5.appendChild(spanpcode5);
-			divpurihead5.appendChild(spanpcode6);
-			divpurihead5.appendChild(spanpcode7);
-			
-			content.appendChild(divpurihead5);
-			
-			
-		}
-			
-	}
-	
-	alert(cate);
-	
-	
-	
-	
-	/* <div id='content'>
-	<c:forEach items="${list}" var="vo"> 
-	<div class='purihead5' id='purihead5'>
-	    <span class='pcode'>${vo.mCode}</span>
-	    <span class='pmname'>${vo.mName}</span>
-	    <span class='ppur'>${vo.mPo}</span>
-	    <span class='pemp'>${user}</span><!-- dWriter로..바꿔야됨 -->
-	    <span class='pea'><input type='number' id='peatext' name='peatext'></span>
-	    <span class='pprice'><input type='hidden' id='pprice' value='${vo.mPrice}'>${vo.mPrice}</span>
-	    <span class='pamount'></span><a href='#' onclick='pdel(count)'>[X]</a></span>
-	  
-	    </div>
-	    
-	    </c:forEach>
-	    </div> */
-	    
-	    
-	    
-	    
-	//hidden에 저장
-	/* frm.pCate.value=cate;
-	
-	
-	//순서중요~!@~@~@먼저 넣어주기
-	var formData = new FormData(frm);
-	
-	xhr.open("post",url);
-	xhr.send(formData);
-	
-	xhr.onreadystatechange=function(){
-		if(xhr.readyState == 4 && xhr.status == 200){
-			var txt = xhr.responseText;
-			var jData = JSON.parse(txt);
-			
-			var str = "";
-			var sel2 = document.getElementById("abc");
-			for(i=sel2.length; i>=1; i--){
-				sel2.options[i]=null;
-			  }
-			for(var i=0; i<jData.length;i++){
-				var op = document.createElement("option");
-				op.text=jData[i].pName;
-				op.value=jData[i].pName;
-				sel2.options.add(op);
-			}
-		}
-	} */
+   var xhr = new XMLHttpRequest();
+   var url = '../purchase_req_input2.so';
+   var frm = document.getElementById("pfrm");//hidden이 들어있는 form을 가져온다.
+   //select값을 this로 가져옴
+   var sel = document.getElementById("purselect");
+   var cate = sel.options[sel.options.selectedIndex].value;
+   
+   var ea = document.getElementById("eatext").value;
+   
+   if(cate=='0'){
+      alert("제품을 선택해주세요.");
+      return;
+   }
+   if(ea=="" || ea<=0){
+      alert("수량을 입력해주세요");
+      return;
+   }
+   
+   frm.mEa.value=ea;
+   alert(frm.mEa.value);
+   var purlist = cate.split(",");
+   frm.mCode.value=purlist[1];
+   
+   
+   
+   //순서중요~!@~@~@먼저 넣어주기
+   var formData = new FormData(frm);
+   xhr.open('post',url);//(get방식/post방식,url);
+   xhr.send(formData);//submit할떄는 formData를 넘겨준다. input태그들이 다 넘어간다 .so로
+   
+   xhr.onreadystatechange=function(){
+      if(xhr.readyState == 4 && xhr.status == 200){//완료되면
+         var txt = xhr.responseText;//화면에 출력되는 값을 가져올 수 있음. controller에서 void -> out.print;
+         var jData = JSON.parse(txt);//txt가 문자열 그 자체니까..=> json타입으로 바꿔줌.
+      
+         
+         var content = document.getElementById("content");
+         var divpurihead5 = document.createElement("div");
+         var spanpcode1 = document.createElement("span");
+         var spanpcode2 = document.createElement("span");
+         var spanpcode3 = document.createElement("span");
+         var spanpcode4 = document.createElement("span");
+         var spanpcode5 = document.createElement("span");
+         var spanpcode6 = document.createElement("span");
+         var spanpcode7 = document.createElement("span");
+         var spanpcode8 = document.createElement("span");
+         var input1 = document.createElement("input");
+         var input2 = document.createElement("input");
+         var a = document.createElement("a");
+         
+         divpurihead5.setAttribute("class","purihead5");
+         divpurihead5.setAttribute("id","purihead5");
+         spanpcode1.setAttribute("class","pcode");
+         spanpcode2.setAttribute("class","pmname");
+         spanpcode3.setAttribute("class","ppur");
+         spanpcode4.setAttribute("class","pemp");
+         spanpcode5.setAttribute("class","pea");
+         spanpcode6.setAttribute("class","pprice");
+         spanpcode7.setAttribute("class","pamount");
+         /* spanpcode8.setAttribute("class","pdel"); */
+         
+         input1.setAttribute("type","number");
+         input1.setAttribute("class","peatext");
+         input1.setAttribute("id","peatext");
+         input1.setAttribute("name","peatext");
+         input1.setAttribute("value",jData[0].mEa);
+         input1.setAttribute("onkeyup","keyup(this)");
+         
+         input2.setAttribute("type","hidden");
+         input2.setAttribute("name","pprice");
+         input2.setAttribute("id","pprice");
+         input2.setAttribute("value",jData[0].mPrice);
+         /* a.setAttribute("href","#");
+         a.setAttribute("onclick","pdel()"); */
+         
+         
+         spanpcode1.innerHTML=jData[0].mCode;
+         frm.mCode.value = jData[0].mCode+",";//,를 넣어야 split으로 짤라서 담을수 있따.
+         spanpcode2.innerHTML=jData[0].mName;
+         frm.mName.value = jData[0].mName+",";
+         spanpcode3.innerHTML=jData[0].vName;
+         frm.mPo.value=jData[0].vName+",";
+         spanpcode4.innerHTML=jData[0].eName;
+         frm.mDev.value=jData[0].eName+",";
+         spanpcode5.appendChild(input1);
+         spanpcode6.appendChild(input2);//span태그안에 input1이 붙는다.
+         spanpcode6.innerHTML+=jData[0].mPrice;
+         frm.mPrice.value=jData[0].mPrice+",";
+         spanpcode7.innerHTML=jData[0].mEa*jData[0].mPrice;
+         
+         
+         
+         divpurihead5.appendChild(spanpcode1);
+         divpurihead5.appendChild(spanpcode2);
+         divpurihead5.appendChild(spanpcode3);
+         divpurihead5.appendChild(spanpcode4);
+         divpurihead5.appendChild(spanpcode5);
+         divpurihead5.appendChild(spanpcode6);
+         divpurihead5.appendChild(spanpcode7);
+         
+         content.appendChild(divpurihead5);
+         
+         
+      }
+         
+   }
+   
+   alert(cate);
+   
+   
+   
+   
+   /* <div id='content'>
+   <c:forEach items="${list}" var="vo"> 
+   <div class='purihead5' id='purihead5'>
+       <span class='pcode'>${vo.mCode}</span>
+       <span class='pmname'>${vo.mName}</span>
+       <span class='ppur'>${vo.mPo}</span>
+       <span class='pemp'>${user}</span><!-- dWriter로..바꿔야됨 -->
+       <span class='pea'><input type='number' id='peatext' name='peatext'></span>
+       <span class='pprice'><input type='hidden' id='pprice' value='${vo.mPrice}'>${vo.mPrice}</span>
+       <span class='pamount'></span><a href='#' onclick='pdel(count)'>[X]</a></span>
+     
+       </div>
+       
+       </c:forEach>
+       </div> */
+       
+       
+       
+       
+   //hidden에 저장
+   /* frm.pCate.value=cate;
+   
+   
+   //순서중요~!@~@~@먼저 넣어주기
+   var formData = new FormData(frm);
+   
+   xhr.open("post",url);
+   xhr.send(formData);
+   
+   xhr.onreadystatechange=function(){
+      if(xhr.readyState == 4 && xhr.status == 200){
+         var txt = xhr.responseText;
+         var jData = JSON.parse(txt);
+         
+         var str = "";
+         var sel2 = document.getElementById("abc");
+         for(i=sel2.length; i>=1; i--){
+            sel2.options[i]=null;
+           }
+         for(var i=0; i<jData.length;i++){
+            var op = document.createElement("option");
+            op.text=jData[i].pName;
+            op.value=jData[i].pName;
+            sel2.options.add(op);
+         }
+      }
+   } */
 } 
-	
+   
 
-	function amount(){
-		var Ea = document.getElementById('peatext').value;
-		var price = document.getElementById('pprice').value;
-		var amount = Ea*price;
-	}
-	
-	//작성완료
-	function plok(mCode){
-		var xhr = new XMLHttpRequest();
-		if(!confirm("등록하시겠습니까?")) return;
-		
-		var frm = document.pfrm;
-		var url = 'purRList.so';
+   function amount(){
+      var Ea = document.getElementById('peatext').value;
+      var price = document.getElementById('pprice').value;
+      var amount = Ea*price;
+   }
+   
+   //작성완료
+   function plok(mCode){
+      var xhr = new XMLHttpRequest();
+      if(!confirm("등록하시겠습니까?")) return;
+      
+      var frm = document.pfrm;
+      var url = 'purRList.so';
 
-		var mcode = document.getElementsByClassName("pcode");//그냥 넘기는게 아니라 값이 hidden에 들어가있어야함.. .. 
-		var cc = mcode[0].innerHTML; //cc를 히든에 넣기
-		for(var i=1; i<mcode.length; i++){
-				cc += ","+mcode[i].innerHTML;
-		}
-		alert(cc);
-		
-		
-		var mname = document.getElementsByClassName("pmname");
-		var dd = mname[0].innerHTML;
-		for(var i=0; i<mname.length;i++){
-				dd += ","+mname[i].innerHTML; //input태그는 .value로 값을 가져오는데 span이나 a태그들은 value로 안되서.. innerHTMl을 써준다.
-			}
-		
-		alert(dd);
-		var mpur =  document.getElementsByClassName("ppur");
-		var ee = mpur[0].innerHTML;
-		for(var i=0; i<mpur.length; i++){
-			ee += ","+mpur[i].innerHTML;
-			}
-		
-		var mea = document.getElementsByClassName("pea");
-		var ff = mea[0].innerHTML;
-		for(var i=0; i<mea.length; i++){
-			ff += ","+mea[i].innerHTML;
-			}
-		
-		var mprice = document.getElementsByClassName("pprice");
-		var gg = mprice[0].innerHTML;
-		for(var i=0; i<mprice.length; i++){
-			gg += ","+mprice[i].innerHTML;
-			}
-		
-		
-		frm.mCode.value=cc;
-		frm.mName.value=dd;
-		frm.mPo.value=ee;
-		frm.mEa.value=ff;
-		frm.mPrice.value=gg;
+      var mcode = document.getElementsByClassName("pcode");//그냥 넘기는게 아니라 값이 hidden에 들어가있어야함.. .. 
+      var cc = mcode[0].innerHTML; //cc를 히든에 넣기
+      for(var i=1; i<mcode.length; i++){
+            cc += ","+mcode[i].innerHTML;
+      }
+      alert(cc);
+      
+      
+      var mname = document.getElementsByClassName("pmname");
+      var dd = mname[0].innerHTML;
+      for(var i=0; i<mname.length;i++){
+            dd += ","+mname[i].innerHTML; //input태그는 .value로 값을 가져오는데 span이나 a태그들은 value로 안되서.. innerHTMl을 써준다.
+         }
+      
+      alert(dd);
+      var mpur =  document.getElementsByClassName("ppur");
+      var ee = mpur[0].innerHTML;
+      for(var i=0; i<mpur.length; i++){
+         ee += ","+mpur[i].innerHTML;
+         }
+      
+      var mea = document.getElementsByClassName("pea");
+      var ff = mea[0].innerHTML;
+      for(var i=0; i<mea.length; i++){
+         ff += ","+mea[i].innerHTML;
+         }
+      
+      var mprice = document.getElementsByClassName("pprice");
+      var gg = mprice[0].innerHTML;
+      for(var i=0; i<mprice.length; i++){
+         gg += ","+mprice[i].innerHTML;
+         }
+      
+      
+      frm.mCode.value=cc;
+      frm.mName.value=dd;
+      frm.mPo.value=ee;
+      frm.mEa.value=ff;
+      frm.mPrice.value=gg;
 
-		
-		var dname = frm.pisub.value;
-		var bb = dname;
-		alert(bb);
-		
-		var mcode = document.getElementsByClassName("pcode");//그냥 넘기는게 아니라 값이 hidden에 들어가있어야함.. .. 
-		var cc = mcode[0].innerHTML; //cc를 히든에 넣기
-		for(var i=1; i<mcode.length; i++){
-				cc += ","+mcode[i].innerHTML;
-		}
-		alert(cc);
-		
-		
-		var mname = document.getElementsByClassName("pmname");
-		var dd = mname[0].innerHTML;
-		for(var i=1; i<mname.length;i++){
-				dd += ","+mname[i].innerHTML; //input태그는 .value로 값을 가져오는데 span이나 a태그들은 value로 안되서.. innerHTMl을 써준다.
-			}
-		
-		alert(dd);
-		var mpur =  document.getElementsByClassName("ppur");
-		var ee = mpur[0].innerHTML;
-		for(var i=1; i<mpur.length; i++){
-			ee += ","+mpur[i].innerHTML;
-			}
-		
-	/* 	var mea = document.getElementsByClassName("pea");
-		var ff = mea[0].innerHTML;
-		for(var i=0; i<mea.length; i++){
-			ff += ","+mea[i].innerHTML;
-			}*/
-		
-/* 		var mprice = document.getElementsByClassName("pprice");
-		var gg = mprice[0].innerHTML;
-		for(var i=0; i<mprice.length; i++){
-			gg += ","+mprice[i].innerHTML;
-			}  */
-		
-		var mea = document.getElementsByName("peatext");
-		var ff = mea[0].value;
-		for(var i=1; i<mea.length; i++){
-			ff += ","+mea[i].value;
-		}
-		
-		var mprice = document.getElementsByName("pprice");
-		var gg = mprice[0].value;
-		for(var i=1; i<mprice.length; i++){
-			gg += ","+mprice[i].value;
-		}
-		
-		frm.pisub.value=bb;
-		frm.mCode.value=cc;
-		frm.mName.value=dd;
-		frm.mPo.value=ee;
-		frm.mEa.value=ff;
-		frm.mPrice.value=gg;
+      
+      var dname = frm.pisub.value;
+      var bb = dname;
+      alert(bb);
+      
+      var mcode = document.getElementsByClassName("pcode");//그냥 넘기는게 아니라 값이 hidden에 들어가있어야함.. .. 
+      var cc = mcode[0].innerHTML; //cc를 히든에 넣기
+      for(var i=1; i<mcode.length; i++){
+            cc += ","+mcode[i].innerHTML;
+      }
+      alert(cc);
+      
+      
+      var mname = document.getElementsByClassName("pmname");
+      var dd = mname[0].innerHTML;
+      for(var i=1; i<mname.length;i++){
+            dd += ","+mname[i].innerHTML; //input태그는 .value로 값을 가져오는데 span이나 a태그들은 value로 안되서.. innerHTMl을 써준다.
+         }
+      
+      alert(dd);
+      var mpur =  document.getElementsByClassName("ppur");
+      var ee = mpur[0].innerHTML;
+      for(var i=1; i<mpur.length; i++){
+         ee += ","+mpur[i].innerHTML;
+         }
+      
+   /*    var mea = document.getElementsByClassName("pea");
+      var ff = mea[0].innerHTML;
+      for(var i=0; i<mea.length; i++){
+         ff += ","+mea[i].innerHTML;
+         }*/
+      
+/*       var mprice = document.getElementsByClassName("pprice");
+      var gg = mprice[0].innerHTML;
+      for(var i=0; i<mprice.length; i++){
+         gg += ","+mprice[i].innerHTML;
+         }  */
+      
+      var mea = document.getElementsByName("peatext");
+      var ff = mea[0].value;
+      for(var i=1; i<mea.length; i++){
+         ff += ","+mea[i].value;
+      }
+      
+      var mprice = document.getElementsByName("pprice");
+      var gg = mprice[0].value;
+      for(var i=1; i<mprice.length; i++){
+         gg += ","+mprice[i].value;
+      }
+      
+      frm.pisub.value=bb;
+      frm.mCode.value=cc;
+      frm.mName.value=dd;
+      frm.mPo.value=ee;
+      frm.mEa.value=ff;
+      frm.mPrice.value=gg;
 
-/* 		<input type='hidden' name='mCode' value='cc'>
-		<input type='hidden' name='mName'>
-		<input type='hidden' name='mPo'>
-		<input type='hidden' name='mEa'>
-		<input type='hidden' name='mPrice'>
-		<input type='hidden' name='count' value='0'> */
-		
-		
-		var fd = new FormData(frm);
-		xhr.open("POST",url);
-		xhr.send(fd);
-		
-		xhr.onreadystatechange = function(){
-			if(xhr.readyState == 4 && xhr.status == 200){
-				var txt = xhr.responseText;
-				if(txt=="1"){
-					alert("정상적으로 등록됐습니다.");
-				
-				}else{
-					alert("실패");	
-				}
-				}
-			}	
-		 }
-	
-		
-	//작성취소
-	function plcancle(){
-	var frm = document.pfrm2;
-	frm.action = 'purhome.so';
-	frm.submit();
-	}
-	
-	function sign_popup1(){
-		var url = 'sign_popup.so';
-		var popOption = "width=500, height=500,top=0, resizable=no, scrollbars=no, status=no";
-		window.open(url,"",popOption);
-	}
-	function sign_popup2(){
-		var url = 'sign_popup_2.so';
-		var popOption = "width=500, height=500,top=0, resizable=no, scrollbars=no, status=no";
-		window.open(url,"",popOption);
-	}	
+/*       <input type='hidden' name='mCode' value='cc'>
+      <input type='hidden' name='mName'>
+      <input type='hidden' name='mPo'>
+      <input type='hidden' name='mEa'>
+      <input type='hidden' name='mPrice'>
+      <input type='hidden' name='count' value='0'> */
+      
+      
+      var fd = new FormData(frm);
+      xhr.open("POST",url);
+      xhr.send(fd);
+      
+      xhr.onreadystatechange = function(){
+         if(xhr.readyState == 4 && xhr.status == 200){
+            var txt = xhr.responseText;
+            if(txt=="1"){
+               alert("정상적으로 등록됐습니다.");
+            
+            }else{
+               alert("실패");   
+            }
+            }
+         }   
+       }
+   
+      
+   //작성취소
+   function plcancle(){
+   var frm = document.pfrm2;
+   frm.action = 'purhome.so';
+   frm.submit();
+   }
+   
+   function sign_popup1(){
+      var url = 'sign_popup.so';
+      var popOption = "width=500, height=500,top=0, resizable=no, scrollbars=no, status=no";
+      window.open(url,"",popOption);
+   }
+   function sign_popup2(){
+      var url = 'sign_popup_2.so';
+      var popOption = "width=500, height=500,top=0, resizable=no, scrollbars=no, status=no";
+      window.open(url,"",popOption);
+   }   
 
-	
-	
-	
+   
+   
+   
 </script>
 </head>
 <body>
@@ -385,31 +385,31 @@ request.setAttribute("today", today);
 
 <form name='pfrm' id='pfrm' method='post' enctype="multipart/form-data">
 
-				<input type='hidden' name='mCode' value='cc'>
-				<input type='hidden' name='mName'>
-				<input type='hidden' name='mPo'>
-				<input type='hidden' name='mDev'>
-				<input type='hidden' name='mEa'>
-				<input type='hidden' name='mPrice'>
-				<input type='hidden' name='count' value='0'>
-				
-				<input type='hidden' name='input_writer' id='input_writer'>
-				
-		 <input type='hidden' name='h_piappro1' id='h_piappro1'> <!-- 결재자1 사원번호 -->
-		 <input type='hidden' name='h_piappro2' id='h_piappro2'> <!-- 결재자2 사원번호 -->
-		 <input type='hidden' name='input_pur' id='input_pur' value='pur'>
-		 <input type='hidden' name='input_date' id='input_date' value='${today }'>
+            <input type='hidden' name='mCode' value='cc'>
+            <input type='hidden' name='mName'>
+            <input type='hidden' name='mPo'>
+            <input type='hidden' name='mDev'>
+            <input type='hidden' name='mEa'>
+            <input type='hidden' name='mPrice'>
+            <input type='hidden' name='count' value='0'>
+            
+            <input type='hidden' name='input_writer' id='input_writer'>
+            
+       <input type='hidden' name='h_piappro1' id='h_piappro1'> <!-- 결재자1 사원번호 -->
+       <input type='hidden' name='h_piappro2' id='h_piappro2'> <!-- 결재자2 사원번호 -->
+       <input type='hidden' name='input_pur' id='input_pur' value='pur'>
+       <input type='hidden' name='input_date' id='input_date' value='${today }'>
  
 <div id=category>
-		<jsp:include page="../category/submenuPurchase.jsp"></jsp:include>
-	</div>
+      <jsp:include page="../category/submenuPurchase.jsp"></jsp:include>
+   </div>
 
 
-	<div id='purchaseResult'>
-	
-	</div>
-	
-	 <div class='pibody'>
+   <div id='purchaseResult'>
+   
+   </div>
+   
+    <div class='pibody'>
       <div class='pihead'>
          <div class='pihead1'></div>
          <div class='pihead2'>구매보고서</div>
@@ -449,7 +449,7 @@ request.setAttribute("today", today);
       </div>
 
     <div id='purihead3'>
-    	<label for="purselect">제품명(코드)</label>
+       <label for="purselect">제품명(코드)</label>
     <select id="purselect">
     <option selected value=0>제품명(코드)  </option>
 <c:forEach items="${list1}" var="obj"> 
@@ -462,9 +462,9 @@ request.setAttribute("today", today);
         <a href='#' class='pibutton' id='pibutton' name='pibutton' onclick="plus()">추가</a>
     </div>
     
-    	
-    		    
-    		    
+       
+              
+              
     
 </form>
 
@@ -489,26 +489,26 @@ request.setAttribute("today", today);
     <div id='purihead6'>
         <a href='#' id='plok' class='pibutton' onclick='plok()'>작성완료</a>
         <a href='#' id='plcancle' class='pibutton' onclick='plcancle()'>작성취소</a>
-		
-		
-		
-	<input type='hidden' name='mCode' value="${vo.mCode }"/>
-	
+      
+      
+      
+   <input type='hidden' name='mCode' value="${vo.mCode }"/>
+   
 <!-- hidden들 -->
 
-		<input type='hidden' name='input_writer' id='input_writer'>
-		<input type='hidden' name='h_piappro1' id='h_piappro1'> <!-- 결재자1 사원번호 -->
-		<input type='hidden' name='h_piappro2' id='h_piappro2'> <!-- 결재자2 사원번호 -->
-		<input type='hidden' name='input_term' id='input_term'>
-		<input type='hidden' name='input_date' id='input_date'>
+      <input type='hidden' name='input_writer' id='input_writer'>
+      <input type='hidden' name='h_piappro1' id='h_piappro1'> <!-- 결재자1 사원번호 -->
+      <input type='hidden' name='h_piappro2' id='h_piappro2'> <!-- 결재자2 사원번호 -->
+      <input type='hidden' name='input_term' id='input_term'>
+      <input type='hidden' name='input_date' id='input_date'>
   
     </div>
-	</form>
-	
-	
-	</body>
-	
-	
-	
-	
+   </form>
+   
+   
+   </body>
+   
+   
+   
+   
 </html>

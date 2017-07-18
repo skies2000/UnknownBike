@@ -167,6 +167,69 @@
       */
    }
 
+	#purchase_home_btn{		
+		text-align: center;
+	}
+	.phcate {
+		display:inline-block;
+		width:auto;	
+		color:white;	
+	}
+	.phcate:hover {
+		color:#7e8389;
+	}
+	.phcate_need{
+		display:inline-block;	
+		width:auto;	
+		color:#a6827e;
+	}
+	.phcate_need:hover{
+		color:#7e8389;
+	}
+	.phbar{
+		width:30px;
+		display: inline-block;
+		text-align: center;
+	}
+	.phviewitem{
+		/*
+		border: 1px solid white;
+		*/
+		width: 20%;
+		min-width: 165px;
+		text-align: center;
+		margin-bottom: 11px;
+	}
+	#purimg {
+		width: 100px;
+		height: 100px;	
+	}
+	.phviewtxt{
+		font-size: 12px;
+		width: 130px;
+		/* 가운데정렬
+		display: table-cell;
+		text-align: center;
+		*/
+	}
+	
+	#pur_search{
+		text-align: right;
+		margin-bottom: 15px;
+	}
+	
+	
+	/*상세 제품 정보에 추가되는 내용이 새로로 추가가 되서 가로로 추가 되게 css 먹여봄  */
+	#productDetailInfoDiv .phviewitem{
+		display: inline-block;
+		width: 100px;		
+	}
+	
+	
+	
+	</style>
+	</head>
+<!-- =======
    #purchase_home_btn{      
       text-align: center;
    }
@@ -229,6 +292,7 @@
    
    </style>
    </head>
+>>>>>>> db2caa5901687d62621e1806a7d0529efe14a38a -->
     
    <body>
    

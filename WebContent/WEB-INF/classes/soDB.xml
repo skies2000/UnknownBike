@@ -91,10 +91,27 @@
 	</insert> 
 	
 	<!-- 구매보고서입력  -->
-	<insert id="PurInput" parameterType="so.SoVo">
-		insert into plist(pldcode,plmcode,plmodel,plpur,plmea,plprice)
-		values((select max(dCode)+1 as dCode from Document),#{plMCode}, #{plModel},#{plPur}, #{plMEa},#{plPrice})
-	</insert>
+   <insert id="PurInput" parameterType="so.SoVo">
+      insert into plist(pldcode,plmcode,plmodel,plpur,plmea,plprice)
+      values((select max(dCode)+1 as dCode from Document),#{plMCode}, #{plModel},#{plPur}, #{plMEa},#{plPrice})
+   </insert>
+	 <!-- sale_view페이지 상단 로드 -->
+    <select id='pur_view' resultMap="voMap" parameterType="so.SoVo">
+      select * from document where dCode=#{dCode} and dCate=#{dCate}
+   </select> 
+   
+      <select id='sale_view2' resultMap="voMap" parameterType="so.SoVo">
+    		
+	select m.mcode, m.mname, v.vname, p.plmea, m.mprice
+     	from material m 
+     	join plist p on p.plmcode = m.mcode 
+     	join vender v on v.vcode = m.mpo
+        where p.pldcode = #{dCode}
+   </select> 
+   
+      <select id='find_name' resultMap="voMap" parameterType="so.SoVo">
+      select * from employees where eCode = #{eCode}
+   </select> 
 
 
   	<!-- phome 검색  -->
@@ -125,4 +142,5 @@
 		where d.dCate = 'pur' 
 		order by d.dStatus DESC, d.dcode DESC
 	</select>
+
 </mapper>

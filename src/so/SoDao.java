@@ -152,6 +152,39 @@ public class SoDao {
 		return list;
 	}
 	
-	
+	//판매요청서 상세 하단
+	   public List<SoVo> sale_view2(SoVo dvo) {
+	      List<SoVo> list = null;
+	      try{
+	         list = session.selectList("sodb.sale_view2", dvo);
+	      }catch (Exception e) {
+	         e.printStackTrace();
+	      }
+	      return list;
+	   }
+
+	   //판매요청서 상세 상단
+	   public SoVo sale_view(SoVo dvo) {
+		   SoVo vo = new SoVo();
+	      try{
+	         vo = session.selectOne("sodb.pur_view", dvo);
+	      }catch (Exception e) {
+	         e.printStackTrace();
+	      }
+	      
+	      return vo;
+	   }
+	   
+	   public SoVo findEname(SoVo evo) {
+		   SoVo vo = null;
+		      try{
+		    	  vo = session.selectOne("sodb.find_name", evo);
+		      }catch (Exception e) {
+		         e.printStackTrace();
+		      }
+		      return vo;
+		   }
+	   
+
 }
 	
