@@ -169,7 +169,7 @@
 
 		<form>
 			<div>
-				<img src="../images/materialimg/${vo.mimage}" width="700px"
+				<img src="../images/purchaseimg/${vo.mimage}" width="700px"
 					height="300px" id='viewImg'>
 				<table width="700px">
 					<tr>

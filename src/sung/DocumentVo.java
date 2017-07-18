@@ -32,7 +32,29 @@ public class DocumentVo {
 	private String splDate;
 	private int splPrice;
 	private int splCost;
+	private String msg1;
+	private String msg2;
 	
+	public String getMsg1() {
+		return msg1;
+	}
+	public void setMsg1(String msg1) {
+		this.msg1 = msg1;
+	}
+	public String getMsg2() {
+		return msg2;
+	}
+	public void setMsg2(String msg2) {
+		this.msg2 = msg2;
+	}
+	private int vEa;
+	
+	public int getvEa() {
+		return vEa;
+	}
+	public void setvEa(int vEa) {
+		this.vEa = vEa;
+	}
 	public String getSplDate() {
 		return splDate;
 	}

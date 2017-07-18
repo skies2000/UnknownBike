@@ -31,6 +31,20 @@
 			}
 		}
 	});
+	
+	function delBtnFunc(pcode){
+		if(!confirm("삭제 하시겠습니까?")) return;
+		
+		xhr.open("get","../productDel.hwan?pcode="+pcode);
+		xhr.send();
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				var txt = xhr.responseText;
+				$("#laboratorResult").html(txt);
+			}
+		}
+		
+	}
 	/* $('#proView #delBtn').click(function(){
 		var xhr = new XMLHttpRequest();
 		var frm = document.getElementById("proViewFrm");
@@ -174,7 +188,7 @@
             </tr>
         </table>
         <a href=# id = "backBtn" class = "myButton" >뒤로</a>
-        <a href=# id = "delBtn" class = "myButton" >삭제</a>
+        <a href=# id = "delBtn" class = "myButton" onclick="delBtnFunc('${vo.pcode}')">삭제</a>
         
         <form method = 'post' id = "proViewFrm"enctype="multipart/form-data">
         <input type="hidden" name = "pcode" value = '${vo.pcode}'>

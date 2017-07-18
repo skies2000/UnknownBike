@@ -5,6 +5,15 @@ public class VenderVo {
 	private String vName;
 	private int vEmp;
 	private int vCage;
+	private int vSum;
+	
+	
+	public int getvSum() {
+		return vSum;
+	}
+	public void setvSum(int vSum) {
+		this.vSum = vSum;
+	}
 	public int getvCode() {
 		return vCode;
 	}

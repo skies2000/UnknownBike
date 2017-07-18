@@ -9,7 +9,7 @@
 <resultMap type="so.SoVo" id="voMap"/>
 
  <select id='material_flist' resultMap="voMap" parameterType="so.SoVo">
-     	select * from material order by mCode 
+     	select * from material where mState=1 order by mCode 
  </select>
 
 
@@ -17,13 +17,13 @@
  <select id='material_list' resultMap="voMap" parameterType="so.SoVo">
      	select * from material 
      	<if test="mCate != null">
-     		where mCate = #{mCate} order by mCode 
+     		where mCate = #{mCate} and mState=1 order by mCode 
      	</if>    	
  </select>
 
 <select id='material_nlist' resultMap="voMap" parameterType="so.SoVo">
      <![CDATA[
-      	 select * from material where mEa <= 50 order by mCode
+      	 select * from material where mEa <= 50 and mState=1 order by mCode
       	]]>
   	</select>
   	
@@ -91,17 +91,34 @@
 	</insert> 
 	
 	<!-- 구매보고서입력  -->
-	<insert id="PurInput" parameterType="so.SoVo">
-		insert into plist(pldcode,plmcode,plmodel,plpur,plmea,plprice)
-		values((select max(dCode)+1 as dCode from Document),#{plMCode}, #{plModel},#{plPur}, #{plMEa},#{plPrice})
-	</insert>
+   <insert id="PurInput" parameterType="so.SoVo">
+      insert into plist(pldcode,plmcode,plmodel,plpur,plmea,plprice)
+      values((select max(dCode)+1 as dCode from Document),#{plMCode}, #{plModel},#{plPur}, #{plMEa},#{plPrice})
+   </insert>
+	 <!-- sale_view페이지 상단 로드 -->
+    <select id='pur_view' resultMap="voMap" parameterType="so.SoVo">
+      select * from document where dCode=#{dCode} and dCate=#{dCate}
+   </select> 
+   
+      <select id='sale_view2' resultMap="voMap" parameterType="so.SoVo">
+    		
+	select m.mcode, m.mname, v.vname, p.plmea, m.mprice
+     	from material m 
+     	join plist p on p.plmcode = m.mcode 
+     	join vender v on v.vcode = m.mpo
+        where p.pldcode = #{dCode}
+   </select> 
+   
+      <select id='find_name' resultMap="voMap" parameterType="so.SoVo">
+      select * from employees where eCode = #{eCode}
+   </select> 
 
 
   	<!-- phome 검색  -->
 <select id='phomefindStr' resultMap="voMap" parameterType="so.SoVo">
       	 
       select * from material  
-      and (mCode like '%${findStr}%' or mName like '%${findStr}%') 
+      where (mCode like '%${findStr}%' or mName like '%${findStr}%') 
       order by mCode
       	 
   	</select>
@@ -123,6 +140,7 @@
 		from document d
 	    join employees e on d.dWrite = e.eCode 
 		where d.dCate = 'pur' 
-		order by d.dStatus DESC, d.dcode ASC
+		order by d.dStatus DESC, d.dcode DESC
 	</select>
+
 </mapper>

@@ -85,7 +85,7 @@ public class kimHaController {
 	public MultipartRequest getMul(HttpServletRequest req) {
 		MultipartRequest mul = null;
 
-		String uploadPath = req.getRealPath("images/materialimg");
+		String uploadPath = req.getRealPath("images/purchaseimg");
 
 		try {
 			mul = new MultipartRequest(req, uploadPath, 1024 * 10000, "utf-8", new DefaultFileRenamePolicy());

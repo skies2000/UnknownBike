@@ -11,13 +11,11 @@
 #list_title {
    text-align: center;
 }
-
 #plist_header{
    font-size: 14px;
    width : 20%;
    margin-left: 85px;
 }
-
 #plist_content{
    border : 1px solid white;
    margin: auto;
