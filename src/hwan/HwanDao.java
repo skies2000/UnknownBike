@@ -28,8 +28,7 @@ public class HwanDao {
 		
 		return list;
 		
-	}
-	
+	}	
 	public int proInput(HwanVo vo){
 		int r = 0;
 		int a = 0;
@@ -71,7 +70,6 @@ public class HwanDao {
 	public List<HwanVo> proListAllSearch(HwanVo vo){
 		List<HwanVo> list = null;
 		
-		pageCompute(vo,5,5);
 		
 		
 		list = session.selectList("hwandb.proListAllSearch",vo);
@@ -111,55 +109,7 @@ public class HwanDao {
 		return r;
 	}
 	
-	public void pageCompute(HwanVo v, int listSize, int blockSize){
-		  pVo = new HwanPageVo(listSize,blockSize);
-		  
-		  int totList = 0; //리스트 전체 개수
-		  int totPage = 0; // 전체 페이지수
-		  int totBlock = 0;	//전체 블럭수
-		  
-		  int nowBlock = 1; // 현재 블럭
-		  int startNo = 0; //리스트 목록의 시작위치
-		  int endNo = 0; //리스트 목록의 마지막 위치
-		  
-		  int startPage = 0; // 한블럭에 표시할 시작 페이지 번호
-		  int endPage = 0; // 한블럭에 표시할 마지막 페이지 번호
-		  
-		   
-		  int nowPage =  v.getNowPage(); // 현재 페이지
-		  
-		  
-		  String findStr = v.getFindStr();
-		  
-		  int a = session.selectOne("hwandb.productCnt");
-		  System.out.println("productCnt : "+a);
-		 
-			  
-			  
-			  totPage = (int)Math.ceil(totList/(pVo.getListSize()*1.0));
-			  totBlock = (int)Math.ceil(totPage/(pVo.getBlockSize()*1.0));
-			  nowBlock = (int)Math.ceil(nowPage/(pVo.getBlockSize()*1.0));
-			  
-			  endPage = nowBlock * pVo.getBlockSize();
-			  startPage = endPage - pVo.getBlockSize()+1;
-			  endNo = nowPage * pVo.getListSize(); 
-			  startNo = endNo - pVo.getListSize()+1;
-			  
-			  if(endPage > totPage) endPage = totPage;
-			  if(endNo > totList) endNo = totList;
-			  
-			  pVo.setTotList(totList);
-			  pVo.setTotBlock(totBlock);
-			  pVo.setEndNo(endNo);
-			  pVo.setEndPage(endPage);
-			  pVo.setNowBlock(nowBlock);
-			  pVo.setStartNo(startNo);
-			  pVo.setStartPage(startPage);
-			  pVo.setTotPage(totPage);
-			  pVo.setNowPage(nowPage);
-			  
-				  
-	  }
+	
 	
 	public List<HwanVo> proViewMatList(int mlpcode){
 		List<HwanVo> list = null;
@@ -218,5 +168,28 @@ public class HwanDao {
 		}
 		
 		//////////////////////////////////마이페이지 끝////////////////////////////////////
+		
+		
+		public int proDel(String pcode){
+			int r = -1;
+			int a=0,b=0,c=0,d=0;
+			 
+			try{
+			a = session.delete("hwandb.proProDel",pcode);
+			b = session.delete("hwandb.proDlistDel",pcode);
+			c = session.delete("hwandb.proMlistDel",pcode);
+			d = session.delete("hwandb.proDocDel",pcode);
+			if(a>0 && b>0 && c>0 && d>0){
+				r=1;
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+				r=-1;
+				session.rollback();
+			}
+			session.commit();
+			return r;
+			
+		}
 	
 }

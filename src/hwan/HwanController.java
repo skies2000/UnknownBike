@@ -528,7 +528,8 @@ public class HwanController {
 	@RequestMapping(value="/productDel.hwan",method={RequestMethod.GET})
 	public Object productDel(HwanVo vo){
 		
-		System.out.println("proDel pcode 1: "+vo.getPcode());
+		
+		dao.proDel(vo.getPcode()+"");
 		
 		return "laboratory/productDetails.html";
 	}
