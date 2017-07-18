@@ -97,9 +97,17 @@
 	</insert>
 
 
+  	<!-- phome 검색  -->
+<select id='phomefindStr' resultMap="voMap" parameterType="so.SoVo">
+      	 
+      select * from material  
+      and (mCode like '%${findStr}%' or mName like '%${findStr}%') 
+      order by mCode
+      	 
+  	</select>
 
 	
-<!-- 검색  -->
+<!-- plist 검색  -->
 <select id='findStr' resultMap="voMap" parameterType="so.SoVo">
       	 
       select * from document where dCate='pur' 
@@ -107,6 +115,7 @@
       order by dStatus
       	 
   	</select>
+  	
   	
   	<!-- list 뿌려주기 -->
   	<select id="purlist"  resultMap="voMap" parameterType="so.SoVo">
