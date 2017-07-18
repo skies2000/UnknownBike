@@ -1,5 +1,6 @@
 package beanhoon;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -271,5 +272,79 @@ public class HoonDao {
 		}
 	}
 	
+	// eff
+		@SuppressWarnings("finally")
+		public List<PurListVo> effsearchP(PurListVo vo) {
+			List<PurListVo> list = null;
+			
+			try {
+				list = session.selectList("hoondb.effsearchP", vo);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				return list;
+			}
+		}
+		
+		// 코드로 제품정보 가져오기
+		public PurListVo proinfo(PurListVo vo) {
+			PurListVo v = null;
+			
+			try {
+				v = session.selectOne("hoondb.proinfo", vo);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			return v;
+		}
+		
+		@SuppressWarnings("finally")
+		public PurListVo chartlist1(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {
+				v = session.selectOne("hoondb.chartlist1", vo);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		
+		@SuppressWarnings("finally")
+		public PurListVo chartlist2(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {
+				v = session.selectOne("hoondb.chartlist2", vo);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		
+		@SuppressWarnings("finally")
+		public PurListVo chartlist3(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {
+				v = session.selectOne("hoondb.chartlist3", vo);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+		
+		@SuppressWarnings("finally")
+		public PurListVo chartlist4(PurListVo vo) {
+			PurListVo v = new PurListVo();
+			try {
+				v = session.selectOne("hoondb.chartlist4", vo);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
+
 	
 }
