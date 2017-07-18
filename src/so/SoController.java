@@ -118,7 +118,7 @@ public class SoController {
 	    //index.jsp?inc=./board/purchase_home.jsp
 		return mv;
 	}
-	
+/*	
 //보고서 상세
 @RequestMapping(value="main/purviewdetail.so", method={RequestMethod.GET, RequestMethod.POST })
 public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
@@ -130,7 +130,7 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
     //index.jsp?inc=./board/purchase_home.jsp
 	return mv;
 }
-
+*/
 
 
 
@@ -387,6 +387,55 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 		req.setAttribute("ePosition", list.get(0).getePosition());*/
 		
 	}	
+	
+	@RequestMapping(value = "main/purviewdetail.so", method = { RequestMethod.GET, RequestMethod.POST })
+	   public Object goSale_view(SoVo dvo) {
+	      ModelAndView mv = new ModelAndView(); 
+	      try{
+	         //상세보기 상단 문서 정보
+	         dvo.setdCate("pur");
+	         /*int dCode = dvo.getdCode();*/ 
+	         int dCode = 50028;
+	         dvo.setdCode(dCode);
+	         SoVo vo = dao.sale_view(dvo);
+	         mv.addObject("vo", vo);
+	         
+	         //상세보기 하단 판매 리스트
+	         dvo.setPlDcode(dvo.getdCode());
+	         List<SoVo> list = dao.sale_view2(dvo);
+	         mv.addObject("list", list);
+	         
+	         //사원 이름 찾기
+	         SoVo evo = new SoVo();
+	         int write = vo.getdWrite();
+	         evo.seteCode(write);
+	         SoVo writerVo = new SoVo();
+	         writerVo = dao.findEname(evo);
+	         
+	         mv.addObject("writerVo", writerVo); //작성자
+	         
+	         String sign = vo.getdSign();
+	         String[] appro = sign.split(",");
+	         int appro1 = Integer.parseInt(appro[0]);
+	         int appro2 = Integer.parseInt(appro[1]);
+	         
+	         SoVo app1 = new SoVo();
+	         app1.seteCode(appro1);
+	         app1 = dao.findEname(app1);
+	         mv.addObject("app1", app1); //결재자1
+	         
+	         SoVo app2 = new SoVo();
+	         app2.seteCode(appro2);
+	         app2 = dao.findEname(app2);
+	         mv.addObject("app2", app2); //결재자2
+	         
+	         mv.setViewName("../main/index.jsp?inc=../purchase/purchase_ReportView.jsp");
+	         
+	      }catch (Exception e) {
+	         e.printStackTrace();
+	      }
+	      return mv;
+	   }
 	
 	
 	

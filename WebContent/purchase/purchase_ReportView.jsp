@@ -27,6 +27,7 @@
 #pdview_btn{
 	text-align: center;
 }
+
 </style>
 </head>
 <body>
@@ -44,10 +45,10 @@
 					<label>문서번호</label><br /> <label>DC-01234</label>
 				</div>
 				<div id='sign2'>
-					<div id='appro'>결&nbsp재&nbsp내&nbsp역</div>
-					<div id='writer'>작성자</div>
-					<div id='appro1'>결재자1</div>
-					<div id='appro2'>결재자2</div>
+					<div id='appro'>결&nbsp재&nbsp내&nbsp역</div>				
+					<div id='writer'>${vo.dWrite }</div>
+					<div id='appro1'>${vo.app1 }</div>
+					<div id='appro2'>${vo.app2 }</div>
 					<div id='stamp1'>
 						<div id='status'>작성</div>
 						<div id='app_date'>2017-06-28</div>
@@ -67,36 +68,28 @@
 				<span id='labeltitle'> <label>제목</label>
 				</span> <span id='subcontent'> 빨리 결재해주세여 빨리여빨리 다 팔게 </span>
 			</div>
-			<!--  ------------------내용--------------------  -->
-			<!-- <div id='content'>
-				<span id='labeltitle'> <label>내용</label>
-				</span> <span id='concontent'> 이곳 케냐에서 해외로 식품을 수출하는 농장에서는 단지 못생겼다는
-					이유로 매일 75톤에 달하는 채소가 폐기되요. 무려 토마토 60만 개에 달하는 양인데요. 먹어도 아무 문제가 없지만,
-					상품으로 판매할 수 없으므로 대부분 쓰레기가 되어버리는 거죠. 케냐에서 WFP 영양사로 일하고 있는 디나
-					아부미샨(Dina Aburmishan) 씨는 이렇게 말합니다. “그냥 조금 이상하게 생겼거나 흠집이 있다든지, 아니면
-					단지 길이가 짧거나 굵어서 포장지 규격에 맞지 않는다는 이유로 멀쩡한 채소가 버려져요. 먹어도 아무 문제가 없고, 맛과
-					영양도 똑같은데 말이죠.” 올해 1월, WFP는 이런 못난이 채소를 학교 급식으로 만들어 공급하기 위한 시범 사업을
-					시작했어요. WFP에서 혁신을 담당하는 부서인 '이노베이션 액셀러레이터(Innovation Accelerator)'와
-					호주 정보의 지원으로 시작된 이번 시범 사업을 통하여 음식물 쓰레기를 절감하게 되었을 뿐만 아니라,
-					나이로비(Nairobi) 지역 인근에 있는 학교 3곳의 취약계층 학생들이 더욱 영양가 있는 점심을 먹을 수 있게
-					되었답니다. <br />[출처] 유엔세계식량계획(WFP) - WFP 학교급식: '못난이 채소'의 대변신|작성자
-					유엔세계식량계획
-				</span>
-			</div> -->
-			<!--  ------------------판매품의 타이틀--------------------  -->
+
 			<br/>
 			<div id='plist_header'>요청제품 리스트</div>
 			<!--  ------------------판매목록--------------------  -->
 			<br/><br/>
 			<div id='sale_list'>
 				<div id='list_title'>
-					<span id='code'>제품코드</span> 
-					<span id='codeName'>제품명</span> 
+					<span id='code'>자재코드</span> 
+					<span id='codeName'>자재명</span> 
 					<span id='custom'>거래처</span> <span id='ea'>수량</span> 
 					<span id='unit'>단가</span>
 					<span id='total'>총액</span>
 				</div>
 				<div id='plist_content'>
+					<c:forEach items="${list}" var="vo">
+					<span id='code'>${vo.plMCode }</span> 
+					<span id='codeName'>${vo.plMCode }</span> 
+					<span id='custom'>거래처</span> <span id='ea'>수량</span> 
+					<span id='unit'>단가</span>
+					<span id='total'>총액</span>
+					
+					</c:forEach> 				
 					
 				</div>
 			</div>

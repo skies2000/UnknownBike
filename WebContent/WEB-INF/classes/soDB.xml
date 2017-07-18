@@ -78,5 +78,20 @@
 		insert into plist(plmcode,plmodel,plpur,plmea,plprice)
 		values((select max()))
 	</insert> -->
-
+	 <!-- sale_view페이지 상단 로드 -->
+    <select id='pur_view' resultMap="voMap" parameterType="so.SoVo">
+      select * from document where dCode=#{dCode} and dCate=#{dCate}
+   </select> 
+   
+      <select id='sale_view2' resultMap="voMap" parameterType="so.SoVo">
+       <!--  SELECT pldcode, mname, vname, plmea, plprice 
+        from MATERIAL JOIN PLIST on mcode = plmcode 
+        join VENDER on plpur = vcode 
+        join DOCUMENT on pldcode =dcode
+        where dcode = #{dCode} -->
+   </select> 
+   
+      <select id='find_name' resultMap="voMap" parameterType="so.SoVo">
+      select * from employees where eCode = #{eCode}
+   </select> 
 </mapper>

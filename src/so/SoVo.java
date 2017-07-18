@@ -22,7 +22,7 @@ public class SoVo {
 	int dCode;
 	String dName;
 	String dCont;//내용
-	Date dDate;
+	String dDate;
 	int dWrite;
 	int dSignA;
 	int dStatus;
@@ -47,8 +47,55 @@ public class SoVo {
 	Date plDate;//날짜
 	int plStatus;//상태
 	int plnow;//구매상태
+	String dSign;//결재라인
+	int app1;//결재자1
+	int app2;//결재자2
 	
 	
+	
+	
+	public String getdSign() {
+		return dSign;
+	}
+
+
+
+
+	public void setdSign(String dSign) {
+		this.dSign = dSign;
+	}
+
+
+
+
+	public int getApp1() {
+		return app1;
+	}
+
+
+
+
+	public void setApp1(int app1) {
+		this.app1 = app1;
+	}
+
+
+
+
+	public int getApp2() {
+		return app2;
+	}
+
+
+
+
+	public void setApp2(int app2) {
+		this.app2 = app2;
+	}
+
+
+
+
 	public int getmCode() {
 		return mCode;
 	}
@@ -231,14 +278,16 @@ public class SoVo {
 
 
 
-	public Date getdDate() {
+	
+
+	public String getdDate() {
 		return dDate;
 	}
 
 
 
 
-	public void setdDate(Date dDate) {
+	public void setdDate(String dDate) {
 		this.dDate = dDate;
 	}
 

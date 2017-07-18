@@ -163,7 +163,7 @@
 		color:#7e8389;
 	}
 	.phcate_need{
-		display:inline-block;
+		display:inline-block;	
 		width:auto;	
 		color:#a6827e;
 	}
