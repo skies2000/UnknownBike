@@ -43,8 +43,8 @@ if(request.getParameter("find")==null){
 	<span class='top_main'>구매보고서 조회</span>
 	
 	<input type='text' id='txtFind'>
-	<!-- <input type='button' id='btnFind' value='문서 검색' onclick='search()'> -->
-	<a href='#' class='pibutton' id='pibutton' name='pibutton' onclick='search()'>검색</a>
+	<input type='button' id='btnFind' value='문서 검색' onclick='search()'>
+	<!-- <a href='#' class='pibutton' id='pibutton' name='pibutton' onclick='search()'>검색</a> -->
 	
 	<hr>
 </div>

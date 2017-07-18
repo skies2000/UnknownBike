@@ -182,9 +182,6 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 		String mPo = mul.getParameter("mPo");
 		String mEa = mul.getParameter("mEa");
 		String mPrice = mul.getParameter("mPrice");
-
-
-		
 		
 		/*if(code)*/
 		String[] spl_code = mCode.split(",");

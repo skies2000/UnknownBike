@@ -1,5 +1,4 @@
-<%@page import="java.util.List"%>
-<%@page import="java.util.ArrayList"%>
+
 <%@page import="beanhoon.PurListVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
@@ -11,14 +10,7 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
-<% 
-PurListVo t1 = (PurListVo) request.getAttribute("t1");
-
-int l1q1 = 0; int l1q2 = 0; int l1q3 = 0; int l1q4 = 0;
-int l2q1 = 0; int l2q2 = 0; int l2q3 = 0; int l2q4 = 0;
-int l3q1 = 0; int l3q2 = 0; int l3q3 = 0; int l3q4 = 0;
-int l4q1 = 0; int l4q2 = 0; int l4q3 = 0; int l4q4 = 0;
-int l5q1 = 0; int l5q2 = 0; int l5q3 = 0; int l5q4 = 0;
+<%
 
 %>
 google.load("visualization","1",{packages:["corechart"]});
@@ -26,10 +18,10 @@ google.setOnLoadCallback(drawChart);
 function drawChart(){
 	var data = google.visualization.arrayToDataTable([
 		['Year','1Line','2Line','3Line','4Line','5Line'],
-		['17년1분기',<%=l1q1 %>,<%=l2q1 %>,<%=l3q1 %>,<%=l4q1 %>,<%=l5q1 %>],
-		['17년2분기',<%=l1q2 %>,<%=l2q2 %>,<%=l3q2 %>,<%=l4q2 %>,<%=l5q2 %>],
-		['17년3분기',<%=l1q3 %>,<%=l2q3 %>,<%=l3q3 %>,<%=l4q3 %>,<%=l5q3 %>],
-		['17년4분기',<%=l1q4 %>,<%=l2q4 %>,<%=l3q4 %>,<%=l4q4 %>,<%=l5q4 %>]
+		['17년1분기',1100,250,1250,1150,50],
+		['17년2분기',1250,250,1300,1100,100],
+		['17년3분기',1580,600,1500,1200,50],
+		['17년4분기',1300,1000,1600,1500,200]
 	]);
 
 var options={
@@ -196,114 +188,105 @@ function start() {
 
 </script>
 <body>
-   <div id=category>
-      <jsp:include page="../category/submenuProduct.jsp"></jsp:include>
-   </div>
+<div id=category>
+	<jsp:include page="../category/submenuProduct.jsp"></jsp:include>
+</div>
 
-   <div id=content_eff>
-         <div id='headereff'>
-            <span id="titleeff"> 생산효율조회 </span>
-			<form name='frmname' id='frmid' method='post'>
-            <div id='searcheff2'>
-               <span>검색어</span> 
-               <input type='text' name='pCode' /> 
-               <input type='button' id='btnSearch' value='출력' />
-         	</div>
-            <div id='searcheff1'>
-               <span>조회기간</span> 
-               <input type='date' id='workStartDate' name='workStartDate' /> ~ 
-               <input type='date' id='workEndDate' name='workEndDate' /> 
-            </div>
-            </form>
-      <div id='underlineeff'></div>   
+<div id=content_eff>
+	<div id='headereff'>
+		<span id="titleeff"> 생산효율조회 </span>
+		<form name='frmname' id='frmid' method='post'>
+			<div id='searcheff2'>
+				<span>검색어</span> 
+				<input type='text' name='pCode' /> 
+				<input type='button' id='btnSearch' value='출력' />
+			</div>
+			<div id='searcheff1'>
+				<span>조회기간</span> 
+				<input type='date' id='workStartDate' name='workStartDate' /> ~ 
+				<input type='date' id='workEndDate' name='workEndDate' /> 
+			</div>
+		</form>
+		
+		<div id='underlineeff'></div>   
    
-      <div id= product_prn>
-         
-         <div id='eff_left1'>
-            <div id='title_left1'>제품</div>
-            <div id='line1'>
-               <span class='ppcode'>자재코드</span>
-                <span class='pname'>자재명</span>
-                <span class='pdev'>개발자</span>
-                <span class='pea'>재고</span>
-                <span class='pdate'>등록일</span>
-                <span class='pqty'>총생산</span>
-            </div>
-            <% String pd ="";
-            if(request.getAttribute("voa") != null) {
-            	PurListVo aa = (PurListVo) request.getAttribute("voa");
-            	pd = aa.getpDate().substring(0,10);
-            }
-            %>
-            
-            <div id='line2'>
-               <span class='ppcode'>${voa.pCode }</span>
-                <span class='pname'>${voa.pName }</span>
-                <span class='pdev'>${voa.pDev }</span>
-                <span class='pea'>${voa.pEa }</span>
-                <span class='pdate'><%=pd %></span>
-                <span class='pqty'>${voa.totalEa }</span>
-            </div>
-         </div>
-         <div id='eff_right'>
-            <div id='title_right'>기간</div>
-            <div id='chart_div'></div>
-         </div>
-         
-         
-         <div id='eff_left2'>
-            <div id='title_left2'>라인</div>
-            
-              <div id='efr_title'>
-               <span class='line'>라인</span>
-               <span class='totalEa'>총생산량</span>
-               <span class='pdys'>불량률</span>
-               <span class='peff'>평균효율</span>
-            </div>
-            <div id='lineeff'></div>
-             
-            <div id='efr_title1'>
-               <span class='line'>라인1</span>
-               <span class='totalEa'>${vo1.totalEa }</span>
-               <span class='pdys'>${vo1.dys }</span>
-               <span class='peff'>${vo1.totaleff }</span>
-            </div>
-            <div id='efr_title2'>
-               <span class='line'>라인2</span>
-                <span class='totalEa'>${vo2.totalEa }</span>
-               <span class='pdys'>${vo2.dys }</span>
-               <span class='peff'>${vo2.totaleff }</span>
-            </div>
-            <div id='efr_title3'>
-               <span class='line'>라인3</span>
-                <span class='totalEa'>${vo3.totalEa }</span>
-               <span class='pdys'>${vo3.dys }</span>
-               <span class='peff'>${vo3.totaleff }</span>
-            </div>
-            <div id='efr_title4'>
-               <span class='line'>라인4</span>
-                <span class='totalEa'>${vo4.totalEa }</span>
-               <span class='pdys'>${vo4.dys }</span>
-               <span class='peff'>${vo4.totaleff }</span>
-            </div>
-            <div id='efr_title5'>
-               <span class='line'>라인5</span>
-                <span class='totalEa'>${vo5.totalEa }</span>
-               <span class='pdys'>${vo5.dys }</span>
-               <span class='peff'>${vo5.totaleff }</span>
-            </div>
-            
-         </div>
-      </div>
-   
-   </div>
-         
-         
-   </div>
-
-<form method='post' id='data'>
-	<input type='hidden' name=''>
-</form>
+		<div id= product_prn>
+			<div id='eff_left1'>
+				<div id='title_left1'>제품</div>
+				<div id='line1'>
+					<span class='ppcode'>자재코드</span>
+					<span class='pname'>자재명</span>
+					<span class='pdev'>개발자</span>
+					<span class='pea'>재고</span>
+					<span class='pdate'>등록일</span>
+					<span class='pqty'>총생산</span>
+				</div>
+				<% String pd ="";
+				if(request.getAttribute("voa") != null) {
+					PurListVo aa = (PurListVo) request.getAttribute("voa");
+					pd = aa.getpDate().substring(0,10);
+				}
+				%>
+	            
+				<div id='line2'>
+					<span class='ppcode'>${voa.pCode }</span>
+					<span class='pname'>${voa.pName }</span>
+					<span class='pdev'>${voa.pDev }</span>
+					<span class='pea'>${voa.pEa }</span>
+					<span class='pdate'><%=pd %></span>
+					<span class='pqty'>${voa.totalEa }</span>
+				</div>
+			</div>
+			<div id='eff_right'>
+				<div id='title_right'>기간</div>
+				<div id='chart_div'></div>
+			</div>
+	
+			<div id='eff_left2'>
+				<div id='title_left2'>라인</div>
+				<div id='efr_title'>
+					<span class='line'>라인</span>
+					<span class='totalEa'>총생산량</span>
+					<span class='pdys'>불량률</span>
+					<span class='peff'>평균효율</span>
+				</div>
+				<div id='lineeff'></div>
+	             
+				<div id='efr_title1'>
+					<span class='line'>라인1</span>
+					<span class='totalEa'>${vo1.totalEa }</span>
+					<span class='pdys'>${vo1.dys }</span>
+					<span class='peff'>${vo1.totaleff }</span>
+				</div>
+				<div id='efr_title2'>
+					<span class='line'>라인2</span>
+					<span class='totalEa'>${vo2.totalEa }</span>
+					<span class='pdys'>${vo2.dys }</span>
+					<span class='peff'>${vo2.totaleff }</span>
+				</div>
+				<div id='efr_title3'>
+					<span class='line'>라인3</span>
+					<span class='totalEa'>${vo3.totalEa }</span>
+					<span class='pdys'>${vo3.dys }</span>
+					<span class='peff'>${vo3.totaleff }</span>
+				</div>
+				<div id='efr_title4'>
+					<span class='line'>라인4</span>
+					<span class='totalEa'>${vo4.totalEa }</span>
+					<span class='pdys'>${vo4.dys }</span>
+					<span class='peff'>${vo4.totaleff }</span>
+				</div>
+				<div id='efr_title5'>
+					<span class='line'>라인5</span>
+					<span class='totalEa'>${vo5.totalEa }</span>
+					<span class='pdys'>${vo5.dys }</span>
+					<span class='peff'>${vo5.totaleff }</span>
+				</div>
+	            
+			</div>
+		</div>
+	</div>
+</div>
 
 <script type="text/javascript">start()</script>	
 
