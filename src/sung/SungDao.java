@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.parsing.EmptyReaderEventListener;
 
+import beanhoon.PurListVo;
 import myba.UnknownFactory;
 
 public class SungDao {
@@ -274,6 +275,49 @@ public class SungDao {
 		}
 		return vo;
 	}
-
+	//제품 카테고리별 수량 가져오기
+	public ProductVo total_year(ProductVo vo) {
+		try{
+			vo = session.selectOne("sungdb.search_pcate", vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vo;
+	}
+	
+	//사원별 제품 판매수량 가져오기
+	public ProductVo search_pTotal(ProductVo vo) {
+		try{
+			vo = session.selectOne("sungdb.search_pTotal", vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vo;
+	}
+	
+	//제품 재고조회
+	public List<PurListVo> listPro(PurListVo vo) {
+		List<PurListVo> list = null;
+		
+		try {
+			list = session.selectList("sungdb.list_p", vo);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			return list;
+		}
+	}
+	// Product List 이미지
+		public PurListVo viewP(PurListVo vo) {
+			PurListVo v = null;
+			
+			try {
+				v = session.selectOne("sungdb.view_img_p", vo);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				return v;
+			}
+		}
 	
 }

@@ -8,6 +8,7 @@
 	<resultMap type="sung.ProductVo" id="ProductMap"/>
 	<resultMap type="sung.EmployeeVo" id="EmployeeMap"/>
 	<resultMap type="sung.VenderVo" id="VenderMap"/>
+	<resultMap type="beanhoon.PurListVo" id="voMap"/>
 	
 	<select id="req_select"  resultMap="documentMap" parameterType="sung.DocumentVo">
 		select * from document d join srList s 
@@ -142,5 +143,28 @@
 	 <select id='search_vea' resultMap="VenderMap" parameterType="sung.VenderVo">
 		select sum(splpea) as vSum from splist WHERE splvcode=#{vCode}
 	</select>  
+	
+	<!-- 연도별 판매액 -->
+	  <select id='search_pcate' resultMap="ProductMap" parameterType="sung.ProductVo">
+		select sum(splprice) total from splist where substr(spldate,0,4)=#{year}
+	</select>   
+	
+	<!-- 사원별 제품 판매량 -->
+	  <select id='search_pTotal' resultMap="ProductMap" parameterType="sung.ProductVo">
+		select sum(splpea) total from EMPLOYEES join document on dwrite=ecode
+		join splist on dcode=splcode 
+		join PRODUCT on splpcode=pcode where ecode=#{eCode} and pcate=#{pCate}
+	</select>   
+	
+	<!-- 제품 재고 조회 -->
+	<select id='list_p' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select pCode, pName, pCate, pPrice, to_char(pDate, 'yyyy.mm.dd') pDate, pEa, pImage from product order by pCode
+	</select>
+	
+	<!-- 제품 이미지 조회 -->
+	<select id='view_img_p' resultMap="voMap" parameterType="beanhoon.PurListVo">
+		select pImage from product where pCode = #{pCode }
+	</select>
+	
 	
 </mapper>

@@ -44,7 +44,7 @@ function drawChart() {
 </head>
 <body>
 
-	<div id=category>
+	<div id=category style='margin-bottom: 100px'>
 		<jsp:include page="../category/submenuSales.jsp"></jsp:include>
 	</div>
 
