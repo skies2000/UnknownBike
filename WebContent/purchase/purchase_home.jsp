@@ -8,9 +8,28 @@
 	
 <html>
 	<head>
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script> 
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<link rel='stylesheet' href='../purchase/purchase_modal.css' />
 	<script src='../jq_lib/jquery-3.2.1.min.js'></script>
 		<script>
+		//전체선택
+		$(document).ready(function(){
+		    //최상단 체크박스 클릭
+		$("#allCheck").click(function(){
+		        //클릭되었으면
+		     if($("#allCheck").prop("checked")){
+		            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+		            $("input[name=checkmaterial]").prop("checked",true);
+		            //클릭이 안되있으면
+		        }else{
+		            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+		            $("input[name=checkmaterial]").prop("checked",false);
+		        }
+		    });
+		});
+		
+		
 		
 			function gowheel(mCate){
 				var frm = document.frm;
@@ -38,7 +57,8 @@
 				 var frm = document.frm2;
 				 frm.action = 'purinput.so';
 				 frm.submit();
-			}
+		}
+			
 			//여러개일때...		
 			function purch_img(abc){
 				var modal = document.getElementById('myModal');
@@ -121,6 +141,18 @@
 			        modal.style.display = "none";
 			    }
 			} 
+			
+			
+			//검색
+			
+	function pursearch(){
+	var frm = document.getElementById("frm3");
+	var findStr1 = document.getElementById("txtFind").value;
+	frm.findStr.value=findStr1; //hidden값 = find_Str;
+	frm.action = 'pursearch.so';
+	frm.submit();
+	
+}
 
 		</script>
 		
@@ -222,7 +254,7 @@
 	</div>
 	<form name='frm1' method='post'>
 	<div id=pur_search>
-	<input type="text" style="height:25px;" size="25" name="findStr"><span id='purchase_src_btn'>
+	<input type="text" style="height:25px;" size="25" name="txtFind" id="txtFind"><span id='purchase_src_btn'>
 		<a href='#' id='plok' class='pibutton' onclick="pursearch()">검색 </a>		
 		</span>		
 	</div>
@@ -257,14 +289,14 @@
 	
 	<!-- for 문 돌아가는거 -->	
 		<form name='frm2' method='post'>
+		<div id='allcheck'>전체선택　<input type="checkbox" id='allCheck'></div>
 			<div id=pur_home_view>
 		<c:forEach items="${list}" var="vo"> 
 		
 		<div class='phviewitem'>
 		
-		
 			<div id='phcheckbox'>
-			<input type="checkbox" name='checkmaterial' value='${vo.mCode }'>
+			<input type="checkbox" id='checkmaterial' name='checkmaterial' value='${vo.mCode }'>
 			</div>
 			<!-- 이미지부분 -->
 			<div class='phviewimg'>
@@ -324,7 +356,9 @@
 </div>		
 	
 	
-	
+		<form name='frm3' id='frm3' method='post'>
+		<input type='hidden'  name='findStr'>
+	</form>
 
 	</body>
 </html>

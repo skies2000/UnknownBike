@@ -42,6 +42,7 @@ function cate_func(sel){
 				op.text=jData[i].eName;
 				op.value=jData[i].eCode;
 				sel2.options.add(op);
+	
 			}
 		}
 	}
@@ -69,10 +70,23 @@ function cate_func2(sel){
 			var jData = JSON.parse(txt);
 			
 			var str = "";
+			var ePosition = jData[0].ePosition;
+			var eDepart = jData[0].eDepart;
+			
+			if(ePosition==1) ePosition="사원";
+			if(ePosition==2) ePosition="팀장";
+			if(ePosition==3) ePosition="사장";
+		
+			if(eDepart==1) eDepart="연구소";
+			if(eDepart==2) eDepart="영업팀";
+			if(eDepart==3) eDepart="구매팀";
+			if(eDepart==4) eDepart="생산팀";
+			if(eDepart==5) eDepart="사장";
+			
 			str += "<div class='eName' id='eName'>사원명 : " + jData[0].eName + "</div>";
 			str += "<div class='eCode' id='eCode'>사원코드 : " + jData[0].eCode + "</div>";
-			str += "<div class='eDepart' id='eDepart'>부서명 :  " + jData[0].eDepart + "</div>";
-			str += "<div class='ePosition' id='ePosition'>직급 : " + jData[0].ePosition + " </div>";
+			str += "<div class='eDepart' id='eDepart'>부서명 :  " + eDepart + "</div>";
+			str += "<div class='ePosition' id='ePosition'>직급 : " + ePosition + " </div>";
 			
 			var divAdd = document.createElement("div");
 			divAdd.innerHTML = str;
@@ -82,6 +96,7 @@ function cate_func2(sel){
 			frm.eCode.value = jData[0].eCode;
 			frm.eDepart.value = jData[0].eDepart;
 			frm.ePosition.value = jData[0].ePosition;
+			
 		
 		} 
 	}

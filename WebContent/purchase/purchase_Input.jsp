@@ -432,7 +432,7 @@ request.setAttribute("today", today);
       </div>
       <div class='pisign'>
          <div class='pisign1'>제목
-         <input type='text' id='pisub' name='pisub'>
+         <input type='text' id='pisub' name='pisub' value='[자체구매] 아래와 같이 품의합니다.'>
          </div>
          <div class='pisign2'>
             <div class='piappro'>결&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;재</div> 

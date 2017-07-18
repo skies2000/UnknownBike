@@ -147,6 +147,7 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 		List<SoVo>list = dao.checkmaterial(checkmaterial);
 		List<SoVo>list1 = dao.fMetarial(vo);
 				
+		
 		mv.addObject("list",list);
 		mv.addObject("list1",list1);
 		
@@ -226,10 +227,10 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 		String msg2 = dao.purDocumentInput(svo);
 		
 		
-			JSONObject obj = new JSONObject();
-			obj.put("msg", "1");
-
-			out.print(obj);
+		/*	JSONObject obj = new JSONObject();
+			obj.put("msg", "1");*/
+			out.print("1");
+			/*out.print(obj);*/
 		
 	}
 	
@@ -296,6 +297,7 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 		//list뿌려주기(report_list)
 		@RequestMapping(value="main/purlist.so", method={RequestMethod.GET, RequestMethod.POST })
 		public Object gopurlist(HttpServletRequest req, HttpServletResponse resp){
+			
 			ModelAndView mv = new ModelAndView();
 			//mv.addObject();
 			SoVo vo = new SoVo();
@@ -305,6 +307,7 @@ public Object goPVD(HttpServletRequest req, HttpServletResponse resp){
 			mv.setViewName("../main/index.jsp?inc=../purchase/purchase_ReportList.jsp");
 
 		    //index.jsp?inc=./board/purchase_home.jsp
+			
 			return mv;
 		}
 		
