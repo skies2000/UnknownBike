@@ -124,7 +124,8 @@
         	var fd = new FormData(frm);
         	xhr.open("post",url);
         	xhr.send(fd);
-        	
+        	//productDetails.html 파일이 실행되면 에이작스를 통해 리스트가 뿌려질 내용을 에이작스를 통해 새로고침 없이
+        	//db에 있는 값을 얻어 온다.
         	xhr.onreadystatechange = function(){
         	ResultList(xhr);
         	}
@@ -176,8 +177,8 @@
         function ResultList(xhr){
     		if(xhr.readyState == 4 && xhr.status == 200){
     			var txt = xhr.responseText;
-    			
     			var jd = JSON.parse(txt);
+    			//에이작스를 통해 db에서 읽어온 데이터를 json방식으로 변환하고 태그에 출력될 내용들을 자바스크립트로 생성한다. 
     			
     			var resultDiv = document.getElementById("pdListResult");
     			resultDiv.innerHTML="";
@@ -233,6 +234,9 @@
   	
   	<input type='hidden' name="sShearch" id="sShearch" value="0">
   
+  
+  
+<!-- #pdListResult태그에 리스트가  새로운 태그가 생성되어서 리스트가 출력된다.-->  
   	<div id = "pdListResult"></div>
   	
   	

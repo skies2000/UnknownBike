@@ -185,6 +185,10 @@
             position: relative;
             top: 1px;
         }
+        #piBody div, #piBody span{
+            border: 1px solid #aaa;
+            
+        }
 
     </style>
 </head>
@@ -204,18 +208,16 @@
 
             <div id='title'>제품등록</div>
             <hr/>
-            <table>
-                <tr>
-                    <td colspan="2"><input type='text' name="dname" placeholder="문서제목" /></td>
-                </tr>
-                <tr>
-                    <td colspan="2">
+                   <div>
+                       
+                    <input type='text' name="dname" placeholder="문서제목" />
+                   </div>
+                    <div>
+                        
                         <input type='text' name="pname" placeholder="제품명" />
-                    </td>
-
-                </tr>
-                <tr>
-                    <td colspan="2">
+                    </div>
+<div>
+    
                         <select id="pcateSelect">
     <option value="0">---자전거 종류---</option>
     <option value="1">1. 외발 자전거</option>
@@ -225,33 +227,32 @@
     <option value="5">5. 하이브리드 자전거</option>
 </select>
 	<input type="hidden" name="pcate" value = "0"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
+</div>
+                       <div>
+                        <span>
+                            
                         <a href="#" class="myButton" id = "mListInputId" onClick="mlist_input()">자재리스트 등록</a>
 
-                    </td>
-                    <td>
-
+                        </span>   
+                        <span>
                         <a href="#" class="myButton" id = "docConId" onClick="docConInputBtn()">문서 내용 입력</a>
-                    </td>
-                </tr>
-                <tr>
-                	                    <td>
+                        </span>
+                       </div>
+                       
+                       <div>
+                        <span>
+                            
                         <a href="#" class="myButton" id = "appMemberId" onClick="approveMan_two()">결재자 선택</a>
-
-                    </td>
-                    <td >
+                        </span>   
+                        <span>
+                            
                         <label>사진첨부 : </label><input type='file' value='사진첨부' onchange="imgClickBtn()" name="pimage" />
-                    </td>
-                </tr>
-            </table>
+                        </span>
+                       </div>
             <p/>
             <a href="#" class="myButton buttonBoder" onclick="pInputBtn()">등록</a>
         </form>
     </div>
 </body>
-
 
 </html>
