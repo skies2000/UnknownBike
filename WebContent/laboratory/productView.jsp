@@ -148,12 +148,6 @@
     
         <img src="../images/${vo.pimage}" width="300px" height="200px">
         
-        
-        
-        
-        
-        
-        
         <table> 
             <tr>
                 <td>작성자</td>
@@ -180,16 +174,14 @@
             
             <tr>
                 <td>작성일</td>
-                <td>제품생산기간</td>
                 <td>결재승인상태</td>
             </tr>
             <tr>
                 <td>${vo.pdate}</td>
-                <td>${vo.pmanhour}</td>
-                <td>${vo.pstatus}</td>
+                <td>${vo.pstatusName}</td>
             </tr>
             <tr>
-                <td>${vo.pcate}</td>
+                <td>${vo.pcateName}</td>
                 <td colspan="2"><a class="myButton" id="mListFunc">자재리스트</a></td>        
             </tr>
         </table>

@@ -41,7 +41,6 @@
 				for(var i = 0; i<jData.length;i++){ 
 					testStr += "사원번호 : "+jData[i].ecode+", 비밀번호 : "+jData[i].epwd+"\n";
 				}
-				alert(testStr);
 				$("*").css("cursor","default");
 				for(var i = 0; i<jData.length;i++){
 					 if(jData[i].ecode == userid){

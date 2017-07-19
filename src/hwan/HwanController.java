@@ -393,6 +393,8 @@ public class HwanController {
 		
 		vo.setPstatusName(psName);
 		vo.setPcateName(pcaName);
+		System.out.println("pcateNamw : "+vo.getPcateName());
+		System.out.println("pstatusName : "+vo.getPstatusName());
 		mv.setViewName("/laboratory/productView.jsp");
 		mv.addObject("vo",vo);
 		

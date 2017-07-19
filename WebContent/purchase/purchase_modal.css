@@ -1,85 +1,662 @@
 @CHARSET "UTF-8";
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    -webkit-animation-name: fadeIn; /* Fade in the background */
-    -webkit-animation-duration: 0.4s;
-    animation-name: fadeIn;
-    animation-duration: 0.4s
+
+/* ☆★☆★☆★☆자재디테일★★★★★★★★ */
+
+#maTitle {
+   text-align:center;
+   font-size: 30px;
+   padding-bottom:20px;
+   
+}
+#maTitle1{
+   margin-left:53%;
+   padding-bottom:20px;
+   
+}
+.mdList img {
+   display: inline-block;
+   width: 50px;
+   height: 50px;
 }
 
-/* Modal Content */
-.modal-content {
-    position: fixed;
-    bottom: 0;
-    background-color: #fefefe;
-    width: 100%;
-    -webkit-animation-name: slideIn;
-    -webkit-animation-duration: 0.4s;
-    animation-name: slideIn;
-    animation-duration: 0.4s
+#maDetails .mdList span, #maDetails .mdList img {
+   display: inline-block;
+/*    border: 1px solid rgb(85, 85, 84); */
+   margin-top: 20px;
+   margin-right: 7px;
 }
 
-/* The Close Button */
-.close {
-    color: white;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+#maDetails .mdList span {
+   display: inline-block;
+   margin-bottom: 10px;
+   position: relative;
+   bottom: 19px;
 }
 
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
+#maSelect{
+   margin-top: 30px;
+   color: black;
+   /* background-color: black; */
+   
 }
 
-.modal-header {
-    padding: 2px 16px;
-    background-color: #373737;
-    color: white;
+.myButton {
+   -moz-box-shadow: inset 0px 1px 0px 0px #000000;
+   -webkit-box-shadow: inset 0px 1px 0px 0px #000000;
+   box-shadow: inset 0px 1px 0px 0px #000000;
+   background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000
+      ), color-stop(1, #000000));
+   background: -moz-linear-gradient(top, #000000 5%, #000000 100%);
+   background: -webkit-linear-gradient(top, #000000 5%, #000000 100%);
+   background: -o-linear-gradient(top, #000000 5%, #000000 100%);
+   background: -ms-linear-gradient(top, #000000 5%, #000000 100%);
+   background: linear-gradient(to bottom, #000000 5%, #000000 100%);
+   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000',
+      endColorstr='#000000', GradientType=0);
+   background-color: #000000;
+   -moz-border-radius: 6px;
+   -webkit-border-radius: 6px;
+   border-radius: 6px;
+   border: 1px solid #000000;
+   display: inline-block;
+   cursor: pointer;
+   color: #ffffff;
+   font-family: Arial;
+   font-size: 15px;
+   font-weight: bold;
+   padding: 6px 24px;
+   text-decoration: none;
+   text-shadow: 0px 1px 0px #000000;
+}
+
+.myButton:hover {
+   background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000
+      ), color-stop(1, #000000));
+   background: -moz-linear-gradient(top, #000000 5%, #000000 100%);
+   background: -webkit-linear-gradient(top, #000000 5%, #000000 100%);
+   background: -o-linear-gradient(top, #000000 5%, #000000 100%);
+   background: -ms-linear-gradient(top, #000000 5%, #000000 100%);
+   background: linear-gradient(to bottom, #000000 5%, #000000 100%);
+   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000',
+      endColorstr='#000000', GradientType=0);
+   background-color: #000000;
+}
+
+.myButton:active {
+   position: relative;
+   top: 1px;
+}
+
+.mdList img {
+   display: inline-block;
+   width: 50px;
+   height: 50px;
+}
+
+.mdList img:HOVER {
+   display: inline-block;
+   width: 70px;
+   height: 70px;
+   cursor: pointer;
+   border: 2px solid blue;
+}
+
+#maDetails * {
+   transition: all 0.5s;
+}
+
+#maDetails .mdList:HOVER {
+   background-color: #aaa;
+}
+
+#maDetails {}
+
+#maDetails #matsearch {
+
+}
+
+#maDetails #matSelect {
+   color: white;
+   background: black;
+}
+
+#matSelect{
+   /* margin-left:52%; */
+   margin-bottom:20px;
+}
+#btnsearch{
+   background-color:#737373;
+}
+#matdiv1{
+   width:100%;
+   border-bottom: 1px solid white;
+   padding-bottom: 10px;
+   text-align:center;
+}
+
+.image{
+   display:inline-block;
+   width:15%;
+}
+
+.mcode{
+   display:inline-block;
+   width:20%;
+}
+
+.mdev{
+   display:inline-block;
+   width:20%;
+}
+.mid{
+   display:inline-block;
+   width:20%;
+}
+.mstatus{
+   display:inline-block;
+   width:30%;
+}
+
+
+.mdList{
+   
+   
+}
+
+#mdListid >span{
+
+   
+}
+.mdList>.image{
+margin-left:90px;
+}
+.mdList>.mcode{
+   display:inline-block;
+   width:15%;
+   text-align:center;
+   margin-left:60px;
+}
+.mdList>.mid{
+   display:inline-block;
+   width:23%;
+   text-align:center;
+   /* margin-left:10px; */
+}
+.mdList>.mdev{
+   display:inline-block;
+   width:13%;
+   text-align:center;
+   margin-left:5px;
+}
+
+
+.mdList>.mstatus{
+   display:inline-block;
+   width:10%;
+   text-align:center;
+   margin-left:25px;
+}
+
+
+
+/* ☆★☆★☆★☆제품디테일★★★★★★★★ */
+
+ #proDetails * {
+            transition: all 0.5s;
+        }
+        
+        .pdList img {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+        }
+        
+        #proDetails .pdList:HOVER {
+            background-color: #aaa;
+        }
+        
+        #proTitle {
+           text-align:center;
+            font-size: 30px;
+            padding-bottom:20px;
+            
+        }
+        
+        .pdList img {
+           display: inline-block;
+            width: 50px;
+            height: 50px;
+        }
+        
+        .pdList img:HOVER {
+            display: inline-block;
+            width: 70px;
+            height: 70px;
+            cursor: pointer;
+            border: 2px solid blue;
+        }
+        
+        #proDetails .pdList span,
+        #proDetails .pdList img {
+            display: inline-block;
+           /*  border: 2px solid rgb(85, 85, 84); */
+            margin-top: 20px;
+            margin-right: 7px;
+        }
+        
+        #proDetails .pdList span {
+            display: inline-block;
+            margin-bottom: 10px;
+            position: relative;
+            bottom: 19px;
+        }
+        
+        #proSelect {
+            margin-top: 30px;
+            color: white;
+            background-color: black;
+        }
+        #proTitle1{
+        margin-left:53%;
+      padding-bottom:20px;
+      
+        }
+         #proDetails {
+            width: 100%;
+           
+            margin: 0 auto;
+        }
+        
+        .myButton {
+            -moz-box-shadow: inset 0px 1px 0px 0px #000000;
+            -webkit-box-shadow: inset 0px 1px 0px 0px #000000;
+            box-shadow: inset 0px 1px 0px 0px #000000;
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000), color-stop(1, #000000));
+            background: -moz-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -webkit-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -o-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -ms-linear-gradient(top, #000000 5%, #000000 100%);
+            background: linear-gradient(to bottom, #000000 5%, #000000 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#000000', GradientType=0);
+            background-color: #000000;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            border: 1px solid #000000;
+            display: inline-block;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: Arial;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 6px 24px;
+            text-decoration: none;
+            text-shadow: 0px 1px 0px #000000;
+        }
+        
+        .myButton:hover {
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000), color-stop(1, #000000));
+            background: -moz-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -webkit-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -o-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -ms-linear-gradient(top, #000000 5%, #000000 100%);
+            background: linear-gradient(to bottom, #000000 5%, #000000 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#000000', GradientType=0);
+            background-color: #000000;
+        }
+        
+        .myButton:active {
+            position: relative;
+            top: 1px;
+        }
+        
+        #proDetails #serchPro{
+           color: black;
+        }
+
+
+
+.pdList>.proImg{
+margin-left:90px;
+}
+.pdList>.proModel{
+   display:inline-block;
+   width:15%;
+   text-align:center;
+   margin-left:60px;
+}
+.pdList>.mid{
+   display:inline-block;
+   width:23%;
+   text-align:center;
+   /* margin-left:10px; */
+}
+.pdList>.mdev{
+   display:inline-block;
+   width:13%;
+   text-align:center;
+   margin-left:5px;
+}
+
+
+.pdList>.mstatus{
+   display:inline-block;
+   width:10%;
+   text-align:center;
+   margin-left:25px;
+}
+
+/* ★★★★★★자재등록★★★★★★ */
+ .borderLine{
+            border: 9px solid #aaaa;
+        }
+        #maBody * {
+            box-sizing: border-box;
+        }
+        
+        #maBody {
+            border: 1px solid #aaa;
+            
+        }
+        
+        #maBody div {
+            
+        }
+        
+     /*    input {
+            border: 1px solid #aaa;
+            display: inline-block;
+            width: 100%;
+            color: white;
+            font-size: 16px;
+        }
+         */
+        #maBody input {
+            
+            display: inline-block;
+           
+            
+        }
+
+        
+        #maBody #mTitle {
+            padding-bottom: 5%;
+            font-size: 30px;
+            text-align: center;
+          
+        }
+        
+      /*   #maBody input[type='text'],
+        #maBody input[type='number'],
+        #maBody select *,
+        #maBody select,
+        #maBody input[type='file'] {
+            color: white;
+            background-color: black;
+            margin: 5px;
+        } */
+        /*  #maBody table,
+        #maBody th,
+        #maBody td {
+            border: 1px solid white;
+            border-spacing: 0px;
+        }*/
+        
+        #maBody a {
+            margin: 5px;
+            
+        }
+        
+        #maBody .buttonBoder {
+            border: 1px solid white;
+            margin-left: 71%;
+            margin-top: 3%;
+        }
+        
+        #maBody {
+            margin-left 50%;
+            margin-right 50% width: 800px;
+        }
+        
+        .myButton {
+            -moz-box-shadow: inset 0px 1px 0px 0px #000000;
+            -webkit-box-shadow: inset 0px 1px 0px 0px #000000;
+            box-shadow: inset 0px 1px 0px 0px #000000;
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000), color-stop(1, #000000));
+            background: -moz-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -webkit-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -o-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -ms-linear-gradient(top, #000000 5%, #000000 100%);
+            background: linear-gradient(to bottom, #000000 5%, #000000 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#000000', GradientType=0);
+            background-color: #000000;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            border: 1px solid #000000;
+            display: inline-block;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: Arial;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 6px 24px;
+            text-decoration: none;
+            text-shadow: 0px 1px 0px #000000;
+        }
+        
+        .myButton:hover {
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000), color-stop(1, #000000));
+            background: -moz-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -webkit-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -o-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -ms-linear-gradient(top, #000000 5%, #000000 100%);
+            background: linear-gradient(to bottom, #000000 5%, #000000 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#000000', GradientType=0);
+            background-color: #000000;
+        }
+        
+        .myButton:active {
+            position: relative;
+            top: 1px;
+        }
+        
+        #mTitle {
+            margin-top: 50px;
+            border-bottom:1px solid white;
+        }
+        
+       
+
+        #maBody #backBtn{
+            margin-left: 700px;
+        }
+
+
+
+.miname{
+   text-align: center;
+   padding : 10px;
+   font-size: 20px;
+   border-bottom:1px solid white;
+   margin-bottom:5%;
+   padding-bottom : 50px;
+}
+#dname{
+    margin-left:2%;
+    width:400px;
+    height:30px;
+    background-color:black;
+    color:white;
+    border: 1px solid white;
+}
+#signok{
+   padding:10px;
+   margin-left:75%;
+   
+}
+#appMemberId{
+margin: 5px;
+width:130px;
+   
+}
+
+
+
+ #maBody select {
+         display: inline-block;
+         color:black;
+
+        }
+#mprice{
+
+   width:100px;
+    
+    }
+    
+    /* ★★★★★★제품등록★★★★★★ */
+    
+     #piBody #title {
+           padding-bottom: 5%;
+            font-size: 30px;
+            text-align: center;
+            border-bottom:1px solid white;
+        }
+        
+  /*       #piBody input[type='text'],
+        #piBody select *,
+        #piBody select,
+        #piBody input[type='file'] {
+            color: white;
+            background-color: black;
+            margin: 5px;
+        } */
+        
+        #piBody table,
+        #piBody th,
+        #piBody td {
+            border: 1px solid white;
+            border-spacing: 0px;
+        }
+        
+        #piBody a {
+            margin: 5px;
+        }
+        
+        #piBody .buttonBoder {
+            border: 1px solid white;
+            margin-left:47%;
+            margin-top: 5%;
+        }
+        
+        #piBody {
+            margin-left 50%;
+            margin-right 50% 
+          
+        }
+        
+        #piBody table {
+            width: 60%;
+            margin: auto;
+        }
+        
+        #title {
+            margin-top: 50px;
+        }
+        
+        #piBody select {
+            display: inline-block;
+            height: 20px;
+        }
+        
+        .myButton {
+            -moz-box-shadow: inset 0px 1px 0px 0px #000000;
+            -webkit-box-shadow: inset 0px 1px 0px 0px #000000;
+            box-shadow: inset 0px 1px 0px 0px #000000;
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000), color-stop(1, #000000));
+            background: -moz-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -webkit-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -o-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -ms-linear-gradient(top, #000000 5%, #000000 100%);
+            background: linear-gradient(to bottom, #000000 5%, #000000 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#000000', GradientType=0);
+            background-color: #000000;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            border: 1px solid #000000;
+            display: inline-block;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: Arial;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 6px 24px;
+            text-decoration: none;
+            text-shadow: 0px 1px 0px #000000;
+        }
+        
+        .myButton:hover {
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000), color-stop(1, #000000));
+            background: -moz-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -webkit-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -o-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -ms-linear-gradient(top, #000000 5%, #000000 100%);
+            background: linear-gradient(to bottom, #000000 5%, #000000 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#000000', GradientType=0);
+            background-color: #000000;
+        }
+        
+        .myButton:active {
+            position: relative;
+            top: 1px;
+        }
+        #piBody div, #piBody span{
+          /*   border: 1px solid #aaa; */
+            
+        }
+    
+form{
+   /* border:1px solid white; */
+   
+}
+#title1{
+   
     text-align: center;
+   padding : 10px;
+   font-size: 20px;
+   border-bottom:1px solid white;
+   margin-bottom:5%;
+   padding-bottom : 50px;
 }
 
-.modal-body {
-	padding: 16px 16px;
-	background-color: #000000;
-	text-align: center;
-	
-	}
-
-/* .modal-footer {
-    padding: 2px 16px;
-    background-color: #373737;
-    color: white;
-} */
-
-/* Add Animation */
-@-webkit-keyframes slideIn {
-    from {bottom: -300px; opacity: 0} 
-    to {bottom: 0; opacity: 1}
+#title12{
+   
+   margin-left:78%;
 }
+#pname{
 
-@keyframes slideIn {
-    from {bottom: -300px; opacity: 0}
-    to {bottom: 0; opacity: 1}
+   width:100px;
+   height:20px;
+   margin-left:75px;
+   background-color:black;
+    color:white;
+     border-bottom:1px solid white;
 }
-
-@-webkit-keyframes fadeIn {
-    from {opacity: 0} 
-    to {opacity: 1}
+#pcateSelect{
+   width:130px;
+   height:20px;
+   margin-left:58px;
+   background-color:black;
+    color:white;
+   
+   
 }
-
-@keyframes fadeIn {
-    from {opacity: 0} 
-    to {opacity: 1}
+#mdev{
+   margin-left:15px;
+   
+}
+#mstatus{
+   margin-left:50px;
+   
 }

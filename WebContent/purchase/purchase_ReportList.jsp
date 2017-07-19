@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 
@@ -41,6 +41,7 @@
    text-align: center;
    margin-bottom: 20px;
 }
+
 
 .list1 {
    width: 90px;
@@ -108,6 +109,8 @@
     display: inline-block;
     width: 27%;
    padding-bottom:15px;
+   white-space: nowrap;
+   text-overflow: ellipsis;
 }
 
 .list10 {
@@ -163,7 +166,6 @@ function goView(dCode){
 function search(){
    var frm = document.getElementById("frm2");
    var findStr1 = document.getElementById("txtFind").value;
-   alert(findStr1);
    frm.findStr.value=findStr1; //hidden값 = find_Str;
    frm.action = 'pfindStr.so';
    frm.submit();
@@ -211,9 +213,7 @@ if(request.getParameter("find")==null){
 <div id='result'>
    <c:forEach items="${list}" var="purList">
       <span class='list7'>${purList.dCode }</span>
-      <span class='list8'><%-- ${purList.dCate } --%>구매요청서 </span>
-      <a href="#" onclick="godetailpur(${purList.dCode })"><span class='list9'>${purList.dName }</span></a>
-      <span class='list10'>${purList.dDate }</span>
+      <span class='list8'><%-- ${purList.dCate } --%>구매요청서 </span><a href="#" onclick="godetailpur(${purList.dCode })"><span class='list9'>${purList.dName }</span></a><span class='list10'>${purList.dDate }</span>
       <span class='list11'>${purList.eName }</span>
       <span class='list12'>
                  <c:choose>

@@ -105,7 +105,6 @@ function cate_func2(sel){
 function Sendfunc(){
 	var frm = document.getElementById("frm");
 	window.opener.document.getElementById("piappro1").innerHTML = frm.eName.value;
-	alert(frm.eCode.value);
 	window.opener.document.getElementById("h_piappro1").value = frm.eCode.value;
 	self.close();
 }

@@ -181,7 +181,7 @@
    .phcate_need{
       display:inline-block;   
       width:auto;   
-      color:#a6827e;
+      color:#FFE400;
    }
    .phcate_need:hover{
       color:#7e8389;
@@ -205,7 +205,7 @@
       height: 100px;   
    }
    .phviewtxt{
-      font-size: 12px;
+      font-size: 15px;
       width: 130px;
       /* 가운데정렬
       display: table-cell;
@@ -358,7 +358,7 @@
             자재코드: ${vo.mCode }<br/>
             자재명: ${vo.mName }   <br/>
          <c:if test="${vo.mEa <=50}">   
-         <span class='phstatus' style="color:#a6827e"> ${vo.mEa } 개</span>   
+         <span class='phstatus' style="color:#FFE400;"> ${vo.mEa } 개</span>   
          </c:if>
          <c:if test="${vo.mEa >50}">   
          <span class='phstatus' style="color:white"> ${vo.mEa } 개</span>   

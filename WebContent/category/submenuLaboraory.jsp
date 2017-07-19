@@ -51,9 +51,7 @@
     
 		  
 		  <!--제이쿼리를 통해 클릭한 a 태그 다음에 있는 히든태그의 value값을 얻어온다. -->
-    <li><a href="#">Home</a>
-    <input type =hidden value="../laboratory/laboratoryHome.html"/>
-    </li>
+    
     
     <li><a href="##">제품</a>
       <ul>

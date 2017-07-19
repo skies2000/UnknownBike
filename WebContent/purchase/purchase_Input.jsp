@@ -48,7 +48,8 @@ function plus(){
    }
    
    frm.mEa.value=ea;
-   alert(frm.mEa.value);
+
+
    var purlist = cate.split(",");
    frm.mCode.value=purlist[1];
    
@@ -136,7 +137,7 @@ function plus(){
          
    }
    
-   alert(cate);
+   
    
    
    
@@ -208,7 +209,6 @@ function plus(){
       for(var i=1; i<mcode.length; i++){
             cc += ","+mcode[i].innerHTML;
       }
-      alert(cc);
       
       
       var mname = document.getElementsByClassName("pmname");
@@ -217,7 +217,6 @@ function plus(){
             dd += ","+mname[i].innerHTML; //input태그는 .value로 값을 가져오는데 span이나 a태그들은 value로 안되서.. innerHTMl을 써준다.
          }
       
-      alert(dd);
       var mpur =  document.getElementsByClassName("ppur");
       var ee = mpur[0].innerHTML;
       for(var i=0; i<mpur.length; i++){
@@ -245,14 +244,12 @@ function plus(){
       
       var dname = frm.pisub.value;
       var bb = dname;
-      alert(bb);
       
       var mcode = document.getElementsByClassName("pcode");//그냥 넘기는게 아니라 값이 hidden에 들어가있어야함.. .. 
       var cc = mcode[0].innerHTML; //cc를 히든에 넣기
       for(var i=1; i<mcode.length; i++){
             cc += ","+mcode[i].innerHTML;
       }
-      alert(cc);
       
       
       var mname = document.getElementsByClassName("pmname");
@@ -261,7 +258,6 @@ function plus(){
             dd += ","+mname[i].innerHTML; //input태그는 .value로 값을 가져오는데 span이나 a태그들은 value로 안되서.. innerHTMl을 써준다.
          }
       
-      alert(dd);
       var mpur =  document.getElementsByClassName("ppur");
       var ee = mpur[0].innerHTML;
       for(var i=1; i<mpur.length; i++){
