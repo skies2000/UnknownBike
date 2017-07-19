@@ -361,9 +361,38 @@ public class HwanController {
 		
 		//얻어온  두번째 사원 정보(이름)을 vo에 담는다 vo는 view페이지에서 사용될 클래스
 		vo.setAppTwo(appVo.getEname());
+		 int pstatus = vo.getPstatus();
+		 String psName = "";
+		 int pcate = vo.getPcate();
+		 String pcaName = "";
 		 
+		 if(pstatus == 0){
+			 psName = "결재중";
+		 }else{
+			 psName = "승인완료";
+		 }
+		 
+		 switch(pcate){
+		 case 1:
+			 pcaName = "외발자전거";
+			 break;
+		 case 2:
+			 pcaName = "두발자전거";
+			 break;
+		 case 3:
+			 pcaName = "세발자전거";
+			 break;
+		 case 4:
+			 pcaName = "네발자전거";
+			 break;
+		 case 5:
+			 pcaName = "하이브리드 자전거";
+			 break;
+		 }
 		
 		
+		vo.setPstatusName(psName);
+		vo.setPcateName(pcaName);
 		mv.setViewName("/laboratory/productView.jsp");
 		mv.addObject("vo",vo);
 		

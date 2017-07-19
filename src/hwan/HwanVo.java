@@ -25,6 +25,9 @@ public class HwanVo {
 	String pimage;
 	int pmanhour;
 	
+	String pstatusName;
+	String pcateName;
+	
 	//document table
 	String dWrite;
 	String dname;
@@ -70,6 +73,18 @@ public class HwanVo {
 	
 	
 	
+	public String getPcateName() {
+		return pcateName;
+	}
+	public void setPcateName(String pcateName) {
+		this.pcateName = pcateName;
+	}
+	public String getPstatusName() {
+		return pstatusName;
+	}
+	public void setPstatusName(String pstatusName) {
+		this.pstatusName = pstatusName;
+	}
 	public String getDstatudName() {
 		return dstatudName;
 	}
