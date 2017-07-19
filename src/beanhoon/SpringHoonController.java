@@ -223,14 +223,35 @@ public class SpringHoonController {
 		return mv;
 	}
 	
-	// 자재 검색 (material search)
+	// 생산 효율 페이지 기간 별 검색
+		@RequestMapping(value="main/menu_eff.hoon", method={RequestMethod.GET, RequestMethod.POST})
+		public Object eff(HttpServletRequest req){
+			ModelAndView mv = new ModelAndView();
+
+			PurListVo vo = new PurListVo();
+			
+			String workStartDate = req.getParameter("2017-01-01");
+			String workEndDate = req.getParameter("2017-12-31");
+			int pCode = 10002;
+			
+			// 가지고 가자
+			mv.setViewName("product_eff");
+			
+			return mv;
+		}
+	
+	// 생산 효율 페이지 기간 별 검색
 	@RequestMapping(value="main/eff.hoon", method={RequestMethod.GET, RequestMethod.POST})
 	public Object eff_print(HttpServletRequest req){
 		ModelAndView mv = new ModelAndView();
 		
 		String workStartDate = req.getParameter("workStartDate");
 		String workEndDate = req.getParameter("workEndDate");
-		int pCode = Integer.parseInt(req.getParameter("pCode"));
+		int pCode = 0;
+		
+		if(!(req.getParameter("pCode").equals("") || req.getParameter("pCode")==null)) {
+			pCode = Integer.parseInt(req.getParameter("pCode"));
+		} 
 		
 		PurListVo vo = new PurListVo();
 		
@@ -243,6 +264,7 @@ public class SpringHoonController {
 		PurListVo voa = dao.proinfo(vo);
 		
 		int tot = 0;	//제품 총샌산 수량
+		
 		int tot1 = 0;	//라인별 생산 수량
 		int tot2 = 0;
 		int tot3 = 0;
@@ -389,28 +411,12 @@ public class SpringHoonController {
 			e.printStackTrace();
 		}
 		
-		// 라인n 분기n
-		PurListVo l1q1 = dao.l1q1(vo);
-		PurListVo l2q1 = dao.l2q1(vo);
-		PurListVo l3q1 = dao.l3q1(vo);
-		PurListVo l4q1 = dao.l4q1(vo);
-		PurListVo l5q1 = dao.l5q1(vo);
-		PurListVo l1q2 = dao.l1q2(vo);
-		PurListVo l2q2 = dao.l2q2(vo);
-		PurListVo l3q2 = dao.l3q2(vo);
-		PurListVo l4q2 = dao.l4q2(vo);
-		PurListVo l5q2 = dao.l5q2(vo);
-		PurListVo l1q3 = dao.l1q3(vo);
-		PurListVo l2q3 = dao.l2q3(vo);
-		PurListVo l3q3 = dao.l3q3(vo);
-		PurListVo l4q3 = dao.l4q3(vo);
-		PurListVo l5q3 = dao.l5q3(vo);
-		PurListVo l1q4 = dao.l1q4(vo);
-		PurListVo l2q4 = dao.l2q4(vo);
-		PurListVo l3q4 = dao.l3q4(vo);
-		PurListVo l4q4 = dao.l4q4(vo);
-		PurListVo l5q4 = dao.l5q4(vo);
-
+		// 분기별 생산량 저장
+		PurListVo qnsrl1 = dao.q1(vo);
+		PurListVo qnsrl2 = dao.q2(vo);
+		PurListVo qnsrl3 = dao.q3(vo);
+		PurListVo qnsrl4 = dao.q4(vo);
+		
 		// 꾸겨넣는다
 		mv.addObject("voa", voa);
 		mv.addObject("vo1", vo1);
@@ -420,26 +426,10 @@ public class SpringHoonController {
 		mv.addObject("vo5", vo5);
 		
 		// 얘도 다 집어처넣어
-		mv.addObject("l1q1", l1q1);
-		mv.addObject("l2q1", l2q1);
-		mv.addObject("l3q1", l3q1);
-		mv.addObject("l4q1", l4q1);
-		mv.addObject("l5q1", l5q1);
-		mv.addObject("l1q2", l1q2);
-		mv.addObject("l2q2", l2q2);
-		mv.addObject("l3q2", l3q2);
-		mv.addObject("l4q2", l4q2);
-		mv.addObject("l5q2", l5q2);
-		mv.addObject("l1q3", l1q3);
-		mv.addObject("l2q3", l2q3);
-		mv.addObject("l3q3", l3q3);
-		mv.addObject("l4q3", l4q3);
-		mv.addObject("l5q3", l5q3);
-		mv.addObject("l1q4", l1q4);
-		mv.addObject("l2q4", l2q4);
-		mv.addObject("l3q4", l3q4);
-		mv.addObject("l4q4", l4q4);
-		mv.addObject("l5q4", l5q4);
+		mv.addObject("v1", qnsrl1);
+		mv.addObject("v2", qnsrl2);
+		mv.addObject("v3", qnsrl3);
+		mv.addObject("v4", qnsrl4);
 		
 		// 가지고 가자
 		mv.setViewName("product_eff");

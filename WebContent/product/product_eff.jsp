@@ -1,176 +1,47 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="beanhoon.PurListVo"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<title>생산 효율 관리</title>
+<link rel='stylesheet' href='../category/product_eff.css' />
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-<%
+    google.charts.load("current", {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Element", "생산량", { role: "style" } ],
+        ["1분기", ${v1.qnsrl1 }, "#b87333"],
+        ["2분기", ${v2.qnsrl2 }, "silver"],
+        ["3분기", ${v3.qnsrl3 }, "gold"],
+        ["4분기", ${v4.qnsrl4 }, "color: #e5e4e2"]
+      ]);
 
-%>
-google.load("visualization","1",{packages:["corechart"]});
-google.setOnLoadCallback(drawChart);
-function drawChart(){
-	var data = google.visualization.arrayToDataTable([
-		['Year','1Line','2Line','3Line','4Line','5Line'],
-		['17년1분기',1100,250,1250,1150,50],
-		['17년2분기',1250,250,1300,1100,100],
-		['17년3분기',1580,600,1500,1200,50],
-		['17년4분기',1300,1000,1600,1500,200]
-	]);
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
 
-var options={
-	title:'Company Performance'
-};
-
-var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-chart.draw(data,options);
-}
+      var options = {
+        title: "분기별 총 생산량 집계",
+        width: 432,
+        height: 592,
+        bar: {groupWidth: "80%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+      chart.draw(view, options);
+  }
 </script>
 </head>
-<style>
-#headereff {
-   width: 100%;
-}
 
-#titleeff {
-   /* width: 20%; */
-   font-size: 35px;
-}
-
-#searcheff1 {
- /*   margin-t;op:2%; */
- margin-bottom :2%;
-   float: right;
-}
-#searcheff2 {
-   text-align: right;
-   margin-bottom: 10px;
-}
-
-#product_prn{
-   width: 100%;
-    margin: 0 auto;
-    max-width: 1000px;
-    height: 650px;
-}
-#eff_left1{
-   width : 49%;
-   height: 20%;
-   float: left;
-   text-align: center;
-   
-}
-#eff_left2{
-   border : 5px solid #A8A9A6;
-   width : 49%;
-   height: 78%;
-   float: left;
-}
-#eff_right{
-   border : 5px solid #A8A9A6;
-   width : 49%;
-   height: 98%;
-   float: right;
-}
-#underlineeff{
-   border-bottom: 1px solid #ffffff;
-   height: 35px;
-   margin-bottom: 3%;
-}
-
-#line1  {
-   border-bottom: 1px solid #A8A9A6;
-   padding-bottom: 5px;
-   width: 100%;
-   text-align: center;
-}
-#line2  {
-   width: 100%;
-   text-align: center;
-}
-
-.ppcode{width: 15%; font-size: 9pt; display: inline-block; }
-.pname{width: 20%;font-size: 9pt;display: inline-block;}
-.pdev{width: 15%;font-size: 9pt;display: inline-block;}
-.pea{width: 7%;font-size: 9pt;display: inline-block;}
-.pdate{width: 27%;font-size: 9pt;display: inline-block;}
-.pqty{width: 10%;font-size: 9pt;display: inline-block;}
-
-#line1{
-   margin-top: 3%; 
-   margin-bottom: 1%;
-}
-
-#title_left1, #title_right, #title_left2{
-   font-size: 15pt;
-   text-align: left;
-   margin-left:2%;
-   margin-top:2%;
-}
-
-div > span {
-	display: inline-block;
-} 
-
-
-.line, .totalEa, .pdys, .peff{
-display: inline-block;
-	background-color: white;
-	color:black;
-	height:30px;
-	text-align:center;
-	box-sizing: border-box;
-	}
-	.line{
-	width:22%;
-	float:left;
-	}
-	.totalEa{
-	 width:22%;
-	 margin-left:2%;
-	}
-	.pdys{
-	width: 22%;
-	margin-left:1%;
-	}
-	.peff{
-	width:22%;
-	margin-left:1%;
-	}
-	
-#lineeff {
-  border-bottom: 1px solid #ffffff;
-   height: 20px;
-   margin-bottom: 3%;
-}
-#efr_title {
-	margin-top : 30px;
-	margin-left: 20px;
-}
-
-#efr_title1, #efr_title2, #efr_title3, #efr_title4, #efr_title5 {
-	margin-top: 30px;
-	margin-left: 20px;
-} 
-#chart_div{
-
-width:420px;
-height:570px;
-box-sizing: border-box;
-margin-left:6px;
-margin-top:10px;
-}
-</style>
 <script type="text/javascript">
-
 function start() {
-	
 	var btnS = document.getElementById("btnSearch");
 	btnS.onclick = function () {
 		var frm = document.getElementById("frmid");
@@ -183,10 +54,8 @@ function start() {
 		frm1.submit();
 	}
 }
-
-
-
 </script>
+
 <body>
 <div id=category>
 	<jsp:include page="../category/submenuProduct.jsp"></jsp:include>
@@ -198,8 +67,8 @@ function start() {
 		<form name='frmname' id='frmid' method='post'>
 			<div id='searcheff2'>
 				<span>검색어</span> 
-				<input type='text' name='pCode' /> 
-				<input type='button' id='btnSearch' value='출력' />
+				<input type='text' id='ttt' name='pCode'>
+				<input type='button' id='btnSearch' value='출력'>
 			</div>
 			<div id='searcheff1'>
 				<span>조회기간</span> 
@@ -239,7 +108,7 @@ function start() {
 			</div>
 			<div id='eff_right'>
 				<div id='title_right'>기간</div>
-				<div id='chart_div'></div>
+				<div id='columnchart_values'></div>
 			</div>
 	
 			<div id='eff_left2'>
@@ -287,6 +156,13 @@ function start() {
 		</div>
 	</div>
 </div>
+
+<form id='qnsrl' method='post'>
+	<input type='hidden' name='qnsrl1'>
+	<input type='hidden' name='qnsrl2'>
+	<input type='hidden' name='qnsrl3'>
+	<input type='hidden' name='qnsrl4'>
+</form>
 
 <script type="text/javascript">start()</script>	
 

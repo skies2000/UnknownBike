@@ -64,35 +64,15 @@ public class PurListVo {
 	private int totalEa = 0; 	//총생산량
 	private int totaleff = 0;	//평균효율
 	
-	//분기별생산량 1라인
-	private int l1q1;
-	private int l1q2 = 0;
-	private int l1q3 = 0;
-	private int l1q4 = 0;
-	// 2라인
-	private int l2q1 = 0;
-	private int l2q2 = 0;
-	private int l2q3 = 0;
-	private int l2q4 = 0;
-	// 3라인
-	private int l3q1 = 0;
-	private int l3q2 = 0;
-	private int l3q3 = 0;
-	private int l3q4 = 0;
-	// 4라인
-	private int l4q1 = 0;
-	private int l4q2 = 0;
-	private int l4q3 = 0;
-	private int l4q4 = 0;
-	// 5라인
-	private int l5q1 = 0;
-	private int l5q2 = 0;
-	private int l5q3 = 0;
-	private int l5q4 = 0;
+	//분기별생산량
+	private int qnsrl1 = 0;
+	private int qnsrl2 = 0;
+	private int qnsrl3 = 0;
+	private int qnsrl4 = 0;
 	
-	//-------------------------------------
-	//--------------getter setter-------------
-	//-------------------------------------
+	//-------------------------------------//
+	//--------------getter setter-------------//
+	//-------------------------------------//
 	
 	// 결재자 & 검색어 getter setter
 	public String geteName1() {
@@ -393,124 +373,28 @@ public class PurListVo {
 	}
 	
 	// 분기별 생산 효율
-	public int getL1q1() {
-		return l1q1;
+	public int getQnsrl1() {
+		return qnsrl1;
 	}
-	public void setL1q1(int l1q1) {
-		this.l1q1 = l1q1;
+	public void setQnsrl1(int qnsrl1) {
+		this.qnsrl1 = qnsrl1;
 	}
-	public int getL1q2() {
-		return l1q2;
+	public int getQnsrl2() {
+		return qnsrl2;
 	}
-	public void setL1q2(int l1q2) {
-		this.l1q2 = l1q2;
+	public void setQnsrl2(int qnsrl2) {
+		this.qnsrl2 = qnsrl2;
 	}
-	public int getL1q3() {
-		return l1q3;
+	public int getQnsrl3() {
+		return qnsrl3;
 	}
-	public void setL1q3(int l1q3) {
-		this.l1q3 = l1q3;
+	public void setQnsrl3(int qnsrl3) {
+		this.qnsrl3 = qnsrl3;
 	}
-	public int getL1q4() {
-		return l1q4;
+	public int getQnsrl4() {
+		return qnsrl4;
 	}
-	public void setL1q4(int l1q4) {
-		this.l1q4 = l1q4;
-	}
-	public int getL2q1() {
-		return l2q1;
-	}
-	public void setL2q1(int l2q1) {
-		this.l2q1 = l2q1;
-	}
-	public int getL2q2() {
-		return l2q2;
-	}
-	public void setL2q2(int l2q2) {
-		this.l2q2 = l2q2;
-	}
-	public int getL2q3() {
-		return l2q3;
-	}
-	public void setL2q3(int l2q3) {
-		this.l2q3 = l2q3;
-	}
-	public int getL2q4() {
-		return l2q4;
-	}
-	public void setL2q4(int l2q4) {
-		this.l2q4 = l2q4;
-	}
-	public int getL3q1() {
-		return l3q1;
-	}
-	public void setL3q1(int l3q1) {
-		this.l3q1 = l3q1;
-	}
-	public int getL3q2() {
-		return l3q2;
-	}
-	public void setL3q2(int l3q2) {
-		this.l3q2 = l3q2;
-	}
-	public int getL3q3() {
-		return l3q3;
-	}
-	public void setL3q3(int l3q3) {
-		this.l3q3 = l3q3;
-	}
-	public int getL3q4() {
-		return l3q4;
-	}
-	public void setL3q4(int l3q4) {
-		this.l3q4 = l3q4;
-	}
-	public int getL4q1() {
-		return l4q1;
-	}
-	public void setL4q1(int l4q1) {
-		this.l4q1 = l4q1;
-	}
-	public int getL4q2() {
-		return l4q2;
-	}
-	public void setL4q2(int l4q2) {
-		this.l4q2 = l4q2;
-	}
-	public int getL4q3() {
-		return l4q3;
-	}
-	public void setL4q3(int l4q3) {
-		this.l4q3 = l4q3;
-	}
-	public int getL4q4() {
-		return l4q4;
-	}
-	public void setL4q4(int l4q4) {
-		this.l4q4 = l4q4;
-	}
-	public int getL5q1() {
-		return l5q1;
-	}
-	public void setL5q1(int l5q1) {
-		this.l5q1 = l5q1;
-	}
-	public int getL5q2() {
-		return l5q2;
-	}
-	public void setL5q2(int l5q2) {
-		this.l5q2 = l5q2;
-	}
-	public int getL5q3() {
-		return l5q3;
-	}
-	public void setL5q3(int l5q3) {
-		this.l5q3 = l5q3;
-	}
-	public int getL5q4() {
-		return l5q4;
-	}
-	public void setL5q4(int l5q4) {
-		this.l5q4 = l5q4;
+	public void setQnsrl4(int qnsrl4) {
+		this.qnsrl4 = qnsrl4;
 	}
 }
