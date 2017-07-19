@@ -3,131 +3,24 @@
 <html>
 
 <head>
+<link rel='stylesheet' href='../laboratory/material.css'/>
     <title>Page Title</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0">
-    <style>
-        #proDetails * {
-            transition: all 0.5s;
-        }
-        
-        .pdList img {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-        }
-        
-        #proDetails .pdList:HOVER {
-            background-color: #aaa;
-        }
-        
-        #proTitle {
-            font-size: 30px;
-        }
-        
-        .pdList img {
-           display: inline-block;
-            width: 50px;
-            height: 50px;
-        }
-        
-        .pdList img:HOVER {
-            display: inline-block;
-            width: 70px;
-            height: 70px;
-            cursor: pointer;
-            border: 2px solid blue;
-        }
-        
-        #proDetails .pdList span,
-        #proDetails .pdList img {
-            display: inline-block;
-            border: 2px solid rgb(85, 85, 84);
-            margin-top: 20px;
-            margin-right: 7px;
-        }
-        
-        #proDetails .pdList span {
-            display: inline-block;
-            margin-bottom: 10px;
-            position: relative;
-            bottom: 19px;
-        }
-        
-        #proSelect {
-            margin-top: 30px;
-            color: white;
-            background-color: black;
-        }
-        
-         #proDetails {
-            width: 60%;
-           
-            margin: 0 auto;
-        }
-        
-        .myButton {
-            -moz-box-shadow: inset 0px 1px 0px 0px #000000;
-            -webkit-box-shadow: inset 0px 1px 0px 0px #000000;
-            box-shadow: inset 0px 1px 0px 0px #000000;
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000), color-stop(1, #000000));
-            background: -moz-linear-gradient(top, #000000 5%, #000000 100%);
-            background: -webkit-linear-gradient(top, #000000 5%, #000000 100%);
-            background: -o-linear-gradient(top, #000000 5%, #000000 100%);
-            background: -ms-linear-gradient(top, #000000 5%, #000000 100%);
-            background: linear-gradient(to bottom, #000000 5%, #000000 100%);
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#000000', GradientType=0);
-            background-color: #000000;
-            -moz-border-radius: 6px;
-            -webkit-border-radius: 6px;
-            border-radius: 6px;
-            border: 1px solid #000000;
-            display: inline-block;
-            cursor: pointer;
-            color: #ffffff;
-            font-family: Arial;
-            font-size: 15px;
-            font-weight: bold;
-            padding: 6px 24px;
-            text-decoration: none;
-            text-shadow: 0px 1px 0px #000000;
-        }
-        
-        .myButton:hover {
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000), color-stop(1, #000000));
-            background: -moz-linear-gradient(top, #000000 5%, #000000 100%);
-            background: -webkit-linear-gradient(top, #000000 5%, #000000 100%);
-            background: -o-linear-gradient(top, #000000 5%, #000000 100%);
-            background: -ms-linear-gradient(top, #000000 5%, #000000 100%);
-            background: linear-gradient(to bottom, #000000 5%, #000000 100%);
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#000000', GradientType=0);
-            background-color: #000000;
-        }
-        
-        .myButton:active {
-            position: relative;
-            top: 1px;
-        }
-        
-        #proDetails #serchPro{
-        	color: black;
-        }
-
-    </style>
-
+   
     <script>
         $(document).ready(function() {
-        	var xhr = new XMLHttpRequest();
-        	var url = "../pdList.hwan";
+           var xhr = new XMLHttpRequest();
+           var url = "../pdList.hwan";
 
-        	var frm = document.getElementById("pddFrm");
-        	var fd = new FormData(frm);
-        	xhr.open("post",url);
-        	xhr.send(fd);
-        	
-        	xhr.onreadystatechange = function(){
-        	ResultList(xhr);
-        	}
+           var frm = document.getElementById("pddFrm");
+           var fd = new FormData(frm);
+           xhr.open("post",url);
+           xhr.send(fd);
+           
+           xhr.onreadystatechange = function(){
+           ResultList(xhr);
+           }
         });
         
         function viewFunc(pcode) {
@@ -147,73 +40,79 @@
             } 
         }//end viewFunc()
         function searchFunc(){
-        	var sp = document.getElementById("serchPro");
-        	if(sp.value==""){
-        		alert("검색어를 입력해 주세요");
-        		return;
-        	}
-        	
-        	var xhr = new XMLHttpRequest();
-        	var url ="../pdList.hwan";
-        	var frm = document.getElementById("pddFrm");
-        	var fd = new FormData(frm);
-        	xhr.open("post",url);
-        	xhr.send(fd);
-        	
-        	xhr.onreadystatechange = function(){
-        	ResultList(xhr);
-        	}
-        	
+           var sp = document.getElementById("serchPro");
+           if(sp.value==""){
+              alert("검색어를 입력해 주세요");
+              return;
+           }
+           
+           var xhr = new XMLHttpRequest();
+           var url ="../pdList.hwan";
+           var frm = document.getElementById("pddFrm");
+           var fd = new FormData(frm);
+           xhr.open("post",url);
+           xhr.send(fd);
+           
+           xhr.onreadystatechange = function(){
+           ResultList(xhr);
+           }
+           
         }
         
         function proSelFunc(sel){
-        	var sval = sel.options[sel.options.selectedIndex].value;
-        	var ss = document.getElementById("sShearch");
-        	ss.value = sval; 
+           var sval = sel.options[sel.options.selectedIndex].value;
+           var ss = document.getElementById("sShearch");
+           ss.value = sval; 
         }
         
         
         function ResultList(xhr){
-    		if(xhr.readyState == 4 && xhr.status == 200){
-    			var txt = xhr.responseText;
-    			
-    			var jd = JSON.parse(txt);
-    			
-    			var resultDiv = document.getElementById("pdListResult");
-    			resultDiv.innerHTML="";
-    			for(var i = 0; i<jd.length; i++){
-    				var d1 = document.createElement("div");
-    				var im = document.createElement("img");
-    				var span1 = document.createElement("span");
-    				var span2 = document.createElement("span");
-    				var span3 = document.createElement("span");
-    				var span4 = document.createElement("span");
-    				
-    				d1.setAttribute("class", "pdList");
-    				
-    				im.setAttribute("class", "proImg");
-    				im.setAttribute("src", "../images/"+jd[i].pimage);
-    				im.setAttribute("onclick", "viewFunc("+jd[i].pcode+")");
-    				
-    				span1.innerHTML = jd[i].pname;
-    				span1.setAttribute("class", "proModel");
-    				
-    				span2.innerHTML = jd[i].pdate;
-    				span3.innerHTML = jd[i].pstatus;
-    				span4.innerHTML = jd[i].pdev;
-    				
-    				d1.appendChild(im);
-    				d1.appendChild(span1);
-    				d1.appendChild(span2);
-    				d1.appendChild(span3);
-    				d1.appendChild(span4);
-    				
-    				
-    				resultDiv.appendChild(d1);
-    			}
-    			
-    		}
-    	}//end xhr.onreadystatechange
+          if(xhr.readyState == 4 && xhr.status == 200){
+             var txt = xhr.responseText;
+             
+             var jd = JSON.parse(txt);
+             
+             var resultDiv = document.getElementById("pdListResult");
+             resultDiv.innerHTML="";
+             for(var i = 0; i<jd.length; i++){
+                var d1 = document.createElement("div");
+                var im = document.createElement("img");
+                var span1 = document.createElement("span");
+                var span2 = document.createElement("span");
+                var span3 = document.createElement("span");
+                var span4 = document.createElement("span");
+                
+                d1.setAttribute("class", "pdList");
+                
+                im.setAttribute("class", "proImg");
+                im.setAttribute("src", "../images/"+jd[i].pimage);
+                im.setAttribute("onclick", "viewFunc("+jd[i].pcode+")");
+                
+                span1.innerHTML = jd[i].pname;
+                span1.setAttribute("class", "proModel");
+       
+                span2.setAttribute("class", "mid");
+                span3.setAttribute("class", "mdev");
+                span4.setAttribute("class", "mstatus");
+                
+                
+                
+                span2.innerHTML = jd[i].pdate;
+                span3.innerHTML = jd[i].pdev;
+                span4.innerHTML = jd[i].pstatus;
+                
+                d1.appendChild(im);
+                d1.appendChild(span1);
+                d1.appendChild(span2);
+                d1.appendChild(span3);
+                d1.appendChild(span4);
+                
+                
+                resultDiv.appendChild(d1);
+             }
+             
+          }
+       }//end xhr.onreadystatechange
     </script>
 </head>
 
@@ -221,26 +120,36 @@
     <div id=proDetails >
     <form id = "pddFrm" method="post" enctype="multipart/form-data">
         <div id=proTitle>제품상세</div>
-	<select>
+   <div id='proTitle1'>
+   <select id='proSelect'>
         <option value="0">전체</option>
         <option value="1">제품명</option>
-        
     </select>
         <input id="serchPro" type='text' placeholder="검색어를 입력해주세요." name="findStr"/>
         <a href="#" class="myButton buttonBoder" onclick="searchFunc()">검색</a>
+    </div>
+    
+    <div id='matdiv1'>
+         <span class='image'>이미지</span>
+         <span class='mcode'>자재명</span>
+         <span class='mid'>등록일</span>
+         <span class='mdev'>등록자</span>
+         <span class='mstatus'>상태</span>
+         </div>
+         
         <hr/>
-  	<input type='hidden' name="pcode">
-  	
-  	<input type='hidden' name="sShearch" id="sShearch" value="0">
+     <input type='hidden' name="pcode">
+     
+     <input type='hidden' name="sShearch" id="sShearch" value="0">
   
-  	<div id = "pdListResult"></div>
-  	
-  	
-  	
-  	
-  	</form>
-  	</div>
-  	
+     <div id = "pdListResult"></div>
+     
+     
+     
+     
+     </form>
+     </div>
+     
 </body>
 
 </html>

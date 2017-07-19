@@ -5,281 +5,177 @@
 <title>Page Title</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="initial-scale=1.0">
-
-
-<style>
-#maTitle {
-	font-size: 30px;
-}
-
-.mdList img {
-	display: inline-block;
-	width: 50px;
-	height: 50px;
-}
-
-#maDetails .mdList span, #maDetails .mdList img {
-	display: inline-block;
-	border: 2px solid rgb(85, 85, 84);
-	margin-top: 20px;
-	margin-right: 7px;
-}
-
-#maDetails .mdList span {
-	display: inline-block;
-	margin-bottom: 10px;
-	position: relative;
-	bottom: 19px;
-}
-
-#maSelect {
-	margin-top: 30px;
-	color: white;
-	background-color: black;
-}
-
-.myButton {
-	-moz-box-shadow: inset 0px 1px 0px 0px #000000;
-	-webkit-box-shadow: inset 0px 1px 0px 0px #000000;
-	box-shadow: inset 0px 1px 0px 0px #000000;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000
-		), color-stop(1, #000000));
-	background: -moz-linear-gradient(top, #000000 5%, #000000 100%);
-	background: -webkit-linear-gradient(top, #000000 5%, #000000 100%);
-	background: -o-linear-gradient(top, #000000 5%, #000000 100%);
-	background: -ms-linear-gradient(top, #000000 5%, #000000 100%);
-	background: linear-gradient(to bottom, #000000 5%, #000000 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000',
-		endColorstr='#000000', GradientType=0);
-	background-color: #000000;
-	-moz-border-radius: 6px;
-	-webkit-border-radius: 6px;
-	border-radius: 6px;
-	border: 1px solid #000000;
-	display: inline-block;
-	cursor: pointer;
-	color: #ffffff;
-	font-family: Arial;
-	font-size: 15px;
-	font-weight: bold;
-	padding: 6px 24px;
-	text-decoration: none;
-	text-shadow: 0px 1px 0px #000000;
-}
-
-.myButton:hover {
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000
-		), color-stop(1, #000000));
-	background: -moz-linear-gradient(top, #000000 5%, #000000 100%);
-	background: -webkit-linear-gradient(top, #000000 5%, #000000 100%);
-	background: -o-linear-gradient(top, #000000 5%, #000000 100%);
-	background: -ms-linear-gradient(top, #000000 5%, #000000 100%);
-	background: linear-gradient(to bottom, #000000 5%, #000000 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000',
-		endColorstr='#000000', GradientType=0);
-	background-color: #000000;
-}
-
-.myButton:active {
-	position: relative;
-	top: 1px;
-}
-
-.mdList img {
-	display: inline-block;
-	width: 50px;
-	height: 50px;
-}
-
-.mdList img:HOVER {
-	display: inline-block;
-	width: 70px;
-	height: 70px;
-	cursor: pointer;
-	border: 2px solid blue;
-}
-
-#maDetails * {
-	transition: all 0.5s;
-}
-
-#maDetails .mdList:HOVER {
-	background-color: #aaa;
-}
-
-#maDetails {
-	width: 60%;
-	margin: 0 auto;
-}
-
-#maDetails #matsearch {
-	color: white;
-	background: black;
-}
-
-#maDetails #matSelect {
-	color: white;
-	background: black;
-}
-</style>
-
+<link rel='stylesheet' href='../laboratory/material.css'/>
 <script>
-	//디테일 materialsDetails.html 
-	//controller로 가서 자재 list를 가져옴
-	$(document).ready(function() {
-		var xhr = new XMLHttpRequest();
-		var frm = document.getElementById("mat_frm");
-		var fd = new FormData(frm);
-		var url = "../matList.kimHa";
-		var str = "";
-		xhr.open("post", url);
-		xhr.send(fd);
+   //디테일 materialsDetails.html 
+   //controller로 가서 자재 list를 가져옴
+   $(document).ready(function() {
+      var xhr = new XMLHttpRequest();
+      var frm = document.getElementById("mat_frm");
+      var fd = new FormData(frm);
+      var url = "../matList.kimHa";
+      var str = "";
+      xhr.open("post", url);
+      xhr.send(fd);
 
-		xhr.onreadystatechange = function() {
-			ResultList(xhr);
-		}
+      xhr.onreadystatechange = function() {
+         ResultList(xhr);
+      }
 
-	});
+   });
 
-	// 이미지를 클릭했을 때, view 로 넘어감.
-	function viewFunc(mcode) {
-		var xhr = new XMLHttpRequest();
-		var str = "";
-		var frm = document.getElementById("mat_frm");
-		frm.mcode.value = mcode;
-		var fd = new FormData(frm);
+   // 이미지를 클릭했을 때, view 로 넘어감.
+   function viewFunc(mcode) {
+      var xhr = new XMLHttpRequest();
+      var str = "";
+      var frm = document.getElementById("mat_frm");
+      frm.mcode.value = mcode;
+      var fd = new FormData(frm);
 
-		xhr.open("post", "../matView.kimHa");
-		xhr.send(fd);
+      xhr.open("post", "../matView.kimHa");
+      xhr.send(fd);
 
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState == 4 && xhr.status == 200) {
-				str = xhr.responseText;
-				$("#laboratorResult").html(str);
-			}
-		}
+      xhr.onreadystatechange = function() {
+         if (xhr.readyState == 4 && xhr.status == 200) {
+            str = xhr.responseText;
+            $("#laboratorResult").html(str);
+         }
+      }
 
-	}
+   }
 
-	//검색어를 가지고 검색
-	function mSearch() {
-		var matsearch = document.getElementById("matsearch");
-		if (matsearch.value == "") {
-			alert("검색어를 입력해주세요.");
-			return;
-		}
+   //검색어를 가지고 검색
+   function mSearch() {
+      var matsearch = document.getElementById("matsearch");
+      if (matsearch.value == "") {
+         alert("검색어를 입력해주세요.");
+         return;
+      }
 
-		var xhr = new XMLHttpRequest;
-		var url = "../matList.kimHa";
-		var frm = document.getElementById("mat_frm");
-		var fd = new FormData(frm);
-		xhr.open("post", url);
-		xhr.send(fd);
+      var xhr = new XMLHttpRequest;
+      var url = "../matList.kimHa";
+      var frm = document.getElementById("mat_frm");
+      var fd = new FormData(frm);
+      xhr.open("post", url);
+      xhr.send(fd);
 
-		xhr.onreadystatechange = function() {
-			ResultList(xhr);
-		}
-	}
-	//select 값 
-	function matFunc(sel) {
-		var select = sel.options[sel.options.selectedIndex].value
-		var ss = document.getElementById("sSearch");
-		ss.value = select;
+      xhr.onreadystatechange = function() {
+         ResultList(xhr);
+      }
+   }
+   //select 값 
+   function matFunc(sel) {
+      var select = sel.options[sel.options.selectedIndex].value
+      var ss = document.getElementById("sSearch");
+      ss.value = select;
 
-	}
+   }
 
-	//뿌려주는 부분.
-	function ResultList(xhr) {
-		if (xhr.readyState == 4 && xhr.status == 200) {
-			str = xhr.responseText;
-			var json = JSON.parse(str); // 문자열을 json 형태로 변환
-
-
-			var matListResult = document.getElementById("matListResult");
-			matListResult.innerHTML = "";
-			for (var i = 0; i < json.length; i++) {
-				var div = document.createElement("div");
-				var img = document.createElement("img");
-				var span1 = document.createElement("span");
-				var span2 = document.createElement("span");
-				var span3 = document.createElement("span");
-				var span4 = document.createElement("span");
-
-				div.setAttribute("class", "mdList");
-				img.setAttribute("class", "mdImg");
-				img.setAttribute("width", "300px");
-				img.setAttribute("height", "200px");
-				img.setAttribute("src", "../images/purchaseimg/" + json[i].mimage);
-				img.setAttribute("onclick", "viewFunc(" + json[i].mcode + ")");
-				span1.setAttribute("class", "mdModel");
-				span1.innerHTML = json[i].mname;
-				span2.innerHTML = json[i].mdate;
-				span3.innerHTML = json[i].mstate;
-				span4.innerHTML = json[i].mdev;
+   //뿌려주는 부분.
+   function ResultList(xhr) {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+         str = xhr.responseText;
+         var json = JSON.parse(str); // 문자열을 json 형태로 변환
 
 
-				div.appendChild(img);
-				div.appendChild(span1);
-				div.appendChild(span2);
-				div.appendChild(span3);
-				div.appendChild(span4);
+         var matListResult = document.getElementById("matListResult");
+         matListResult.innerHTML = "";
+         for (var i = 0; i < json.length; i++) {
+            var div = document.createElement("div");
+            var img = document.createElement("img");
+            var span1 = document.createElement("span");
+            var span2 = document.createElement("span");
+            var span3 = document.createElement("span");
+            var span4 = document.createElement("span");
 
-				matListResult.appendChild(div);
-			}
+            div.setAttribute("class", "mdList");
+            div.setAttribute("id","mdListid");
+            img.setAttribute("class", "image");
+            img.setAttribute("width", "300px");
+            img.setAttribute("height", "200px");
+            img.setAttribute("src", "../images/purchaseimg/" + json[i].mimage);
+            img.setAttribute("onclick", "viewFunc(" + json[i].mcode + ")");
+            
+            span1.setAttribute("class", "mcode");
+            span2.setAttribute("class", "mid");
+            span3.setAttribute("class", "mdev");
+            span4.setAttribute("class", "mstatus");
+            
+            span1.innerHTML = json[i].mname;
+            span2.innerHTML = json[i].mdate;
+            span3.innerHTML = json[i].mdev;
+            span4.innerHTML = json[i].mstate;
 
-		}
-	}
+
+            div.appendChild(img);
+            div.appendChild(span1);
+            div.appendChild(span2);
+            div.appendChild(span3);
+            div.appendChild(span4);
+
+            matListResult.appendChild(div);
+         }
+
+      }
+   }
 </script>
 </head>
 
 <body>
-	<div id=maDetails>
-		<form id="mat_frm" method="post" enctype="multipart/form-data">
-			<div id=maTitle>자재상세</div>
+   <div id=maDetails>
+      <form id="mat_frm" method="post" enctype="multipart/form-data">
+         <div id=maTitle>자재상세</div>
+
+      <div id='maTitle1'>
+         <select id="matSelect" onchange="matFunc(this)">
+
+            <option value="0">전체</option>
+            <option value="1">모델명</option>
 
 
-			<select id="matSelect" onchange="matFunc(this)">
+         </select> <input type='text' id='matsearch' name='findStr' placeholder="검색어를 입력해주세요." /> 
+            
+            <a href="#" class="myButton buttonBoder" id='btnsearch' onclick="mSearch()">검색</a>
+   </div>
+         <div id='matdiv1'>
+         <span class='image'>이미지</span>
+         <span class='mcode'>자재명</span>
+         <span class='mid'>등록일</span>
+         <span class='mdev'>등록자</span>
+         <span class='mstatus'>상태</span>
+         </div>
+         <hr />
+         <div id="matListResult"></div>
 
-				<option value="0">전체</option>
-				<option value="1">모델명</option>
 
+         <input type='hidden' name='mcode' /> <input type='hidden'
+            name='sSearch' id='sSearch' value='0'/>
 
-			</select> <input type='text' id='matsearch' name='findStr'
-				placeholder="검색어를 입력해주세요." /> <a href="#"
-				class="myButton buttonBoder" onclick="mSearch()">검색</a>
+         <!-- <div>
+            <div class='mdList'>
+               <img src="../images/khk_RAMBLE2image.jpg" width="300px"
+                  height="200px" class=mdImg> <span class=mdModel>모델명1</span>
+               <span>등록일</span> <span>결재승인상태</span> <span>최종등록자</span>
+            </div>
 
-			<hr />
-			<div id="matListResult"></div>
+            <div class='mdList'>
+               <img src="../images/khk_RAMBLE2image.jpg" width="300px"
+                  height="200px" class=mdImg> <span class=mdModel>모델명2</span>
+               <span>등록일</span> <span>결재승인상태</span> <span>최종등록자</span>
+            </div>
+            <div class='mdList'>
+               <img src="../images/khk_RAMBLE2image.jpg" width="300px"
+                  height="200px" class=mdImg> <span class=mdModel>모델명3</span>
+               <span>등록일</span> <span>결재승인상태</span> <span>최종등록자</span>
+            </div>
 
-
-			<input type='hidden' name='mcode' /> <input type='hidden'
-				name='sSearch' id='sSearch' value='0'/>
-
-			<!-- <div>
-				<div class='mdList'>
-					<img src="../images/khk_RAMBLE2image.jpg" width="300px"
-						height="200px" class=mdImg> <span class=mdModel>모델명1</span>
-					<span>등록일</span> <span>결재승인상태</span> <span>최종등록자</span>
-				</div>
-
-				<div class='mdList'>
-					<img src="../images/khk_RAMBLE2image.jpg" width="300px"
-						height="200px" class=mdImg> <span class=mdModel>모델명2</span>
-					<span>등록일</span> <span>결재승인상태</span> <span>최종등록자</span>
-				</div>
-				<div class='mdList'>
-					<img src="../images/khk_RAMBLE2image.jpg" width="300px"
-						height="200px" class=mdImg> <span class=mdModel>모델명3</span>
-					<span>등록일</span> <span>결재승인상태</span> <span>최종등록자</span>
-				</div>
-
-				<div class='mdList'>
-					<img src="../images/khk_RAMBLE2image.jpg" width="300px"
-						height="200px" class=mdImg> <span class=mdModel>모델명4</span>
-					<span>등록일</span> <span>결재승인상태</span> <span>최종등록자</span>
-				</div>
-			</div> -->
-		</form>
-	</div>
+            <div class='mdList'>
+               <img src="../images/khk_RAMBLE2image.jpg" width="300px"
+                  height="200px" class=mdImg> <span class=mdModel>모델명4</span>
+               <span>등록일</span> <span>결재승인상태</span> <span>최종등록자</span>
+            </div>
+         </div> -->
+      </form>
+   </div>
 </body>
 </html>

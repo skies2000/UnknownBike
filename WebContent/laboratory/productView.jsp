@@ -148,6 +148,12 @@
     
         <img src="../images/${vo.pimage}" width="300px" height="200px">
         
+        
+        
+        
+        
+        
+        
         <table> 
             <tr>
                 <td>작성자</td>

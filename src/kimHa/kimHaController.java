@@ -32,17 +32,24 @@ public class kimHaController {
 	public kimHaController(kimHaDao dao) {
 		this.dao = dao;
 	}
+	
+	
 
-	// 삭제
+	// 삭제(이미지 삭제 포함)
 
 	@RequestMapping(value = "/kimDel.kimHa", method = { RequestMethod.POST, RequestMethod.GET })
 	public void mDelete(HttpServletRequest req, HttpServletResponse resp) {
 		ModelAndView mv = new ModelAndView();
 		MultipartRequest mul = getMul(req);
+		String uploadPath = req.getRealPath("images/materialimg");
+		System.out.println("uploadPath" +uploadPath );
 		PrintWriter out = getOut(resp);
 		kimHaVo vo = new kimHaVo();
+		String img = "";
 		System.out.println("코드" + mul.getParameter("mcode"));
 		vo.setMcode(Integer.parseInt(mul.getParameter("mcode")));
+		img = dao.imgDelete(vo).getMimage();
+		//System.out.println("controller" + img);
 		int r = dao.matDelete(vo);
 		
 		if(r > 0) {

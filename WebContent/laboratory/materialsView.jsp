@@ -81,7 +81,7 @@
 }
 
 #maViewDiv #myButton {
-	margin-left: 450px;
+	margin-left: 460px;
 }
 
 /* #maViewDiv #backBtn {
@@ -114,11 +114,6 @@
 		}
 
 	});
-
-	//수정
-	function modify() {
-	}
-
 
 	//삭제
 	function mDelete(mcode) {
@@ -200,7 +195,7 @@
 					</tr>
 				</table>
 				<div id="myButton">
-					<a href="#" id='modifyBtn' class="myButton">수정</a> <a href="#"
+					<a href="#"
 						id='delBtn' class="myButton" onclick="mDelete('${vo.mcode}')">삭제</a>
 					<a href="#" id='backBtn' class="myButton">뒤로</a>
 				</div>

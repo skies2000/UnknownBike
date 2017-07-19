@@ -19,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import beanhoon.PurListVo;
+
 
 @Controller
 public class SungController {
@@ -35,12 +37,23 @@ public class SungController {
 
    @RequestMapping(value = "main/salesHome.sung", method = { RequestMethod.GET, RequestMethod.POST })
    public Object goHome() {
-      ModelAndView mv = new ModelAndView(); //setattribute + 디스패쳐
+	 
+		      ModelAndView mv = new ModelAndView();
+		      List<ProductVo> list = new ArrayList<ProductVo>();
+		      for(int i=30003; i<30020; i+=4){ //사원번호
+		    	  for(int a=1; a<6; a++){//제품카테고리
+		    		  ProductVo vo = new ProductVo();
+		    		  vo.setpCate(a);
+		    		  vo.seteCode(i);
+		    		  vo = dao.search_pTotal(vo); //사원별 제품 판매수량 가져오기
+		    		  list.add(vo);
+		    	  }
+		      }
+		      mv.addObject("list", list);
+		      
+		      mv.setViewName("sales_home");
 
-      // mv.addObject("vo", vo);
-        mv.setViewName("sales_home");
-
-      return mv;
+		      return mv;
    }
    
    /*-----------------req--------------------------------*/
@@ -573,6 +586,7 @@ public class SungController {
    
 /*   -------------------profit----------------------*/
    
+   //거래처
    @RequestMapping(value = "main/sales_profit_view.sung", method = { RequestMethod.GET, RequestMethod.POST })
    public Object goPro_view() {
       ModelAndView mv = new ModelAndView();
@@ -592,7 +606,24 @@ public class SungController {
 
       return mv;
    }
-   
+   //연도별 판매액
+   @RequestMapping(value = "main/sales_profit_view2.sung", method = { RequestMethod.GET, RequestMethod.POST })
+   public Object sales_profit_view2() {
+      ModelAndView mv = new ModelAndView();
+      List<ProductVo> list = new ArrayList<ProductVo>();
+      for(int i=2013; i<2018; i++){
+    	  ProductVo vo = new ProductVo();
+         vo.setYear(i);
+         vo = dao.total_year(vo); 
+         vo.setYear(i);
+         list.add(vo);
+      }
+      mv.addObject("list", list);
+      
+      mv.setViewName("sales_profit_view2");
+
+      return mv;
+   }
    @RequestMapping(value = "main/sales_profit_list.sung", method = { RequestMethod.GET, RequestMethod.POST })
    public Object goPro_list() {
       ModelAndView mv = new ModelAndView(); 
@@ -705,5 +736,29 @@ public class SungController {
       
    }   
    
-   
+  /* -------------제품 재고조회------------------------*/
+// 제품 재고 조회 (product list)
+	@RequestMapping(value="main/sales_product_list.sung", method={RequestMethod.GET, RequestMethod.POST})
+	public Object product_listProduct(PurListVo vo){
+		ModelAndView mv = new ModelAndView();
+		
+		List<PurListVo> list = dao.listPro(vo);
+		mv.addObject("list", list);
+		mv.setViewName("sales_stock_product");
+		
+		return mv;
+	}
+	
+	// 제품 이미지 조회 (material img)
+	@RequestMapping(value="main/searchP.sung", method={RequestMethod.GET, RequestMethod.POST})
+	public Object product_productImg(PurListVo vo){
+		ModelAndView mv = new ModelAndView();
+		
+		// 설정 한 개만 보기 때문에 list에 담지 않고 vo에 담는다
+		PurListVo v = dao.viewP(vo);
+				
+		mv.addObject("vo", v);
+		mv.setViewName("sales_stock_p_view");
+		return mv;
+	}
 }

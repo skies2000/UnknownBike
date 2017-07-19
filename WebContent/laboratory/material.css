@@ -1,0 +1,348 @@
+@CHARSET "UTF-8";
+
+/* ☆★☆★☆★☆자재디테일★★★★★★★★ */
+
+#maTitle {
+   text-align:center;
+   font-size: 30px;
+   padding-bottom:20px;
+   
+}
+#maTitle1{
+   margin-left:53%;
+   padding-bottom:20px;
+   
+}
+.mdList img {
+   display: inline-block;
+   width: 50px;
+   height: 50px;
+}
+
+#maDetails .mdList span, #maDetails .mdList img {
+   display: inline-block;
+/*    border: 1px solid rgb(85, 85, 84); */
+   margin-top: 20px;
+   margin-right: 7px;
+}
+
+#maDetails .mdList span {
+   display: inline-block;
+   margin-bottom: 10px;
+   position: relative;
+   bottom: 19px;
+}
+
+#maSelect{
+   margin-top: 30px;
+   color: white;
+   /* background-color: black; */
+   
+}
+
+.myButton {
+   -moz-box-shadow: inset 0px 1px 0px 0px #000000;
+   -webkit-box-shadow: inset 0px 1px 0px 0px #000000;
+   box-shadow: inset 0px 1px 0px 0px #000000;
+   background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000
+      ), color-stop(1, #000000));
+   background: -moz-linear-gradient(top, #000000 5%, #000000 100%);
+   background: -webkit-linear-gradient(top, #000000 5%, #000000 100%);
+   background: -o-linear-gradient(top, #000000 5%, #000000 100%);
+   background: -ms-linear-gradient(top, #000000 5%, #000000 100%);
+   background: linear-gradient(to bottom, #000000 5%, #000000 100%);
+   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000',
+      endColorstr='#000000', GradientType=0);
+   background-color: #000000;
+   -moz-border-radius: 6px;
+   -webkit-border-radius: 6px;
+   border-radius: 6px;
+   border: 1px solid #000000;
+   display: inline-block;
+   cursor: pointer;
+   color: #ffffff;
+   font-family: Arial;
+   font-size: 15px;
+   font-weight: bold;
+   padding: 6px 24px;
+   text-decoration: none;
+   text-shadow: 0px 1px 0px #000000;
+}
+
+.myButton:hover {
+   background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000
+      ), color-stop(1, #000000));
+   background: -moz-linear-gradient(top, #000000 5%, #000000 100%);
+   background: -webkit-linear-gradient(top, #000000 5%, #000000 100%);
+   background: -o-linear-gradient(top, #000000 5%, #000000 100%);
+   background: -ms-linear-gradient(top, #000000 5%, #000000 100%);
+   background: linear-gradient(to bottom, #000000 5%, #000000 100%);
+   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000',
+      endColorstr='#000000', GradientType=0);
+   background-color: #000000;
+}
+
+.myButton:active {
+   position: relative;
+   top: 1px;
+}
+
+.mdList img {
+   display: inline-block;
+   width: 50px;
+   height: 50px;
+}
+
+.mdList img:HOVER {
+   display: inline-block;
+   width: 70px;
+   height: 70px;
+   cursor: pointer;
+   border: 2px solid blue;
+}
+
+#maDetails * {
+   transition: all 0.5s;
+}
+
+#maDetails .mdList:HOVER {
+   background-color: #aaa;
+}
+
+#maDetails {}
+
+#maDetails #matsearch {
+
+}
+
+#maDetails #matSelect {
+   color: white;
+   background: black;
+}
+
+#matSelect{
+   /* margin-left:52%; */
+   margin-bottom:20px;
+}
+#btnsearch{
+   background-color:#737373;
+}
+#matdiv1{
+   width:100%;
+   border-bottom: 1px solid white;
+   padding-bottom: 10px;
+   text-align:center;
+}
+
+.image{
+   display:inline-block;
+   width:15%;
+}
+
+.mcode{
+   display:inline-block;
+   width:15%;
+}
+
+.mdev{
+   display:inline-block;
+   width:15%;
+}
+.mid{
+   display:inline-block;
+   width:23%;
+}
+.mstatus{
+   display:inline-block;
+   width:15%;
+}
+
+
+.mdList{
+   
+   
+}
+
+#mdListid >span{
+
+   
+}
+.mdList>.image{
+margin-left:90px;
+}
+.mdList>.mcode{
+   display:inline-block;
+   width:15%;
+   text-align:center;
+   margin-left:60px;
+}
+.mdList>.mid{
+   display:inline-block;
+   width:23%;
+   text-align:center;
+   /* margin-left:10px; */
+}
+.mdList>.mdev{
+   display:inline-block;
+   width:13%;
+   text-align:center;
+   margin-left:5px;
+}
+
+
+.mdList>.mstatus{
+   display:inline-block;
+   width:10%;
+   text-align:center;
+   margin-left:25px;
+}
+
+
+
+/* ☆★☆★☆★☆제품디테일★★★★★★★★ */
+
+ #proDetails * {
+            transition: all 0.5s;
+        }
+        
+        .pdList img {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+        }
+        
+        #proDetails .pdList:HOVER {
+            background-color: #aaa;
+        }
+        
+        #proTitle {
+           text-align:center;
+            font-size: 30px;
+            padding-bottom:20px;
+        }
+        
+        .pdList img {
+           display: inline-block;
+            width: 50px;
+            height: 50px;
+        }
+        
+        .pdList img:HOVER {
+            display: inline-block;
+            width: 70px;
+            height: 70px;
+            cursor: pointer;
+            border: 2px solid blue;
+        }
+        
+        #proDetails .pdList span,
+        #proDetails .pdList img {
+            display: inline-block;
+           /*  border: 2px solid rgb(85, 85, 84); */
+            margin-top: 20px;
+            margin-right: 7px;
+        }
+        
+        #proDetails .pdList span {
+            display: inline-block;
+            margin-bottom: 10px;
+            position: relative;
+            bottom: 19px;
+        }
+        
+        #proSelect {
+            margin-top: 30px;
+            color: white;
+            background-color: black;
+        }
+        #proTitle1{
+        margin-left:53%;
+      padding-bottom:20px;
+      
+        }
+         #proDetails {
+            width: 100%;
+           
+            margin: 0 auto;
+        }
+        
+        .myButton {
+            -moz-box-shadow: inset 0px 1px 0px 0px #000000;
+            -webkit-box-shadow: inset 0px 1px 0px 0px #000000;
+            box-shadow: inset 0px 1px 0px 0px #000000;
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000), color-stop(1, #000000));
+            background: -moz-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -webkit-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -o-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -ms-linear-gradient(top, #000000 5%, #000000 100%);
+            background: linear-gradient(to bottom, #000000 5%, #000000 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#000000', GradientType=0);
+            background-color: #000000;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            border: 1px solid #000000;
+            display: inline-block;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: Arial;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 6px 24px;
+            text-decoration: none;
+            text-shadow: 0px 1px 0px #000000;
+        }
+        
+        .myButton:hover {
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000), color-stop(1, #000000));
+            background: -moz-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -webkit-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -o-linear-gradient(top, #000000 5%, #000000 100%);
+            background: -ms-linear-gradient(top, #000000 5%, #000000 100%);
+            background: linear-gradient(to bottom, #000000 5%, #000000 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#000000', GradientType=0);
+            background-color: #000000;
+        }
+        
+        .myButton:active {
+            position: relative;
+            top: 1px;
+        }
+        
+        #proDetails #serchPro{
+           color: black;
+        }
+
+
+
+.pdList>.proImg{
+margin-left:90px;
+}
+.pdList>.proModel{
+   display:inline-block;
+   width:15%;
+   text-align:center;
+   margin-left:60px;
+}
+.pdList>.mid{
+   display:inline-block;
+   width:23%;
+   text-align:center;
+   /* margin-left:10px; */
+}
+.pdList>.mdev{
+   display:inline-block;
+   width:13%;
+   text-align:center;
+   margin-left:5px;
+}
+
+
+.pdList>.mstatus{
+   display:inline-block;
+   width:10%;
+   text-align:center;
+   margin-left:25px;
+}
+
+

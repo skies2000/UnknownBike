@@ -25,8 +25,9 @@
                    }
                }
             $(".uipgMenu a").click(function(){
-            	
             var url = $(this).next('input').val();
+            //a태그를 클릭한 넥스트 인풋 태그의 value(url)값을 얻어서 에이작스를 통해 해당 파일을
+            //로드해서 #laboratorResult태그에 출력한다.
                 xhr = new XMLHttpRequest();
 	           xhr.open('get',url); // url요청 정보
 	           xhr.send(); // 서버에 전송
@@ -48,6 +49,11 @@
 		<div class='uipgMenu'>
 		  <ul>
     
+		  
+		  <!--제이쿼리를 통해 클릭한 a 태그 다음에 있는 히든태그의 value값을 얻어온다. -->
+    <li><a href="#">Home</a>
+    <input type =hidden value="../laboratory/laboratoryHome.html"/>
+    </li>
     
     <li><a href="##">제품</a>
       <ul>

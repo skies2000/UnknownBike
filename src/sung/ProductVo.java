@@ -11,8 +11,30 @@ public class ProductVo {
 	private String CodeName;	
 	private String term;
 	private String eName;
+	private int total;
+	private int eCode;
+	private int year;
 	
 	
+
+	public int getYear() {
+		return year;
+	}
+	public void setYear(int year) {
+		this.year = year;
+	}
+	public int geteCode() {
+		return eCode;
+	}
+	public void seteCode(int eCode) {
+		this.eCode = eCode;
+	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
 	public String geteName() {
 		return eName;
 	}

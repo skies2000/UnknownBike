@@ -21,7 +21,7 @@
 		  <ul>
     
     
-    <li><a href="index.jsp?inc=../sales/sales_home.jsp">HOME</a>
+    <li><a href="salesHome.sung">HOME</a>
     </li>
     
     
@@ -29,9 +29,10 @@
       <ul>
         	<li><a href="sales_req_list.sung">생산요청서 조회</a>
         </li>
-        
         <li><a href="sales_req_input.sung">생산요청서 작성</a>
         </li> 
+        <li><a href="sales_product_list.sung">제품 조회</a>
+        </li>
       </ul>
     </li>
     
@@ -49,7 +50,8 @@
       <ul>
         <li><a href="sales_profit_view.sung">거래처별</a>
         </li>
-      
+        <li><a href="sales_profit_view2.sung">연도별 판매액</a>
+        </li> 
       </ul>
     </li>
    

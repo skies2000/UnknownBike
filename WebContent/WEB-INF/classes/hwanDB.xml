@@ -148,4 +148,32 @@
     	update document set dstatus=-1 where dcode = #{dcode}
     </update>
 	<!--//////////////////////////////마이 페이지 끝///////////////////////////////////  -->
+	
+	<delete id = "proProDel" parameterType="String">
+		delete from product where pcode = #{pcode}
+	</delete>
+	<delete id = "proDlistDel" parameterType="String">
+		delete from dlist where dlacode = #{pcode}	
+	</delete>
+	<delete id = "proMlistDel" parameterType="String">
+		delete from mlist where mlpcode= #{pcode}	
+	</delete>
+	<delete id = "proDocDel" parameterType="String">
+		delete from document doc where
+		doc.dcode = (select dl.dldcode
+		from dlist dl join product
+		pro on dl.dlacode = pro.pcode
+		where pro.pcode = #{pcode})	
+	</delete>
+	
+	
+	
+
+
+
+	
+	
+	
+	
+	
 </mapper>

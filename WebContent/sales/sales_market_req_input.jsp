@@ -139,14 +139,14 @@ function cate_func(sel){
 	//결재자1
 	function sign_popup1(){
 		var url = 'sign_popup.sung';
-		var popOption = "width=440, height=500,top=0, resizable=no, scrollbars=no, status=no";
+		var popOption = "width=500, height=500,top=0, resizable=no, scrollbars=no, status=no";
 		window.open(url,"",popOption);
 	}
 	
 	//결재자 2
 	function sign_popup2(){
 		var url = 'sign_popup_2.sung';
-		var popOption = "width=440, height=500,top=0, resizable=no, scrollbars=no, status=no";
+		var popOption = "width=500, height=500,top=0, resizable=no, scrollbars=no, status=no";
 		window.open(url,"",popOption);
 	}	
 
