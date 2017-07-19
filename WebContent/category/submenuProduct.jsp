@@ -16,7 +16,7 @@
 				<ul>
 					<li><a href="reqOdd.hoon">생산 오더 관리</a> 
 					<li><a href="reqList.hoon">생산 요청서 조회</a> 
-					<li><a href="index.jsp?inc=../product/product_eff.jsp">생산효율관리</a> 
+					<li><a href="menu_eff.hoon">생산효율관리</a> 
 				</ul>
 				</li>
 				<li><a>재고조회</a>
