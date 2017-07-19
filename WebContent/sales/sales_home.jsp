@@ -23,7 +23,7 @@
          ['은영성', <%=list.get(5).getTotal()%>, <%=list.get(6).getTotal()%>,<%=list.get(7).getTotal()%>,<%=list.get(8).getTotal()%>,<%=list.get(9).getTotal()%>],
          ['김지원',  <%=list.get(10).getTotal()%>, <%=list.get(11).getTotal()%>,<%=list.get(12).getTotal()%>,<%=list.get(13).getTotal()%>,<%=list.get(14).getTotal()%>],
          ['허경환',  <%=list.get(15).getTotal()%>, <%=list.get(16).getTotal()%>,<%=list.get(17).getTotal()%>,<%=list.get(18).getTotal()%>,<%=list.get(19).getTotal()%>],
-         ['지이디',  <%=list.get(20).getTotal()%>, <%=list.get(21).getTotal()%>,<%=list.get(22).getTotal()%>,<%=list.get(23).getTotal()%>,<%=list.get(24).getTotal()%>]
+         ['지이디',  <%=list.get(20).getTotal()%>, <%=list.get(21).getTotal()%>,<%=list.get(22).getTotal()%>,<%=list.get(23).getTotal()%>,<%=list.get(24).getTotal()%>] 
       ]);
 
     var options = {

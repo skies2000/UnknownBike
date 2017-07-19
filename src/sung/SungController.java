@@ -37,7 +37,6 @@ public class SungController {
 
    @RequestMapping(value = "main/salesHome.sung", method = { RequestMethod.GET, RequestMethod.POST })
    public Object goHome() {
-	 
 		      ModelAndView mv = new ModelAndView();
 		      List<ProductVo> list = new ArrayList<ProductVo>();
 		      for(int i=30003; i<30020; i+=4){ //사원번호
